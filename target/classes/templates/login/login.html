@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head th:replace="~{layout/head :: head}">
+    <!-- <style>
+        body {
+            background-image: url('/assets/images/backgrounds/uap3.jpg'); /* Cambia esta ruta por la de tu imagen */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style> -->
+</head>
+
+<body>
+<!-- Preloader -->
+<div th:replace="~{layout/preloader :: preloader}"></div>
+<div id="main-wrapper">
+    <div class="position-relative overflow-hidden bg-light-subtle min-vh-100 w-100 d-flex align-items-center justify-content-center"> <!--Aqui es donde se cambia el color del fondo-->
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-8 col-lg-6 col-xxl-3 auth-card">
+                    <div class="card mb-0 auth-card"> <!--Cambiar el color del card-->
+                        <div class="py-4 px-5">
+                            <a href="/form-login" class="text-nowrap logo-img text-center d-flex align-items-center justify-content-center w-100">
+                                <b class="logo-icon">
+                                    <!-- Dark Logo icon -->
+                                    <img src="../assets/images/logos/uap.png" alt="homepage" class="dark-logo" width="100"/>
+                                </b>
+                                <!--End Logo icon -->
+                            </a>
+                            <div class="mb-5 text-center">
+                                <p class="mb-0 ">
+                                    Bienvenido al Sistema de Orientación Vocacional.
+                                </p>
+                            </div>
+                            <form action="/iniciar-sesion" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Usuario:</label>
+                                    <input type="text" class="form-control"  name="usuario">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Contraseña:</label>
+                                    <input type="password" class="form-control"  name="contrasena">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-8 mb-3">Iniciar Sesión</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Display error or success messages -->
+<!--<div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+<div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></div>-->
+
+<!-- Import Js Files -->
+<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
+<script src="../assets/js/theme/app.init.js"></script>
+<script src="../assets/js/theme/theme.js"></script>
+<script src="../assets/js/theme/app.min.js"></script>
+<script src="../assets/js/theme/sidebarmenu.js"></script>
+<script src="../assets/js/theme/feather.min.js"></script>
+
+<!-- solar icons -->
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+<!--<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const errorMessage = /*[[${error}]]*/ '';
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    });
+</script>-->
+
+</body>
+
+</html>

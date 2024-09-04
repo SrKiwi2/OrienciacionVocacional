@@ -1,0 +1,13 @@
+package com.usic.usic;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SistemaOrientacionVocacionalApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SistemaOrientacionVocacionalApplication.class, args);
+	}
+
+}
