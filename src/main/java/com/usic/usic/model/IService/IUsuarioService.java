@@ -8,4 +8,6 @@ import com.usic.usic.model.entity.Usuario;
 public interface IUsuarioService extends IServiceGenerico<Usuario, Long> {
     
     Usuario getUsuarioPassword(String username, String password);
+
+    Usuario buscarPorUsuario(String username);
 }

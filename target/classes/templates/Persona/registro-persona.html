@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head th:replace="~{layout/head :: head}"></head>
+
+<body>
+    <!-- Preloader -->
+    <div th:replace="~{layout/preloader :: preloader}"></div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <aside th:replace="~{layout/sidebar :: sidebar}"></aside>
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!-- TopBar Start -->
+            <header th:replace="~{layout/topbar :: topbar}"></header>
+            <!-- TopBar End -->
+
+            <!-- Body Start -->
+            <div class="body-wrapper">
+                <div class="container-fluid mw-100">
+
+                    <!-- Card de presentación -->
+                    <div
+                        th:replace="~{layout/card-modulo :: cardFragment('Bienvenido al Sistema de Administración de credencial universitario', 'Inicio', '/buscar-universitario', 'Inicio')}">
+                    </div>
+                    <!-- Card de presentación -->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="border-bottom title-part-padding">
+                                    <h4 class="card-title mb-0">Datos Persona</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <form id="datosUniversitarioForm">
+                                        <div class="row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="nombre">Nombres</label>
+                                                <input type="text" class="form-control" required
+                                                    style="text-transform: uppercase;" id="nombre" placeholder="Nombre">
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="apellidoP">Apellido Paterno</label>
+                                                <input type="text" class="form-control" required
+                                                    style="text-transform: uppercase;" id="apellidoP"
+                                                    placeholder="Apellido Paterno">
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="apellidoM">Apellido Materno</label>
+                                                <input type="text" class="form-control" required
+                                                    style="text-transform: uppercase;" id="apellidoM"
+                                                    placeholder="Apellido Materno">
+                                            </div>
+                                            <div class="form-group col-md-4 mb-3">
+                                                <label for="ci">C.I.</label>
+                                                <input type="text" class="form-control" id="ci" placeholder="C.I."
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-md-4 mb-3">
+                                                <label for="plan">Colegio</label>
+                                                <input type="text" class="form-control" required id="plan"
+                                                    placeholder="PLAN">
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="vigencia">Correo</label>
+                                                <input type="text" class="form-control" id="vigencia"
+                                                    placeholder="VIGENCIA" required>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="categoria">Sexo</label>
+                                                <input type="text" class="form-control" required
+                                                    style="text-transform: uppercase;" id="categoria"
+                                                    placeholder="categoria">
+                                            </div>
+                                        </div>
+                                        <button type="submit" id="guardarUniversitario"
+                                            class="btn btn-primary">Guardar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="datatables">
+                            <!-- File export -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- start File export -->
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="mb-2">
+                                                <h5 class="mb-0">File export</h5>
+                                            </div>
+                                            <p class="card-subtitle mb-3">
+                                                Datos de los estudiantes vigentes
+                                            </p>
+                                            <div class="table-responsive">
+                                                <table id="file_export"
+                                                    class="table border w-100 table-striped table-bordered display text-nowrap"
+                                                    style="font-size: 12px">
+                                                    <thead>
+                                                        <!-- start row -->
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Nombres</th>
+                                                            <th>Apellido Parteno</th>
+                                                            <th>Apellido Materno</th>
+                                                            <th>C.I</th>
+                                                            <th>R.U</th>
+                                                            <th>Carrera</th>
+                                                            <th>Credencial</th>
+                                                        </tr>
+                                                        <!-- end row -->
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="e, index : ${estudiantes}">
+                                                            <td th:text="${index.index+1}"></td>
+                                                            <td th:text="${e.persona.nombre}"></td>
+                                                            <td th:text="${e.persona.paterno}"></td>
+                                                            <td th:text="${e.persona.materno}"></td>
+                                                            <td th:text="${e.persona.ci}"></td>
+                                                            <td th:text="${e.ru}"></td>
+                                                            <td th:text="${e.carrera.carrera}"></td>
+                                                            <td>
+                                                                <center>
+                                                                    <a class="btn btn-primary"
+                                                                        th:href="${'/imprimir-credencial/'+id_encryptado[__${index.index}__]}"
+                                                                        data-bs-toggle="tooltip" title="Credencial">
+                                                                        <i class="fa-solid fa-id-card"></i>
+                                                                    </a>
+                                                                </center>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end File export -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#buscarUniversitarioForm').submit(function (event) {
+                event.preventDefault();
+                var ru = $('#codigoUniverisario').val();
+
+                $.ajax({
+                    url: 'universitarioC',
+                    type: 'GET',
+                    data: {
+                        codigoUniverisario: ru
+                    },
+                    success: function (response) {
+                        $('#nombre').val(response.nombreUniversitario);
+                        $('#apellidoP').val(response.apPaterno);
+                        $('#apellidoM').val(response.apMaterno);
+                        $('#ci').val(response.ci);
+                        $('#ruDatos').val(response.ru);
+                        $('#carrera').val(response.carrera);
+                        $('#facultad').val(response.facultad);
+                        $('#categoria').val(response.categoria);
+                        $('#nacionalidad').val(response.nacionalidad);
+                        $('#plan').val(response.plan);
+                        $('#vigencia').val(response.vigencia);
+                        $('#sexo').val(response.sexo);
+                        $('#correo').val(response.correo);
+                        $('#tipoCarrera').val(response.tipoCarrera);
+                        $('#urlImagen').val(response.urlImagen);
+
+                        if (response.mensajeImagen) {
+                            Swal.fire({
+                                title: "Atención",
+                                text: response.mensajeImagen,
+                                icon: "warning"
+                            });
+                            $('#datosUniversitarioForm')[0].reset();
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 400) {
+                            var response = JSON.parse(xhr.responseText); // Asegúrate de que la respuesta sea JSON
+                            Swal.fire({
+                                title: "Error",
+                                text: response.mensaje, // Mostrar el mensaje específico de error
+                                icon: "error"
+                            });
+                        } else if (xhr.status === 403) {
+                            Swal.fire({
+                                title: "Oops...",
+                                text: xhr.responseText,
+                                icon: "error"
+                            });
+                            $('#datosUniversitarioForm')[0].reset();
+                        } else {
+                            Swal.fire({
+                                title: "Oops...",
+                                text: "El estudiante no existe en la base de datos.",
+                                icon: "error"
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        $('#datosUniversitarioForm').submit(function (event) {
+            event.preventDefault();
+
+            var datosUniversitario = {
+                nombreUniversitario: $('#nombre').val(),
+                apPaterno: $('#apellidoP').val(),
+                apMaterno: $('#apellidoM').val(),
+                ci: $('#ci').val(),
+                ru: $('#ruDatos').val(),
+                carrera: $('#carrera').val(),
+                categoria: $('#categoria').val(),
+                nacionalidad: $('#nacionalidad').val(),
+                plan: $('#plan').val(),
+                vigencia: $('#vigencia').val(),
+                facultad: $('#facultad').val(),
+                sexo: $("#sexo").val(),
+                correo: $("#correo").val(),
+                tipoCarrera: $("#tipoCarrera").val(),
+                urlImagen: $("#urlImagen").val(),
+               // huellaEstudiante: $("#huella").val()
+            };
+
+            $.ajax({
+                url: 'guardarUniversitario',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(datosUniversitario),
+                success: function (response) {
+                    let id_encryptado = response.id_encryptado;
+                    let estudiante = response.estudiante;
+                    let nuevaFila = `
+                        <tr>
+                            <td>${$('#file_export tbody tr').length + 1}</td>
+                            <td>${estudiante.persona.nombre}</td>
+                            <td>${estudiante.persona.paterno}</td>
+                            <td>${estudiante.persona.materno}</td>
+                            <td>${estudiante.persona.ci}</td>
+                            <td>${estudiante.ru}</td>
+                            <td>${estudiante.carrera.carrera}</td>
+                            <td>
+                                <center>
+                                    <a class="btn btn-primary" href="/imprimir-credencial/${id_encryptado}" data-bs-toggle="tooltip" title="Credencial">
+                                        <i class="fa-solid fa-id-card"></i>
+                                    </a>
+                                </center>
+                            </td>
+                        </tr>`;
+
+                    $('#file_export tbody').append(nuevaFila);
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Datos registrados con exito.!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    $('#datosUniversitarioForm')[0].reset();
+                    $('#buscarUniversitarioForm')[0].reset();
+                },
+                error: function () {
+                    alert('Error al guardar los datos del universitario.');
+                }
+            });
+        });
+    </script>
+    <div th:replace="~{layout/script :: script}"></div>
+</body>
+
+</html>

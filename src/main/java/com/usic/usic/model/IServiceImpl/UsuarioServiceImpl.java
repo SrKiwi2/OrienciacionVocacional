@@ -41,5 +41,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Usuario getUsuarioPassword(String username, String password) {
         return usuarioDao.getUsuarioPassword(username, password);
     }
+
+    @Override
+    public Usuario buscarPorUsuario(String username) {
+        return usuarioDao.findByUsername(username);
+    }
     
 }
