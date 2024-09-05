@@ -26,7 +26,7 @@
                     <!-- Card de presentación -->
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div >
                             <div class="card">
                                 <div class="border-bottom title-part-padding">
                                     <h4 class="card-title mb-0">Datos Persona</h4>
@@ -35,43 +35,50 @@
                                 <div class="card-body">
                                     <form id="datosUniversitarioForm">
                                         <div class="row">
-                                            <div class="form-group col-md-6 mb-3">
+                                            <div class="form-group col-md-3 mb-3">
                                                 <label for="nombre">Nombres</label>
                                                 <input type="text" class="form-control" required
                                                     style="text-transform: uppercase;" id="nombre" placeholder="Nombre">
                                             </div>
-                                            <div class="form-group col-md-6 mb-3">
+                                            <div class="form-group col-md-3 mb-3">
                                                 <label for="apellidoP">Apellido Paterno</label>
                                                 <input type="text" class="form-control" required
                                                     style="text-transform: uppercase;" id="apellidoP"
                                                     placeholder="Apellido Paterno">
                                             </div>
-                                            <div class="form-group col-md-6 mb-3">
+                                            <div class="form-group col-md-3 mb-3">
                                                 <label for="apellidoM">Apellido Materno</label>
                                                 <input type="text" class="form-control" required
                                                     style="text-transform: uppercase;" id="apellidoM"
                                                     placeholder="Apellido Materno">
                                             </div>
-                                            <div class="form-group col-md-4 mb-3">
+                                            
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-2 mb-3">
                                                 <label for="ci">C.I.</label>
                                                 <input type="text" class="form-control" id="ci" placeholder="C.I."
                                                     required>
                                             </div>
-                                            <div class="form-group col-md-4 mb-3">
-                                                <label for="plan">Colegio</label>
-                                                <input type="text" class="form-control" required id="plan"
-                                                    placeholder="PLAN">
+                                            <div class="form-group col-md-3 mb-3">
+                                                <label for="colegio">Colegio</label>
+                                                <select class="form-select" name="colegio" id="coelgio">
+                                                    <option value="" disabled selected>Seleccione un colegio</option>
+                                                    <option value="Jose Manuel Pando">JMP</option>
+                                                </select>
                                             </div>
-                                            <div class="form-group col-md-6 mb-3">
+                                            <div class="form-group col-md-3 mb-3">
                                                 <label for="vigencia">Correo</label>
-                                                <input type="text" class="form-control" id="vigencia"
-                                                    placeholder="VIGENCIA" required>
+                                                <input type="text" class="form-control" id="correo"
+                                                    placeholder="CORREO" required>
                                             </div>
-                                            <div class="form-group col-md-6 mb-3">
+                                            <div class="form-group col-md-3 mb-3">
                                                 <label for="categoria">Sexo</label>
-                                                <input type="text" class="form-control" required
-                                                    style="text-transform: uppercase;" id="categoria"
-                                                    placeholder="categoria">
+                                                <select class="form-select" name="colegio" id="coelgio">
+                                                    <option value="" disabled selected>Seleccione un colegio</option>
+                                                    <option value="Jose Manuel Pando">JMP</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <button type="submit" id="guardarUniversitario"
@@ -106,9 +113,8 @@
                                                             <th>Apellido Parteno</th>
                                                             <th>Apellido Materno</th>
                                                             <th>C.I</th>
-                                                            <th>R.U</th>
-                                                            <th>Carrera</th>
-                                                            <th>Credencial</th>
+                                                            <th>Colegio</th>
+                                                            <th>Opciones</th>
                                                         </tr>
                                                         <!-- end row -->
                                                     </thead>
