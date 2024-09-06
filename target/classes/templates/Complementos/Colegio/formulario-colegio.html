@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h5 class="modal-title" th:text="${edit}? 'Modificar Colegio' : 'Registrar Colegio'"></h5>
+    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" id="FormularioRegistrar" method="POST"
+        th:action="${edit} ?@{/editarColegio} : @{/registrarColegio}">
+        <div class="modal-body">
+            <div class="card-body">
+                <div th:if="${edit=='true'}">
+                    <input type="hidden" th:field="${colegioss.idColegio}">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombreColegio">Nombre del Colegio</label>
+                    <input type="text" id="nombreColegio" class="form-control" th:field="${colegioss.nombre}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success" th:text="${edit} ? 'Guardar Cambios' : 'Registrar'"></button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#FormularioRegistrar').submit(function (event) {
+            event.preventDefault();
+            var form = document.getElementById("FormularioRegistrar");
+            var action = form.action;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (response) {
+                    var mensaje = response;
+                    if (mensaje === 'Se guardó el registro con éxito') {
+                        cargarFormulario();
+                        cargarTabla();
+                        Swal.fire(
+                            'Registrado!',
+                            mensaje + '.',
+                            'success'
+                        );
+                    }else{
+                        if (mensaje === 'Se modificó el registro con éxito') {
+                            cargarFormulario();
+                            cargarTabla();
+                            Swal.fire(
+                                'Modificado!',
+                                mensaje + '.',
+                                'success'
+                            );
+                        }else{
+                            if (mensaje === 'Ya existe este registro') {
+                                cargarFormulario();
+                                cargarTabla();
+                                Swal.fire(
+                                    'Imposible Continuar!',
+                                    mensaje + '.',
+                                    'error'
+                                );
+                            }
+                        }
+                    }
+                    
+                    
+                },
+                error: function (xhr, status, error) {
+                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        });
+    });
+</script>

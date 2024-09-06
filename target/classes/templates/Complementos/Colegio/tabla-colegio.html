@@ -1,0 +1,45 @@
+<section class="content">
+    <div class="datatables">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-subtitle mb-3">
+                    Datos de colegios vigentes
+                </p>
+                <div class="table-responsive">
+                    <table id="file_export"
+                        class="table border w-100 table-striped table-bordered display text-nowrap"
+                        style="font-size: 12px">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Colegio</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="colegiosTableBody">
+                            <tr th:each="c, index : ${colegios}">
+                                <td th:text="${index.index+1}"></td>
+                                <td th:text="${c.nombre}"></td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
+                                        data-bs-toggle="modal" data-bs-target="#registroModal"
+                                            th:attr="onclick='cargarModFormulario(\'' + ${c.idColegio} + '\')'"><li class="fas fa-pencil-alt"></li></a>
+                                        <a class="btn btn-danger" type="button" style="color: aliceblue;"
+                                            th:attr="onclick='EliminarRegistro(\'' + ${c.idColegio} + '\', \'' + ${c.nombre}+'\')'"><li class="fa-solid fa-trash"></li></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable();
+    });
+</script>

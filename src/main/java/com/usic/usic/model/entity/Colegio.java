@@ -23,5 +23,4 @@ public class Colegio extends AuditoriaConfig{
 
     @Column(name = "nombre")
     private String nombre;
-
 }
