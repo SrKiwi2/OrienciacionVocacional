@@ -1,4 +1,4 @@
-package com.usic.usic.model.entity;
+package com.usic.usic.model.Entity;
 
 import com.usic.usic.config.AuditoriaConfig;
 

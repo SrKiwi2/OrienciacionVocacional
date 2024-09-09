@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.IService.ISexoService;
+import com.usic.usic.model.Service.ISexoService;
 import com.usic.usic.model.dao.ISexoDao;
-import com.usic.usic.model.entity.Sexo;
+import com.usic.usic.model.Entity.Sexo;
 
 @Service
 public class SexoServiceImpl implements ISexoService{

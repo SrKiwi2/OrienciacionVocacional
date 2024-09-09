@@ -2,7 +2,7 @@ package com.usic.usic.model.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.usic.usic.model.entity.Sexo;
+import com.usic.usic.model.Entity.Sexo;
 
 public interface ISexoDao extends JpaRepository<Sexo, Long> {
     
