@@ -68,10 +68,10 @@
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
                                             <label for="categoria">Genero</label>
-                                            <select class="form-select" name="idSexo" id="sexo">
-                                                <option value="" disabled selected>Seleccione un genero</option>
+                                            <select class="form-select" name="idGenero" id="sexo">
+                                                
                                                 <th:block th:each="sexo : ${sexos}">
-                                                    <option th:value="${sexo.idSexo}" th:text="${sexo.nombreSexo}"></option>
+                                                    <option th:value="${sexo.idGenero}" th:text="${sexo.nombreGenero}"></option>
                                                 </th:block>
                                             </select>
                                         </div>
@@ -170,7 +170,7 @@
                     $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
 
                     // Establece el valor del género
-                    $('#sexo').val(persona.sexo ? persona.sexo.idSexo : '');
+                    $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
                 },
                 error: function() {
                     alert('Error al obtener los datos de la persona.');
