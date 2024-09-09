@@ -6,5 +6,5 @@ import com.usic.usic.model.entity.Colegio;
 
 public interface IColegioDao extends JpaRepository<Colegio, Long>{
     
-    Colegio findBynombre (String nombre);
+    Colegio findByNombreColegio (String nombreColegio);
 }

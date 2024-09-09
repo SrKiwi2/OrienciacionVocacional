@@ -56,7 +56,7 @@ public class ColegioController {
     @PostMapping("/registrarColegio")
     public ResponseEntity<String> RegistrarColegio(HttpServletRequest request, @Validated Colegio colegio) {
 
-        if (colegioService.buscarColegio(colegio.getNombre())  == null) {
+        if (colegioService.buscarColegio(colegio.getNombreColegio())  == null) {
             colegio.setEstado("ACTIVO");
             colegioService.save(colegio);
             return ResponseEntity.ok("Se guardó el registro con éxito");
@@ -68,7 +68,7 @@ public class ColegioController {
 
     @PostMapping("/editarColegio")
     public ResponseEntity<String> editarColegio(@Validated Colegio colegio) {
-        if (colegioService.buscarColegio(colegio.getNombre()) == null) {
+        if (colegioService.buscarColegio(colegio.getNombreColegio()) == null) {
             colegio.setEstado("ACTIVO");
             colegioService.save(colegio);
             return ResponseEntity.ok("Se modificó el registro con éxito");

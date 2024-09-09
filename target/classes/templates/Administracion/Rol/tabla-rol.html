@@ -1,9 +1,9 @@
-<section class="content">
+<section class="content"></section>
     <div class="datatables">
         <div class="card">
             <div class="card-body">
                 <p class="card-subtitle mb-3">
-                    Datos de colegios vigentes
+                    Datos de roles vigentes
                 </p>
                 <div class="table-responsive">
                     <table id="file_export"
@@ -12,21 +12,21 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Colegio</th>
+                                <th>Rol</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody id="colegiosTableBody">
-                            <tr th:each="c, index : ${colegios}">
+                            <tr th:each="r, index : ${roles}">
                                 <td th:text="${index.index+1}"></td>
-                                <td th:text="${c.nombreColegio}"></td>
+                                <td th:text="${r.nombre}"></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#registroModal"
-                                            th:attr="onclick='cargarModFormulario(\'' + ${c.idColegio} + '\')'"><li class="fas fa-pencil-alt"></li></a>
+                                            th:attr="onclick='cargarModFormulario(\'' + ${r.idRol} + '\')'"><li class="fas fa-pencil-alt"></li></a>
                                         <a class="btn btn-danger" type="button" style="color: aliceblue;"
-                                            th:attr="onclick='EliminarRegistro(\'' + ${c.idColegio} + '\', \'' + ${c.nombreColegio}+'\')'"><li class="fa-solid fa-trash"></li></a>
+                                            th:attr="onclick='EliminarRegistro(\'' + ${r.idRol} + '\', \'' + ${r.nombre}+'\')'"><li class="fa-solid fa-trash"></li></a>
                                     </div>
                                 </td>
                             </tr>

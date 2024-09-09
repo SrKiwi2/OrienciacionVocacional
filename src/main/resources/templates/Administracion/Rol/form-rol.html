@@ -1,19 +1,19 @@
 <div class="modal-header">
-    <h5 class="modal-title" th:text="${edit}? 'Modificar Colegio' : 'Registrar Colegio'"></h5>
+    <h5 class="modal-title" th:text="${edit}? 'Modificar Rol' : 'Registrar Rol'"></h5>
     <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
 </div>
 <div class="modal-body">
     <form class="form-horizontal" id="FormularioRegistrar" method="POST"
-        th:action="${edit} ?@{/editarColegio} : @{/registrarColegio}">
+        th:action="${edit} ?@{/editarRol} : @{/registrarRol}">
         <div class="modal-body">
             <div class="card-body">
                 <div th:if="${edit=='true'}">
-                    <input type="hidden" th:field="${colegioss.idColegio}">
+                    <input type="hidden" th:field="${rolss.idRol}">
                 </div>
 
                 <div class="form-group">
-                    <label for="nombreColegio">Nombre del Colegio</label>
-                    <input type="text" id="nombreColegio" class="form-control" th:field="${colegioss.nombreColegio}" required>
+                    <label for="nombreRol">Nombre del Rol</label>
+                    <input type="text" id="nombreRol" class="form-control" th:field="${rolss.nombre}" required>
                 </div>
             </div>
         </div>

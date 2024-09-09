@@ -51,9 +51,7 @@ public class UsuarioAutenticadoInterceptor implements HandlerInterceptor {
    * }
    */
   @Override
-  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-      throws Exception {
-
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception {
     if (handler instanceof HandlerMethod handlerMethod) {
       ValidarUsuarioAutenticado anotacion = handlerMethod.getMethodAnnotation(ValidarUsuarioAutenticado.class);
       if (anotacion != null) {

@@ -7,6 +7,6 @@ import com.usic.usic.model.entity.Colegio;
 @Service
 public interface IColegioService extends IServiceGenerico <Colegio, Long>{
     
-    Colegio buscarColegio(String nombre);
+    Colegio buscarColegio(String nombreColegio);
 
 }

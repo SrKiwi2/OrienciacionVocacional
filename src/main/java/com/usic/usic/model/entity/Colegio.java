@@ -21,6 +21,6 @@ public class Colegio extends AuditoriaConfig{
     @Column(name = "id_colegio")
     private Long idColegio;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "nombreColegio")
+    private String nombreColegio;
 }

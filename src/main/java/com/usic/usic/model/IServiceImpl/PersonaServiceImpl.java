@@ -39,5 +39,4 @@ public class PersonaServiceImpl implements IPersonaService{
     public Persona validarCI(String ci) {
         return personaDao.validarCI(ci);
     }
-    
 }

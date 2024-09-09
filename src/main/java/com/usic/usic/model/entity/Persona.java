@@ -43,13 +43,14 @@ public class Persona extends AuditoriaConfig{
     @Column(name = "correo")
     private String correo;
 
-    @Column(name = "sexo")
-    private String sexo;
-
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
     private Usuario Usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_colegio")
     private Colegio colegio;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_sexo")
+    private Sexo sexo;
 }

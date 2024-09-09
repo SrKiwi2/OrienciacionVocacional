@@ -36,8 +36,8 @@ public class ColegioServiceImpl implements IColegioService{
     }
 
     @Override
-    public Colegio buscarColegio(String nombre) {
-        return colegioDao.findBynombre(nombre);
+    public Colegio buscarColegio(String nombreColegio) {
+        return colegioDao.findByNombreColegio(nombreColegio);
     }
     
 }
