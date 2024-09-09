@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.usic.usic.model.Service.ISexoService;
+import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Genero;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class SexoController {
+public class GeneroController {
     
     @Autowired
-    private ISexoService sexoService;
+    private IGeneroService sexoService;
 
     @GetMapping(value = "/administrar-sexo")
     public String administrarSexo(Model model) {
@@ -55,7 +55,7 @@ public class SexoController {
     @PostMapping("/registrarSexo")
     public ResponseEntity<String> RegistrarSexo(HttpServletRequest request, @Validated Genero sexo) {
         System.out.println("Sexo recibido: " + sexo.getGenero());
-        if (sexoService.buscarPorSexo(sexo.getGenero())  == null) {
+        if (sexoService.buscarPorGenero(sexo.getGenero())  == null) {
             sexo.setEstado("ACTIVO");
             sexoService.save(sexo);
             return ResponseEntity.ok("Se guardó el registro con éxito");
@@ -67,7 +67,7 @@ public class SexoController {
 
     @PostMapping("/editarSexo")
     public ResponseEntity<String> editarSexo(@Validated Genero sexo) {
-        if (sexoService.buscarPorSexo(sexo.getGenero()) == null) {
+        if (sexoService.buscarPorGenero(sexo.getGenero()) == null) {
             sexo.setEstado("ACTIVO");
             sexoService.save(sexo);
             return ResponseEntity.ok("Se modificó el registro con éxito");

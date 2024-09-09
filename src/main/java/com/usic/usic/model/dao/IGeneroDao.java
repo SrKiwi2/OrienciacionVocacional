@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.usic.usic.model.Entity.Genero;
 
-public interface ISexoDao extends JpaRepository<Genero, Long> {
+public interface IGeneroDao extends JpaRepository<Genero, Long> {
     
-    Genero findByNombreSexo(String nombreSexo);
+    Genero findByGenero(String genero);
 }

@@ -5,39 +5,39 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.Service.ISexoService;
-import com.usic.usic.model.dao.ISexoDao;
+import com.usic.usic.model.Service.IGeneroService;
+import com.usic.usic.model.dao.IGeneroDao;
 import com.usic.usic.model.Entity.Genero;
 
 @Service
-public class SexoServiceImpl implements ISexoService{
+public class GeneroServiceImpl implements IGeneroService{
 
     @Autowired
-    private ISexoDao sexoDao;
+    private IGeneroDao generoDao;
 
     @Override
     public List<Genero> findAll() {
-        return sexoDao.findAll();
+        return generoDao.findAll();
     }
 
     @Override
     public Genero findById(Long idEntidad) {
-        return sexoDao.findById(idEntidad).orElse(null);
+        return generoDao.findById(idEntidad).orElse(null);
     }
 
     @Override
     public Genero save(Genero entidad) {
-        return sexoDao.save(entidad);
+        return generoDao.save(entidad);
     }
 
     @Override
     public void deleteById(Long idEntidad) {
-        sexoDao.deleteById(idEntidad);
+        generoDao.deleteById(idEntidad);
     }
 
     @Override
-    public Genero buscarPorSexo(String sexo) {
-        return sexoDao.findByNombreSexo(sexo);
+    public Genero buscarPorGenero(String sexo) {
+        return generoDao.findByGenero(sexo);
     }
     
 }

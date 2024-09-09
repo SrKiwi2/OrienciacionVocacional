@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.usic.usic.model.Entity.Genero;
 
 @Service
-public interface ISexoService extends IServiceGenerico<Genero, Long>{
-    Genero buscarPorSexo(String nombreSexo);
+public interface IGeneroService extends IServiceGenerico<Genero, Long>{
+    Genero buscarPorGenero(String genero);
 }

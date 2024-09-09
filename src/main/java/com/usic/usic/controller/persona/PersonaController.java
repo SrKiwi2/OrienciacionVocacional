@@ -1,20 +1,16 @@
 package com.usic.usic.controller.persona;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IPersonaService;
-import com.usic.usic.model.Service.ISexoService;
-import com.usic.usic.model.Entity.Colegio;
+import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Genero;
 
@@ -32,7 +28,7 @@ public class PersonaController {
     private IColegioService colegioService;
 
     @Autowired
-    private ISexoService sexoService;
+    private IGeneroService sexoService;
     
     @GetMapping(value = "/vista-persona")
     public String vistaPersona(Model model) {
