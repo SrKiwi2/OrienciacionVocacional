@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.IService.IPersonaService;
+import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.dao.IPersonaDao;
-import com.usic.usic.model.entity.Persona;
 
 @Service
 public class PersonaServiceImpl implements IPersonaService{

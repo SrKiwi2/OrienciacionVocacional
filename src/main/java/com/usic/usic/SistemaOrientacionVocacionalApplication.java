@@ -5,12 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.usic.usic.model.IService.IPersonaService;
-import com.usic.usic.model.IService.IRolService;
-import com.usic.usic.model.IService.IUsuarioService;
-import com.usic.usic.model.entity.Persona;
-import com.usic.usic.model.entity.Rol;
-import com.usic.usic.model.entity.Usuario;
+import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Entity.Rol;
+import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.IRolService;
+import com.usic.usic.model.Service.IUsuarioService;
 
 @SpringBootApplication
 public class SistemaOrientacionVocacionalApplication {

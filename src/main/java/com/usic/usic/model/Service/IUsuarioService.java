@@ -1,8 +1,8 @@
-package com.usic.usic.model.IService;
+package com.usic.usic.model.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.entity.Usuario;
+import com.usic.usic.model.Entity.Usuario;
 
 @Service
 public interface IUsuarioService extends IServiceGenerico<Usuario, Long> {

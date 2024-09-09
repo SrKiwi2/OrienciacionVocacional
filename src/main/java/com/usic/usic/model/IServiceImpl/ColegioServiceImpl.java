@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.IService.IColegioService;
+import com.usic.usic.model.Entity.Colegio;
+import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.dao.IColegioDao;
-import com.usic.usic.model.entity.Colegio;
 
 @Service
 public class ColegioServiceImpl implements IColegioService{

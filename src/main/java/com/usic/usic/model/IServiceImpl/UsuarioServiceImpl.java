@@ -7,9 +7,9 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.IService.IUsuarioService;
+import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.Service.IUsuarioService;
 import com.usic.usic.model.dao.IUsuarioDao;
-import com.usic.usic.model.entity.Usuario;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {

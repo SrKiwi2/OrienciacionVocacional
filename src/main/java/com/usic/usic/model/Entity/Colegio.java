@@ -1,4 +1,4 @@
-package com.usic.usic.model.entity;
+package com.usic.usic.model.Entity;
 
 import com.usic.usic.config.AuditoriaConfig;
 
@@ -21,6 +21,8 @@ public class Colegio extends AuditoriaConfig{
     @Column(name = "id_colegio")
     private Long idColegio;
 
-    @Column(name = "nombreColegio")
-    private String nombreColegio;
+    @Column(name = "nombre")
+    private String nombre;
+
+    
 }

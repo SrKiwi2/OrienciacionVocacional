@@ -1,4 +1,4 @@
-package com.usic.usic.model.IService;
+package com.usic.usic.model.Service;
 
 import java.util.List;
 

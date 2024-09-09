@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usic.usic.model.IService.IRolService;
+import com.usic.usic.model.Entity.Rol;
+import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.dao.IRolDao;
-import com.usic.usic.model.entity.Rol;
 
 @Service
 public class RolServiceImpl implements IRolService {

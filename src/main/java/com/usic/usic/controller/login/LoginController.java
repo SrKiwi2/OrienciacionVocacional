@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.usic.usic.model.IService.IUsuarioService;
-import com.usic.usic.model.entity.Persona;
-import com.usic.usic.model.entity.Usuario;
+import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

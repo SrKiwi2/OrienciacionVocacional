@@ -1,0 +1,124 @@
+/* General Styles */
+body {
+    background: linear-gradient(135deg,
+            #1E3A5F, /* Azul oscuro - Inteligencia */
+            #87CEEB, /* Azul claro - Serenidad */
+            #A4DDED /* Azul pastel - Calma */
+        );
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Evita desplazamiento en caso de que el contenido sobresalga */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+    font-family: "Latin Modern Roman", "Constantia", serif;
+}
+
+/* Container Styles */
+.container {
+    position: relative; /* Establishes a positioning context for absolute children */
+    width: 100%;
+    max-width: 600px; /* Limit width for large screens */
+    z-index: 2; /* Asegura que el contenedor esté por encima de las capas de fondo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Layers */
+.background-layer {
+    position: absolute; /* Position behind other elements */
+    border-radius: 2rem; /* Match the border-radius of the container-input */
+    z-index: -1; /* Place behind other content */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the layers */
+}
+
+.layer-1 {
+    background-color: #FF5733; /* Example color */
+    width: 65%;
+    height: 100%;
+    max-width: 100%; /* Ensure it does not exceed container size */
+    max-height: 100%; /* Ensure it does not exceed container size */
+    transform: translate(-50%, -50%) scale(1.4); /* Slightly larger than the parent */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.layer-2 {
+    background-color: #ff8533; /* Example color */
+    width: 55%;
+    height: 80%;
+    max-width: 100%; /* Ensure it does not exceed container size */
+    max-height: 100%; /* Ensure it does not exceed container size */
+    transform: translate(-50%, -50%) scale(1.5); /* Slightly larger than the first layer */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Container Input Styles */
+.container-input {
+    position: relative; /* Ensures it stays on top of background layers */
+    background-color: #FFA500; /* Naranja - Diversión */
+    padding: 10px;
+    border-radius: 2rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+
+    width: 70%;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    z-index: 1; /* Ensure it stays on top of background layers */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Button Styles */
+button {
+    background-color: #FF5733; /* Color de fondo del botón */
+    color: #ffffff; /* Texto en color blanco para contraste */
+    text-align: center;
+    width: 100%; /* Ocupa el ancho del contenedor padre */
+    max-width: 300px; /* Máximo del 50% del contenedor principal */
+    padding: 10px;
+    margin: 10px 0; /* Margen vertical */
+    border: 1px solid #FF5733; /* Borde del botón que coincide con el color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Asegura que padding y border están incluidos en el ancho total */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transición suave para efectos de hover */
+    font-family: "Latin Modern Roman", "Constantia", serif; /* Cambia el tipo de letra aquí */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    font-weight: bold; /* Opcional: Hace que el texto sea negrita */
+}
+
+button:hover {
+    background-color: #C70039; /* Color de fondo al pasar el ratón o al enfocar */
+    border-color: #C70039; /* Color del borde al pasar el ratón o al enfocar */
+    outline: none; /* Elimina el contorno de enfoque predeterminado del navegador */
+
+}
+
+/* Row Styles */
+.row {
+    display: flex;
+    align-items: center; /* Alinea verticalmente en el centro */
+    gap: 10px; /* Espacio entre el input y el span */
+    width: 100%; /* Asegura que el contenedor `.row` ocupe todo el ancho disponible */
+    justify-content: center; /* Centra horizontalmente el contenido */
+}
+
+/* Span Styles */
+.coins {
+    background-color: #003b94; /* Color de fondo del span */
+    color: white; /* Texto en color blanco */
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
