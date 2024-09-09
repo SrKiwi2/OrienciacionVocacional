@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.usic.usic.model.IService.IColegioService;
-import com.usic.usic.model.IService.IPersonaService;
-import com.usic.usic.model.IService.ISexoService;
-import com.usic.usic.model.entity.Colegio;
-import com.usic.usic.model.entity.Persona;
-import com.usic.usic.model.entity.Sexo;
+import com.usic.usic.model.Service.IColegioService;
+import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.ISexoService;
+import com.usic.usic.model.Entity.Colegio;
+import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Entity.Genero;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,8 +57,7 @@ public class PersonaController {
         @RequestParam("materno") String materno,
         @RequestParam("ci") String ci,
         @RequestParam("correo") String correo,
-        @RequestParam("idColegio") Long idColegio,
-        @RequestParam("idSexo") Long idSexo,
+        @RequestParam("idGenero") Long idGenero,
         Model model) {
 
         Persona persona = personaService.validarCI(ci);
@@ -72,19 +71,12 @@ public class PersonaController {
         persona.setCorreo(correo);
         persona.setEstado("ACTIVO");
         
-        Colegio colegio = colegioService.findById(idColegio);
-        if (colegio == null) {
-            colegio = new Colegio();
-            persona.setColegio(colegio);
+        Genero genero = sexoService.findById(idGenero);
+        if (genero == null) {
+            genero = new Genero();
+            persona.setGenero(genero);
         }
-        persona.setColegio(colegio);
-
-        Sexo sexo = sexoService.findById(idSexo);
-        if (sexo == null) {
-            sexo = new Sexo();
-            persona.setSexo(sexo);
-        }
-        persona.setSexo(sexo);
+        persona.setGenero(genero);  
 
         personaService.save(persona);
         return "redirect:/vista-persona";

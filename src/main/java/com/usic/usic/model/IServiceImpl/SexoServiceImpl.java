@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.usic.usic.model.Service.ISexoService;
 import com.usic.usic.model.dao.ISexoDao;
-import com.usic.usic.model.Entity.Sexo;
+import com.usic.usic.model.Entity.Genero;
 
 @Service
 public class SexoServiceImpl implements ISexoService{
@@ -16,17 +16,17 @@ public class SexoServiceImpl implements ISexoService{
     private ISexoDao sexoDao;
 
     @Override
-    public List<Sexo> findAll() {
+    public List<Genero> findAll() {
         return sexoDao.findAll();
     }
 
     @Override
-    public Sexo findById(Long idEntidad) {
+    public Genero findById(Long idEntidad) {
         return sexoDao.findById(idEntidad).orElse(null);
     }
 
     @Override
-    public Sexo save(Sexo entidad) {
+    public Genero save(Genero entidad) {
         return sexoDao.save(entidad);
     }
 
@@ -36,7 +36,7 @@ public class SexoServiceImpl implements ISexoService{
     }
 
     @Override
-    public Sexo buscarPorSexo(String sexo) {
+    public Genero buscarPorSexo(String sexo) {
         return sexoDao.findByNombreSexo(sexo);
     }
     

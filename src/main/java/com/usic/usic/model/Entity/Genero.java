@@ -12,16 +12,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "sexo")
+@Table(name = "genero")
 @Setter
 @Getter
-public class Sexo extends AuditoriaConfig{
+public class Genero extends AuditoriaConfig{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_sexo")
-    private Long idSexo;
+    @Column(name = "id_genero")
+    private Long idGenero;
 
-    @Column(name = "sexo")
-    private String nombreSexo;
+    @Column(name = "genero")
+    private String genero;
 }

@@ -2,9 +2,9 @@ package com.usic.usic.model.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.usic.usic.model.Entity.Sexo;
+import com.usic.usic.model.Entity.Genero;
 
-public interface ISexoDao extends JpaRepository<Sexo, Long> {
+public interface ISexoDao extends JpaRepository<Genero, Long> {
     
-    Sexo findByNombreSexo(String nombreSexo);
+    Genero findByNombreSexo(String nombreSexo);
 }

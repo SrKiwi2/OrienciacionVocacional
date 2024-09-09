@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.usic.usic.model.IService.ISexoService;
-import com.usic.usic.model.entity.Sexo;
+import com.usic.usic.model.Service.ISexoService;
+import com.usic.usic.model.Entity.Genero;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -29,7 +29,7 @@ public class SexoController {
     @PostMapping("/FormularioSexo")
     public String formularioSexo(HttpServletRequest request, Model model) {
 
-        model.addAttribute("sexoss", new Sexo());
+        model.addAttribute("sexoss", new Genero());
 
         return "Complementos/Sexo/formulario-sexo";
        
@@ -53,9 +53,9 @@ public class SexoController {
     }
 
     @PostMapping("/registrarSexo")
-    public ResponseEntity<String> RegistrarSexo(HttpServletRequest request, @Validated Sexo sexo) {
-        System.out.println("Sexo recibido: " + sexo.getNombreSexo());
-        if (sexoService.buscarPorSexo(sexo.getNombreSexo())  == null) {
+    public ResponseEntity<String> RegistrarSexo(HttpServletRequest request, @Validated Genero sexo) {
+        System.out.println("Sexo recibido: " + sexo.getGenero());
+        if (sexoService.buscarPorSexo(sexo.getGenero())  == null) {
             sexo.setEstado("ACTIVO");
             sexoService.save(sexo);
             return ResponseEntity.ok("Se guardó el registro con éxito");
@@ -66,8 +66,8 @@ public class SexoController {
     }
 
     @PostMapping("/editarSexo")
-    public ResponseEntity<String> editarSexo(@Validated Sexo sexo) {
-        if (sexoService.buscarPorSexo(sexo.getNombreSexo()) == null) {
+    public ResponseEntity<String> editarSexo(@Validated Genero sexo) {
+        if (sexoService.buscarPorSexo(sexo.getGenero()) == null) {
             sexo.setEstado("ACTIVO");
             sexoService.save(sexo);
             return ResponseEntity.ok("Se modificó el registro con éxito");

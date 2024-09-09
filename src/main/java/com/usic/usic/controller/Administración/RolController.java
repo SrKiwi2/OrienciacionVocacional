@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.usic.usic.model.IService.IRolService;
-import com.usic.usic.model.entity.Colegio;
-import com.usic.usic.model.entity.Rol;
+import com.usic.usic.model.Service.IRolService;
+import com.usic.usic.model.Entity.Rol;
 
 import jakarta.servlet.http.HttpServletRequest;
 
