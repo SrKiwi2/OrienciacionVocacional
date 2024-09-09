@@ -22,6 +22,6 @@ public class Genero extends AuditoriaConfig{
     @Column(name = "id_genero")
     private Long idGenero;
 
-    @Column(name = "genero")
-    private String genero;
+    @Column(name = "nombreGenero")
+    private String nombreGenero;
 }

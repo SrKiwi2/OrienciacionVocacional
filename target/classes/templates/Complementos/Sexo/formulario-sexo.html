@@ -8,12 +8,12 @@
         <div class="modal-body">
             <div class="card-body">
                 <div th:if="${edit=='true'}">
-                    <input type="hidden" th:field="${sexoss.idSexo}">
+                    <input type="hidden" th:field="${sexoss.idGenero}">
                 </div>
 
                 <div class="form-group">
                     <label for="genero">Nombre del Genero</label>
-                    <input type="text" id="genero" class="form-control" th:field="${sexoss.nombreSexo}" required>
+                    <input type="text" id="nombregenero" class="form-control" th:field="${sexoss.nombreGenero}" required>
                 </div>
             </div>
         </div>

@@ -36,8 +36,8 @@ public class GeneroServiceImpl implements IGeneroService{
     }
 
     @Override
-    public Genero buscarPorGenero(String sexo) {
-        return generoDao.findByGenero(sexo);
+    public Genero buscarPorGenero(String nombreGenero) {
+        return generoDao.findByNombreGenero(nombreGenero);
     }
     
 }

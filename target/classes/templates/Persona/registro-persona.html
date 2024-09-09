@@ -62,15 +62,6 @@
                                                 required>
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
-                                            <label for="colegio">Colegio</label>
-                                            <select class="form-select" name="idColegio" id="colegio">
-                                                <option value="" disabled selected>Seleccione un colegio</option>
-                                                <th:block th:each="colegio : ${colegios}">
-                                                    <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
                                             <label for="vigencia">Correo</label>
                                             <input type="text" class="form-control" name="correo" id="correo"
                                                 placeholder="CORREO" required>
@@ -113,7 +104,6 @@
                                                             <th>Apellido Parteno</th>
                                                             <th>Apellido Materno</th>
                                                             <th>C.I</th>
-                                                            <th>Colegio</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
@@ -124,7 +114,6 @@
                                                             <td th:text="${per.paterno}"></td>
                                                             <td th:text="${per.materno}"></td>
                                                             <td th:text="${per.ci}"></td>
-                                                            <td th:text="${per.colegio?.nombreColegio != null ? per.colegio.nombreColegio : 'Sin colegio'}"></td>
                                                             <td class="text-center">
                                                                 <div class="btn-group">
                                                                     <a class="btn btn-info me-2" type="button" style="color: aliceblue;"

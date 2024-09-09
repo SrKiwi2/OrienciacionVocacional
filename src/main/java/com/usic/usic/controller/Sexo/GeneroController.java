@@ -30,16 +30,14 @@ public class GeneroController {
     public String formularioSexo(HttpServletRequest request, Model model) {
 
         model.addAttribute("sexoss", new Genero());
-
         return "Complementos/Sexo/formulario-sexo";
-       
     }
 
-    @GetMapping("/formularioEditSexo/{idSexo}")
+    @GetMapping("/formularioEditSexo/{idGenero}")
     public String FormularioEditSexo(HttpServletRequest request, Model model,
-            @PathVariable("idSexo") Long idSexo) {
+            @PathVariable("idGenero") Long idGenero) {
 
-        model.addAttribute("sexoss", sexoService.findById(idSexo));
+        model.addAttribute("sexoss", sexoService.findById(idGenero));
         model.addAttribute("edit", "true");
         return "Complementos/Sexo/formulario-sexo";
     }
@@ -53,11 +51,11 @@ public class GeneroController {
     }
 
     @PostMapping("/registrarSexo")
-    public ResponseEntity<String> RegistrarSexo(HttpServletRequest request, @Validated Genero sexo) {
-        System.out.println("Sexo recibido: " + sexo.getGenero());
-        if (sexoService.buscarPorGenero(sexo.getGenero())  == null) {
-            sexo.setEstado("ACTIVO");
-            sexoService.save(sexo);
+    public ResponseEntity<String> RegistrarSexo(HttpServletRequest request, @Validated Genero genero) {
+
+        if (sexoService.buscarPorGenero(genero.getNombreGenero())  == null) {
+            genero.setEstado("ACTIVO");
+            sexoService.save(genero);
             return ResponseEntity.ok("Se guardó el registro con éxito");
         } else {
             return ResponseEntity.ok("Ya existe este registro");
@@ -66,21 +64,21 @@ public class GeneroController {
     }
 
     @PostMapping("/editarSexo")
-    public ResponseEntity<String> editarSexo(@Validated Genero sexo) {
-        if (sexoService.buscarPorGenero(sexo.getGenero()) == null) {
-            sexo.setEstado("ACTIVO");
-            sexoService.save(sexo);
+    public ResponseEntity<String> editarSexo(@Validated Genero genero) {
+        if (sexoService.buscarPorGenero(genero.getNombreGenero()) == null) {
+            genero.setEstado("ACTIVO");
+            sexoService.save(genero);
             return ResponseEntity.ok("Se modificó el registro con éxito");
         }else{
             return ResponseEntity.ok("ya existe este colegio");
         }
     }
 
-    @PostMapping("/eliminarSexo/{idSexo}")
+    @PostMapping("/eliminarSexo/{idGenero}")
     public ResponseEntity<String> eliminarSexo(HttpServletRequest request,
-            @PathVariable("idSexo") Long idSexo) {
+            @PathVariable("idGenero") Long idGenero) {
 
-                sexoService.deleteById(idSexo);
+                sexoService.deleteById(idGenero);
 
         return ResponseEntity.ok("Se eliminó el registro con éxito");
     }

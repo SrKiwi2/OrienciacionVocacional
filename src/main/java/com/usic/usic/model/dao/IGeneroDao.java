@@ -6,5 +6,5 @@ import com.usic.usic.model.Entity.Genero;
 
 public interface IGeneroDao extends JpaRepository<Genero, Long> {
     
-    Genero findByGenero(String genero);
+    Genero findByNombreGenero(String nombreGenero);
 }
