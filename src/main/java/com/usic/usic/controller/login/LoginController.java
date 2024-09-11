@@ -24,7 +24,7 @@ public class LoginController {
     @Autowired
     private IUsuarioService  usuarioService;
     
-    @GetMapping(value = "/form-login")
+    @GetMapping(value = "/login")
     public String formLogin(Persona persona) {
 
         return "login/login.html";

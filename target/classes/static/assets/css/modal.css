@@ -1,0 +1,77 @@
+/* Estilo general del modal */
+.modal-content {
+    background: linear-gradient(145deg, #4a90e2, #CD5C5C); /* Fondo degradado */
+    border-radius: 20px; /* Esquinas redondeadas */
+    padding: 20px;
+    color: #ffffff; /* Color de texto blanco */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    position: relative;
+}
+
+.modal-title {
+    font-family: "Latin Modern Roman", "Constantia", serif;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    flex: 1; /* Asegura que el título ocupe todo el espacio disponible */
+}
+
+.btn-close {
+    position: absolute;
+    right: 10px; /* Ubica el botón de cerrar a la derecha */
+    top: 10px; /* Ajusta su posición vertical */
+}
+
+
+/* Botón de cerrar */
+.btn-close {
+    background-color: #ffffff;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Estilo del cuerpo del modal */
+.modal-body {
+    font-family: "Arial", sans-serif;
+    font-size: 1.2rem;
+    padding: 20px 10px;
+}
+
+/* Estilo del pie del modal */
+.modal-footer {
+    border-top: none; /* Elimina la línea de separación */
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
+/* Estilo de los botones */
+.btn-primary {
+    background-color: #ff6b6b; /* Color personalizado */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e84343; /* Color cuando se hace hover */
+}
+
+.btn-secondary {
+    background-color: #4a90e2; /* Color secundario */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #3a78c2; /* Color cuando se hace hover */
+}
