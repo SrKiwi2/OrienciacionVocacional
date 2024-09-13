@@ -1,10 +1,13 @@
 package com.usic.usic.controller.estudiante;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +24,8 @@ import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.Service.IUsuarioService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class EstudianteController {
@@ -54,6 +59,14 @@ public class EstudianteController {
         model.addAttribute("estudiantes", estudianteService.findAll());
         model.addAttribute("persona", new Persona());
         return "Estudiante/vista_estudiante";
+    }
+
+    @PostMapping("/listarEstudiantesInicio")
+    public String listarEstudiantesInicio(HttpServletRequest request, Model model) {
+
+        model.addAttribute("estudiantes", estudianteService.findAll());
+
+        return "Estudiante/admin-estudiantes/tabla-adminEstudiantes";
     }
 
     @PostMapping(value = "/guardar-estudiante")
@@ -97,7 +110,7 @@ public class EstudianteController {
             Colegio colegio = colegioService.findById(idColegio);
             estudiante.setColegio(colegio);
             estudiante.setGrado(grado);
-            estudiante.setEstado("ACTIVO");
+            estudiante.setEstado("INHABILITADO");
             estudianteService.save(estudiante);
         }
 
@@ -133,7 +146,32 @@ public class EstudianteController {
         return "redirect:/vista-estudiantes";
     }
 
+    
+    @PostMapping("/estudiante/habilitar/{idEstudiante}")
+    public ResponseEntity<?> habilitarEstudiante(@PathVariable Long idEstudiante) {
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        
+        if (estudiante != null) {
+            estudiante.setEstado("HABILITADO"); 
+            estudianteService.save(estudiante); 
 
+            Persona persona = estudiante.getPersona();
+            if (persona != null) {
+                Usuario usuario = persona.getUsuario();
+                if (usuario != null) {
+                    usuario.setEstado("ACTIVO");
+                    usuarioService.save(usuario);
+                    return ResponseEntity.ok().body("Usuario de estudiante habilitado con éxito.");
+                }else{
+                    return ResponseEntity.ok().body("Estudiante habilitado, pero no se encontró un usuario asociado.");
+                }
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una persona asociada al estudiante.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
+        } 
+    }
 
 
 

@@ -99,73 +99,8 @@
                             </div>
                         </div>
 
-                        <div class="datatables">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="mb-2">
-                                                <h5 class="mb-0">File export</h5>
-                                            </div>
-                                            <p class="card-subtitle mb-3">
-                                                Datos de los estudiantes vigentes
-                                            </p>
-                                            <div class="table-responsive">
-                                                <table id="file_export"
-                                                    class="table border w-100 table-striped table-bordered display text-nowrap"
-                                                    style="font-size: 12px">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Nombres</th>
-                                                            <th>Apellido Parteno</th>
-                                                            <th>Apellido Materno</th>
-                                                            <th>C.I</th>
-                                                            <th>Colegio</th>
-                                                            <th>Grado</th>
-                                                            <th>Opciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr th:each="e, index : ${estudiantes}" th:if="${e.estado == 'INHABILITADO'}">
-                                                            <td th:text="${index.index+1}"></td>
-                                                            <td th:text="${e.persona.nombre}"></td>
-                                                            <td th:text="${e.persona.paterno}"></td>
-                                                            <td th:text="${e.persona.materno}"></td>
-                                                            <td th:text="${e.persona.ci}"></td>
-                                                            <td th:text="${e.colegio.nombreColegio}"></td>
-                                                            <td th:text="${e.grado}"></td>
-                                                            <td class="text-center">
-                                                                <!-- Botón para Ver Datos -->
-                                                                <a th:href="@{'/estudiante/ver/' + ${e.idEstudiante}}" class="btn btn-info btn-sm">
-                                                                    Ver Datos
-                                                                </a>
-                                                
-                                                                <!-- Botón para Editar -->
-                                                                <a th:href="@{'/estudiante/editar/' + ${e.idEstudiante}}" class="btn btn-warning btn-sm">
-                                                                    Editar
-                                                                </a>
-                                                
-                                                                <!-- Botón para Banear -->
-                                                                <a th:href="@{'/estudiante/banear/' + ${e.idEstudiante}}" class="btn btn-danger btn-sm"
-                                                                   onclick="return confirm('¿Estás seguro que deseas banear a este estudiante?');">
-                                                                    Banear
-                                                                </a>
-                                                
-                                                                <!-- Botón para Habilitar -->
-                                                                <a th:href="@{'/estudiante/habilitar/' + ${e.idEstudiante}}" class="btn btn-success btn-sm">
-                                                                    Habilitar
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="TablaEstudiantes"></div>
+                        
                     </div>
                 </div>
             </div>
@@ -173,6 +108,54 @@
     </div>
 
     <script>
+        cargarTabla();
+
+        function cargarTabla() {
+            $.ajax({
+                type: 'POST',
+                url: "/listarEstudiantesInicio",  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    $("#TablaEstudiantes").html(response);  // Actualiza el contenido del div con la respuesta del servidor
+                }
+            });
+        }
+
+        function habilitarEstudiante(idEstudiante) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, habilitar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',  // Asegúrate de que el método sea POST como en tu controlador
+                        url: '/estudiante/habilitar/' + idEstudiante,
+                        success: function(response) {
+                            Swal.fire(
+                                'Habilitado!',
+                                'El estudiante ha sido habilitado.',
+                                'success'
+                            );
+
+                            cargarTabla();
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire(
+                                'Error!',
+                                'No se pudo habilitar al estudiante.',
+                                'error'
+                            );
+                            console.error(error);
+                        }
+                    });
+                }
+            });
+        }
+
 
         function limpiarFormulario() {
             // Limpiar todos los campos del formulario

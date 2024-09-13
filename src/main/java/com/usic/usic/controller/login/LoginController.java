@@ -38,10 +38,12 @@ public class LoginController {
         // Recupera el usuario por nombre de usuario
         Usuario usuario = usuarioService.getUsuarioPassword(user, contrasena);
 
-        if (usuario != null) {
-            if (usuario.getEstado().equals("INACTIVO")) {
-                return "redirect:/form-login";
-            }
+        if (usuario != null ) {
+                if (usuario.getEstado().equals("INHABILITADO")) {
+                    System.out.println("NO ESTA ACTIVO ESTE USUARIO");
+                    return "redirect:/form-login";
+                    
+                }
             
                 HttpSession sessionAdministrador = request.getSession(true);
                 sessionAdministrador.setAttribute("usuario", usuario);
