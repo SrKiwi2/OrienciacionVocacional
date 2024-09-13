@@ -39,20 +39,21 @@
                             <span class="hide-menu">Logout</span>
                         </a>
                     </li>
-                </ul> 
+                </ul>
             </li>
-            
+
             <li class="nav-small-cap">
                 <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                 <span class="hide-menu">INICIO</span>
             </li>
-            
-            <li class="sidebar-item">
+
+            <li class="sidebar-item"
+                th:if="${session.nombre_rol == 'ESTUDIANTE' or session.nombre_rol == 'SUPER USUARIO'}">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                     <span class="d-flex">
                         <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                     </span>
-                    <span class="hide-menu">Registro</span>
+                    <span class="hide-menu">Administracion</span>
                 </a>
 
                 <ul aria-expanded="false" class="collapse first-level">
@@ -63,6 +64,24 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a href="vista-estudiantes" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Registro Estudiante</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/vista-" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Administarción Estudiantes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/vista-usuarios" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Administarción usuarios</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a href="/" class="sidebar-link">
                             <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
                             <span class="hide-menu">Lista Persona</span>
@@ -70,7 +89,9 @@
                     </li>
                 </ul>
             </li>
-            <li class="sidebar-item">
+
+            <li class="sidebar-item"
+                th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                     <span class="d-flex">
                         <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
@@ -94,23 +115,37 @@
                 </ul>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/"
-                    aria-expanded="false">
-                    <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
-                    <span class="hide-menu">TEST Karl Hereford</span></a>
+            <li class="nav-small-cap">
+                <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                <span class="hide-menu">TEST</span>
             </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/vista-test"
-                        aria-expanded="false">
-                        <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
-                        <span class="hide-menu">Test</span></a>
-                </li>
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ESTUDIANTES' or session.nombre_rol == 'SUPER USUARIO'}">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    <span class="d-flex">
+                        <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                    </span>
+                    <span class="hide-menu">TEST</span>
+                </a>
+
+                <ul aria-expanded="false" class="collapse first-level">
+                    <li class="sidebar-item">
+                        <a href="/vista_habilidades_sociales" class="sidebar-link">
+                            <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
+                            <span class="hide-menu">TEST HABILIDADES SOCIALES</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/vista-test" class="sidebar-link">
+                            <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Test</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/"
-                    aria-expanded="false">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false">
                     <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
                     <span class="hide-menu">Usuarios</span></a>
             </li>

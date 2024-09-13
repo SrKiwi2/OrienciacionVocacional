@@ -21,7 +21,7 @@
 
                     <!-- Card de presentación -->
                     <div
-                        th:replace="~{layout/card-modulo :: cardFragment('Bienvenido al Sistema de Administración de postulantes', 'Inicio', '/buscar-postulantes', 'Inicio')}">
+                        th:replace="~{layout/card-modulo :: cardFragment('Bienvenido al Sistema de Administración de Personal', 'Inicio', '/buscar-postulantes', 'Inicio')}">
                     </div>
                     <!-- Card de presentación -->
 
@@ -76,6 +76,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    
                                     <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
                                     <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
                                 </form>
@@ -108,7 +109,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="per, index : ${personas}">
+                                                        <tr th:each="per, index : ${personas}" th:if="${per.estado != 'E'}">
                                                             <td th:text="${index.index+1}"></td>
                                                             <td th:text="${per.nombre}"></td>
                                                             <td th:text="${per.paterno}"></td>

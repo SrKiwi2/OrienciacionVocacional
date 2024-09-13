@@ -32,12 +32,7 @@ public class Estudiante extends AuditoriaConfig {
     @JoinColumn(name = "id_colegio")
     private Colegio colegio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_persona")
-    private Persona perspona;
-
-
-
-
-    
+    private Persona persona;
 }

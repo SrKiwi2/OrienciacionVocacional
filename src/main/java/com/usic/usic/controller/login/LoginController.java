@@ -1,6 +1,7 @@
 package com.usic.usic.controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +16,14 @@ import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor
 public class LoginController {
 
     @Autowired
     private IUsuarioService  usuarioService;
-    
-    @GetMapping(value = "/login")
+
+    @GetMapping(value = "/form-login")
     public String formLogin(Persona persona) {
 
         return "login/login.html";
@@ -32,26 +31,28 @@ public class LoginController {
 
     @PostMapping("/iniciar-sesion")
     public String iniciarSesion(@RequestParam(value = "usuario") String user,
-                            @RequestParam(value = "contrasena") String contrasena, Model model, HttpServletRequest request,
+                            @RequestParam(value = "contrasena") String contrasena, 
+                            Model model, HttpServletRequest request,
                             RedirectAttributes flash) {
 
-        // los dos parametros de usuario, contraseña vienen del formulario html
+        // Recupera el usuario por nombre de usuario
         Usuario usuario = usuarioService.getUsuarioPassword(user, contrasena);
 
         if (usuario != null) {
             if (usuario.getEstado().equals("INACTIVO")) {
                 return "redirect:/form-login";
             }
-            HttpSession sessionAdministrador = request.getSession(true);
-            sessionAdministrador.setAttribute("usuario", usuario);
-            sessionAdministrador.setAttribute("persona", usuario.getPersona());
-            sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+            
+                HttpSession sessionAdministrador = request.getSession(true);
+                sessionAdministrador.setAttribute("usuario", usuario);
+                sessionAdministrador.setAttribute("persona", usuario.getPersona());
+                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
 
-            flash.addAttribute("success", usuario.getPersona().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
+                System.out.println("LA PERSONA " + usuario.getPersona().getNombre() + " " + usuario.getPersona().getPaterno() + " " + usuario.getPersona().getMaterno() + " HA INICIADO SESIÓN");
 
-            System.out.println("LA PERSONA "+usuario.getPersona().getNombre()+" "+usuario.getPersona().getPaterno()+" "+usuario.getPersona().getMaterno()+ " HA INICIADO SESIÓN");
-
-            return "redirect:/vista-administrador";
+                return "redirect:/vista-administrador";
+            
 
         } else {
             return "redirect:/form-login";

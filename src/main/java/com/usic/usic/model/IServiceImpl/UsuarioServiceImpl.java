@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IUsuarioService;
 import com.usic.usic.model.dao.IUsuarioDao;
@@ -44,6 +45,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public Usuario buscarPorUsuario(String username) {
+        return usuarioDao.findByUsername(username);
+    }
+
+    @Override
+    public Usuario findByPersona(Persona persona) {
+        return usuarioDao.findByPersona(persona);
+    }
+
+    @Override
+    public Usuario findByUsername(String username) {
         return usuarioDao.findByUsername(username);
     }
     

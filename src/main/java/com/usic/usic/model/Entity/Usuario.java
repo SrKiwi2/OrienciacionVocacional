@@ -1,5 +1,7 @@
 package com.usic.usic.model.Entity;
 
+import org.hibernate.annotations.ManyToAny;
+
 import com.usic.usic.config.AuditoriaConfig;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -36,7 +39,7 @@ public class Usuario extends AuditoriaConfig {
     @JoinColumn(name = "id_persona")
     private Persona persona;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol")
     private Rol rol;
 }
