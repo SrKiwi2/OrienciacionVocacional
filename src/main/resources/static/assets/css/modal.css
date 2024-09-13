@@ -4,6 +4,18 @@
     border-radius: 20px; /* Esquinas redondeadas */
     color: #ffffff; /* Color de texto blanco */
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Sombra */
+    max-width: 600px; /* Ancho máximo del contenido */
+}
+
+.modal-dialog {
+    max-width: 600px; /* Asegura que el modal no exceda este tamaño */
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    min-height: calc(100% - 1rem); /* Asegura que el modal no se salga de la pantalla */
 }
 
 .modal-header {
@@ -54,17 +66,28 @@
 }
 
 /*------------------FURMULRIO---------------*/
+
+.form-register .row {
+    margin: 0; /* Asegura que no haya márgenes excesivos entre las columnas */
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px; /* Ajusta el redondeado si es necesario */
+    font-size: 1rem;
+}
+
   .form label {
     align-items: center;
     border-radius: 20px;
   }
   
   .form input {
-    padding: 5px;
+    padding: 8px;
     border: none;
     outline: none;
-    border-radius: 20px;
-    color: #333;
+    border-radius: 8px;
   }
   
 /* Estilo de los botones */

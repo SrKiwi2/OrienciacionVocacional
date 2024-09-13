@@ -14,34 +14,98 @@
 <body>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 600px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registrate</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">Formulario de Registro</h5>
+                    <button type="button" class="btn-close shadow" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <form class="form form-register" novalidate>
-                                <div class="col-4">
-                                    <label>
-                                        <input type="text" placeholder="Nombre Usuario" name="userName">
-                                    </label>
-                                </div>
-                                <div class="col-4">
-                                    <label>
-                                        <input type="email" placeholder="Correo Electronico" name="userEmail">
-                                    </label>
-                                </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                    <form class="form form-register" novalidate>
+                        <div class="row gap-2">
+                            <!-- Nombres -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="userName" class="form-label">Nombres</label>
+                                <input type="text" class="form-control shadow" id="userName" placeholder="..." name="userName">
                             </div>
-                        </form>
+                            <!-- Apellido Paterno -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="userFirstSurname" class="form-label">Apellido Paterno</label>
+                                <input type="text" class="form-control shadow" id="userFirstSurname" placeholder="..." name="userFirstSurname">
+                            </div>
+                            <!-- Apellido Materno -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="userSecondSurname" class="form-label">Apellido Materno</label>
+                                <input type="text" class="form-control shadow" id="userSecondSurname" placeholder="..." name="userSecondSurname">
+                            </div>
+                        </div>
+                        
+                        <div class="row gap-2">
+                            <!-- CI -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="ci" class="form-label">CI</label>
+                                <input type="text" class="form-control shadow" id="ci" placeholder="..." name="ci">
+                            </div>
+                            <!-- Género -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="gender" class="form-label">Género</label>
+                                <select class="form-select shadow" id="gender" name="gender">
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row gap-2">
+                            <!-- Correo -->
+                            <div class="col-12 mb-3">
+                                <label for="email" class="form-label">Correo</label>
+                                <input type="email" class="form-control shadow" id="email" placeholder="@" name="email">
+                            </div>
+                        </div>
+    
+                        <div class="row gap-2">
+                            <!-- Grado -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="grade" class="form-label">Grado</label>
+                                <select class="form-select shadow" id="grade" name="grade">
+                                    <option value="1">Primaria</option>
+                                    <option value="2">Secundaria</option>
+                                    <option value="3">Universidad</option>
+                                </select>
+                            </div>
+                            <!-- Colegio -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="school" class="form-label">Colegio</label>
+                                <select class="form-select shadow" id="school" name="school">
+                                    <option value="1">Colegio A</option>
+                                    <option value="2">Colegio B</option>
+                                    <option value="3">Colegio C</option>
+                                </select>
+                            </div>
+                            <!-- Nacionalidad -->
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="nationality" class="form-label">Nacionalidad</label>
+                                <select class="form-select shadow" id="nationality" name="nationality">
+                                    <option value="1">Boliviana</option>
+                                    <option value="2">Argentina</option>
+                                    <option value="3">Peruana</option>
+                                </select>
+                            </div>
+                        </div>
+    
+                        <hr size="8px" style="padding: 0.1rem;">         
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
+                        </div>
+                    </form>
                 </div>
-                
             </div>
         </div>
     </div>
+    
     <div class="bg-3">
         <h1 class="t-stroke t-shadow-halftone">HELLO WORLD</h1>
     </div>

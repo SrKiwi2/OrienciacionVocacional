@@ -10,6 +10,6 @@ public class TestController {
     @GetMapping(value = "/vista-test")
     public String vistaPersona(Model model) {
         
-        return "test/vista_registro";
+        return "test/vista_registro1";
     }
 }

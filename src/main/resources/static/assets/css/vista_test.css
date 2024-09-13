@@ -17,12 +17,6 @@ h1 {
     margin-bottom: 30px;
     color: #d7dbdd;
     font-family: "Latin Modern Roman", "Constantia", serif;
-    animation: growText 2s ease-in-out infinite;
-    transition: font-weight 0.1s ease;
-}
-
-h1:hover {
-    font-weight: 800; /* Peso más grueso cuando se hace hover */
 }
 
 @keyframes growText {
@@ -134,11 +128,3 @@ h1:hover {
     justify-content: center; /* Centra horizontalmente el contenido */
 }
 
-/* Span Styles */
-.coins {
-    background-color: #003b94; /* Color de fondo del span */
-    color: white; /* Texto en color blanco */
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-weight: bold;
-}
