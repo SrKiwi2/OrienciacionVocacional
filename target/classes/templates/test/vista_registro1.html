@@ -267,28 +267,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-wrapper-one registration-area">
-                        <form>
+                        <form class="form" action="/guardar_estudiante_inicio" method="post" novalidate>
+                            <input type="hidden" th:field="${persona.idPersona}">
                             <p>Datos personales</p>
                             <hr>
                             <div class="row">
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Nombres</label>    
-                                    <input id="value" type="text" name="value">
+                                    <input type="text" th:field="${persona.nombre}" required>
                                 </div>
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Apellido Paterno</label>
-                                    <input id="value" type="text" name="value">
+                                    <input type="text" th:field="${persona.paterno}" required>
                                 </div>
 
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Apellido Materno</label>
-                                    <input id="value" type="text" name="value">
+                                    <input type="text" th:field="${persona.materno}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3 col-xm-12">
                                     <label for="">Numero de C.I.</label>
-                                    <input id="value" type="text" name="value">
+                                    <input type="text" th:field="${persona.ci}" required>
                                 </div>
                                 <div class="col-md-2 col-xm-12">
                                     <label for="sadsa">Genero</label><br>
@@ -336,21 +337,25 @@
                                 </div>
                             </div>
 
+                            <div class="bit-continue-button ">
+                                <div class="row mt-5">
+                                    <div class="col-6">
+                                        <button style="width: 100%;"  type="submit" class="btn btn-success">
+                                            Enviar Registro
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" style="width: 100%;" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Cancelar Registro</button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
 
 
-                    <div class="bit-continue-button ">
-                        <div class="row mt-5">
-                            <div class="col-6">
-                                <a style="width: 100%;" href="connect.html" class="btn btn-success">Enviar Registro</a>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" style="width: 100%;" class="btn btn-danger"
-                                    data-bs-dismiss="modal">Cancelar Registro</button>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

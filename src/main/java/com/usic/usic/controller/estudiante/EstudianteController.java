@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -143,6 +144,17 @@ public class EstudianteController {
         }
 
         return "redirect:/vista-estudiantes";
+    }
+
+    /*CRISTIANA*/
+    @PostMapping(value = "/guardar_estudiante_inicio")
+    public String guardar_estudiante_inicio(@Validated Persona persona, Model model) {
+
+        
+
+        personaService.save(persona);
+        
+        return "redirect:/vista-test";
     }
 
     
