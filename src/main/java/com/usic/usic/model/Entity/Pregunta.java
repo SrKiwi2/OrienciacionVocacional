@@ -28,4 +28,8 @@ public class Pregunta extends AuditoriaConfig{
     @ManyToOne
     @JoinColumn(name = "id_tipo_test")
     private TipoTest tipoTest;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_pregunta")
+    private TipoPregunta tipoPregunta;
 }
