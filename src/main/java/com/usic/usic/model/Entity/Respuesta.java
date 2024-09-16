@@ -24,6 +24,8 @@ public class Respuesta extends AuditoriaConfig{
 
     private String conplemento_respuesta;
 
+    private String multiple_check;
+
     @ManyToOne
     @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;

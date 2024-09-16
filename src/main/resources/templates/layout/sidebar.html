@@ -94,6 +94,14 @@
                             <span class="hide-menu">Administarción Colegios</span>
                         </a>
                     </li>
+                    <!-- <li class="sidebar-item">
+                        <a href="javascript:void(0)" class="sidebar-link" onclick="loadPage('/administrar-colegio')">
+                            <div class="round-16 d-flex align-items-center justify-content-center">
+                                <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            </div>
+                            <span class="hide-menu">Administrar Colegios</span>
+                        </a>
+                    </li> -->
                     <li class="sidebar-item">
                         <a href="/administrar-sexo" class="sidebar-link">
                             <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
@@ -131,34 +139,22 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false">
-                    <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Usuarios</span></a>
-            </li>
-
-            <li class="nav-small-cap">
-                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                <span class="hide-menu">PAGES</span>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                    <span>
-                        <iconify-icon icon="solar:tag-price-line-duotone"></iconify-icon>
-                    </span>
-                    <span class="hide-menu">Pricing</span>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                    <span>
-                        <iconify-icon icon="solar:question-square-line-duotone"></iconify-icon>
-                    </span>
-                    <span class="hide-menu">FAQ</span>
-                </a>
-            </li>
         </ul>
     </nav>
+    <script>
+        function loadPage(url) {
+            $("#spinner-overlay").show();
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('main-content').innerHTML = html;
+                    $("#spinner-overlay").hide();
+                })
+                .catch(error => {
+                    console.error('Error al cargar la página:', error);
+                    $("#spinner-overlay").hide();
+                });
+        }
+    </script>
 </aside>

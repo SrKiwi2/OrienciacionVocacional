@@ -38,18 +38,18 @@
                                         <div class="form-group col-md-3 mb-3">
                                             <label for="nombre">Nombres</label>
                                             <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" name="nombre" id="nombre" placeholder="Nombre">
+                                                style="text-transform: uppercase;" autocomplete="off" name="nombre" id="nombre" placeholder="Nombre">
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
                                             <label for="apellidoP">Apellido Paterno</label>
                                             <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" name="paterno" id="apellidoP"
+                                                style="text-transform: uppercase;" autocomplete="off" name="paterno" id="apellidoP"
                                                 placeholder="Apellido Paterno">
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
                                             <label for="apellidoM">Apellido Materno</label>
                                             <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" name="materno" id="apellidoM"
+                                                style="text-transform: uppercase;" autocomplete="off" name="materno" id="apellidoM"
                                                 placeholder="Apellido Materno">
                                         </div>
                                         
@@ -58,12 +58,12 @@
                                     <div class="row">
                                         <div class="form-group col-md-2 mb-3">
                                             <label for="ci">C.I.</label>
-                                            <input type="text" class="form-control" name="ci" id="ci" placeholder="C.I."
+                                            <input type="text" class="form-control" autocomplete="off" name="ci" id="ci" placeholder="C.I."
                                                 required>
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
                                             <label for="vigencia">Correo</label>
-                                            <input type="text" class="form-control" name="correo" id="correo"
+                                            <input type="text" class="form-control" autocomplete="off" name="correo" id="correo"
                                                 placeholder="CORREO" required>
                                         </div>
                                         <div class="form-group col-md-3 mb-3">
@@ -144,11 +144,12 @@
                 confirmButtonText: 'Sí, habilitar!'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $("#spinner-overlay").show();
                     $.ajax({
                         type: 'POST',  // Asegúrate de que el método sea POST como en tu controlador
                         url: '/estudiante/habilitar/' + idEstudiante,
                         success: function(response) {
-                            $("#spinner").hide();
+                            $("#spinner-overlay").show();
                             Swal.fire(
                                 'Habilitado!',
                                 'El estudiante ha sido habilitado.',
@@ -158,7 +159,7 @@
                             cargarTabla();
                         },
                         error: function(xhr, status, error) {
-                            $("#spinner").hide();
+                            $("#spinner-overlay").show();
                             Swal.fire(
                                 'Error!',
                                 'No se pudo habilitar al estudiante.',
