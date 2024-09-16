@@ -22,7 +22,6 @@
         <img src="../assets/images/logos/logo-icon.svg" alt="loader" class="lds-ripple img-fluid" />
     </div>
     <div id="main-wrapper">
-        <!--  Sidebar End -->
         <div class="body-wrapper">
             <div class="container-fluid">
                 <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-4 card">
@@ -43,29 +42,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- -------------------------------------------------------------- -->
-                    <!-- Example -->
-                    <!-- -------------------------------------------------------------- -->
                     <div class="col-12">
-                        <!--  start Step wizard with validation -->
                         <div class="card">
                             <div class="card-body wizard-content">
                                 <h4 class="card-title">Step wizard with validation</h4>
                                 <p class="card-subtitle mb-3"> You can us the validation like what we did </p>
-                                <form th:action="@{/pre_test/responder}" th:object="${preTestForm}" method="post" class="validation-wizard wizard-circle mt-5">
-                                    <!-- Step 1 -->
+                                <form action="#" class="validation-wizard wizard-circle mt-5">
                                     <h6>Step 1</h6>
                                     <section>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="pregunta1">¿Desde cuándo has pensado en tu futuro?</label>
-                                                <select class="form-control" th:field="*{respuestas[0].respuesta}">
-                                                    <option value="Hace muchos años desde pequeño/a">Hace muchos años desde pequeño/a</option>
-                                                    <option value="Al comenzar la secundaria">Al comenzar la secundaria</option>
-                                                    <option value="A la mitad de la secundaria">A la mitad de la secundaria</option>
-                                                    <option value="Este año">Este año</option>
-                                                    <option value="Aún no lo he pensado">Aún no lo he pensado</option>
-                                                </select>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="wfirstName2"> First Name : <span
+                                                            class="danger">*</span>
+                                                    </label>
+                                                    <input type="text" class="form-control required"
+                                                        id="wfirstName2" name="firstName" />
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
@@ -95,30 +88,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wlocation2"> Select City : <span
-                                                            class="danger">*</span>
-                                                    </label>
-                                                    <select class="form-select required" id="wlocation2"
-                                                        name="location">
-                                                        <option value="">Select City</option>
-                                                        <option value="India">India</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="Dubai">Dubai</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wdate2">Date of Birth :</label>
-                                                    <input type="date" class="form-control" id="wdate2" />
-                                                </div>
-                                            </div>
-                                        </div>
                                     </section>
-                                    <!-- Step 2 -->
                                     <h6>Step 2</h6>
                                     <section>
                                         <div class="row">
@@ -146,141 +116,10 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <!-- Step 3 -->
-                                    <h6>Step 3</h6>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wint1">Interview For :</label>
-                                                    <input type="text" class="form-control required" id="wint1" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wintType1">Interview Type
-                                                        :</label>
-                                                    <select class="form-select required" id="wintType1"
-                                                        data-placeholder="Type to search cities" name="wintType1">
-                                                        <option value="Banquet">Normal</option>
-                                                        <option value="Fund Raiser">Difficult</option>
-                                                        <option value="Dinner Party">Hard</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wLocation1">Location :</label>
-                                                    <select class="form-select required" id="wLocation1"
-                                                        name="wlocation">
-                                                        <option value="">Select City</option>
-                                                        <option value="India">India</option>
-                                                        <option value="USA">USA</option>
-                                                        <option value="Dubai">Dubai</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="wjobTitle2">Interview Date
-                                                        :</label>
-                                                    <input type="date" class="form-control required"
-                                                        id="wjobTitle2" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="customRadio16" class="form-label">Requirements
-                                                        :</label>
-                                                    <div class="c-inputs-stacked">
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio16"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label"
-                                                                for="customRadio16">Employee</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio17"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label"
-                                                                for="customRadio17">Contract</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <!-- Step 4 -->
-                                    <h6>Step 4</h6>
-                                    <section>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="behName2">Behaviour :</label>
-                                                    <input type="text" class="form-control required"
-                                                        id="behName2" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="participants3">Confidance</label>
-                                                    <input type="text" class="form-control required"
-                                                        id="participants3" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="participants4">Result</label>
-                                                    <select class="form-select required" id="participants4"
-                                                        name="location">
-                                                        <option value="">Select Result</option>
-                                                        <option value="Selected">Selected</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                        <option value="Call Second-time"> Call Second-time </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="decisions3">Comments</label>
-                                                    <textarea name="decisions" id="decisions3" rows="4"
-                                                        class="form-control"></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="customRadio11" class="form-label">Rate Interviwer
-                                                        :</label>
-                                                    <div class="c-inputs-stacked">
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio11"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label" for="customRadio11">1
-                                                                star</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio12"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label" for="customRadio12">2
-                                                                star</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio13"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label" for="customRadio13">3
-                                                                star</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio14"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label" for="customRadio14">4
-                                                                star</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input type="radio" id="customRadio15"
-                                                                name="customRadio" class="form-check-input" />
-                                                            <label class="form-check-label" for="customRadio15">5
-                                                                star</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </section>
                                 </form>
                             </div>
                         </div>
-                        <!--  end Step wizard with validation -->
                     </div>
-                    
                 </div>
             </div>
         </div>

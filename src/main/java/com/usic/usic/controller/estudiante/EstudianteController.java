@@ -75,6 +75,47 @@ public class EstudianteController {
         return "Estudiante/admin-estudiantes/tabla-adminEstudiantes";
     }
 
+    @PostMapping(value = "/guardar_estudiante_adm")
+    public String guardar_estudiante_adm(@Validated Persona persona,
+                                            @RequestParam("grado") String grado,
+                                            @RequestParam("colegio") Long idColegio,
+                                             Model model) {
+        persona.setNombre(persona.getNombre().toUpperCase());
+        persona.setPaterno(persona.getPaterno().toUpperCase());
+        persona.setMaterno(persona.getMaterno().toUpperCase());
+        persona.setEstado("E");
+        personaService.save(persona);
+
+        Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
+        if (estudiante == null) {
+            estudiante = new Estudiante();
+            estudiante.setPersona(persona);
+            estudiante.setEstado("INHABILITADO");
+        }
+        estudiante.setGrado(grado);
+        Colegio colegio = colegioService.findById(idColegio);
+        estudiante.setColegio(colegio);
+        estudianteService.save(estudiante);
+
+        Usuario usuario = usuarioService.findById(persona.getIdPersona());
+        if (usuario == null) {
+            usuario = new Usuario();
+            usuario.setPersona(persona);
+            usuario.setUsername(persona.getPaterno());
+            usuario.setPassword(persona.getCi() + "_uap");
+            usuario.setEstado("INHABILITADO");
+            usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
+
+            String asunto = "CREDENCIAL DE ACCESO";
+            String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
+            enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
+
+            usuarioService.save(usuario);
+        }
+        
+        return "redirect:/vista-estudiantes";
+    }
+
     @PostMapping(value = "/guardar_estudiante_inicio")
     public String guardar_estudiante_inicio(@Validated Persona persona,
                                             @RequestParam("grado") String grado,
