@@ -166,7 +166,107 @@
             </div>
         </div>
     </div> -->
-    <!-- Start Footer Area -->
+
+ <!-- modal registro -->
+ <div class="rn-popup-modal placebid-modal-wrapper modal fade" id="placebidModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+        style="max-width: 100%; width: 100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Registro de Datos</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-wrapper-one registration-area">
+                    <form class="form" action="/guardar_estudiante_inicio" method="post" novalidate>
+                        <input type="hidden" th:field="${persona.idPersona}">
+                        <p>Datos personales</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4 col-xm-12">
+                                <label for="">Nombres</label>    
+                                <input type="text" th:field="${persona.nombre}" autocomplete="off" style="text-transform: uppercase;" name="nombre" placeholder="INTRODUCE UN NOMBRE" required>
+                            </div>
+                            <div class="col-md-4 col-xm-12">
+                                <label for="">Apellido Paterno</label>
+                                <input type="text" th:field="${persona.paterno}" autocomplete="off" style="text-transform: uppercase;" name="paterno" placeholder="INTRODUCE TU APELLLIDO PATERNO" required>
+                            </div>
+
+                            <div class="col-md-4 col-xm-12">
+                                <label for="">Apellido Materno</label>
+                                <input type="text" th:field="${persona.materno}" autocomplete="off" style="text-transform: uppercase;" name="materno" placeholder="INTRODUCE TU APELLIDO MATERNO" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 col-xm-12">
+                                <label for="">Numero de C.I.</label>
+                                <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci" placeholder="INTRODUCE UN CI" required>
+                            </div>
+                            <div class="col-md-2 col-xm-12">
+                                <label for="sadsa">Genero</label><br>
+                                <select class="form-select" name="genero" id="genero">
+                                    <th:block th:each="g : ${generos}">
+                                        <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 col-xm-12">
+                                <label for="sadsa">Nacionalidad</label><br>
+                                <select class="form-select" name="nacionalidad" id="nacionalidad">
+                                    <th:block th:each="nac : ${nacionalidades}">
+                                        <option th:value="${nac.idNacionalidad}" th:text="${nac.nacionalidad}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="col-md-5 col-xm-12">
+                                <label for="">Correo</label>
+                                <input id="value" type="email" autocomplete="off" placeholder="INTRODUCE UN CORREO ELECTRONICO VALIDO" name="correo">
+                            </div>
+                        </div>
+
+                        <p class="mt-3">Datos Academicos</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 col-xm-12">
+                                <label for="sadsa">Grado</label><br>
+                                <select class="select" name="grado">
+                                    <option value="B">BACHILLER</option>
+                                    <option value="6to">6TO SECUNDARIA</option>
+                                    <option value="5to">5TO SECUNDARIA</option>
+                                    <option value="4to">4TO SECUNDARIA</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-xm-12">
+                                <label for="sadsa">Colegio</label><br>
+                                <select class="form-select" name="colegio" id="colegio">
+                                    <th:block th:each="colegio : ${colegios}">
+                                        <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bit-continue-button ">
+                            <div class="row mt-5">
+                                <div class="col-6">
+                                    <button style="width: 100%;"  type="submit" class="btn btn-success">
+                                        Enviar Registro
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" style="width: 100%;" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Cancelar Registro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="rn-footer-one bg-color--1">
         <div class="footer-top">
             <div class="container">
@@ -183,148 +283,9 @@
             </div>
         </div>
     </div>
-    <!-- End Footer Area -->
-    <!-- Start Footer Area -->
-    <div class="copy-right-one ptb--20 bg-color--1">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="copyright-left">
-                        <span>©2022 Nuron, Inc. All rights reserved.</span>
-                        <ul class="privacy">
-                            <li><a href="terms-condition.html">Terms</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div class="copyright-right">
-                        <ul class="social-copyright">
-                            <li><a href="#"><i data-feather="facebook"></i></a></li>
-                            <li><a href="#"><i data-feather="twitter"></i></a></li>
-                            <li><a href="#"><i data-feather="instagram"></i></a></li>
-                            <li><a href="#"><i data-feather="linkedin"></i></a></li>
-                            <li><a href="#"><i data-feather="mail"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Footer Area -->
-    <div class="mouse-cursor cursor-outer"></div>
-    <div class="mouse-cursor cursor-inner"></div>
-    <!-- Start Top To Bottom Area  -->
-    <div class="rn-progress-parent">
-        <svg class="rn-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-        </svg>
-    </div>
-    <!-- End Top To Bottom Area  -->
-
-
-    <!-- modal registro -->
-    <div class="rn-popup-modal placebid-modal-wrapper modal fade" id="placebidModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-            style="max-width: 100%; width: 100%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Registro de Datos</h3>
-                </div>
-                <div class="modal-body">
-                    <div class="form-wrapper-one registration-area">
-                        <form class="form" action="/guardar_estudiante_inicio" method="post" novalidate>
-                            <input type="hidden" th:field="${persona.idPersona}">
-                            <p>Datos personales</p>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-4 col-xm-12">
-                                    <label for="">Nombres</label>    
-                                    <input type="text" th:field="${persona.nombre}" autocomplete="off" style="text-transform: uppercase;" name="nombre" placeholder="INTRODUCE UN NOMBRE" required>
-                                </div>
-                                <div class="col-md-4 col-xm-12">
-                                    <label for="">Apellido Paterno</label>
-                                    <input type="text" th:field="${persona.paterno}" autocomplete="off" style="text-transform: uppercase;" name="paterno" placeholder="INTRODUCE TU APELLLIDO PATERNO" required>
-                                </div>
-
-                                <div class="col-md-4 col-xm-12">
-                                    <label for="">Apellido Materno</label>
-                                    <input type="text" th:field="${persona.materno}" autocomplete="off" style="text-transform: uppercase;" name="materno" placeholder="INTRODUCE TU APELLIDO MATERNO" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-3 col-xm-12">
-                                    <label for="">Numero de C.I.</label>
-                                    <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci" placeholder="INTRODUCE UN CI" required>
-                                </div>
-                                <div class="col-md-2 col-xm-12">
-                                    <label for="sadsa">Genero</label><br>
-                                    <select class="form-select" name="genero" id="genero">
-                                        <th:block th:each="g : ${generos}">
-                                            <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-2 col-xm-12">
-                                    <label for="sadsa">Nacionalidad</label><br>
-                                    <select class="form-select" name="nacionalidad" id="nacionalidad">
-                                        <th:block th:each="nac : ${nacionalidades}">
-                                            <option th:value="${nac.idNacionalidad}" th:text="${nac.nacionalidad}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                                <div class="col-md-5 col-xm-12">
-                                    <label for="">Correo</label>
-                                    <input id="value" type="email" autocomplete="off" placeholder="INTRODUCE UN CORREO ELECTRONICO VALIDO" name="correo">
-                                </div>
-                            </div>
-
-                            <p class="mt-3">Datos Academicos</p>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6 col-xm-12">
-                                    <label for="sadsa">Grado</label><br>
-                                    <select class="select" name="grado">
-                                        <option value="B">BACHILLER</option>
-                                        <option value="6to">6TO SECUNDARIA</option>
-                                        <option value="5to">5TO SECUNDARIA</option>
-                                        <option value="4to">4TO SECUNDARIA</option>
-                                        <option value="O">Otro</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 col-xm-12">
-                                    <label for="sadsa">Colegio</label><br>
-                                    <select class="form-select" name="colegio" id="colegio">
-                                        <th:block th:each="colegio : ${colegios}">
-                                            <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="bit-continue-button ">
-                                <div class="row mt-5">
-                                    <div class="col-6">
-                                        <button style="width: 100%;"  type="submit" class="btn btn-success">
-                                            Enviar Registro
-                                        </button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button type="button" style="width: 100%;" class="btn btn-danger"
-                                            data-bs-dismiss="modal">Cancelar Registro</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
+    
+<div th:replace="~{layout_test/footer :: footer}"></div>
+<!-- JS ============================================ -->
 <div th:replace="~{layout_test/script :: script}"></div>
 
 </body>

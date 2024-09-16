@@ -41,4 +41,10 @@ public class TestController {
 
         return "test/vista_registro1";
     }
+
+    @GetMapping(value = "/tipo_test")
+    public String tipo_test(Model model) {
+
+        return "test/tipo_test";
+    }
 }

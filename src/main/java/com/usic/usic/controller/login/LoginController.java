@@ -1,7 +1,6 @@
 package com.usic.usic.controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,11 +37,16 @@ public class LoginController {
         // Recupera el usuario por nombre de usuario
         Usuario usuario = usuarioService.getUsuarioPassword(user, contrasena);
 
-        if (usuario != null ) {
+        if (usuario != null) {
                 if (usuario.getEstado().equals("INHABILITADO")) {
                     System.out.println("NO ESTA ACTIVO ESTE USUARIO");
                     return "redirect:/form-login";
                     
+                }
+                if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
+                    flash.addAttribute("success", usuario.getPersona().getNombre());
+                    System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
+                    return "redirect:/tipo_test";  // Redirige a la vista para estudiantes
                 }
             
                 HttpSession sessionAdministrador = request.getSession(true);

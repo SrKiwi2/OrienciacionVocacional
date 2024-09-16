@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;

@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
-import com.usic.usic.model.Entity.Genero;
-import com.usic.usic.model.Entity.Nacionalidad;
 import com.usic.usic.model.Entity.Persona;
-import com.usic.usic.model.Entity.Rol;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEnviarEmail;
