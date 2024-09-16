@@ -144,12 +144,12 @@
                 confirmButtonText: 'Sí, habilitar!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $("#spinner-overlay").show();
+                    $("#spinner-overlay2").show();
                     $.ajax({
                         type: 'POST',  // Asegúrate de que el método sea POST como en tu controlador
                         url: '/estudiante/habilitar/' + idEstudiante,
                         success: function(response) {
-                            $("#spinner-overlay").show();
+                            $("#spinner-overlay2").show();
                             Swal.fire(
                                 'Habilitado!',
                                 'El estudiante ha sido habilitado.',
@@ -159,7 +159,7 @@
                             cargarTabla();
                         },
                         error: function(xhr, status, error) {
-                            $("#spinner-overlay").show();
+                            $("#spinner-overlay2").show();
                             Swal.fire(
                                 'Error!',
                                 'No se pudo habilitar al estudiante.',
