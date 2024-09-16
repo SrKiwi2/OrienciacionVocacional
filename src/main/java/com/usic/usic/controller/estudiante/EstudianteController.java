@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Genero;
+import com.usic.usic.model.Entity.Nacionalidad;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Rol;
 import com.usic.usic.model.Entity.Usuario;
@@ -21,6 +22,7 @@ import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEnviarEmail;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
+import com.usic.usic.model.Service.INacionalidadService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.Service.IUsuarioService;
@@ -51,14 +53,18 @@ public class EstudianteController {
     @Autowired
     private IEnviarEmail enviarEmail;
 
+    @Autowired
+    private INacionalidadService nacionalidadService;
+
     @GetMapping(value = "/vista-estudiantes")
     public String vistaPersona(Model model) {
         model.addAttribute("personas", personaService.findAll());
         model.addAttribute("colegios", colegioService.findAll());
         model.addAttribute("generos", generoService.findAll());
         model.addAttribute("estudiantes", estudianteService.findAll());
+        model.addAttribute("nacionalidades", nacionalidadService.findAll());
         model.addAttribute("persona", new Persona());
-        return "Estudiante/vista_estudiante";
+        return "Estudiante/admin-estudiantes/vista_estudiante";
     }
 
     @PostMapping("/listarEstudiantesInicio")
@@ -69,92 +75,45 @@ public class EstudianteController {
         return "Estudiante/admin-estudiantes/tabla-adminEstudiantes";
     }
 
-    @PostMapping(value = "/guardar-estudiante")
-    public String guardarPersona(
-        @RequestParam(value = "idPersona", required = false) Long idPersona,
-        @RequestParam("nombre") String nombre,
-        @RequestParam("paterno") String paterno,
-        @RequestParam("materno") String materno,
-        @RequestParam("ci") String ci,
-        @RequestParam("correo") String correo,
-        @RequestParam("idGenero") Long idGenero,
-        @RequestParam("idColegio") Long idColegio,
-        @RequestParam("grado") String grado,
-        Model model) {
-
-        Persona persona = personaService.validarCI(ci);
-        if (persona == null) {
-            persona = new Persona();
-        }
-        persona.setCi(ci);
-        persona.setNombre(nombre);
-        persona.setPaterno(paterno);
-        persona.setMaterno(materno);
-        persona.setCorreo(correo);
+    @PostMapping(value = "/guardar_estudiante_inicio")
+    public String guardar_estudiante_inicio(@Validated Persona persona,
+                                            @RequestParam("grado") String grado,
+                                            @RequestParam("colegio") Long idColegio,
+                                             Model model) {
+        persona.setNombre(persona.getNombre().toUpperCase());
+        persona.setPaterno(persona.getPaterno().toUpperCase());
+        persona.setMaterno(persona.getMaterno().toUpperCase());
         persona.setEstado("E");
-
-        Genero genero = generoService.findById(idGenero);
-        if (genero == null) {
-            genero = new Genero();
-            persona.setGenero(genero);
-        }
-        persona.setGenero(genero);
-
         personaService.save(persona);
 
         Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
         if (estudiante == null) {
             estudiante = new Estudiante();
             estudiante.setPersona(persona);
-
-            Colegio colegio = colegioService.findById(idColegio);
-            estudiante.setColegio(colegio);
-            estudiante.setGrado(grado);
             estudiante.setEstado("INHABILITADO");
-            estudianteService.save(estudiante);
         }
+        estudiante.setGrado(grado);
+        Colegio colegio = colegioService.findById(idColegio);
+        estudiante.setColegio(colegio);
+        estudianteService.save(estudiante);
 
-        Usuario usuarioEstudiante = usuarioService.findByPersona(persona);
-        if (usuarioEstudiante == null) {
-            usuarioEstudiante = new Usuario();
-            usuarioEstudiante.setPersona(persona);
-            String nombreUsuario = paterno.toLowerCase();
-            usuarioEstudiante.setUsername(nombreUsuario);
-
-            String contrasena = ci + "_uap";
-            // BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            // String contrasenaEncriptada = passwordEncoder.encode(contrasena);
-
-            usuarioEstudiante.setPassword(contrasena);
-
-            usuarioEstudiante.setEstado("INHABILITADO");
-            usuarioService.save(usuarioEstudiante);
-            
-            Rol rolEstudiante = rolService.buscarPorNombre("ESTUDIANTES");
-            if (rolEstudiante != null) {
-                usuarioEstudiante.setRol(rolEstudiante);
-            }
-            usuarioService.save(usuarioEstudiante);
+        Usuario usuario = usuarioService.findById(persona.getIdPersona());
+        if (usuario == null) {
+            usuario = new Usuario();
+            usuario.setPersona(persona);
+            usuario.setUsername(persona.getPaterno());
+            usuario.setPassword(persona.getCi() + "_uap");
+            usuario.setEstado("INHABILITADO");
+            usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
 
             String asunto = "CREDENCIAL DE ACCESO";
-            String cuerpo = "Estimado/a "+ nombre +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ nombreUsuario + "\nContraseña: " + contrasena + "\n\nGracias.";
-            enviarEmail.enviarCorreo(correo, asunto, cuerpo);
-        }else{
-            System.out.println("Ya existe este usuario y contraseña para este estudiante");
+            String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
+            enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
+
+            usuarioService.save(usuario);
         }
-
-        return "redirect:/vista-estudiantes";
-    }
-
-    /*CRISTIANA*/
-    @PostMapping(value = "/guardar_estudiante_inicio")
-    public String guardar_estudiante_inicio(@Validated Persona persona, Model model) {
-
         
-
-        personaService.save(persona);
-        
-        return "redirect:/vista-test";
+        return "redirect:/pre_test";
     }
 
     

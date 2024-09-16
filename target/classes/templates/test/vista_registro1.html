@@ -144,17 +144,14 @@
     </header>
     <!-- End Header Area -->
 
-
-
-
     <div class="pb_sm--0 banner-area banner-svg bg-image-svg-1 bg_image rn-section-gap with-down-shadow">
         <div class="container">
             <div class="row g-5 d-flex align-items-center">
                 <div class="col-lg-7 order-lg-1 order-md-2 order-sm-2 order-2">
                     <div class="banner-left-bg-svg">
-                        <h1 class="title" style="text-align: center;">TEST DE ORIENTACIÓN VOCACIONAL</h1>
+                        <h1 class="title" style="text-align: center;">BIENVENIDO AL TEST DE ORIENTACIÓN VOCACIONAL</h1>
                         <p class="disc" style="text-align: center;">
-                            USDJFGSDUIFG
+                            Dale click a :
                         </p>
 
                     </div>
@@ -274,45 +271,44 @@
                             <div class="row">
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Nombres</label>    
-                                    <input type="text" th:field="${persona.nombre}" required>
+                                    <input type="text" th:field="${persona.nombre}" autocomplete="off" style="text-transform: uppercase;" name="nombre" placeholder="INTRODUCE UN NOMBRE" required>
                                 </div>
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Apellido Paterno</label>
-                                    <input type="text" th:field="${persona.paterno}" required>
+                                    <input type="text" th:field="${persona.paterno}" autocomplete="off" style="text-transform: uppercase;" name="paterno" placeholder="INTRODUCE TU APELLLIDO PATERNO" required>
                                 </div>
 
                                 <div class="col-md-4 col-xm-12">
                                     <label for="">Apellido Materno</label>
-                                    <input type="text" th:field="${persona.materno}" required>
+                                    <input type="text" th:field="${persona.materno}" autocomplete="off" style="text-transform: uppercase;" name="materno" placeholder="INTRODUCE TU APELLIDO MATERNO" required>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-3 col-xm-12">
                                     <label for="">Numero de C.I.</label>
-                                    <input type="text" th:field="${persona.ci}" required>
+                                    <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci" placeholder="INTRODUCE UN CI" required>
                                 </div>
                                 <div class="col-md-2 col-xm-12">
                                     <label for="sadsa">Genero</label><br>
-                                    <select class="select">
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
-                                        <option value="O">Otro</option>
+                                    <select class="form-select" name="genero" id="genero">
+                                        <th:block th:each="g : ${generos}">
+                                            <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
 
                                 <div class="col-md-2 col-xm-12">
                                     <label for="sadsa">Nacionalidad</label><br>
-                                    <select class="select">
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
-                                        <option value="O">Otro</option>
+                                    <select class="form-select" name="nacionalidad" id="nacionalidad">
+                                        <th:block th:each="nac : ${nacionalidades}">
+                                            <option th:value="${nac.idNacionalidad}" th:text="${nac.nacionalidad}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
-
-
                                 <div class="col-md-5 col-xm-12">
                                     <label for="">Correo</label>
-                                    <input id="value" type="text" name="value">
+                                    <input id="value" type="email" autocomplete="off" placeholder="INTRODUCE UN CORREO ELECTRONICO VALIDO" name="correo">
                                 </div>
                             </div>
 
@@ -321,18 +317,20 @@
                             <div class="row">
                                 <div class="col-md-6 col-xm-12">
                                     <label for="sadsa">Grado</label><br>
-                                    <select class="select">
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
+                                    <select class="select" name="grado">
+                                        <option value="B">BACHILLER</option>
+                                        <option value="6to">6TO SECUNDARIA</option>
+                                        <option value="5to">5TO SECUNDARIA</option>
+                                        <option value="4to">4TO SECUNDARIA</option>
                                         <option value="O">Otro</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 col-xm-12">
                                     <label for="sadsa">Colegio</label><br>
-                                    <select class="select">
-                                        <option value="M">Masculino</option>
-                                        <option value="F">Femenino</option>
-                                        <option value="O">Otro</option>
+                                    <select class="form-select" name="colegio" id="colegio">
+                                        <th:block th:each="colegio : ${colegios}">
+                                            <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
@@ -350,12 +348,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
-
-
-                    
                 </div>
             </div>
         </div>

@@ -49,4 +49,8 @@ public class Persona extends AuditoriaConfig{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_genero")
     private Genero genero;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_nacionalidad")
+    private Nacionalidad nacionalidad;
 }
