@@ -1,34 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home Seventeen || Nuron - NFT Marketplace Template</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="theme-style-mode" content="1"> <!-- 0 == light, 1 == dark -->
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets_registro/images/favicon.png">
-    <!-- CSS 
-    ============================================ -->
-    <link rel="stylesheet" href="assets_registro/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="assets_registro/css/vendor/slick.css">
-    <link rel="stylesheet" href="assets_registro/css/vendor/slick-theme.css">
-    <link rel="stylesheet" href="assets_registro/css/vendor/nice-select.css">
-    <link rel="stylesheet" href="assets_registro/css/plugins/feature.css">
-    <link rel="stylesheet" href="assets_registro/css/plugins/jquery-ui.min.css">
-    <link rel="stylesheet" href="assets_registro/css/vendor/odometer.css">
-
-    <!-- Style css -->
-    <link rel="stylesheet" href="assets_registro/css/style.css">
-
-
-
-</head>
+<head th:replace="~{layout_test/head :: head}" ></head>
 
 <body class="template-color-1 nft-body-connect">
     <div id="particles-js"></div>
@@ -39,9 +12,9 @@
             <div class="header-inner">
                 <div class="header-left">
                     <div class="logo-thumbnail logo-custom-css">
-                        <a class="logo-light" href="index.html"><img src="assets_registro/images/logo/logo-white.png"
+                        <a class="logo-light" href="/vista-test"><img src="assets_registro/images/logo/logo-white.png"
                                 alt="nft-logo"></a>
-                        <a class="logo-dark" href="index.html"><img src="assets_registro/images/logo/logo-dark.png"
+                        <a class="logo-dark" href="/vista-test"><img src="assets_registro/images/logo/logo-dark.png"
                                 alt="nft-logo"></a>
                     </div>
                     <div class="mainmenu-wrapper">
@@ -352,158 +325,8 @@
     </div>
     </div>
 
+<div th:replace="~{layout_test/script :: script}"></div>
 
-    <!-- JS ============================================ -->
-    <script src="assets_registro/js/vendor/jquery.js"></script>
-    <script src="assets_registro/js/vendor/jquery.nice-select.min.js"></script>
-    <script src="assets_registro/js/vendor/jquery-ui.js"></script>
-    <script src="assets_registro/js/vendor/modernizer.min.js"></script>
-    <script src="assets_registro/js/vendor/feather.min.js"></script>
-    <script src="assets_registro/js/vendor/slick.min.js"></script>
-    <script src="assets_registro/js/vendor/bootstrap.min.js"></script>
-    <script src="assets_registro/js/vendor/sal.min.js"></script>
-    <script src="assets_registro/js/vendor/particles.js"></script>
-    <script src="assets_registro/js/vendor/jquery.style.swicher.js"></script>
-    <script src="assets_registro/js/vendor/js.cookie.js"></script>
-    <script src="assets_registro/js/vendor/count-down.js"></script>
-    <script src="assets_registro/js/vendor/isotop.js"></script>
-    <script src="assets_registro/js/vendor/imageloaded.js"></script>
-    <script src="assets_registro/js/vendor/backtoTop.js"></script>
-    <script src="assets_registro/js/vendor/odometer.js"></script>
-    <script src="assets_registro/js/vendor/jquery-appear.js"></script>
-    <script src="assets_registro/js/vendor/scrolltrigger.js"></script>
-    <script src="assets_registro/js/vendor/jquery.custom-file-input.js"></script>
-    <script src="assets_registro/js/vendor/savePopup.js"></script>
-    <script src="assets_registro/js/vendor/vanilla.tilt.js"></script>
-
-    <!-- main JS -->
-    <script src="assets_registro/js/main.js"></script>
-    <!-- Meta Mask  -->
-    <script src="assets_registro/js/vendor/web3.min.js"></script>
-    <script src="assets_registro/js/vendor/maralis.js"></script>
-    <script src="assets_registro/js/vendor/nft.js"></script>
-    <script>
-        particlesJS('particles-js',
-
-            {
-                "particles": {
-                    "number": {
-                        "value": 40,
-                        "density": {
-                            "enable": true,
-                            "value_area": 1000
-                        }
-                    },
-                    "color": {
-                        "value": ["#7FC7BD", "#ffE7BD",]
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 4
-                        },
-                        "image": {
-                            "src": "img/github.svg",
-                            "width": 100,
-                            "height": 100
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.08,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": false,
-                        "distance": 150,
-                        "color": "#ffffff",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 4,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 800,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true,
-                "config_demo": {
-                    "hide_card": false,
-                    "background_color": "#b61924",
-                    "background_image": "",
-                    "background_position": "50% 50%",
-                    "background_repeat": "no-repeat",
-                    "background_size": "cover"
-                }
-            }
-
-        );
-    </script>
 </body>
 
 </html>
