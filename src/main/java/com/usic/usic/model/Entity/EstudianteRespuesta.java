@@ -6,10 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 import com.usic.usic.config.AuditoriaConfig;
 
@@ -26,6 +24,7 @@ public class EstudianteRespuesta extends AuditoriaConfig{
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
 
-    @OneToMany
-    private List<Respuesta> respuestas;
+    @ManyToOne
+    @JoinColumn(name = "id_respuesta")
+    private Respuesta respuesta;
 }
