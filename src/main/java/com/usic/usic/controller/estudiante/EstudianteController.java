@@ -105,11 +105,6 @@ public class EstudianteController {
             usuario.setPassword(persona.getCi() + "_uap");
             usuario.setEstado("INHABILITADO");
             usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
-
-            String asunto = "CREDENCIAL DE ACCESO";
-            String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
-            enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
-
             usuarioService.save(usuario);
         }
         
@@ -146,14 +141,8 @@ public class EstudianteController {
             usuario.setPassword(persona.getCi() + "_uap");
             usuario.setEstado("INHABILITADO");
             usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
-
-            String asunto = "CREDENCIAL DE ACCESO";
-            String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
-            enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
-
             usuarioService.save(usuario);
         }
-        
         return "redirect:/pre_test";
     }
 
@@ -170,7 +159,12 @@ public class EstudianteController {
             if (persona != null) {
                 Usuario usuario = persona.getUsuario();
                 if (usuario != null) {
-                    usuario.setEstado("ACTIVO");
+                    usuario.setEstado("E");
+
+                    String asunto = "CREDENCIAL DE ACCESO";
+                    String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
+                    enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
+
                     usuarioService.save(usuario);
                     return ResponseEntity.ok().body("Usuario de estudiante habilitado con éxito.");
                 }else{

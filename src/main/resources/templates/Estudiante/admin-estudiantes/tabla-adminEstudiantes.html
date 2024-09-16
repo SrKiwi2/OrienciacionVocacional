@@ -46,6 +46,10 @@
                                             </a> -->
                             
                                             <!-- Botón para Habilitar -->
+                                            <div id="spinner" class="spinner-border" role="status" style="display: none;">
+                                                <span class="visually-hidden">Cargando...</span>
+                                            </div>
+                                            
                                             <a class="btn btn-success" type="button" style="color: aliceblue;"
                                                 th:attr="onclick='habilitarEstudiante(' + ${e.idEstudiante} + ')'">
                                                 Habilitar <!-- Icono de habilitar -->

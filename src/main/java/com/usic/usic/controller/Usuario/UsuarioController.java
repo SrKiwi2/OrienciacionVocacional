@@ -42,10 +42,10 @@ public class UsuarioController {
     public String formularioUsuario(HttpServletRequest request, Model model) {
 
         model.addAttribute("usuarioss", new Usuario());
-        model.addAttribute("roles", rolService);
+        model.addAttribute("roles", rolService.findAll());
+        model.addAttribute("personas", personaService.findAll());
 
         return "Usuario/formulario-usuario";
-       
     }
 
     @GetMapping("/formularioEditUsuario/{idUsuario}")
@@ -60,6 +60,14 @@ public class UsuarioController {
                 model.addAttribute("personas", personas);
         model.addAttribute("edit", "true");
         return "Usuario/formulario-usuario";
+    }
+
+    @PostMapping("/listarUsuarioEstudiante")
+    public String ListarUsuarioEstudiante(HttpServletRequest request, Model model) {
+
+        model.addAttribute("usuarios", usuarioService.findAll());
+
+        return "Usuario/tabla-usuario-estudiante";
     }
 
     @PostMapping("/listarUsuario")

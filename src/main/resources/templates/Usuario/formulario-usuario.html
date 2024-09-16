@@ -11,25 +11,25 @@
                     <input type="hidden" th:field="${usuarioss.idUsuario}">
                 </div>
 
-                <div class="form-group col-md-6 mb-3" >
+                <div class="form-group col-md-12 mb-3" >
                     <label for="usuario">USUARIO</label>
                     <input type="text" id="usuario" class="form-control" th:field="${usuarioss.username}" required>
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-12 mb-3">
                     <label for="categoria">Rol</label>
                     <select class="form-select" name="idRol" id="idRol">
                         
                         <th:block th:each="ro: ${roles}">
-                            <option th:value="${ro.idRol}" th:text="${ro.nombre}" th:selected="${ro.idRol == usuarioss.rol.idRol}"></option>
+                            <option th:value="${ro.idRol}" th:text="${ro.nombre}" th:selected="${usuarioss.rol != null and ro.idRol == usuarioss.rol.idRol}"></option>
                         </th:block>
                     </select>
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="form-group col-md-12 mb-3">
                     <label for="categoria">Persona</label>
                     <select class="form-select" name="idPersona" id="personal">
                         
                         <th:block th:each="p : ${personas}">
-                            <option th:value="${p.idPersona}" th:text="${p.nombre}" th:selected="${p.idPersona == usuarioss.persona.idPersona}"></option>
+                            <option th:value="${p.idPersona}" th:text="${p.nombre}" th:selected="${usuarioss.persona != null and p.idPersona == usuarioss.persona.idPersona}"></option>
                         </th:block>
                     </select>
                 </div>

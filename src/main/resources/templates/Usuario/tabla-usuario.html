@@ -1,9 +1,9 @@
-<section class="content"></section>
+<section class="content">
     <div class="datatables">
         <div class="card">
             <div class="card-body">
                 <p class="card-subtitle mb-3">
-                    Datos de Usuarios vigentes
+                    Datos de Usuarios ADMINISTRADORES vigentes
                 </p>
                 <div class="table-responsive">
                     <table id="file_export"
@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody id="UsuarioTableBody">
-                            <tr th:each="u, index : ${usuarios}">
+                            <tr th:each="u, index : ${usuarios}" th:if="${u.estado == 'ACTIVO'}">
                                 <td th:text="${index.index+1}"></td>
                                 <td th:text="${u.username}"></td>
                                 <td th:text="${u.rol.nombre}"></td>

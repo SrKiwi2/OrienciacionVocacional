@@ -29,6 +29,12 @@
                         </div>
 
                         <div id="TablaUsuario"></div>
+
+                        <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">Lista de Usuarios de Estudiantes registrados</h5>
+                        </div>
+
+                        <div id="TablaUsuarioEstudiante"></div>
                         
                     </div>
                 </div>
@@ -38,6 +44,7 @@
     <script  th:inline="javascript">
 
         cargarTabla();
+        cargarTablaEstudiante();
 
         function cargarTabla() {
             $.ajax({
@@ -45,6 +52,16 @@
                 url: "/listarUsuario",  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
                     $("#TablaUsuario").html(response);  // Actualiza el contenido del div con la respuesta del servidor
+                }
+            });
+        }
+
+        function cargarTablaEstudiante() {
+            $.ajax({
+                type: 'POST',
+                url: "/listarUsuarioEstudiante",  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    $("#TablaUsuarioEstudiante").html(response);
                 }
             });
         }
