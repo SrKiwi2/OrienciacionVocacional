@@ -1,4 +1,4 @@
-<div class="modal-header"></div>
+<div class="modal-header">
     <h5 class="modal-title" th:text="${edit}? 'Modificar Nacionalidad' : 'Registrar Nacionalidad'"></h5>
     <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
 </div>
@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     <label for="nacionalidad">Nacionalidad</label>
-                    <input type="text" id="nacionalidad" class="form-control" th:field="${nacionalidadess.nacionalidad}" required>
+                    <input type="text"class="form-control" th:field="${nacionalidadess.nombreNacionalidad}" required>
                 </div>
             </div>
         </div>

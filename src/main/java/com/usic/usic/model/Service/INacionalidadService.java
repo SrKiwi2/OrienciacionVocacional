@@ -6,5 +6,5 @@ import com.usic.usic.model.Entity.Nacionalidad;
 
 @Service
 public interface INacionalidadService extends IServiceGenerico<Nacionalidad, Long> {
-    Nacionalidad buscarNacionalidad(String nacionalidad);
+    Nacionalidad buscarNacionalidad(String nombreNacionalidad);
 }

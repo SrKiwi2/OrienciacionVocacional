@@ -59,7 +59,7 @@ public class NacionalidadController {
     @PostMapping("/registrarNacionalidad")
     public ResponseEntity<String> RegistrarNacionalidad(HttpServletRequest request, @Validated Nacionalidad nacionalidad) {
 
-        if (nacionalidadService.buscarNacionalidad(nacionalidad.getNacionalidad())  == null) {
+        if (nacionalidadService.buscarNacionalidad(nacionalidad.getNombreNacionalidad())  == null) {
             nacionalidad.setEstado("ACTIVO");
             nacionalidadService.save(nacionalidad);
             return ResponseEntity.ok("Se guardó el registro con éxito");
@@ -71,7 +71,7 @@ public class NacionalidadController {
 
     @PostMapping("/editarNacionalidad")
     public ResponseEntity<String> editarNacionalidad(@Validated Nacionalidad nacionalidad) {
-        if (nacionalidadService.buscarNacionalidad(nacionalidad.getNacionalidad()) == null) {
+        if (nacionalidadService.buscarNacionalidad(nacionalidad.getNombreNacionalidad()) == null) {
             nacionalidad.setEstado("ACTIVO");
             nacionalidadService.save(nacionalidad);
             return ResponseEntity.ok("Se modificó el registro con éxito");

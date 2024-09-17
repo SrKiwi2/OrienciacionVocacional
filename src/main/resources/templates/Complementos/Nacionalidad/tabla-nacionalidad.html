@@ -19,14 +19,14 @@
                         <tbody id="colegiosTableBody">
                             <tr th:each="c, index : ${nacionalidades}">
                                 <td th:text="${index.index+1}"></td>
-                                <td th:text="${c.nacionalidad}"></td>
+                                <td th:text="${c.nombreNacionalidad}"></td>
                                 <td class="text-center">
                                     <div class="btn-group">
                                         <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#registroModal"
                                             th:attr="onclick='cargarModFormulario(\'' + ${c.idNacionalidad} + '\')'"><li class="fas fa-pencil-alt"></li></a>
                                         <a class="btn btn-danger" type="button" style="color: aliceblue;"
-                                            th:attr="onclick='EliminarRegistro(\'' + ${c.idNacionalidad} + '\', \'' + ${c.nacionalidad}+'\')'"><li class="fa-solid fa-trash"></li></a>
+                                            th:attr="onclick='EliminarRegistro(\'' + ${c.idNacionalidad} + '\', \'' + ${c.nombreNacionalidad}+'\')'"><li class="fa-solid fa-trash"></li></a>
                                     </div>
                                 </td>
                             </tr>

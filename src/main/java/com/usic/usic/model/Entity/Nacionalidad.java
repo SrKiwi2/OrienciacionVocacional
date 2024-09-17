@@ -28,5 +28,5 @@ public class Nacionalidad extends AuditoriaConfig{
     private Long idNacionalidad;
 
     @Column(name = "nacionalidad")
-    private String nacionalidad;
+    private String nombreNacionalidad;
 }

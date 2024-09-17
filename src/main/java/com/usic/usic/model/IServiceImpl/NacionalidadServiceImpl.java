@@ -36,8 +36,8 @@ public class NacionalidadServiceImpl implements INacionalidadService {
     }
 
     @Override
-    public Nacionalidad buscarNacionalidad(String nacionalidad) {
-        return nacionalidadDao.findByNacionalidad(nacionalidad);
+    public Nacionalidad buscarNacionalidad(String nombreNacionalidad) {
+        return nacionalidadDao.findByNombreNacionalidad(nombreNacionalidad);
     }
     
 }
