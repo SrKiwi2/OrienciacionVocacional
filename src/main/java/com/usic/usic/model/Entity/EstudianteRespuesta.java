@@ -20,6 +20,8 @@ public class EstudianteRespuesta extends AuditoriaConfig{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEstudianteRespuesta;
 
+    private String complemento;
+
     @ManyToOne
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;

@@ -25,8 +25,4 @@ public class Respuesta extends AuditoriaConfig{
     @ManyToOne
     @JoinColumn(name = "id_pregunta")
     private Pregunta pregunta;
-
-    @ManyToOne
-    @JoinColumn(name = "id_complemento")
-    private Complemento complemento;
 }
