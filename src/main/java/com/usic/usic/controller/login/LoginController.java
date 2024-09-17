@@ -51,7 +51,7 @@ public class LoginController {
             return "redirect:/vista-administrador";
 
         } else {
-            return "redirect:/form-login";
+            return "redirect:/vista-test";
         }
     }
 
@@ -68,6 +68,6 @@ public class LoginController {
 
             flash.addAttribute("validado", "Se cerro sesion con exito");
         }
-        return "redirect:/form-login";
+        return "redirect:/vista-test";
     }
 }
