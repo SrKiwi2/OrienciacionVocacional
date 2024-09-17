@@ -6,12 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.usic.usic.anotaciones.ValidarUsuarioAutenticado;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.INacionalidadService;
 import com.usic.usic.model.Service.IPersonaService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class TestController {
@@ -42,9 +45,12 @@ public class TestController {
         return "test/vista_registro1";
     }
 
+    @ValidarUsuarioAutenticado
     @GetMapping(value = "/tipo_test")
-    public String tipo_test(Model model) {
-
+    public String tipo_test(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
         return "test/tipo_test";
     }
 }
