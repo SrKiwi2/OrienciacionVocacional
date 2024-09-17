@@ -20,12 +20,6 @@ public class LoginController {
     @Autowired
     private IUsuarioService  usuarioService;
 
-    @GetMapping(value = "/form-login")
-    public String formLogin(Persona persona) {
-
-        return "login/login.html";
-    }
-
     @PostMapping("/iniciar-sesion")
     public String iniciarSesion(@RequestParam(value = "usuario") String user,
                             @RequestParam(value = "contrasena") String contrasena, 
