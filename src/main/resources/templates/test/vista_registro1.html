@@ -122,7 +122,7 @@
                                 <label for="sadsa">Nacionalidad</label><br>
                                 <select class="form-select" name="nacionalidad" id="nacionalidad">
                                     <th:block th:each="nac : ${nacionalidades}">
-                                        <option th:value="${nac.idNacionalidad}" th:text="${nac.nacionalidad}"></option>
+                                        <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
                                     </th:block>
                                 </select>
                             </div>
