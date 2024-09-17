@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.usic.usic.model.Entity.Estudiante;
+import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.dao.IEstudianteDao;
 
@@ -33,6 +34,11 @@ public class EstudianteServiceimpl implements IEstudianteService{
     @Override
     public void deleteById(Long idEntidad) {
         estudianteDao.deleteById(idEntidad);
+    }
+
+    @Override
+    public Estudiante findByPersona(Persona persona) {
+        return estudianteDao.findByPersonaId(persona.getIdPersona());
     }
     
 }

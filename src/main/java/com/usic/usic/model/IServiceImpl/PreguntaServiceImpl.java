@@ -1,6 +1,7 @@
 package com.usic.usic.model.IServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class PreguntaServiceImpl implements IPreguntaService{
     public void deleteById(Long idEntidad) {
         // TODO Auto-generated method stub
         preguntaDao.deleteById(idEntidad); //
+    }
+
+    @Override
+    public Optional<Long> findMaxRespuestaOrMinPregunta(Long idEstudiante, Long id_tipo_test) {
+        return Optional.ofNullable(preguntaDao.findMaxRespuestaOrMinPregunta(idEstudiante, id_tipo_test));
     }
     
 }
