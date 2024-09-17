@@ -18005,10 +18005,10 @@ button .small-image {
   margin: -15px;
 }
 .product-style-one .card-thumbnail a img {
+  margin-left: 0%;
   border-radius: 5px;
   object-fit: cover;
-  width: 100%;
-  height: auto;
+  width: 900%;
   transition: 0.5s;
 }
 .product-style-one .card-thumbnail::before {
@@ -18041,6 +18041,7 @@ button .small-image {
   margin-top: 10px;
 }
 .product-style-one .bid-react-area {
+  text-align: center;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -24162,3 +24163,4 @@ body.active-light-mode {
   background-image: linear-gradient(to top, #0c0c2100 0%, #edf0f2ab 87%);
 }
 /*# sourceMappingURL=../maps/style.css.map */
+

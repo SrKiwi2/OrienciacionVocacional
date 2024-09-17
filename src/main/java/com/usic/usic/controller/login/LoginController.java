@@ -20,6 +20,12 @@ public class LoginController {
     @Autowired
     private IUsuarioService  usuarioService;
 
+    @GetMapping(value = "/form-login")
+    public String formLogin(Persona persona) {
+
+        return "login/login.html";
+    }
+
     @PostMapping("/iniciar-sesion")
     public String iniciarSesion(@RequestParam(value = "usuario") String user,
                             @RequestParam(value = "contrasena") String contrasena, 
@@ -51,8 +57,7 @@ public class LoginController {
             return "redirect:/vista-administrador";
 
         } else {
-            flash.addFlashAttribute("error", "Usuario o contraseña incorrectos.");
-            return "redirect:/vista-test";
+            return "redirect:/form-login";
         }
     }
 
@@ -69,6 +74,6 @@ public class LoginController {
 
             flash.addAttribute("validado", "Se cerro sesion con exito");
         }
-        return "redirect:/vista-test";
+        return "redirect:/form-login";
     }
 }
