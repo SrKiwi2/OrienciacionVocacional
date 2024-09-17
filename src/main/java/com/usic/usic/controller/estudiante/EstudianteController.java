@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
@@ -25,6 +26,7 @@ import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class EstudianteController {
@@ -111,8 +113,9 @@ public class EstudianteController {
     @PostMapping(value = "/guardar_estudiante_inicio")
     public String guardar_estudiante_inicio(@Validated Persona persona,
                                             @RequestParam("grado") String grado,
-                                            @RequestParam("colegio") Long idColegio,
-                                             Model model) {
+                                            @RequestParam("colegio") Long idColegio, 
+                                            Model model,HttpServletRequest request
+                                            ,RedirectAttributes flash) {
         persona.setNombre(persona.getNombre().toUpperCase());
         persona.setPaterno(persona.getPaterno().toUpperCase());
         persona.setMaterno(persona.getMaterno().toUpperCase());
@@ -140,6 +143,14 @@ public class EstudianteController {
             usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
             usuarioService.save(usuario);
         }
+
+        HttpSession sessionAdministrador = request.getSession(true);
+        sessionAdministrador.setAttribute("usuario", usuario);
+        sessionAdministrador.setAttribute("persona", usuario.getPersona());
+        sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+
+        flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
+
         return "redirect:/pre_test";
     }
 

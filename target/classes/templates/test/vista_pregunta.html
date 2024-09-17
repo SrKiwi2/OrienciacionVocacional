@@ -13,12 +13,7 @@
             <div class="row g-5  d-flex justify-content-center ">
                 <div class="col-lg-7">
                     <div class="create-collection">
-                        <th:block th:if="${pregunta.id_pregunta != session.totalPreguntas}">
                             <form th:action="${'../../../ControlF/'+pregunta.id_pregunta}" method="POST">
-                        </th:block>
-                        <th:block th:if="${pregunta.id_pregunta == session.totalPreguntas}">
-                            <form th:action="${'../../../Control1F/'+pregunta.id_pregunta}" method="POST">
-                        </th:block>
                             <input type="hidden" name="realiza"  th:value="${session.realiza.id_realiza}">
                             <input type="hidden" name="estudiante" th:value="${session.estudiante.id_estudiante}">
                             
