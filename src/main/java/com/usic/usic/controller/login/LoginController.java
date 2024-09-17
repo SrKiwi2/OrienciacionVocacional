@@ -34,36 +34,34 @@ public class LoginController {
                             Model model, HttpServletRequest request,
                             RedirectAttributes flash) {
 
-        // Recupera el usuario por nombre de usuario
         Usuario usuario = usuarioService.getUsuarioPassword(user, contrasena);
 
         if (usuario != null) {
-                if (usuario.getEstado().equals("INHABILITADO")) {
-                    System.out.println("NO ESTA ACTIVO ESTE USUARIO");
-                    return "redirect:/form-login";
-                    
-                }
-                if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
-                    flash.addAttribute("success", usuario.getPersona().getNombre());
-                    System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
-                    return "redirect:/tipo_test";  // Redirige a la vista para estudiantes
-                }
-            
-                HttpSession sessionAdministrador = request.getSession(true);
-                sessionAdministrador.setAttribute("usuario", usuario);
-                sessionAdministrador.setAttribute("persona", usuario.getPersona());
-                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+            if (usuario.getEstado().equals("INHABILITADO")) {
+                System.out.println("NO ESTA ACTIVO ESTE USUARIO");
+                return "redirect:/vista-test";
+                
+            }
 
+            if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
                 flash.addAttribute("success", usuario.getPersona().getNombre());
-                System.out.println("LA PERSONA " + usuario.getPersona().getNombre() + " " + usuario.getPersona().getPaterno() + " " + usuario.getPersona().getMaterno() + " HA INICIADO SESIÓN");
+                System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
+                return "redirect:/tipo_test";  // Redirige a la vista para estudiantes
+            }
+        
+            HttpSession sessionAdministrador = request.getSession(true);
+            sessionAdministrador.setAttribute("usuario", usuario);
+            sessionAdministrador.setAttribute("persona", usuario.getPersona());
+            sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+            flash.addAttribute("success", usuario.getPersona().getNombre());
 
-                return "redirect:/vista-administrador";
+            System.out.println("LA PERSONA " + usuario.getPersona().getNombre() + " " + usuario.getPersona().getPaterno() + " " + usuario.getPersona().getMaterno() + " HA INICIADO SESIÓN");
+
+            return "redirect:/vista-administrador";
             
-
         } else {
-            return "redirect:/form-login";
+            return "redirect:/vista-test";
         }
-
     }
 
     @RequestMapping("/cerrar_sesion")
@@ -75,6 +73,6 @@ public class LoginController {
             flash.addAttribute("validado", "Se cerro sesion con exito");
             System.out.println("LA PERSONA "+usuarioLogueado.getPersona().getNombre()+" "+usuarioLogueado.getPersona().getPaterno()+" "+usuarioLogueado.getPersona().getMaterno()+ " HA CERRADO SESIÓN");
         }
-        return "redirect:/form-login";
+        return "redirect:/vista-test";
     }
 }
