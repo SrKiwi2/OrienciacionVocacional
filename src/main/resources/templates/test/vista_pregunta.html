@@ -6,7 +6,7 @@
 <body class="template-color-1 with-particles">
     <div id="particles-js"></div>
 
-    <div class="creat-collection-area pt--80">
+    <div class="creat-collection-area pt--80 pb--80">
         <div class="container">
             <div class="row g-5  d-flex justify-content-center ">
                 <div class="col-lg-7">
@@ -25,22 +25,43 @@
                                         </div>
                                         <a href="#"><span class="product-name" th:text="${pregunta.pregunta}" ></span></a>
 
-                                        <th:block th:each="r : ${respuestas}">
+                                        <nav class="left-nav rbt-sticky-top-adjust-five">
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b th:text="${r.respuesta}"></b></button>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input name="contact-name" id="contact-name" type="text" value="Mr.">
+                                                        </div>
+                                                    </div>
+                                                </th:block>
+                                            </div>
+                                        </nav>
+
+                                        <!-- <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                             <div class="row">
                                                 <div class="col-12 pt-5">
-                                                    <div class="single-odometer banner pt-5">
-                                                        
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="respuesta" th:id="${r.id_respuesta}" th:value="${r.id_respuesta}" required>
-                                                            <label class="form-check-label" th:for="${r.id_respuesta}">
-                                                                <h4 th:text="${r.descripcion}"></h4>
-                                                            </label>
+                                                    <nav class="tab-button-one">
+                                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                                                            <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Bids</button>
+                                                            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Details</button>
+                                                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">History</button>
                                                         </div>
-                                                        
-                                                    </div>
+                                                    </nav>
                                                 </div>
                                             </div>
-                                        </th:block>
+                                        </th:block> -->
+
+
+
+
+
+
+
+                                        
                                         <!-- <div class="bid-react-area">
                                         </div>
                                         <div class="row d-flex justify-content-center">

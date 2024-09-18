@@ -63,6 +63,15 @@ public class PreTestController {
         model.addAttribute("registro_pre_test", new EstudianteRespuesta());
         return "test/vista_pregunta";
     } 
+
+
+    @GetMapping("/pre_test_prueba")
+    public String pre_test_prueba(Model model, HttpSession session) {
+
+        
+        return "test/pruebas/vista_test_prueba";
+    } 
+
 }
 
 

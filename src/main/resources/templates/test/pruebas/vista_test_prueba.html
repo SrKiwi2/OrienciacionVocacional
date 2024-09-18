@@ -11,7 +11,7 @@
             <div class="row g-5  d-flex justify-content-center ">
                 <div class="col-lg-7">
                     <div class="create-collection">
-                            <form th:action="${'../../../ControlF/'+pregunta.idPregunta}" method="POST">
+                            <form  method="POST">
                             
                             <!-- <input type="hidden" name="estudiante" th:value="${session.estudiante.id_estudiante}"> -->
                             
@@ -20,23 +20,27 @@
                                     <div class="product-style-one no-overlay">
                                         <div class="product-share-wrapper">
                                             <div class="profile-share">
-                                                <h1 th:text="${'Pregunta'+' '+pregunta.idPregunta}"></h1>
+                                                <h1>pregunta 1</h1>
                                             </div>
                                         </div>
                                         <a href="#"><span class="product-name" th:text="${pregunta.pregunta}" ></span></a>
 
                                         <nav class="left-nav rbt-sticky-top-adjust-five">
                                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b th:text="${r.respuesta}"></b></button>
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b>Hace muchos años, desde pequeño/a</b></button>
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b>Al comenzar la secundaria</b></button>
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b>A la mitad de la secundaria</b></button>
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b>Este año</b></button>
+                                                            <button class="nav-link" type="button" style="width: 100%;" ><i class="feather-edit"></i><b>Aún no le he pensado</b></button>
                                                         </div>
                                                         <div class="col-6">
                                                             <input name="contact-name" id="contact-name" type="text" value="Mr.">
                                                         </div>
                                                     </div>
-                                                </th:block>
+                                                
                                             </div>
                                         </nav>
 
