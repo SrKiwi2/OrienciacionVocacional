@@ -144,12 +144,12 @@ public class EstudianteController {
             usuarioService.save(usuario);
         }
 
-        HttpSession sessionAdministrador = request.getSession(true);
-        sessionAdministrador.setAttribute("usuario", usuario);
-        sessionAdministrador.setAttribute("persona", usuario.getPersona());
-        sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+        // HttpSession sessionAdministrador = request.getSession(true);
+        // sessionAdministrador.setAttribute("usuario", usuario);
+        // sessionAdministrador.setAttribute("persona", usuario.getPersona());
+        // sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
 
-        flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
+        // flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
 
         return "redirect:/vista-test"; //aqui va al pre test, parapresnetar lo cambie---- k
     }
