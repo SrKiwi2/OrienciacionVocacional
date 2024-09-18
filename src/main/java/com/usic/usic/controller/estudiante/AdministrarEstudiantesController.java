@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Service.IColegioService;
@@ -36,10 +37,9 @@ public class AdministrarEstudiantesController {
         return "Estudiante/admin-estudiantes/adm_estudiante";
     }
 
-    @GetMapping("/estudiante/{idEstudiante}")
-    public String verDatosEstudiante(@PathVariable Long idEstudiante, Model model) {
-        Estudiante estudiante = estudianteService.findById(idEstudiante);  // Asumiendo que tienes un servicio que encuentra al estudiante por ID
-        model.addAttribute("estudiante", estudiante);
-        return "vistaConModal";  // Nombre de tu plantilla HTML
+    @GetMapping("/datos/{idEstudiante}")
+    @ResponseBody
+    public Estudiante getDatosEstudiante(@PathVariable("idEstudiante") Long idEstudiante) {
+        return estudianteService.findById(idEstudiante);
     }
 }

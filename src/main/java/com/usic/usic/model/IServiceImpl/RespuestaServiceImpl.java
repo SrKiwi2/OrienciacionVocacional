@@ -3,11 +3,13 @@ package com.usic.usic.model.IServiceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.dao.IRespuestaDao;
 
+@Service
 public class RespuestaServiceImpl implements IRespuestaService{
 
     @Autowired

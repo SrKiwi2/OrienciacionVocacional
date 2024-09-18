@@ -110,51 +110,51 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                       
                         <div class="form-group col-md-3 mb-3">
                             <label>Nombres</label>
-                            
+                            <p id="nombres"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Apellido Paterno</label>
-                            
+                            <p id="apellidoPaterno"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Apellido Materno</label>
-                            
+                            <p id="apellidoMaterno"></p>
                         </div>
                     </div>
-    
+                
                     <div class="row">
                         <div class="form-group col-md-3 mb-3">
                             <label>C.I.</label>
-                            
+                            <p id="ci"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Correo</label>
-                            
+                            <p id="correo"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Género</label>
-                           
+                            <p id="genero"></p>
                         </div>
                     </div>
-    
+                
                     <div class="row">
                         <div class="form-group col-md-3 mb-3">
                             <label>Nacionalidad</label>
-
+                            <p id="nacionalidad"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Colegio</label>
-                            
+                            <p id="colegio"></p>
                         </div>
                         <div class="form-group col-md-3 mb-3">
                             <label>Grado</label>
-                            
+                            <p id="grado"></p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="button"
                         class="btn bg-danger-subtle text-danger  waves-effect text-start"
@@ -168,7 +168,29 @@
     <!-- FIN MODALS -->
 
     <script>
-        
+        function cargarModFormulario(idEstudiante) {
+            $.ajax({
+                url: '/datos/' + idEstudiante,
+                type: 'GET',
+                success: function(estudiante) {
+                    $('#staticBackdrop').modal('show');
+                    // Rellena los campos del modal con los datos del estudiante
+                    $('#nombres').text(estudiante.persona.nombres);
+                    $('#apellidoPaterno').text(estudiante.persona.apellidoPaterno);
+                    $('#apellidoMaterno').text(estudiante.persona.apellidoMaterno);
+                    $('#ci').text(estudiante.persona.ci);
+                    $('#correo').text(estudiante.persona.correo);
+                    $('#genero').text(estudiante.persona.genero.nombreGenero);
+                    $('#nacionalidad').text(estudiante.persona.nacionalidad.nombreNacionalidad);
+                    $('#colegio').text(estudiante.colegio.nombreColegio);
+                    $('#grado').text(estudiante.grado);
+                },
+                error: function() {
+                    alert('Error al cargar los datos del estudiante');
+                }
+            });
+        }
+
     </script>
     
     <div th:replace="~{layout/script :: script}"></div>
