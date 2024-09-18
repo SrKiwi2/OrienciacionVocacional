@@ -29,18 +29,11 @@ public class LoginController {
         Usuario usuario = usuarioService.getUsuarioPassword(user, contrasena);
 
         if (usuario != null) {
+
             if (usuario.getEstado().equals("INHABILITADO")) {
                 System.out.println("NO ESTA ACTIVO ESTE USUARIO");
-                return "redirect:/vista-test"; 
-            }else{
-                HttpSession sessionAdministrador = request.getSession(true);
-                sessionAdministrador.setAttribute("usuario", usuario);
-                sessionAdministrador.setAttribute("persona", usuario.getPersona());
-                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
-                flash.addAttribute("success", usuario.getPersona().getNombre());
+                return "redirect:/vista-test";
             }
-
-            
 
             if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
 
@@ -51,12 +44,17 @@ public class LoginController {
                 flash.addAttribute("success", usuario.getPersona().getNombre());
                 
                 System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
-
                 return "redirect:/tipo_test";
+
+            }else{
+                HttpSession sessionAdministrador = request.getSession(true);
+                sessionAdministrador.setAttribute("usuario", usuario);
+                sessionAdministrador.setAttribute("persona", usuario.getPersona());
+                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
+                System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como administrador.");
+                return "redirect:/vista-administrador";
             }
-        
-            System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como administrador.");
-            return "redirect:/vista-administrador";
 
         } else {
             return "redirect:/vista-test";
