@@ -32,15 +32,23 @@ public class LoginController {
             if (usuario.getEstado().equals("INHABILITADO")) {
                 System.out.println("NO ESTA ACTIVO ESTE USUARIO");
                 return "redirect:/vista-test"; 
+            }else{
+                HttpSession sessionAdministrador = request.getSession(true);
+                sessionAdministrador.setAttribute("usuario", usuario);
+                sessionAdministrador.setAttribute("persona", usuario.getPersona());
+                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
             }
 
-            HttpSession sessionAdministrador = request.getSession(true);
-            sessionAdministrador.setAttribute("usuario", usuario);
-            sessionAdministrador.setAttribute("persona", usuario.getPersona());
-            sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
-            flash.addAttribute("success", usuario.getPersona().getNombre());
+            
 
             if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
+
+                HttpSession sessionEstudiantes = request.getSession(true);
+                sessionEstudiantes.setAttribute("usuario", usuario);
+                sessionEstudiantes.setAttribute("persona", usuario.getPersona());
+                sessionEstudiantes.setAttribute("nombre_rol", usuario.getRol().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
                 
                 System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
 
