@@ -21031,7 +21031,6 @@ tbody.ranking tr td .thumbnail img {
   }
 }
 .left-nav .nav.nav-tabs {
-  border-bottom: none;
   display: flex;
   flex-wrap: wrap;
   transition: var(--transition);
@@ -21045,7 +21044,7 @@ tbody.ranking tr td .thumbnail img {
   color: var(--color-white);
   padding: 12px 13px;
   position: relative;
-  margin: 6px;
+  margin: 0px;
   border-radius: 6px;
   border: 1px dashed var(--color-border);
   transition: 0.4s;

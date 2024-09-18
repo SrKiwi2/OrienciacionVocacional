@@ -28,28 +28,42 @@
             <div class="row d-flex justify-content-center ">
                 <div class="col-lg-7">
                     <div class="create-collection">
-                            <form th:action="${'../../../ControlF/'+pregunta.idPregunta}" method="POST">
-                            
-                            <div class="row">
-                                <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class=" col-12 ">
+                            <form  method="POST">
+                                <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class="col-12">
                                     <div class="product-style-one no-overlay">
-                                        <div class="product-share-wrapper">
-                                            <div class="profile-share">
-                                                <h1 th:text="${pregunta.pregunta}"></h1>
+                                        <a href="#"><span class="product-name" ></span></a>
+
+                                        <div class="rn-comment-form pt--10">
+                                            <div class="inner">
+                                                <div class="section-title">
+                                                    <h2 class="title text-center">Leave a Reply</h2>
+                                                </div>
+                                                <form class="mt--40" action="#">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-12 col-12">
+                                                            <div class="rnform-group"><input type="text" placeholder="Name"></div>
+                                                            <div class="rnform-group"><input type="email" placeholder="Email"></div>
+                                                            <div class="rnform-group"><input type="text" placeholder="Website"></div>
+                                                            <div class="rnform-group"><input type="text" placeholder="Website"></div>
+                                                            <div class="rnform-group"><input type="text" placeholder="Website"></div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-12 col-12">
+                                                            <div class="rnform-group" style="height: 200%;"><textarea placeholder="Comment"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="blog-btn">
+                                                                <a class="btn btn-primary-alta btn-large w-100" href="#"><span>SEND
+                                                                        MESSAGE</span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <hr>
 
-                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                                            
-                                                <div class="row">
-                                                        
-                                                </div>
-                                            
-                                        </th:block>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>
