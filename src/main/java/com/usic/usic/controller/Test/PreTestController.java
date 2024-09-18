@@ -16,6 +16,7 @@ import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IPreguntaService;
+import com.usic.usic.model.Service.IRespuestaService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,6 +32,9 @@ public class PreTestController {
 
     @Autowired
     private IEstudianteService estudianteService;
+
+    @Autowired
+    private IRespuestaService respuestaService;
     
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
@@ -42,13 +46,15 @@ public class PreTestController {
 
         Optional<Long> idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
+        System.out.println(idPregunta);
+
         if (idPregunta.isPresent()) {
 
             Pregunta pregunta = preguntaService.findById(idPregunta.get());
             
             model.addAttribute("pregunta", pregunta);
-
-            System.out.println("Primera pregunta para el estudiante: " + pregunta.getPregunta());
+            model.addAttribute("respuestas",  respuestaService.findAll());
+            
         } else {
 
             model.addAttribute("pregunta", "No hay preguntas disponibles.");

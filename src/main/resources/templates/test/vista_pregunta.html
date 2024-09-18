@@ -6,26 +6,24 @@
 <body class="template-color-1 with-particles">
     <div id="particles-js"></div>
 
-    <header th:replace="layout/layoutVistaTest :: headerVistaTest"></header>
-
     <div class="creat-collection-area pt--80">
         <div class="container">
             <div class="row g-5  d-flex justify-content-center ">
                 <div class="col-lg-7">
                     <div class="create-collection">
-                            <form th:action="${'../../../ControlF/'+pregunta.id_pregunta}" method="POST">
-                            <input type="hidden" name="realiza"  th:value="${session.realiza.id_realiza}">
-                            <input type="hidden" name="estudiante" th:value="${session.estudiante.id_estudiante}">
+                            <form th:action="${'../../../ControlF/'+pregunta.idPregunta}" method="POST">
+                            
+                            <!-- <input type="hidden" name="estudiante" th:value="${session.estudiante.id_estudiante}"> -->
                             
                             <div class="row">
                                 <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class=" col-12 ">
                                     <div class="product-style-one no-overlay">
                                         <div class="product-share-wrapper">
                                             <div class="profile-share">
-                                                <h1 th:text="${'Pregunta'+' '+pregunta.id_pregunta}"></h1>
+                                                <h1 th:text="${'Pregunta'+' '+pregunta.idPregunta}"></h1>
                                             </div>
                                         </div>
-                                        <a href="#"><span class="product-name" th:text="${pregunta.descripcion}" ></span></a>
+                                        <a href="#"><span class="product-name" th:text="${pregunta.pregunta}" ></span></a>
 
                                         <th:block th:each="r : ${respuestas}">
                                             <div class="row">
@@ -43,7 +41,7 @@
                                                 </div>
                                             </div>
                                         </th:block>
-                                        <div class="bid-react-area">
+                                        <!-- <div class="bid-react-area">
                                         </div>
                                         <div class="row d-flex justify-content-center">
                                             <th:block th:if="${pregunta.id_pregunta == session.totalPreguntas}">
@@ -58,13 +56,11 @@
                                                 </div>
                                             </th:block>
                                             
-                                        </div>
+                                        </div> -->
                                         
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!--<button class="btn btn-primary" type="submit">Continuar</button>-->
                         </form>
                     </div>
                     <!--<div class="form-check">
