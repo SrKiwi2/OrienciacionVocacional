@@ -5,25 +5,19 @@
 
 <body>
     <!-- Preloader -->
-    <div th:replace="~{layout/preloader :: preloader}"></div>
+    <!-- <div th:replace="~{layout/preloader :: preloader}"></div> -->
     <div id="main-wrapper">
         <!-- Sidebar Start -->
-        <aside th:replace="~{layout/sidebar :: sidebar}"></aside>
+        <!-- <aside th:replace="~{layout/sidebar :: sidebar}"></aside> -->
         <!--  Sidebar End -->
-        <div class="page-wrapper">
+        <div class="">
             <!-- TopBar Start -->
-            <header th:replace="~{layout/topbar :: topbar}"></header>
+            <!-- <header th:replace="~{layout/topbar :: topbar}"></header> -->
             <!-- TopBar End -->
 
             <!-- Body Start -->
-            <div class="body-wrapper">
+            <div class="">
                 <div class="container-fluid mw-100">
-
-                    <!-- Card de presentación -->
-                    <div
-                        th:replace="~{layout/card-modulo :: cardFragment('Bienvenido al Sistema de Administración de postulantes', 'Inicio', '/buscar-postulantes', 'Inicio')}">
-                    </div>
-                    <!-- Card de presentación -->
 
                     <div class="row">
                         <div class="card">
@@ -32,7 +26,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form action="/guardar_estudiante_adm" method="post">
+                                <form action="/guardar_estudiante_adm" id="FormularioRegistrar" method="POST">
                                     <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
                                     <div class="row">
                                         <div class="form-group col-md-3 mb-3">
@@ -121,7 +115,50 @@
     </div>
 
     <script>
+
         cargarTabla();
+
+        $(document).ready(function () {
+            $('#FormularioRegistrar').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("FormularioRegistrar");
+                var action = form.action;
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (mensaje) {
+                        
+                        if (mensaje === 'registrado') {
+                            cargarTabla();
+
+                            Swal.fire({
+                                title: 'Registrado!',
+                                text: "Se ha Registrado el Costo Correctamente.",
+                                icon: 'success',
+                                didClose: function () {
+                                    $('#botonCerrarModal').click();
+                                }
+                            });
+                        }
+                        if (mensaje === 'registrado') {
+                            Swal.fire(
+                                mensaje === 'registrado' ? 'Registrado!' : 'Cambios Guardados!',
+                                'success'
+                            );
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                    }
+                });
+            });
+        });
 
         function cargarTabla() {
             $.ajax({
@@ -247,7 +284,7 @@
         }
     </script>
     
-    <div th:replace="~{layout/script :: script}"></div>
+    <!-- <div th:replace="~{layout/script :: script}"></div> -->
 </body>
 
 </html>

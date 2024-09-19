@@ -75,7 +75,7 @@ public class EstudianteController {
     }
 
     @PostMapping(value = "/guardar_estudiante_adm")
-    public String guardar_estudiante_adm(@Validated Persona persona,
+    public ResponseEntity<String> guardar_estudiante_adm(@Validated Persona persona,
                                             @RequestParam("grado") String grado,
                                             @RequestParam("colegio") Long idColegio,
                                              Model model) {
@@ -107,7 +107,7 @@ public class EstudianteController {
             usuarioService.save(usuario);
         }
         
-        return "redirect:/vista-estudiantes";
+        return ResponseEntity.ok("Registrado");
     }
 
     @PostMapping(value = "/guardar_estudiante_inicio")

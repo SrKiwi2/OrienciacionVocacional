@@ -6,55 +6,68 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <div class="row">
+    <div class="modal-body">
+        <form action="" id="mostraEditEstudiante" method="POST" th:action="${edit} ?@{/editarEstudianteVista}">
+            <input type="hidden" th:field="${estudiantess.idEstudiante}">
+            <div class="row">
+                <div class="form-group col-md-3 mb-3">
+                    <label for="nombre">Nombre Estudiante</label>
+                    <input class="form-control" id="nombre" th:field="${estudiantess.persona.nombre}" readonly>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="paterno">Apellido Paterno</label>
+                    <input class="form-control" id="paterno" th:field="${estudiantess.persona.paterno}" readonly>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="materno">Apellido Materno</label>
+                    <input class="form-control" id="materno" th:field="${estudiantess.persona.materno}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4 mb-3">
+                    <label for="ci">Ci</label>
+                    <input class="form-control" id="ci" th:field="${estudiantess.persona.ci}" readonly>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="genero">Genero</label><br>
+                    <select class="form-select" id="genero">
+                        <th:block th:each="g : ${generos}">
+                            <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="correo">Correo Electronico</label>
+                    <input class="form-control" id="correo" th:field="${estudiantess.persona.correo}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3 mb-3">
+                    <label for="nacionalidad">Nacionalidad</label><br>
+                    <select class="form-select" id="nacionalidad">
+                        <th:block th:each="nac : ${nacionalidades}">
+                            <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="colegio">Colegio</label><br>
+                    <select class="form-select" id="colegio">
+                        <th:block th:each="col : ${colegioss}">
+                            <option th:value="${col.idColegio}" th:text="${col.nombreColegio}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                    <label for="grado">Grado</label>
+                    <input class="form-control" id="grado" th:field="${estudiantess.grado}" readonly>
+                </div>
+            </div>
 
-        <div class="form-group col-md-3 mb-3">
-            <label>Nombres</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Apellido Paterno</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Apellido Materno</label>
-
-        </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" th:text="${edit} ? 'Guardar Cambios'" style="display: none;"></button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
     </div>
-
-    <div class="row">
-        <div class="form-group col-md-3 mb-3">
-            <label>C.I.</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Correo</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Género</label>
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-md-3 mb-3">
-            <label>Nacionalidad</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Colegio</label>
-
-        </div>
-        <div class="form-group col-md-3 mb-3">
-            <label>Grado</label>
-
-        </div>
-    </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn bg-danger-subtle text-danger  waves-effect text-start"
-        data-bs-dismiss="modal">
-        Close
-    </button>
 </div>
