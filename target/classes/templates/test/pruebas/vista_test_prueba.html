@@ -66,12 +66,9 @@
             </div>
         </div>
         <script>
-            // Seleccionar todos los checkboxes y asociar eventos
             document.querySelectorAll('.checkbox-input').forEach(function(checkbox, index) {
-                // Obtener el input correspondiente al checkbox (usamos index para emparejar)
                 const input = document.querySelectorAll('.form-control')[index];
                 
-                // Añadir evento change a cada checkbox
                 checkbox.addEventListener('change', function() {
                     if (this.checked) {
                         input.disabled = false;
