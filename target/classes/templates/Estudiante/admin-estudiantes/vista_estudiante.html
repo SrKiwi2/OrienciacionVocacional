@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="card-body">
-                                <form action="/guardar_estudiante_adm" id="FormularioRegistrar" method="POST">
+                                <form id="FormularioRegistrar" action="/guardar_estudiante_adm"  method="POST">
                                     <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
                                     <div class="row">
                                         <div class="form-group col-md-3 mb-3">
@@ -138,18 +138,12 @@
 
                             Swal.fire({
                                 title: 'Registrado!',
-                                text: "Se ha Registrado el Costo Correctamente.",
+                                text: "Se ha Registrado el Estudiante Correctamente.",
                                 icon: 'success',
                                 didClose: function () {
                                     $('#botonCerrarModal').click();
                                 }
                             });
-                        }
-                        if (mensaje === 'registrado') {
-                            Swal.fire(
-                                mensaje === 'registrado' ? 'Registrado!' : 'Cambios Guardados!',
-                                'success'
-                            );
                         }
                     },
                     error: function (xhr, status, error) {

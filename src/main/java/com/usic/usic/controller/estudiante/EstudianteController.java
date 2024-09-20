@@ -107,7 +107,7 @@ public class EstudianteController {
             usuarioService.save(usuario);
         }
         
-        return ResponseEntity.ok("Registrado");
+        return ResponseEntity.ok("registrado");
     }
 
     @PostMapping(value = "/guardar_estudiante_inicio")
