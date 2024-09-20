@@ -7,23 +7,24 @@
 </div>
 <div class="modal-body">
     <div class="row">
+        <input type="hidden" th:field="${estudiante.idEstudiante}">
         <div class="form-group col-md-3 mb-3">
             <label for="nombre">Nombre Estudiante</label>
-            <input class="form-control" id="nombre" name="nombre" readonly>
+            <input class="form-control" id="nombre" th:field="${estudiante.persona.nombre}" readonly>
         </div>
         <div class="form-group col-md-4 mb-3">
             <label for="paterno">Apellido Paterno</label>
-            <input class="form-control" id="paterno" name="paterno" readonly>
+            <input class="form-control" id="paterno" th:field="${estudiante.persona.paterno}" readonly>
         </div>
         <div class="form-group col-md-4 mb-3">
             <label for="materno">Apellido Materno</label>
-            <input class="form-control" id="materno" name="materno" readonly>
+            <input class="form-control" id="materno" th:field="${estudiante.persona.materno}" readonly>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-md-4 mb-3">
             <label for="ci">Ci</label>
-            <input class="form-control" id="ci" name="" readonly>
+            <input class="form-control" id="ci" th:field="${estudiante.persona.ci}" readonly>
         </div>
         <div class="form-group col-md-4 mb-3">
             <label for="genero">Genero</label><br>
@@ -35,7 +36,7 @@
         </div>
         <div class="form-group col-md-6 mb-3">
             <label for="correo">Correo Electronico</label>
-            <input class="form-control" id="correo" th:field="${estudiantess.persona.correo}" readonly>
+            <input class="form-control" id="correo"  th:field="${estudiante.persona.correo}"readonly>
         </div>
     </div>
     <div class="row">
@@ -57,7 +58,7 @@
         </div>
         <div class="form-group col-md-4 mb-3">
             <label for="grado">Grado</label>
-            <input class="form-control" id="grado" th:field="${estudiantess.grado}" readonly>
+            <input class="form-control" id="grado"  th:field="${estudiante.grado}" readonly>
         </div>
     </div>
     <div class="modal-footer">

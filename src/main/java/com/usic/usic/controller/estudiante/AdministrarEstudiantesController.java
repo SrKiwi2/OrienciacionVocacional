@@ -53,7 +53,7 @@ public class AdministrarEstudiantesController {
         model.addAttribute("colegioss", colegioService.findAll());
         model.addAttribute("generos", generoService.findAll());
         model.addAttribute("nacionalidades", nacionalidadService.findAll());
-        return "Estudiante/admin-estudiantes/form_edit_estudiante";
+        return "Estudiante/admin-estudiantes/form_adm_estudiante";
     }
 
     @GetMapping("/datosEstudiante/{idEstudiante}")
@@ -63,7 +63,7 @@ public class AdministrarEstudiantesController {
         model.addAttribute("generos", generoService.findAll());
         model.addAttribute("nacionalidades", nacionalidadService.findAll());
         model.addAttribute("colegioss", colegioService.findAll());
-        return "Estudiante/admin-estudiantes/form_edit_estudiante";
+        return "Estudiante/admin-estudiantes/form_adm_estudiante";
     }
 
     @PostMapping("/editarEstudianteVista")

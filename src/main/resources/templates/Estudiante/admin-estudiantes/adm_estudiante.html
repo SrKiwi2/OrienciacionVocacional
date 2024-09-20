@@ -52,7 +52,7 @@
                                                                     </a>
                                                                     <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"
                                                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                                        th:attr="onclick='cargarModFormulario(\'' + ${e.idEstudiante} + '\', \'edit\')'">
+                                                                        th:attr="onclick='editarDatosEstudiantes(\'' + ${e.idEstudiante} + '\', \'edit\')'">
                                                                         <i class="ti ti-pencil"> Editar</i>
                                                                     </a>
                                                                     <a class="btn btn-danger me-2" type="button" style="color: aliceblue;"
@@ -88,13 +88,13 @@
         </div>
 
         <div class="modal fade" id="editarEstudianteModal" data-bs-backdrop="static"
-            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content" id="FormularioEstudianteEditar_">
                     <div class="modal-body">
-                        <form id="editarEstudianteForm" method="POST" action="/editarEstudianteVista">
-                            <input type="hidden" id="editEstudianteId" name="idEstudiante">
+                        <form action="/editarEstudianteVista" method="POST" >
+                            <!-- <input type="hidden" th:field="${estudiante.idEstudiante}"> -->
                             <div class="row">
                                 <div class="form-group col-md-3 mb-3">
                                     <label for="nombre">Nombre Estudiante</label>
@@ -163,7 +163,7 @@
 
         <script>
 
-            function cargarDatosFormulario(idEstudiante, mode) {
+            function cargarDatosFormulario(idEstudiante) {
                 $.ajax({
                     url: '/datosEstudiante/' + idEstudiante,
                     method: 'GET',
@@ -177,9 +177,9 @@
                 });
             }
 
-            function cargarDatosFormulario(idEstudiante, mode) {
+            function editarDatosEstudiantes(idEstudiante) {
                 $.ajax({
-                    url: '/formEditEstudiante/' + idEstudiante,
+                    url: '/formularioEditEstudinateVista/' + idEstudiante,
                     method: 'GET',
                     success: function (response) {
                         $("#FormularioEstudianteEditar_").html(response);
@@ -200,7 +200,7 @@
 
             $('.btn-warning').click(function() {
                 var idEstudiante = $(this).data('id');
-                cargarFormularioEdicion(idEstudiante);
+                editarDatosEstudiantes(idEstudiante);
             });
             });
 
