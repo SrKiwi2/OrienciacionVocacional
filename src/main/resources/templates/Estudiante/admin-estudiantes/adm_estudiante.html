@@ -46,8 +46,8 @@
                                                                 <td th:text="${e.grado}"></td>
                                                                 <td class="text-center">
                                                                     <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
-                                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                                        th:attr="onclick='cargarModFormulario(\'' + ${e.idEstudiante} + '\', \'view\')'">
+                                                                        data-bs-toggle="modal" data-bs-target="#verEstudianteModal"
+                                                                        th:attr="onclick='cargarDatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
                                                                         <i class="ti ti-eye"> Datos</i>
                                                                     </a>
                                                                     <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"

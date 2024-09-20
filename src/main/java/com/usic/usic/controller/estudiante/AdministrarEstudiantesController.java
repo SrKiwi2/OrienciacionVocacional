@@ -58,7 +58,11 @@ public class AdministrarEstudiantesController {
 
     @GetMapping("/datosEstudiante/{idEstudiante}")
     public String datosEstudiante(@PathVariable("idEstudiante") Long idEstudiante, Model model) {
-        model.addAttribute("estudiante", estudianteService.findById(idEstudiante));
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        model.addAttribute("estudiante", estudiante);
+        model.addAttribute("generos", generoService.findAll());
+        model.addAttribute("nacionalidades", nacionalidadService.findAll());
+        model.addAttribute("colegioss", colegioService.findAll());
         return "Estudiante/admin-estudiantes/form_edit_estudiante";
     }
 
