@@ -595,19 +595,9 @@ ol ul {
 }
 
 .rn-section-gapTop {
-  padding-top: 100px;
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+  padding-top: 100px; /* Padding superior por defecto */
 }
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .rn-section-gapTop {
-    padding-top: 80px;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .rn-section-gapTop {
-    padding-top: 80px;
-  }
-}
-
 .pl--0 {
   padding-left: 0 !important;
 }

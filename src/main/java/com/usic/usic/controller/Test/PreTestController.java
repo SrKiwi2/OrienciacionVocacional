@@ -72,6 +72,13 @@ public class PreTestController {
         return "test/pruebas/vista_test_prueba";
     } 
 
+    @GetMapping("/vista_pregunta")
+    public String vista_pregunta(Model model, HttpSession session) {
+
+        
+        return "test/pruebas/vista_pregunta";
+    } 
+
 }
 
 
