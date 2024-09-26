@@ -1,0 +1,36 @@
+/* Estilos para el tema claro (por defecto) */
+body.light-theme {
+    background-color: white;
+    color: black;
+}
+
+input.light-theme {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+/* Estilos para el tema oscuro */
+body.dark-theme {
+    background-color: #121212;
+    color: white;
+}
+
+input.dark-theme {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+/* Botón para cambiar de tema */
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
