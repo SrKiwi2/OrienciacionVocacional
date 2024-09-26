@@ -15,180 +15,63 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets_registro/images/uap.png">
     <!-- CSS 
     ============================================ -->
-    <link rel="stylesheet" href="assets_registro/css/vendor/bootstrap.min.css">
-    
+    <!-- <link rel="stylesheet" href="assets_registro/css/vendor/bootstrap.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
-    
-<body class="template-color-1 with-particles">
-    <div id="particles-js"></div>
-    
 
-    <!--<div class="creat-collection-area pt--80 pb--80">
-        <div class="container">
-            <div class="row d-flex justify-content-center ">
-                <div class="col-lg-7">
-                    <div class="create-collection">
-                            <form th:action="${'../../../ControlF/'+pregunta.idPregunta}" method="POST">
-                            
-                            <div class="row">
-                                <div data-sal="slide-up" data-sal-delay="300" data-sal-duration="800" class=" col-12 ">
-                                    <div class="product-style-one no-overlay">
-                                        <div class="product-share-wrapper">
-                                            <div class="profile-share">
-                                                <h1 th:text="${pregunta.pregunta}"></h1>
-                                            </div>
-                                        </div>
-                                        <hr>
-
-                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                                            
-                                                <div class="row">
-                                                        
-                                                </div>
-                                            
-                                        </th:block>
-                                    </div>
-                                </div>
+<body class="template-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1"
+                    role="dialog" id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 pb-4 border-bottom-0 text-center">
+                                <h1 class="fw-bold mb-0 fs-2" th:text="${pregunta.pregunta}"></h1>
                             </div>
-                        </form>
+                            <div class="modal-body p-5 pt-0">
+                                <hr class="my-4">
+                                <form class="was-validated" action="/guardar_respuesta" method="post">
+                                    <input type="hidden" th:field="${session.persona.idPersona}">
+                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta and pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required>
+                                            <label class="form-check-label" th:for="${r.idRespuesta}" th:text="${r.respuesta}">
+                                                Default radio
+                                            </label>
+                                        </div>
+                                    </th:block>
+                                    
+
+                                    <hr class="my-4">
+
+                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente
+                                        pregunta</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <script>
-        function MandarURL (a) {
-            var num =a+1
-            window.location.href = "../../../../pregunta/"+num;
-        }		
-    </script>
+        document.querySelectorAll('.checkbox-input').forEach(function (checkbox, index) {
+            const input = document.querySelectorAll('.form-control')[index];
 
-
-    <!-- End Top To Bottom Area  -->
-    <!-- JS ============================================ -->
-    <div th:replace="~{layout_test/script :: script}"></div>
-
-    <script>
-        particlesJS('particles-js',
-
-            {
-                "particles": {
-                    "number": {
-                        "value": 40,
-                        "density": {
-                            "enable": true,
-                            "value_area": 1000
-                        }
-                    },
-                    "color": {
-                        "value": ["#7FC7BD", "#ffE7BD", ]
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 4
-                        },
-                        "image": {
-                            "src": "img/github.svg",
-                            "width": 100,
-                            "height": 100
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.8,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.08,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": false,
-                        "distance": 150,
-                        "color": "#ffffff",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 4,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "repulse"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 400,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 800,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true,
-                "config_demo": {
-                    "hide_card": false,
-                    "background_color": "#b61924",
-                    "background_image": "",
-                    "background_position": "50% 50%",
-                    "background_repeat": "no-repeat",
-                    "background_size": "cover"
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    input.disabled = false;
+                } else {
+                    input.disabled = true;
                 }
-            }
-
-        );
+            });
+        });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- <div th:replace="~{layout_test/script :: script}"></div> -->
 </body>
+
 </html>

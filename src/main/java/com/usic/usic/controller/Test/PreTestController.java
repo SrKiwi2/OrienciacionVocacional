@@ -12,13 +12,19 @@ import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
+import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -35,6 +41,7 @@ public class PreTestController {
 
     @Autowired
     private IRespuestaService respuestaService;
+
     
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
@@ -45,8 +52,6 @@ public class PreTestController {
         Long idTipoTest = 1L;
 
         Optional<Long> idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
-
-        System.out.println(idPregunta);
 
         if (idPregunta.isPresent()) {
 
@@ -64,6 +69,25 @@ public class PreTestController {
         return "test/vista_pregunta";
     } 
 
+
+    @PostMapping("/guardar_respuesta")
+    public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+
+        Persona persona = (Persona) request.getSession().getAttribute("persona");
+        Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
+
+        EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
+
+        estudianteRespuesta.setEstado("ACTIVO");
+        estudianteRespuesta.setComplemento("n/a");
+        estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
+        estudianteRespuesta.setRespuesta(respuesta);
+
+        System.out.println(respuesta_pregunta);
+        
+        return "redirect:/pre_test";
+    }
+    
 
     @GetMapping("/pre_test_prueba")
     public String pre_test_prueba(Model model, HttpSession session) {
