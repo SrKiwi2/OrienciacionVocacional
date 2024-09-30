@@ -39,17 +39,17 @@
                                                 <td th:text="${e.grado}"></td>
                                                 <td class="text-center">
                                                     <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
-                                                        data-bs-toggle="modal" data-bs-target="#verEstudianteModal"
+                                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantes"
                                                         th:attr="onclick='cargarDatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
                                                         <i class="ti ti-eye"> Datos</i>
                                                     </a>
                                                     <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                                        th:attr="onclick='editarDatosEstudiantes(\'' + ${e.idEstudiante} + '\', \'edit\')'">
+                                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantes"
+                                                        th:attr="onclick='cargarFormEdit(\'' + ${e.idEstudiante} + '\', \'edit\')'">
                                                         <i class="ti ti-pencil"> Editar</i>
                                                     </a>
                                                     <a class="btn btn-danger me-2" type="button" style="color: aliceblue;"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                        data-bs-toggle="modal" data-bs-target="#estudianteModal"
                                                         th:attr="onclick='cargarModFormulario(\'' + ${e.idEstudiante} + '\')'">
                                                         <i class="ti ti-ban"> Banear</i>
                                                     </a>
@@ -78,84 +78,12 @@
     });
 </script>
 
-<div class="modal fade" id="verEstudianteModal" data-bs-backdrop="static"
-    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+<div class="modal fade" id="formularioEstudiantes" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="formularioEstudiantes"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content" id="FormularioEstudianteVista_">
+        <div class="modal-content" id="FormularioEstudiantes3">
             
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editarEstudianteModal" data-bs-backdrop="static"
-    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content" id="FormularioEstudianteEditar_">
-            <div class="modal-body">
-                <form action="/editarEstudianteVista" method="POST" >
-                    <div class="row">
-                        <div class="form-group col-md-3 mb-3">
-                            <label for="nombre">Nombre Estudiante</label>
-                            <input class="form-control" id="nombre" name="nombre" readonly>
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="paterno">Apellido Paterno</label>
-                            <input class="form-control" id="paterno" name="paterno" readonly>
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="materno">Apellido Materno</label>
-                            <input class="form-control" id="materno" name="materno" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="ci">Ci</label>
-                            <input class="form-control" id="ci" name="" readonly>
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="genero">Genero</label><br>
-                            <select class="form-select" id="genero">
-                                <th:block th:each="g : ${generos}">
-                                    <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6 mb-3">
-                            <label for="correo">Correo Electronico</label>
-                            <input class="form-control" id="correo" name="correo">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-3 mb-3">
-                            <label for="nacionalidad">Nacionalidad</label><br>
-                            <select class="form-select" id="nacionalidad">
-                                <th:block th:each="nac : ${nacionalidades}">
-                                    <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="colegio">Colegio</label><br>
-                            <select class="form-select" id="colegio">
-                                <th:block th:each="col : ${colegioss}">
-                                    <option th:value="${col.idColegio}" th:text="${col.nombreColegio}"></option>
-                                </th:block>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4 mb-3">
-                            <label for="grado">Grado</label>
-                            <input class="form-control" id="grado" name="grado">
-                        </div>
-                    </div>
-            
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" th:text="${edit} ? 'Guardar Cambios'" style="display: none;"></button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -166,8 +94,7 @@
             url: '/datosEstudiante/' + idEstudiante,
             method: 'GET',
             success: function (response) {
-                $("#FormularioEstudianteVista_").html(response);
-                $('#verEstudianteModal').modal('show');
+                $("#FormularioEstudiantes3").html(response);
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -175,67 +102,16 @@
         });
     }
 
-    function editarDatosEstudiantes(idEstudiante) {
+    function cargarFormEdit(idEstudiante) {
         $.ajax({
-            url: '/formularioEditEstudinateVista/' + idEstudiante,
+            url: '/formularioEditEstudiante/' + idEstudiante,
             method: 'GET',
             success: function (response) {
-                $("#FormularioEstudianteEditar_").html(response);
-                $('#editEstudianteId').val(idEstudiante);
-                $('#editarEstudianteModal').modal('show');
+                $("#FormularioEstudiantes3").html(response);
             },
             error: function (xhr, status, error) {
                 console.log(error);
             }
         });
     }
-
-    $(document).ready(function() {
-    $('.btn-info').click(function() {
-        var idEstudiante = $(this).data('id');
-        cargarDatosEstudiante(idEstudiante);
-    });
-
-    $('.btn-warning').click(function() {
-        var idEstudiante = $(this).data('id');
-        editarDatosEstudiantes(idEstudiante);
-    });
-    });
-
-    $(document).ready(function() {
-        $('#mostraEditEstudiante').submit(function (event) {
-            event.preventDefault();
-            var form = document.getElementById("mostraEditEstudiante");
-            var action = form.action;
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function (response) {
-                    var mensaje = response;
-                    if (mensaje === 'Se modificó el registro con éxito') {
-                        Swal.fire(
-                            'Modificado!',
-                            mensaje + '.',
-                            'success'
-                        );
-                    }else{
-                        if (mensaje === 'Ha ocurrido un error') {
-                            Swal.fire(
-                                'Imposible Continuar!',
-                                mensaje + '.',
-                                'error'
-                            );
-                        }
-                    }
-                },
-                error: function (xhr, status, error) {
-                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                    console.error(error);
-                }
-            });
-        });
-    });
 </script>

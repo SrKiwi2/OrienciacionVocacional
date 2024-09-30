@@ -131,6 +131,21 @@ public class EstudianteController {
                                             @RequestParam("colegio") Long idColegio, 
                                             Model model,HttpServletRequest request
                                             ,RedirectAttributes flash) {
+
+        // Verificar si el CI ya existe
+        Persona existingPersonaByCi = personaService.validarCI(persona.getCi());
+        if (existingPersonaByCi != null) {
+            System.out.println("este CI ya Existe");
+            return "redirect:/";
+        }
+
+        // Verificar si el correo electrónico ya existe
+        Persona existingPersonaByGmail = personaService.findByCorreo(persona.getCorreo());
+        if (existingPersonaByGmail != null) {
+            System.out.println("Este Gmail ya Existe");
+            return "redirect:/";
+        }
+
         persona.setNombre(persona.getNombre().toUpperCase());
         persona.setPaterno(persona.getPaterno().toUpperCase());
         persona.setMaterno(persona.getMaterno().toUpperCase());
