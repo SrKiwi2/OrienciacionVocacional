@@ -79,6 +79,19 @@ public class EstudianteController {
                                             @RequestParam("grado") String grado,
                                             @RequestParam("colegio") Long idColegio,
                                              Model model) {
+
+        // Verificar si el CI ya existe
+        Persona existingPersonaByCi = personaService.validarCI(persona.getCi());
+        if (existingPersonaByCi != null) {
+            return ResponseEntity.badRequest().body("El CI ya está registrado.");
+        }
+
+        // Verificar si el correo electrónico ya existe
+        Persona existingPersonaByEmail = personaService.findByCorreo(persona.getCorreo());
+        if (existingPersonaByEmail != null) {
+            return ResponseEntity.badRequest().body("El correo electrónico ya está registrado.");
+        }
+
         persona.setNombre(persona.getNombre().toUpperCase());
         persona.setPaterno(persona.getPaterno().toUpperCase());
         persona.setMaterno(persona.getMaterno().toUpperCase());
@@ -91,12 +104,14 @@ public class EstudianteController {
             estudiante.setPersona(persona);
             estudiante.setEstado("INHABILITADO");
         }
+
         estudiante.setGrado(grado);
         Colegio colegio = colegioService.findById(idColegio);
         estudiante.setColegio(colegio);
         estudianteService.save(estudiante);
 
         Usuario usuario = usuarioService.findById(persona.getIdPersona());
+
         if (usuario == null) {
             usuario = new Usuario();
             usuario.setPersona(persona);
@@ -105,7 +120,7 @@ public class EstudianteController {
             usuario.setEstado("INHABILITADO");
             usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
             usuarioService.save(usuario);
-        }
+        }                                      
         
         return ResponseEntity.ok("registrado");
     }

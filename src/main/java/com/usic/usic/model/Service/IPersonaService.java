@@ -9,4 +9,6 @@ import com.usic.usic.model.Entity.Persona;
 public interface IPersonaService extends IServiceGenerico <Persona, Long> {
     
     Persona validarCI(@Param("ci") String ci);
+
+    Persona findByCorreo(String correo);
 }

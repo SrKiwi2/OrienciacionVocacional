@@ -10,4 +10,6 @@ public interface IPersonaDao extends JpaRepository <Persona, Long>{
     
     @Query("SELECT p FROM Persona p WHERE p.ci = :ci")
     Persona validarCI(@Param("ci") String ci);
+
+    Persona findByCorreo(String correo);
 }
