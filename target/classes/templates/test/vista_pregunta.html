@@ -16,7 +16,8 @@
     <!-- CSS 
     ============================================ -->
     <!-- <link rel="stylesheet" href="assets_registro/css/vendor/bootstrap.min.css"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 
@@ -24,32 +25,100 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1"
-                    role="dialog" id="modalSignin">
+                <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog"
+                    id="modalSignin">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content rounded-4 shadow">
                             <div class="modal-header p-5 pb-4 border-bottom-0 text-center">
                                 <h1 class="fw-bold mb-0 fs-2" th:text="${pregunta.pregunta}"></h1>
+                                <!-- <h1 class="fw-bold mb-0 fs-2" th:text="${pregunta.tipoPregunta.tipo_pregunta}"></h1> -->
                             </div>
                             <div class="modal-body p-5 pt-0">
                                 <hr class="my-4">
-                                <form class="was-validated" action="/guardar_respuesta" method="post">
-                                    <input type="hidden" th:field="${session.persona.idPersona}">
-                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta and pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required>
-                                            <label class="form-check-label" th:for="${r.idRespuesta}" th:text="${r.respuesta}">
-                                                Default radio
-                                            </label>
+
+                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
+                                    <form class="was-validated" action="/guardar_respuesta" method="post">
+                                        <th:block th:each="r : ${respuestas}"
+                                            th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                    th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}"
+                                                    th:value="${r.idRespuesta}" required>
+                                                <label class="form-check-label" th:for="${r.idRespuesta}"
+                                                    th:text="${r.respuesta}">
+                                                    Default radio
+                                                </label>
+                                            </div>
+                                        </th:block>
+                                        <hr class="my-4">
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning"
+                                            type="submit">Siguiente
+                                            pregunta</button>
+                                    </form>
+                                </th:block>
+
+                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'RESPUESTA CON COMPLEMENTO'}">
+                                    <form class="was-validated" action="/guardar_respuesta2" method="post">
+                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                            <label for="" th:text="${r.respuesta}"></label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input mt-0 checkbox-input" type="checkbox" th:id="${r.idRespuesta}"
+                                                        th:value="${r.idRespuesta}" name="checkboxes"
+                                                        aria-label="Checkbox for following text input" onchange="toggleInput(this)">
+                                                </div>
+                                                <input type="text" class="form-control" name="textInputs"
+                                                    aria-label="Text input with checkbox" disabled>
+                                            </div>
+                                        </th:block>
+                                        <hr class="my-4">
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                    </form>
+                                </th:block>
+
+                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'ABIERTA'}">
+                                    <form class="was-validated" action="/guardar_respuesta3" method="post">
+                                        <input type="hidden" name="id_pregunta" th:value="${pregunta.idPregunta}">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Completar</span>
+                                            <textarea class="form-control" name="respuesta_pregunta" aria-label="With textarea" required></textarea>
                                         </div>
-                                    </th:block>
-                                    
+                                        <hr class="my-4">
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                    </form>
+                                </th:block>
 
-                                    <hr class="my-4">
+                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION MULTIPLE'}">
 
-                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente
-                                        pregunta</button>
-                                </form>
+                                    <form class="was-validated" action="/guardar_respuesta4" method="post">
+                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                            <th:block th:if="${not #strings.startsWith(r.respuesta, 'Otr')}">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" name="checkboxes2" type="checkbox" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}">
+                                                    <label class="form-check-label" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                </div>
+                                            </th:block> 
+                                            
+                                            <th:block th:if="${#strings.startsWith(r.respuesta, 'Otr')}">
+                                                <label for="" th:text="${r.respuesta}"></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-text">
+                                                        <input class="form-check-input mt-0 checkbox-input" type="checkbox" th:id="${r.idRespuesta}"
+                                                            th:value="${r.idRespuesta}" name="checkboxes2"
+                                                            aria-label="Checkbox for following text input" onchange="toggleInput(this)">
+                                                    </div>
+                                                    <input type="text" class="form-control" name="textInputs"
+                                                        aria-label="Text input with checkbox" disabled>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+
+                                        <hr class="my-4">
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                    </form>
+
+                                </th:block>
+
                             </div>
                         </div>
                     </div>
@@ -57,6 +126,12 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggleInput(checkbox) {
+            const textInput = checkbox.closest('.input-group').querySelector('input[type="text"]');
+            textInput.disabled = !checkbox.checked;
+        }
+    </script>
     <script>
         document.querySelectorAll('.checkbox-input').forEach(function (checkbox, index) {
             const input = document.querySelectorAll('.form-control')[index];
@@ -70,7 +145,9 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <!-- <div th:replace="~{layout_test/script :: script}"></div> -->
 </body>
 
