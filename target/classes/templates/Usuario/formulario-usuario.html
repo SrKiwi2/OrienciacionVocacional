@@ -10,7 +10,6 @@
                 <div th:if="${edit=='true'}">
                     <input type="hidden" th:field="${usuarioss.idUsuario}">
                 </div>
-
                 <div class="form-group col-md-12 mb-3" >
                     <label for="usuario">USUARIO</label>
                     <input type="text" id="usuario" class="form-control" th:field="${usuarioss.username}" required>
@@ -35,7 +34,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal-footer">
             <button type="submit" class="btn btn-success" th:text="${edit} ? 'Guardar Cambios' : 'Registrar'"></button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -86,12 +84,10 @@
                             }
                         }
                     }
-                    
                 },
                 error: function (xhr, status, error) {
                     toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
                     console.error(error);
-                    // Manejo de errores
                 }
             });
         });

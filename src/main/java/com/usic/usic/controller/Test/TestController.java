@@ -32,6 +32,11 @@ public class TestController {
 
     @Autowired  
     private INacionalidadService nacionalidadService;
+
+    @GetMapping("/")
+    public String getMethodName() {
+        return "redirect:/vista-test";
+    }
     
     @GetMapping(value = "/vista-test")
     public String vistaPersona(@Validated Persona persona, Model model) {

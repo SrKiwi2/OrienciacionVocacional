@@ -1,284 +1,238 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
-
-<head th:replace="~{layout/head :: head}"></head>
-
-<body>
-    <!-- Preloader -->
-    <!-- <div th:replace="~{layout/preloader :: preloader}"></div> -->
-    <div id="main-wrapper">
-        <!-- Sidebar Start -->
-        <!-- <aside th:replace="~{layout/sidebar :: sidebar}"></aside> -->
-        <!--  Sidebar End -->
-        <div class="">
-            <!-- TopBar Start -->
-            <!-- <header th:replace="~{layout/topbar :: topbar}"></header> -->
-            <!-- TopBar End -->
-
-            <!-- Body Start -->
-            <div class="">
-                <div class="container-fluid mw-100">
-
-                    <div class="row">
-                        <div class="card">
-                            <div class="border-bottom title-part-padding">
-                                <h4 class="card-title mb-0">Datos Persona</h4>
+<div id="main-wrapper">
+    <div class="container-fluid mw-100">
+        <div class="row">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">Datos Persona</h4>
+                </div>
+                <div class="card-body">
+                    <form id="FormularioRegistrar" action="/guardar_estudiante_adm"  method="POST">
+                        <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
+                        <div class="row">
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="nombre">Nombres</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" autocomplete="off" name="nombre" id="nombre" placeholder="Nombre">
                             </div>
-
-                            <div class="card-body">
-                                <form id="FormularioRegistrar" action="/guardar_estudiante_adm"  method="POST">
-                                    <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
-                                    <div class="row">
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="nombre">Nombres</label>
-                                            <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" autocomplete="off" name="nombre" id="nombre" placeholder="Nombre">
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="apellidoP">Apellido Paterno</label>
-                                            <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" autocomplete="off" name="paterno" id="apellidoP"
-                                                placeholder="Apellido Paterno">
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="apellidoM">Apellido Materno</label>
-                                            <input type="text" class="form-control" required
-                                                style="text-transform: uppercase;" autocomplete="off" name="materno" id="apellidoM"
-                                                placeholder="Apellido Materno">
-                                        </div>
-                                        
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-2 mb-3">
-                                            <label for="ci">C.I.</label>
-                                            <input type="text" class="form-control" autocomplete="off" name="ci" id="ci" placeholder="C.I."
-                                                required>
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="vigencia">Correo</label>
-                                            <input type="text" class="form-control" autocomplete="off" name="correo" id="correo"
-                                                placeholder="CORREO" required>
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="genero">Genero</label>
-                                            <select class="form-select" name="genero" id="genero">
-                                                
-                                                <th:block th:each="genero : ${generos}">
-                                                    <option th:value="${genero.idGenero}" th:text="${genero.nombreGenero}"></option>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="sadsa">Nacionalidad</label><br>
-                                            <select class="form-select" name="nacionalidad" id="nacionalidad">
-                                                <th:block th:each="nac : ${nacionalidades}">
-                                                    <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="colegio">Colegio</label>
-                                            <select class="form-select" name="colegio" id="colegio">
-                                                
-                                                <th:block th:each="colegio : ${colegios}">
-                                                    <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-3 mb-3">
-                                            <label for="sadsa">Grado</label><br>
-                                            <select class="form-select" name="grado">
-                                                <option value="B">BACHILLER</option>
-                                                <option value="6to">6TO SECUNDARIA</option>
-                                                <option value="5to">5TO SECUNDARIA</option>
-                                                <option value="4to">4TO SECUNDARIA</option>
-                                                <option value="O">Otro</option>
-                                            </select>
-                                        </div>
-                                        
-                                    </div>
-                                    <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
-                                    <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
-                                </form>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="apellidoP">Apellido Paterno</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" autocomplete="off" name="paterno" id="apellidoP"
+                                    placeholder="Apellido Paterno">
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="apellidoM">Apellido Materno</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" autocomplete="off" name="materno" id="apellidoM"
+                                    placeholder="Apellido Materno">
                             </div>
                         </div>
-
-                        <div id="TablaEstudiantes"></div>
-                        
-                    </div>
+                        <div class="row">
+                            <div class="form-group col-md-2 mb-3">
+                                <label for="ci">C.I.</label>
+                                <input type="text" class="form-control" autocomplete="off" name="ci" id="ci" placeholder="C.I."
+                                    required>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="vigencia">Correo</label>
+                                <input type="text" class="form-control" autocomplete="off" name="correo" id="correo"
+                                    placeholder="CORREO" required>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="genero">Genero</label>
+                                <select class="form-select" name="genero" id="genero">
+                                    
+                                    <th:block th:each="genero : ${generos}">
+                                        <option th:value="${genero.idGenero}" th:text="${genero.nombreGenero}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="sadsa">Nacionalidad</label><br>
+                                <select class="form-select" name="nacionalidad" id="nacionalidad">
+                                    <th:block th:each="nac : ${nacionalidades}">
+                                        <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="colegio">Colegio</label>
+                                <select class="form-select" name="colegio" id="colegio">
+                                    
+                                    <th:block th:each="colegio : ${colegios}">
+                                        <option th:value="${colegio.idColegio}" th:text="${colegio.nombreColegio}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="sadsa">Grado</label><br>
+                                <select class="form-select" name="grado">
+                                    <option value="B">BACHILLER</option>
+                                    <option value="6to">6TO SECUNDARIA</option>
+                                    <option value="5to">5TO SECUNDARIA</option>
+                                    <option value="4to">4TO SECUNDARIA</option>
+                                    <option value="O">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
+                        <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
+                    </form>
                 </div>
             </div>
+            <div id="TablaEstudiantes"></div>
         </div>
     </div>
+</div>
 
-    <script>
+<script>
+    cargarTabla();
+    $(document).ready(function () {
+        $('#FormularioRegistrar').submit(function (event) {
+            event.preventDefault();
+            var form = document.getElementById("FormularioRegistrar");
+            var action = form.action;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (mensaje) {
+                    if (mensaje === 'registrado') {
+                        cargarTabla();
+                        Swal.fire({
+                            title: 'Registrado!',
+                            text: "Se ha Registrado el Estudiante Correctamente.",
+                            icon: 'success',
+                            didClose: function () {
+                                $('#botonCerrarModal').click();
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                    console.error(error);
+                }
+            });
+        });
+    });
 
-        cargarTabla();
+    function cargarTabla() {
+        $.ajax({
+            type: 'POST',
+            url: "/listarEstudiantesInicio",
+            success: function (response) {
+                $("#TablaEstudiantes").html(response);
+            }
+        });
+    }
 
-        $(document).ready(function () {
-            $('#FormularioRegistrar').submit(function (event) {
-                event.preventDefault();
-                var form = document.getElementById("FormularioRegistrar");
-                var action = form.action;
-
-                var formData = $(this).serialize();
-
+    function habilitarEstudiante(idEstudiante) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, habilitar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $("#spinner-overlay2").show();
                 $.ajax({
                     type: 'POST',
-                    url: $(this).attr('action'),
-                    data: formData,
-                    contentType: 'application/x-www-form-urlencoded',
-                    success: function (mensaje) {
-                        
-                        if (mensaje === 'registrado') {
-                            cargarTabla();
+                    url: '/estudiante/habilitar/' + idEstudiante,
+                    success: function(response) {
+                        $("#spinner-overlay2").show();
+                        Swal.fire(
+                            'Habilitado!',
+                            'El estudiante ha sido habilitado.',
+                            'success'
+                        );
 
-                            Swal.fire({
-                                title: 'Registrado!',
-                                text: "Se ha Registrado el Estudiante Correctamente.",
-                                icon: 'success',
-                                didClose: function () {
-                                    $('#botonCerrarModal').click();
-                                }
-                            });
-                        }
+                        cargarTabla();
                     },
-                    error: function (xhr, status, error) {
-                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                    error: function(xhr, status, error) {
+                        $("#spinner-overlay2").show();
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo habilitar al estudiante.',
+                            'error'
+                        );
                         console.error(error);
                     }
                 });
-            });
+            }
         });
+    }
 
-        function cargarTabla() {
-            $.ajax({
-                type: 'POST',
-                url: "/listarEstudiantesInicio",  // Ruta del metodo del controlador en Spring Boot
-                success: function (response) {
-                    $("#TablaEstudiantes").html(response);  // Actualiza el contenido del div con la respuesta del servidor
-                }
-            });
-        }
+    function limpiarFormulario() {
+        $('#idPersona').val('');
+        $('#nombre').val('');
+        $('#apellidoP').val('');
+        $('#apellidoM').val('');
+        $('#ci').val('');
+        $('#colegio').val('');
+        $('#correo').val('');
+        $('#sexo').val('');
+    }
+    function editarPersona(idPersona) {
+        $.ajax({
+            url: '/persona/' + idPersona,
+            type: 'GET',
+            success: function(persona) {
+                $('#idPersona').val(persona.idPersona);
+                $('#nombre').val(persona.nombre);
+                $('#apellidoP').val(persona.paterno);
+                $('#apellidoM').val(persona.materno);
+                $('#ci').val(persona.ci);
+                $('#correo').val(persona.correo);
 
-        function habilitarEstudiante(idEstudiante) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, habilitar!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#spinner-overlay2").show();
-                    $.ajax({
-                        type: 'POST',  // Asegúrate de que el método sea POST como en tu controlador
-                        url: '/estudiante/habilitar/' + idEstudiante,
-                        success: function(response) {
-                            $("#spinner-overlay2").show();
-                            Swal.fire(
-                                'Habilitado!',
-                                'El estudiante ha sido habilitado.',
-                                'success'
-                            );
+                $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
+                $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
+            },
+            error: function() {
+                alert('Error al obtener los datos de la persona.');
+            }
+        });
+    }
 
-                            cargarTabla();
-                        },
-                        error: function(xhr, status, error) {
-                            $("#spinner-overlay2").show();
-                            Swal.fire(
-                                'Error!',
-                                'No se pudo habilitar al estudiante.',
-                                'error'
-                            );
-                            console.error(error);
-                        }
-                    });
-                }
-            });
-        }
-
-
-        function limpiarFormulario() {
-            // Limpiar todos los campos del formulario
-            $('#idPersona').val(''); // Ocultar el campo de ID también
-            $('#nombre').val('');
-            $('#apellidoP').val('');
-            $('#apellidoM').val('');
-            $('#ci').val('');
-            $('#colegio').val('');
-            $('#correo').val('');
-            $('#sexo').val('');
-        }
-        function editarPersona(idPersona) {
-            // Realiza una solicitud AJAX para obtener los datos de la persona
-            $.ajax({
-                url: '/persona/' + idPersona,
-                type: 'GET',
-                success: function(persona) {
-                    // Rellena el formulario con los datos obtenidos
-                    $('#idPersona').val(persona.idPersona);
-                    $('#nombre').val(persona.nombre);
-                    $('#apellidoP').val(persona.paterno);
-                    $('#apellidoM').val(persona.materno);
-                    $('#ci').val(persona.ci);
-                    $('#correo').val(persona.correo);
-
-                    // Establece el valor del colegio
-                    $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
-
-                    // Establece el valor del género
-                    $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
-                },
-                error: function() {
-                    alert('Error al obtener los datos de la persona.');
-                }
-            });
-        }
-    
-        function eliminarPersona(idPersona) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás recuperar este registro!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminarlo!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Enviar solicitud AJAX para eliminar el registro
-                    $.ajax({
-                        type: 'POST',
-                        url: '/eliminar-persona/' + idPersona,
-                        
-                        success: function(response) {
-                            Swal.fire(
-                                'Eliminado!',
-                                'El registro ha sido eliminado.',
-                                'success'
-                            );
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Error!',
-                                'No se pudo eliminar el registro.',
-                                'error'
-                            );
-                            console.error(error);
-                        }
-                    });
-                }
-            });
-        }
-    </script>
-    
-    <!-- <div th:replace="~{layout/script :: script}"></div> -->
-</body>
-
-</html>
+    function eliminarPersona(idPersona) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás recuperar este registro!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/eliminar-persona/' + idPersona,
+                    
+                    success: function(response) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'El registro ha sido eliminado.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el registro.',
+                            'error'
+                        );
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    }
+</script>

@@ -68,13 +68,10 @@
                             }
                         }
                     }
-                    
-                    
                 },
                 error: function (xhr, status, error) {
                     toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
                     console.error(error);
-                    // Manejo de errores
                 }
             });
         });

@@ -44,6 +44,11 @@
 
 <script>
     $(document).ready(function () {
-        $('#file_export2').DataTable();
+        $('#file_export2').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
     });
 </script>

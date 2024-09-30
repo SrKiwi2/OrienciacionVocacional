@@ -37,9 +37,13 @@
         </div>
     </div>
 </section>
-
 <script>
     $(document).ready(function () {
-        $('#file_export').DataTable();
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
     });
 </script>

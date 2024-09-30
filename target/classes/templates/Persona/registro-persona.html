@@ -1,107 +1,101 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
-
-<body>
-    <div id="main-wrapper">
-        <div class="container-fluid mw-100">
-            <div class="row">
-                <div class="card">
-                    <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">Datos Persona</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="/guardar-persona" method="post">
-                            <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
-                            <div class="row">
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="nombre">Nombres</label>
-                                    <input type="text" class="form-control" required
-                                        style="text-transform: uppercase;" name="nombre" id="nombre" placeholder="Nombre">
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="apellidoP">Apellido Paterno</label>
-                                    <input type="text" class="form-control" required
-                                        style="text-transform: uppercase;" name="paterno" id="apellidoP"
-                                        placeholder="Apellido Paterno">
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="apellidoM">Apellido Materno</label>
-                                    <input type="text" class="form-control" required
-                                        style="text-transform: uppercase;" name="materno" id="apellidoM"
-                                        placeholder="Apellido Materno">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-2 mb-3">
-                                    <label for="ci">C.I.</label>
-                                    <input type="text" class="form-control" name="ci" id="ci" placeholder="C.I."
-                                        required>
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="vigencia">Correo</label>
-                                    <input type="email" class="form-control" name="correo" id="correo"
-                                        placeholder="CORREO" required>
-                                </div>
-                                <div class="form-group col-md-3 mb-3">
-                                    <label for="categoria">Genero</label>
-                                    <select class="form-select" name="idGenero" id="sexo">
-                                        
-                                        <th:block th:each="sexo : ${sexos}">
-                                            <option th:value="${sexo.idGenero}" th:text="${sexo.nombreGenero}"></option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
-                            <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
-                        </form>
-                    </div>
+<div id="main-wrapper">
+    <div class="container-fluid mw-100">
+        <div class="row">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">Datos Persona</h4>
                 </div>
-
-                <div class="datatables">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="mb-2">
-                                        <h5 class="mb-0">File export</h5>
-                                    </div>
-                                    <p class="card-subtitle mb-3">
-                                        Datos de los estudiantes vigentes
-                                    </p>
-                                    <div class="table-responsive">
-                                        <table id="file_export"
-                                            class="table border w-100 table-striped table-bordered display text-nowrap"
-                                            style="font-size: 12px">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nombres</th>
-                                                    <th>Apellido Parteno</th>
-                                                    <th>Apellido Materno</th>
-                                                    <th>C.I</th>
-                                                    <th>Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="per, index : ${personas}" th:if="${per.estado != 'E'}">
-                                                    <td th:text="${index.index+1}"></td>
-                                                    <td th:text="${per.nombre}"></td>
-                                                    <td th:text="${per.paterno}"></td>
-                                                    <td th:text="${per.materno}"></td>
-                                                    <td th:text="${per.ci}"></td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-warning me-2" type="button" style="color: aliceblue;" th:attr="onclick='editarPersona(' + ${per.idPersona} + ')'">
-                                                            <i class="ti ti-pencil"> Editar</i>
-                                                        </a>
-                                                        <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='eliminarPersona(\'' + ${per.idPersona} + '\', \'' + ${per.nombre}+'\')'">
-                                                            <li class="fa-solid fa-trash"></li>
-                                                        </a>
-                                                    </td>                                                     
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                <div class="card-body">
+                    <form action="/guardar-persona" method="post">
+                        <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
+                        <div class="row">
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="nombre">Nombres</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" name="nombre" id="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="apellidoP">Apellido Paterno</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" name="paterno" id="apellidoP"
+                                    placeholder="Apellido Paterno">
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="apellidoM">Apellido Materno</label>
+                                <input type="text" class="form-control" required
+                                    style="text-transform: uppercase;" name="materno" id="apellidoM"
+                                    placeholder="Apellido Materno">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-2 mb-3">
+                                <label for="ci">C.I.</label>
+                                <input type="text" class="form-control" name="ci" id="ci" placeholder="C.I."
+                                    required>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="vigencia">Correo</label>
+                                <input type="email" class="form-control" name="correo" id="correo"
+                                    placeholder="CORREO" required>
+                            </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="categoria">Genero</label>
+                                <select class="form-select" name="idGenero" id="sexo">
+                                    
+                                    <th:block th:each="sexo : ${sexos}">
+                                        <option th:value="${sexo.idGenero}" th:text="${sexo.nombreGenero}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
+                        <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="datatables">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <h5 class="mb-0">File export</h5>
+                                </div>
+                                <p class="card-subtitle mb-3">
+                                    Datos de los estudiantes vigentes
+                                </p>
+                                <div class="table-responsive">
+                                    <table id="file_export"
+                                        class="table border w-100 table-striped table-bordered display text-nowrap"
+                                        style="font-size: 12px">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombres</th>
+                                                <th>Apellido Parteno</th>
+                                                <th>Apellido Materno</th>
+                                                <th>C.I</th>
+                                                <th>Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="per, index : ${personas}" th:if="${per.estado != 'E'}">
+                                                <td th:text="${index.index+1}"></td>
+                                                <td th:text="${per.nombre}"></td>
+                                                <td th:text="${per.paterno}"></td>
+                                                <td th:text="${per.materno}"></td>
+                                                <td th:text="${per.ci}"></td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-warning me-2" type="button" style="color: aliceblue;" th:attr="onclick='editarPersona(' + ${per.idPersona} + ')'">
+                                                        <i class="ti ti-pencil"> Editar</i>
+                                                    </a>
+                                                    <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='eliminarPersona(\'' + ${per.idPersona} + '\', \'' + ${per.nombre}+'\')'">
+                                                        <li class="fa-solid fa-trash"></li>
+                                                    </a>
+                                                </td>                                                     
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -110,75 +104,80 @@
             </div>
         </div>
     </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
 
-    <script>
-        
-        function limpiarFormulario() {
-            $('#idPersona').val('');
-            $('#nombre').val('');
-            $('#apellidoP').val('');
-            $('#apellidoM').val('');
-            $('#ci').val('');
-            $('#colegio').val('');
-            $('#correo').val('');
-            $('#sexo').val('');
-        }
-
-        function editarPersona(idPersona) {
-            $.ajax({
-                url: '/persona/' + idPersona,
-                type: 'GET',
-                success: function(persona) {
-                    $('#idPersona').val(persona.idPersona);
-                    $('#nombre').val(persona.nombre);
-                    $('#apellidoP').val(persona.paterno);
-                    $('#apellidoM').val(persona.materno);
-                    $('#ci').val(persona.ci);
-                    $('#correo').val(persona.correo);
-                    $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
-                    $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
-                },
-                error: function() {
-                    alert('Error al obtener los datos de la persona.');
-                }
-            });
-        }
-    
-        function eliminarPersona(idPersona) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás recuperar este registro!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminarlo!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/eliminar-persona/' + idPersona,
-                        
-                        success: function(response) {
-                            Swal.fire(
-                                'Eliminado!',
-                                'El registro ha sido eliminado.',
-                                'success'
-                            );
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire(
-                                'Error!',
-                                'No se pudo eliminar el registro.',
-                                'error'
-                            );
-                            console.error(error);
-                        }
-                    });
-                }
-            });
-        }
-    </script>
-</body>
-
-</html>
+<script>
+    function limpiarFormulario() {
+        $('#idPersona').val('');
+        $('#nombre').val('');
+        $('#apellidoP').val('');
+        $('#apellidoM').val('');
+        $('#ci').val('');
+        $('#colegio').val('');
+        $('#correo').val('');
+        $('#sexo').val('');
+    }
+    function editarPersona(idPersona) {
+        $.ajax({
+            url: '/persona/' + idPersona,
+            type: 'GET',
+            success: function(persona) {
+                $('#idPersona').val(persona.idPersona);
+                $('#nombre').val(persona.nombre);
+                $('#apellidoP').val(persona.paterno);
+                $('#apellidoM').val(persona.materno);
+                $('#ci').val(persona.ci);
+                $('#correo').val(persona.correo);
+                $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
+                $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
+            },
+            error: function() {
+                alert('Error al obtener los datos de la persona.');
+            }
+        });
+    }
+    function eliminarPersona(idPersona) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás recuperar este registro!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/eliminar-persona/' + idPersona,
+                    
+                    success: function(response) {
+                        Swal.fire(
+                            'Eliminado!',
+                            'El registro ha sido eliminado.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo eliminar el registro.',
+                            'error'
+                        );
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    }
+</script>
