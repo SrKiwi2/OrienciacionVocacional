@@ -20,8 +20,7 @@ import lombok.Setter;
 @Getter
 public class Nacionalidad extends AuditoriaConfig{
 
-    private static final Long serialVersionUID = 2629195288020321924L;
-
+    private static final long serialVersionUID = 2629195288020321924L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_nacionalidad")

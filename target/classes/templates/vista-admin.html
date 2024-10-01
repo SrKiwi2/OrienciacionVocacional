@@ -43,14 +43,13 @@
                             <span class="hide-menu">INICIO</span>
                         </li>
             
-                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ESTUDIANTE' or session.nombre_rol == 'SUPER USUARIO'}">
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                                 <span class="d-flex">
                                     <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                                 </span>
                                 <span class="hide-menu">Administracion</span>
                             </a>
-            
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
                                     <a id="opcionesAdminPersona" type="button" class="sidebar-link">
@@ -58,23 +57,10 @@
                                         <span class="hide-menu">Administarción Persona</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
-                                    <a id="opcionesRegistroEstudiante" type="button" class="sidebar-link">
-                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Registro Estudiante</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item">
-                                    <a id="opcionesAdminEstudiante" type="button" class="sidebar-link">
-                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Administarción Estudiantes</span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
-            
-                        <li class="sidebar-item"
-                            th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                                 <span class="d-flex">
                                     <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
@@ -103,6 +89,63 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                            <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu">ESTUDIANTES</span>
+                        </li>
+
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                            <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
+                                <span class="d-flex">
+                                    <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                                </span>
+                                <span class="hide-menu">Gestion Estudiante</span>
+                            </a>
+            
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a id="opcionesRegistroEstudiante" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Registro Estudiante</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a id="opcionesAdminEstudiante" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Administarción Estudiantes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'DOCENTE'}">
+                            <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                            <span class="hide-menu">SEGUIMIENTOS ESTUDIANTIL</span>
+                        </li>
+
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'DOCENTE'}">
+                            <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
+                                <span class="d-flex">
+                                    <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                                </span>
+                                <span class="hide-menu">Seguimiento</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a id="opcionesEstudiantesInscritos" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Estudiantes inscritos</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a id="opcionesAvanceEstudiantes" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Avance de Estudiantes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
             
                         <li class="nav-small-cap">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
@@ -119,7 +162,7 @@
             
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="/vista-test" class="sidebar-link">
+                                    <a href="/tests" class="sidebar-link">
                                         <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
                                         <span class="hide-menu">Test</span>
                                     </a>
@@ -253,6 +296,26 @@
                         botonPulsado.classList.remove("active");
                     }
                     botonPulsado = document.getElementById("opcionesAdminNacionalidad");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesEstudiantesInscritos").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesEstudiantesInscritos");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAvanceEstudiantes").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAvanceEstudiantes");
                     botonPulsado.classList.add("active");
                 });
 

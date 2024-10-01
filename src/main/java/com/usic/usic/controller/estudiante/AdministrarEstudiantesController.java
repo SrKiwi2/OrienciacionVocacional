@@ -1,22 +1,14 @@
 package com.usic.usic.controller.estudiante;
 
-import java.util.Optional;
-
-import org.aspectj.weaver.patterns.PerObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IColegioService;
@@ -24,6 +16,9 @@ import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.INacionalidadService;
 import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.IUsuarioService;
+
+import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class AdministrarEstudiantesController {
 
@@ -41,6 +36,9 @@ public class AdministrarEstudiantesController {
 
     @Autowired
     private INacionalidadService nacionalidadService;
+
+    @Autowired
+    private IUsuarioService usuarioService;
     
     @GetMapping(value = "/administracion_estudiante")
     public String administracionEstudianteVistaPersona(Model model) {
@@ -48,6 +46,7 @@ public class AdministrarEstudiantesController {
         model.addAttribute("colegios", colegioService.findAll());
         model.addAttribute("generos", generoService.findAll());
         model.addAttribute("estudiantes", estudianteService.findAll());
+        model.addAttribute("usuario", usuarioService.findAll());
         return "Estudiante/admin-estudiantes/adm_estudiante";
     }
 
@@ -73,38 +72,48 @@ public class AdministrarEstudiantesController {
     }
 
     @PostMapping("/editarEstudiante")
-    public ResponseEntity<String> editarEstudiante(@ModelAttribute Estudiante estudiante, 
-        @RequestParam(value = "nombre") String nombre,
-        @RequestParam(value = "paterno") String paterno,
-        @RequestParam(value = "materno") String materno,
-        @RequestParam(value = "ci") String ci,
-        @RequestParam(value = "correo") String correo,
-        @RequestParam(value = "genero") Long idGenero,
-        @RequestParam(value = "colegio") long idColegio,
-        @RequestParam(value = "nacionalidad") Long idNacionalidad) {
+    public ResponseEntity<String> editarEstudiante(
+            @ModelAttribute Estudiante estudiante,
+            @RequestParam(value = "genero") Long idGenero,
+            @RequestParam(value = "nacionalidad") Long idNacionalidad,
+            @RequestParam(value = "colegio") Long idColegio) {
 
-        estudiante.setColegio(colegioService.findById(idColegio));
-
-        Persona persona = personaService.validarCI(ci);
-        if (persona != null) {
-            persona.setNombre(nombre);
-            persona.setPaterno(paterno);
-            persona.setMaterno(materno);
-            persona.setCi(ci);
-            persona.setCorreo(correo);
-            persona.setGenero(generoService.findById(idGenero));
-            persona.setNacionalidad(nacionalidadService.findById(idNacionalidad));
-            personaService.save(persona);
-            estudiante.setPersona(persona);
-
-            Colegio colegio = colegioService.findById(idColegio);
-            estudiante.setColegio(colegio);
-
-            estudiante.setEstado("HABILITADO");
-            return ResponseEntity.ok("modificado");
-        }else{
-            return ResponseEntity.ok("error");
+        if (estudiante == null || estudiante.getIdEstudiante() == null) {
+            return ResponseEntity.badRequest().body("Estudiante no encontrado.");
         }
+
+        Estudiante estudianteExistente = estudianteService.findById(estudiante.getIdEstudiante());
+        if (estudianteExistente == null) {
+            return ResponseEntity.badRequest().body("Estudiante no encontrado.");
+        }
+
+        Persona persona = estudianteExistente.getPersona();
+        if (persona == null) {
+            return ResponseEntity.badRequest().body("Persona asociada no encontrada.");
+        }
+
+        persona.setCi(estudiante.getPersona().getCi());
+        persona.setNombre(estudiante.getPersona().getNombre());
+        persona.setPaterno(estudiante.getPersona().getPaterno());
+        persona.setMaterno(estudiante.getPersona().getMaterno());
+        persona.setCorreo(estudiante.getPersona().getCorreo());
+        persona.setGenero(generoService.findById(idGenero));
+        persona.setNacionalidad(nacionalidadService.findById(idNacionalidad));
+        persona.setEstado("E");
+        
+        estudiante.setPersona(persona);
+        estudiante.setColegio(colegioService.findById(idColegio));
+        estudiante.setEstado("HABILITADO");
+
+        personaService.save(persona);
+        estudianteService.save(estudiante);
+
+        return ResponseEntity.ok("modificado");
     }
 
+    @PostMapping("/listarAdmEstudiante")
+    public String listarAdmEstudiante(HttpServletRequest request, Model model) {
+        model.addAttribute("estudiantes", estudianteService.findAll());
+        return "Estudiante/admin-estudiantes/tabla_adm_estudiante";
+    }
 }

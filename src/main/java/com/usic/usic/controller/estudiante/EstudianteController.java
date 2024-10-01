@@ -63,7 +63,7 @@ public class EstudianteController {
         model.addAttribute("estudiantes", estudianteService.findAll());
         model.addAttribute("nacionalidades", nacionalidadService.findAll());
         model.addAttribute("persona", new Persona());
-        return "Estudiante/admin-estudiantes/vista_estudiante";
+        return "Estudiante/registros_estudiantes/vista_estudiante";
     }
 
     @PostMapping("/listarEstudiantesInicio")
@@ -71,7 +71,7 @@ public class EstudianteController {
 
         model.addAttribute("estudiantes", estudianteService.findAll());
 
-        return "Estudiante/admin-estudiantes/tabla-adminEstudiantes";
+        return "Estudiante/registros_estudiantes/tabla-adminEstudiantes";
     }
 
     @PostMapping(value = "/guardar_estudiante_adm")

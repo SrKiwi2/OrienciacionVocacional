@@ -12,33 +12,33 @@
                 <div class="row">
                     <div class="form-group col-md-3 mb-3">
                         <label for="nombre">Nombre Estudiante</label>
-                        <input class="form-control" name="nombre" th:field="${estudiante.persona.nombre}" th:readonly="${edit != 'true'}">
+                        <input class="form-control" th:field="${estudiante.persona.nombre}" th:readonly="${edit != 'true'}">
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         <label for="paterno">Apellido Paterno</label>
-                        <input class="form-control" name="paterno" th:field="${estudiante.persona.paterno}" th:readonly="${edit != 'true'}">
+                        <input class="form-control" th:field="${estudiante.persona.paterno}" th:readonly="${edit != 'true'}">
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         <label for="materno">Apellido Materno</label>
-                        <input class="form-control" name="materno" th:field="${estudiante.persona.materno}" th:readonly="${edit != 'true'}">
+                        <input class="form-control" th:field="${estudiante.persona.materno}" th:readonly="${edit != 'true'}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 mb-3">
                         <label for="ci">Ci</label>
-                        <input class="form-control" name="ci" th:field="${estudiante.persona.ci}" th:readonly="${edit != 'true'}">
+                        <input class="form-control" th:field="${estudiante.persona.ci}" th:readonly="${edit != 'true'}">
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         <label for="genero">Genero</label><br>
                         <select class="form-select" name="genero">
                             <th:block th:each="g : ${generos}">
-                                <option th:value="${g.idGenero}" th:text="${g.nombreGenero}"></option>
+                                <option th:value="${g.idGenero}" th:text="${g.nombreGenero}" th:selected="${g.idGenero == estudiante.persona.genero.idGenero}"></option>
                             </th:block>
                         </select>
                     </div>
                     <div class="form-group col-md-6 mb-3">
                         <label for="correo">Correo Electronico</label>
-                        <input class="form-control" name="correo" th:field="${estudiante.persona.correo}" th:readonly="${edit != 'true'}">
+                        <input class="form-control" th:field="${estudiante.persona.correo}" th:readonly="${edit != 'true'}">
                     </div>
                 </div>
                 <div class="row">
@@ -46,7 +46,7 @@
                         <label for="nacionalidad">Nacionalidad</label><br>
                         <select class="form-select" name="nacionalidad">
                             <th:block th:each="nac : ${nacionalidades}">
-                                <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}"></option>
+                                <option th:value="${nac.idNacionalidad}" th:text="${nac.nombreNacionalidad}" th:selected="${nac.idNacionalidad == estudiante.persona.nacionalidad.idNacionalidad}"></option>
                             </th:block>
                         </select>
                     </div>
@@ -54,13 +54,13 @@
                         <label for="colegio">Colegio</label><br>
                         <select class="form-select" name="colegio">
                             <th:block th:each="col : ${colegioss}">
-                                <option th:value="${col.idColegio}" th:text="${col.nombreColegio}"></option>
+                                <option th:value="${col.idColegio}" th:text="${col.nombreColegio}" th:selected="${col.idColegio == estudiante.colegio.idColegio}"></option>
                             </th:block>
                         </select>
                     </div>
                     <div class="form-group col-md-4 mb-3">
                         <label for="grado">Grado</label>
-                        <select class="form-select" name="grado">
+                        <select class="form-select" name="grado" th:selected="${estudiante.grado}">
                             <option value="B">BACHILLER</option>
                             <option value="6to">6TO SECUNDARIA</option>
                             <option value="5to">5TO SECUNDARIA</option>
@@ -94,6 +94,7 @@
                 success: function (response) {
                     var mensaje = response;
                     if (mensaje === 'modificado') {
+                        cargarTabla();
                         Swal.fire(
                             'Cambios Guardados!',
                             "Se han Guardado los cambios del Costo Correctamente." + '.',

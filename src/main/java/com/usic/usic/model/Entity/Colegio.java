@@ -29,6 +29,5 @@ public class Colegio extends AuditoriaConfig{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_colegio")
-    private TipoColegio tipo_colegio;
-    
+    private TipoColegio tipo_colegio; 
 }
