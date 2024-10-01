@@ -2,13 +2,11 @@ package com.usic.usic.controller.Test;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
@@ -18,7 +16,6 @@ import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
-import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.Service.IUsuarioService;
@@ -26,16 +23,12 @@ import com.usic.usic.model.Service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 
 @Controller
 public class PreTestController {
-
-    @Autowired
-    private IPersonaService personaService;
 
     @Autowired
     private IPreguntaService preguntaService;
@@ -52,7 +45,6 @@ public class PreTestController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
 
@@ -104,13 +96,12 @@ public class PreTestController {
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         
         if (checkboxes != null && textInputs != null) {
-            // Procesar las respuestas seleccionadas
+
             for (int i = 0; i < checkboxes.size(); i++) {
                 Long checkboxValue = Long.valueOf(checkboxes.get(i));
                 String textValue = textInputs.get(i);
 
                 Respuesta respuesta = respuestaService.findById(checkboxValue);
-                // Aquí puedes hacer lo que desees con los valores obtenidos
                 System.out.println("Checkbox: " + checkboxValue + ", Texto: " + textValue);
 
                 EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
@@ -121,7 +112,6 @@ public class PreTestController {
                 estudianteRespuestaService.save(estudianteRespuesta);
             }
         }
-
         return "redirect:/pre_test";
     }
     
@@ -154,7 +144,6 @@ public class PreTestController {
         estudianteRespuesta.setRegistroIdUsuario(usuario.getIdUsuario());
         estudianteRespuestaService.save(estudianteRespuesta);
 
-
         return "redirect:/pre_test";
     }
 
@@ -180,8 +169,6 @@ public class PreTestController {
                 estudianteRespuestaService.save(estudianteRespuesta);
             }
         }
-
-
         return "redirect:/pre_test";
     }
 
@@ -203,18 +190,5 @@ public class PreTestController {
 
         
         return "test/pruebas/vista_pregunta";
-    } 
-
+    }
 }
-
-
-
-        // model.addAttribute("pregunta", preguntaService.findAll()); 
-
-        // model.addAttribute("respuestas", preguntaService.findAll());
-
-        //Continuar................
-
-
-
-        // OBTENER LA SPREGUNTAS SEGUN EL TIPO TEST

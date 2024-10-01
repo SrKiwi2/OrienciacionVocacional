@@ -44,7 +44,7 @@ public class LoginController {
                 flash.addAttribute("success", usuario.getPersona().getNombre());
                 
                 System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
-                return "redirect:/tipo_test";
+                return "redirect:/tests";
 
             }else{
                 HttpSession sessionAdministrador = request.getSession(true);
@@ -57,6 +57,7 @@ public class LoginController {
             }
 
         } else {
+            System.out.println("tas fuera");
             return "redirect:/vista-test";
         }
     }
