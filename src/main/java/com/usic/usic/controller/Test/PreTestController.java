@@ -61,23 +61,22 @@ public class PreTestController {
 
         Long idTipoTest = 1L;
 
-        Optional<Long> idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+        Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
-        if (idPregunta.isPresent()) {
+        if (idPregunta != 0) {
 
-            Pregunta pregunta = preguntaService.findById(idPregunta.get());
+            Pregunta pregunta = preguntaService.findById(idPregunta);
             
             model.addAttribute("pregunta", pregunta);
             model.addAttribute("respuestas",  respuestaService.findAll());
-            
+            model.addAttribute("registro_pre_test", new EstudianteRespuesta());
+            return "test/vista_pregunta";
         } else {
 
             model.addAttribute("pregunta", "No hay preguntas disponibles.");
+            return "redirect:/vista_resultado_pre_test";
         }
-
-        model.addAttribute("registro_pre_test", new EstudianteRespuesta());
-        return "test/vista_pregunta";
-    } 
+    }
 
 
     @PostMapping("/guardar_respuesta")
@@ -186,6 +185,11 @@ public class PreTestController {
         return "redirect:/pre_test";
     }
 
+    @GetMapping("/vista_resultado_pre_test")
+    public String vista_resultado_pre_test(Model model, HttpSession session) {
+        
+        return "test/pre-test/vista_resultado_pre_test";
+    }
 
 
     @GetMapping("/pre_test_prueba")

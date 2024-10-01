@@ -41,8 +41,8 @@ public class PreguntaServiceImpl implements IPreguntaService{
     }
 
     @Override
-    public Optional<Long> findMaxRespuestaOrMinPregunta(Long idEstudiante, Long id_tipo_test) {
-        return Optional.ofNullable(preguntaDao.findMinPreguntaNotInRespuestas(idEstudiante, id_tipo_test));
+    public Long findMaxRespuestaOrMinPregunta(Long idEstudiante, Long id_tipo_test) {
+        return preguntaDao.findMinPreguntaNotInRespuestas(idEstudiante, id_tipo_test);
     }
     
 }
