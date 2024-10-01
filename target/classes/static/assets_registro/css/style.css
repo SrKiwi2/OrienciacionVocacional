@@ -17487,9 +17487,9 @@ button .small-image {
 }
 
 .rn-footer-one .footer-left .rn-footer-describe {
-  font-size: 18px;
-  margin-top: 20px;
-  padding: 0 30px 0 0;
+  font-size: 10px;
+  margin-top: 10px;
+  padding: 0 10px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .rn-footer-one .footer-left .rn-footer-describe {
@@ -23981,7 +23981,7 @@ body.active-light-mode {
   background: #ffffff;
 }
 .active-light-mode .product-style-one::before {
-  background-image: linear-gradient(100deg, #fff, #0398ed);
+  background-image: linear-gradient(100deg, #fff, #0abb0a);
 }
 .active-light-mode .logo-custom-css .logo-dark {
   display: block;
