@@ -15792,7 +15792,7 @@ figcaption {
   -webkit-text-stroke: 3px transparent;
 }
 .left-banner-16-wrapepr p.disc {
-  width: 80%;
+  width: 100%;
   font-size: 18px;
 }
 .left-banner-16-wrapepr .odometer-area-slide {
@@ -15802,31 +15802,45 @@ figcaption {
 .tilt-image-banner-16 {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 100%; /* Asegura que la imagen ocupe el 100% del contenedor */
+  height: auto;    /* Mantén la proporción de la imagen */
 }
+
+.tilt-image-banner-16 img {
+  margin-top: 10px;
+  width: 80%;    /* La imagen siempre se ajustará al ancho del contenedor */
+  height: auto;   /* Mantiene la proporción de la imagen */
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .tilt-image-banner-16 {
     display: flex;
     justify-content: center;
   }
 }
+
 .tilt-image-banner-16 .joined-people-wrapper {
   position: absolute;
   bottom: -60px;
   left: 70px;
   animation: jump-2 5s infinite;
 }
+
 @media only screen and (max-width: 767px) {
   .tilt-image-banner-16 .joined-people-wrapper {
     position: static;
+    bottom: auto; /* Resetea el valor para evitar conflictos en pantallas pequeñas */
+    left: auto;
   }
 }
+
 @media only screen and (max-width: 479px) {
   .tilt-image-banner-16 .joined-people-wrapper {
     bottom: -14px;
     left: 4px;
   }
 }
+
 
 .joined-people-wrapper {
   padding: 20px;
@@ -15889,7 +15903,7 @@ figcaption {
 }
 
 .banner-left-bg-svg .title {
-  font-size: 90px;
+  font-size: 100px;
   line-height: 110px;
   margin-bottom: 5px;
 }
@@ -16961,6 +16975,9 @@ button .small-image {
 
 .wallet-bootm-disc {
   font-size: 16px;
+}
+.disc{
+  font-size: 20px;
 }
 
 .rn-address {
