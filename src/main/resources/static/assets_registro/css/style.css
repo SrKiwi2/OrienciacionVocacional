@@ -12391,7 +12391,7 @@ span.rn-badge-card::before {
   display: block;
 }
 .logo-thumbnail img {
-  max-height: 35px;
+  max-height: 50px;
   object-fit: cover;
 }
 
