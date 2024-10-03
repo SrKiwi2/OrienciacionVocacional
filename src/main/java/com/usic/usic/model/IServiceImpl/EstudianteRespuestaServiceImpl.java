@@ -3,6 +3,8 @@ package com.usic.usic.model.IServiceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.usic.usic.model.Entity.EstudianteRespuesta;
@@ -37,5 +39,16 @@ public class EstudianteRespuestaServiceImpl implements IEstudianteRespuestaServi
         // TODO Auto-generated method stub
         estudianteRespuestaDao.deleteById(idEntidad);
     }
+
+    @Override
+    public int countRespuestasSiByEstudiante(Long idEstudiante) {
+        return estudianteRespuestaDao.countRespuestasSiByEstudiante(idEstudiante);
+    }
+    @Override
+    public List<Object[]> findPreguntasYRespuestasConSI(Long idEstudiante) {
+        return estudianteRespuestaDao.findPreguntasYRespuestasConSI(idEstudiante);
+    }
     
+    
+
 }

@@ -218,8 +218,8 @@
         <script>
             var botonPulsado;
             $(document).ready(function () {
-                botonPulsado = document.getElementById("opcionInicial");
-                    $("#opcionesAdminRol").click(function (e){
+                
+                $("#opcionesAdminRol").click(function (e){
                     e.preventDefault();
                     cargarContenido("/vista-rol");
                     if (botonPulsado.classList.contains("active")){

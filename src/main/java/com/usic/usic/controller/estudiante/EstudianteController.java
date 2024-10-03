@@ -18,6 +18,7 @@ import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEnviarEmail;
+import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.INacionalidadService;
@@ -33,6 +34,9 @@ public class EstudianteController {
 
     @Autowired
     private IEstudianteService estudianteService;
+
+    @Autowired
+    private IEstudianteRespuestaService estudianteRespuestaService;
 
     @Autowired
     private IPersonaService personaService;
@@ -54,6 +58,12 @@ public class EstudianteController {
 
     @Autowired
     private INacionalidadService nacionalidadService;
+
+    @GetMapping("/total-respuestas-si/{idEstudiante}")
+    public ResponseEntity<Integer> getTotalRespuestasSi(@PathVariable Long idEstudiante) {
+        int totalRespuestasSi = estudianteRespuestaService.countRespuestasSiByEstudiante(idEstudiante);
+        return ResponseEntity.ok(totalRespuestasSi);
+    }
 
     @GetMapping(value = "/vista-estudiantes")
     public String vistaPersona(Model model) {

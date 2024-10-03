@@ -3,7 +3,15 @@ package com.usic.usic.controller.Test;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +32,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class PreTestController {
@@ -50,9 +58,7 @@ public class PreTestController {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-
         Long idTipoTest = 1L;
-
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
         if (idPregunta != 0) {
@@ -66,28 +72,87 @@ public class PreTestController {
         } else {
 
             model.addAttribute("pregunta", "No hay preguntas disponibles.");
-            return "redirect:/vista_resultado_pre_test";
+            return "redirect:/interpretar_respuestas";
         }
     }
 
+    @GetMapping("/interpretar_respuestas")
+    public String interpretarRespuestas(Model model, HttpSession session) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
+        List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasConSI(estudiante.getIdEstudiante());
+
+        StringBuilder prompt = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
+        for (Object[] pr : preguntasYRespuestas) {
+            String pregunta = (String) pr[0];
+            String respuesta = (String) pr[1];
+            prompt.append("- ").append(pregunta).append(": ").append(respuesta).append("\n");
+        }
+        prompt.append("Con base en las respuestas anteriores, ¿cuáles son los intereses y aptitudes del estudiante?");
+
+        String interpretacion = llamarAI(prompt.toString());
+
+        model.addAttribute("interpretacion", interpretacion);
+        System.out.println(interpretacion);
+        return "test/pre-test/vista_resultado_pre_test";
+    }
+
+    private String llamarAI(String prompt) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "https://api.openai.com/v1/completions";
+        String apiKey = "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";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(apiKey);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", "gpt-3.5-turbo");
+        requestBody.put("prompt", prompt);
+        requestBody.put("max_tokens", 500);
+
+        HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
+        for (int i = 0; i < 3; i++) { // Intenta hasta 3 veces
+            try {
+                ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
+                JSONObject jsonResponse = new JSONObject(response.getBody());
+                return jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
+            } catch (HttpClientErrorException e) {
+                if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
+                    // Esperar un tiempo antes de reintentar
+                    try {
+                        Thread.sleep(2000); // Espera 2 segundos
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                    }
+                } else {
+                    throw e; // Lanzar otras excepciones
+                }
+            }
+        }
+        return "No se pudo obtener la interpretación de la IA."; // Mensaje de fallo
+    }
+    
     @PostMapping("/guardar_respuesta")
     public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
 
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
-
         EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
-
         estudianteRespuesta.setEstado("ACTIVO");
         estudianteRespuesta.setComplemento("n/a");
         estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
         estudianteRespuesta.setRespuesta(respuesta);
         estudianteRespuestaService.save(estudianteRespuesta);
-
         System.out.println(respuesta_pregunta);
-        
         return "redirect:/pre_test";
+    }
+
+    @GetMapping("/vista_resultado_pre_test")
+    public String vista_resultado_pre_test(Model model, HttpSession session) {
+        return "test/pre-test/vista_resultado_pre_test";
     }
 
     @PostMapping("/guardar_respuesta2")
@@ -171,13 +236,6 @@ public class PreTestController {
         }
         return "redirect:/pre_test";
     }
-
-    @GetMapping("/vista_resultado_pre_test")
-    public String vista_resultado_pre_test(Model model, HttpSession session) {
-        
-        return "test/pre-test/vista_resultado_pre_test";
-    }
-
 
     @GetMapping("/pre_test_prueba")
     public String pre_test_prueba(Model model, HttpSession session) {
