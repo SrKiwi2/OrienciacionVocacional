@@ -11,6 +11,7 @@
 
 <body>
     <div id="main-wrapper">
+        <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}">
         <div class="body-wrapper">
             <div class="container-fluid">
                 <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-4 card">
@@ -50,14 +51,62 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">INSCRIBIRSE</button>
-                    <button class="btn btn-secondary" onclick="terminar()">TERMINAR</button>
+                    <button class="btn btn-primary mx-3 btn-inscribirse" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">INSCRIBIRSE</button>
+                    <button class="btn btn-secondary btn-terminar" onclick="terminar()">TERMINAR</button>
                 </div>
+
+                <style>
+                    /* Efectos para el botón "INSCRIBIRSE" */
+                    .btn-inscribirse {
+                        background-color: #007bff;
+                        border: none;
+                        color: white;
+                        font-size: 1.2rem;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 50px;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+                    }
+                
+                    .btn-inscribirse:hover {
+                        background-color: #0056b3;
+                        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+                        transform: scale(1.05);
+                    }
+                
+                    .btn-inscribirse:active {
+                        transform: scale(0.95);
+                        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);
+                    }
+                
+                    /* Efectos para el botón "TERMINAR" */
+                    .btn-terminar {
+                        background-color: #6c757d;
+                        border: none;
+                        color: white;
+                        font-size: 1.2rem;
+                        padding: 0.75rem 1.5rem;
+                        border-radius: 50px;
+                        transition: all 0.4s ease;
+                        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+                    }
+                
+                    .btn-terminar:hover {
+                        background-color: #5a6268;
+                        box-shadow: 0 6px 12px rgba(108, 117, 125, 0.5);
+                        transform: scale(1.05);
+                    }
+                
+                    .btn-terminar:active {
+                        transform: scale(0.95);
+                        box-shadow: 0 2px 4px rgba(108, 117, 125, 0.5);
+                    }
+                </style>
 
                 <!-- MODAL DE INFRMACION DE REQUISITOS DE INSCRIPCION -->
 
                 <div class="modal fade" id="informacion" tabindex="-1" aria-labelledby="informacion" aria-hidden="true">
-                    <div class="modal-dialog ">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content" id="requisitos">
                         </div>
                     </div>

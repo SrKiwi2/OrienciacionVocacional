@@ -99,6 +99,7 @@ public class PreTestController {
         String interpretacion = llamarAI(prompt.toString());
 
         model.addAttribute("interpretacion", interpretacion);
+        model.addAttribute("estudiante", estudiante);
         System.out.println(interpretacion);
         return "test/pre-test/vista_resultado_pre_test";
     }
@@ -157,6 +158,7 @@ public class PreTestController {
 
     @GetMapping("/vista_resultado_pre_test")
     public String vista_resultado_pre_test(Model model, HttpSession session) {
+        
         return "test/pre-test/vista_resultado_pre_test";
     }
 

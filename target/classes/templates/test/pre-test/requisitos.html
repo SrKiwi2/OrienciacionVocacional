@@ -1,1 +1,115 @@
-<p>hola</p>
+<div class="modal-header">
+    <h5 class="modal-title" th:text="INFORMACION"></h5>
+    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+        <div th:if="${edit=='true'}">
+            <input type="hidden" th:field="${colegioss.idColegio}">
+        </div>
+
+        <!-- Información dinámica -->
+        <div class="accordion" id="infoAccordion">
+            <!-- Objetivo -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingObjetivo" style="font-size: 1.5rem; font-weight: bold; color: #004085;">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseObjetivo" aria-expanded="true" aria-controls="collapseObjetivo" style="transition: background-color 0.3s ease, font-size 0.3s ease; font-size: 1.25rem; background-color: #e2e6ea; color: #495057;">
+                        🎯 Objetivo
+                    </button>
+                </h2>
+                <div id="collapseObjetivo" class="accordion-collapse collapse show" aria-labelledby="headingObjetivo" data-bs-parent="#infoAccordion">
+                    <div class="accordion-body" style="transition: background-color 0.5s ease;">
+                        <p style="font-size: 1.1rem;">
+                            El objetivo principal del programa de Admisión con orientación vocacional de la Universidad Amazónica de Pando (UAP) es disminuir los altos índices de deserción y cambio de carrera entre los estudiantes que ingresan a la institución.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alcances -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAlcances" style="font-size: 1.5rem; font-weight: bold; color: #004085;">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAlcances" aria-expanded="false" aria-controls="collapseAlcances" style="transition: background-color 0.3s ease, font-size 0.3s ease; font-size: 1.25rem; background-color: #e2e6ea; color: #495057;">
+                        🌍 Alcances
+                    </button>
+                </h2>
+                <div id="collapseAlcances" class="accordion-collapse collapse" aria-labelledby="headingAlcances" data-bs-parent="#infoAccordion">
+                    <div class="accordion-body" style="transition: background-color 0.5s ease;">
+                        <p style="font-size: 1.1rem;">
+                            Aplica a todas las actividades académicas de la UAP, involucrando al estamento estudiantil, docentes y comunidad universitaria en general (a nivel nacional).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Responsables -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingResponsables" style="font-size: 1.5rem; font-weight: bold; color: #004085;">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResponsables" aria-expanded="false" aria-controls="collapseResponsables" style="transition: background-color 0.3s ease, font-size 0.3s ease; font-size: 1.25rem; background-color: #e2e6ea; color: #495057;">
+                        👥 Responsables
+                    </button>
+                </h2>
+                <div id="collapseResponsables" class="accordion-collapse collapse" aria-labelledby="headingResponsables" data-bs-parent="#infoAccordion">
+                    <div class="accordion-body" style="transition: background-color 0.5s ease;">
+                        <p style="font-size: 1.1rem;">
+                            Centro de Proyectos Especiales. Responsable: Lic. Edson.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orientación Vocacional -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOrientacion" style="font-size: 1.5rem; font-weight: bold; color: #004085;">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrientacion" aria-expanded="false" aria-controls="collapseOrientacion" style="transition: background-color 0.3s ease, font-size 0.3s ease; font-size: 1.25rem; background-color: #e2e6ea; color: #495057;">
+                        🧠 Orientación Vocacional
+                    </button>
+                </h2>
+                <div id="collapseOrientacion" class="accordion-collapse collapse" aria-labelledby="headingOrientacion" data-bs-parent="#infoAccordion">
+                    <div class="accordion-body" style="transition: background-color 0.5s ease;">
+                        <p style="font-size: 1.1rem;">
+                            Es un proceso de asesoramiento que ayuda a los individuos a descubrir y desarrollar sus aptitudes, habilidades e intereses para tomar decisiones informadas sobre su futuro académico y profesional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Requisitos y Condiciones Generales -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingRequisitos" style="font-size: 1.5rem; font-weight: bold; color: #004085;">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRequisitos" aria-expanded="false" aria-controls="collapseRequisitos" style="transition: background-color 0.3s ease, font-size 0.3s ease; font-size: 1.25rem; background-color: #e2e6ea; color: #495057;">
+                        👉 Requisitos y Condiciones Generales
+                    </button>
+                </h2>
+                <div id="collapseRequisitos" class="accordion-collapse collapse" aria-labelledby="headingRequisitos" data-bs-parent="#infoAccordion">
+                    <div class="accordion-body" style="transition: background-color 0.5s ease;">
+                        <div style="font-size: 1.1rem;">
+                            <strong style="color: #155724;">📌 Estudiantes Nacionales:</strong>
+                            <ul style="list-style: none; padding-left: 0; margin-left: 0;">
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de cédula de identidad.</li>
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de certificado de nacimiento.</li>
+                                <li style="margin-bottom: 5px;">✅ Certificado de estar cursando el último grado del nivel secundario vigente en la gestión.</li>
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de título de bachiller (para bachilleres de gestiones anteriores).</li>
+                                <li style="margin-bottom: 5px;">✅ Fotografía fondo rojo 3x4.</li>
+                            </ul>
+                            <strong style="color: #155724;">📌 Estudiantes Extranjeros:</strong>
+                            <ul style="list-style: none; padding-left: 0; margin-left: 0;">
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de cédula de identidad.</li>
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de certificado de nacimiento.</li>
+                                <li style="margin-bottom: 5px;">✅ Certificado de estar cursando el último grado del nivel secundario vigente en la gestión.</li>
+                                <li style="margin-bottom: 5px;">✅ Fotocopia de título de bachiller (para bachilleres de gestiones anteriores).</li>
+                                <li style="margin-bottom: 5px;">✅ Fotografía fondo rojo 3x4.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" >Ok</button>
+    </div>
+</div>

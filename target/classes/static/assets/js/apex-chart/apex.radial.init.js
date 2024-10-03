@@ -1,6 +1,6 @@
 $(function () {
   // Basic Radial Bar Chart -------> RADIAL CHART
-  fetch("/total-respuestas-si/3") // Reemplaza '1' con el ID del estudiante
+  fetch("/total-respuestas-si/"+$('#idEstudiante').val()) // Reemplaza '1' con el ID del estudiante
     .then((response) => response.json())
     .then((data) => {
       // Actualizamos el gráfico con el dato recibido
