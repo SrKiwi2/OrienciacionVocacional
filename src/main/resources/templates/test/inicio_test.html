@@ -2,161 +2,6 @@
 <html lang="en">
 
 <head th:replace="~{layout_test/head :: head}"></head>
-<style>
-    .select2-hidden-accessible {
-        display: none !important;
-    }
-
-    /*FORM*/
-    /* Asegura que el label esté arriba */
-    .form-label {
-        display: block;
-        /* Asegura que el label se muestre como un bloque (en una nueva línea) */
-        margin-bottom: 8px;
-        /* Agrega espacio entre el label y el input/select */
-        color: #fff;
-        /* Color del label en blanco */
-        font-size: 16px;
-        /* Tamaño de fuente adecuado */
-    }
-
-    /* Asegurar que select2 ocupe todo el ancho disponible en su columna */
-    .select2-container {
-        width: 100% !important;
-        /* Asegura que select2 use todo el espacio disponible */
-    }
-
-    /* Ajuste para el tamaño del select en general (opcional) */
-    .select2-selection--single {
-        height: 42px !important;
-        /* Ajusta la altura del select2 para coincidir con otros inputs */
-        padding: 8px !important;
-        /* Relleno interno */
-    }
-
-    /* Opcional: Si quieres ajustar el tamaño exacto de los selects */
-    .select2 {
-        min-width: 100%;
-        /* Asegura que siempre ocupe el 100% del ancho disponible */
-        max-width: 100%;
-        /* Limita el tamaño máximo */
-    }
-
-    /*================THEME select2================*/
-    /* Estilos de select2 cuando el modo claro está activo */
-    body.active-light-mode .select2-container--default .select2-selection--single {
-        background-color: #f5f8fa !important;
-        /* Fondo claro */
-        border: 1px solid #ccc !important;
-        /* Borde claro */
-        color: #000 !important;
-        /* Texto oscuro */
-    }
-
-    body.active-light-mode .select2-container--default .select2-selection--single:focus,
-    body.active-light-mode .select2-container--default .select2-selection--single:hover {
-        background-color: #f5f5f5 !important;
-        /* Fondo claro al hacer hover o foco */
-        border-color: #ccc !important;
-        /* Borde claro */
-    }
-
-    body.active-light-mode .select2-container--default .select2-dropdown {
-        background-color: #fff !important;
-        /* Fondo claro del menú desplegable */
-        border-color: #ccc !important;
-        /* Borde claro */
-        color: #000 !important;
-        /* Texto oscuro en el menú desplegable */
-    }
-
-    body.active-light-mode .select2-container--default .select2-results__option {
-        background-color: #fff !important;
-        /* Fondo claro para opciones */
-        color: #000 !important;
-        /* Texto oscuro */
-    }
-
-    body.active-light-mode .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background-color: #f0a505 !important;
-        /* Opción resaltada en azul */
-        color: #fff !important;
-        /* Texto blanco */
-    }
-
-
-
-    /* Estilos de select2 cuando el modo oscuro está activo */
-    body.active-dark-mode .select2-container--default .select2-selection--single {
-        background-color: #242435 !important;
-        /* Fondo oscuro */
-        border: 2px solid #ffffff14 !important;
-        /* Borde gris */
-        color: #fff !important;
-        /* Texto en blanco */
-    }
-
-    body.active-dark-mode .select2-container--default .select2-selection--single:focus,
-    body.active-dark-mode .select2-container--default .select2-selection--single:hover {
-        background-color: #00a3ff !important;
-        /* Fondo oscuro al hacer hover o foco */
-        border-color: #00a3ff !important;
-        /* Borde gris claro */
-    }
-
-    body.active-dark-mode .select2-container--default .select2-dropdown {
-        background-color: #101424 !important;
-        /* Fondo del menú desplegable oscuro */
-        border-color: #101424 !important;
-        /* Borde oscuro */
-        color: #fff !important;
-        /* Texto blanco en el menú desplegable */
-    }
-
-    body.active-dark-mode .select2-container--default .select2-results__option {
-        background-color: #101424 !important;
-        /* Fondo oscuro para opciones */
-        color: #fff !important;
-        /* Texto blanco en las opciones */
-    }
-
-    body.active-dark-mode .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background-color: #f0a505 !important;
-        /* Opción resaltada en color amarillo */
-        color: #fff !important;
-        /* Texto blanco */
-    }
-
-    
-    /* Ajustes generales para el botón con clase btn-login */
-    .btn.btn-login.my_switcher {
-        border: 2px solid #ff903cd3;
-        /* Color y grosor del borde */
-        padding: 10px;
-        /* Ajuste de espaciado interno */
-        border-radius: 5px;
-        /* Bordes redondeados */
-        margin-right: 1%;
-        margin-left: 20%;
-    }
-
-    /* Ajustes para pantallas pequeñas */
-    @media (max-width: 768px) {
-        .btn.btn-login.my_switcher {
-            padding: 5px 10px;
-            /* Ajusta el padding para pantallas pequeñas */
-            font-size: 12px;
-            /* Reduce el tamaño de la fuente */
-        }
-    }
-
-    .btn.btn-login.my_switcher:hover {
-        background-color: #ff903cd3;
-        /* Cambia el fondo al pasar el cursor */
-        border-color: #ff903cd3;
-        /* Cambia el color del borde al pasar el cursor */
-    }
-</style>
 
 <body class="template-color-1 nft-body-connect">
     <div id="particles-js"></div>
@@ -168,10 +13,10 @@
                 <!-- Logo alineado a la izquierda -->
                 <div class="header-left">
                     <div class="logo-thumbnail logo-custom-css">
-                        <a class="logo-light" href="/vista-test">
+                        <a class="logo-light" href="/inicio_test">
                             <img src="assets_registro/images/logo/logotest1.png" alt="nft-logo">
                         </a>
-                        <a class="logo-dark" href="/vista-test">
+                        <a class="logo-dark" href="/inicio_test">
                             <img src="assets_registro/images/logo/logotest1.png" alt="nft-logo">
                         </a>
                     </div>
@@ -198,10 +43,10 @@
                     </div>
 
                     <!-- Botón de iniciar sesión -->
-                    <button type="button" class="btn btn-login my_switcher" data-bs-toggle="modal"
-                        data-bs-target="#LoginModal">
-                        <b class="d-none d-md-inline" style="font-size: 15px;">LOGIN</b>
-                        <b class="d-inline d-md-none" style="font-size: 15px;">LOGIN</b>
+                    <button type="button" class="btn btn-login my_switcher shadow" data-bs-toggle="modal"
+                        data-bs-target="#uploadModal">
+                        <b class="d-none d-md-inline " style="font-size: 15px;">INICIAR SESION</b>
+                        <b class="d-inline d-md-none " style="font-size: 15px;">INGRESAR</b>
                     </button>
                 </div>
             </div>
@@ -332,12 +177,12 @@
                             <div class="bit-continue-button ">
                                 <div class="row mt-5">
                                     <div class="col-6">
-                                        <button style="width: 100%;" type="submit" class="btn btn-success">
+                                        <button style="width: 100%;" type="submit" class="btn btn-info">
                                             Enviar Registro
                                         </button>
                                     </div>
                                     <div class="col-6">
-                                        <button type="button" style="width: 100%;" class="btn btn-danger"
+                                        <button type="button" style="width: 100%;" class="btn btn-warning"
                                             data-bs-dismiss="modal">Cancelar Registro</button>
                                     </div>
                                 </div>
@@ -348,67 +193,62 @@
             </div>
         </div>
     </div>
-
-
-    <!-- LOGIN -->
-    <div class="rn-popup-modal placebid-modal-wrapper modal fade" id="LoginModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-            style="max-width: 90%; width: 90%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">INCIAR SESIÓN</h3>
-                </div>
+    <!-- Modal LOGIN-->
+    <div class="rn-popup-modal upload-modal-wrapper modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                data-feather="x"></i></button>
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content share-wrapper">
                 <div class="modal-body">
-                    <div class="login-area rn-section-gapTop">
-                        <div class="container">
-                            <div class="row g-5">
-                                <div class=" offset-2 col-lg-4 col-md-6 ml_md--0 ml_sm--0 col-sm-12">
-                                    <div class="form-wrapper-one">
-                                        <h4>Acesso</h4>
-                                        <form action="/iniciar-sesion" method="POST">
-                                            <div class="mb-5">
-                                                <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                                                <input type="text" name="usuario" id="exampleInputEmail1">
-                                            </div>
-                                            <div class="mb-5">
-                                                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                                                <input type="password" name="contrasena" id="exampleInputPassword1">
-                                            </div>
-                                            <div class="mb-5 rn-check-box">
-                                                <input type="checkbox" class="rn-check-box-input" id="exampleCheck1">
-                                                <label class="rn-check-box-label" for="exampleCheck1">Remember me
-                                                    leter</label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mr--15">Iniciar</button>
-                                        </form>
+                    <div class="product-style-one no-overlay">
+                        <div class="form-wrapper-one">
+                            <h4 style="text-align: center;">INICIAR SESION</h4>
+                            <form action="/iniciar-sesion" method="POST">
+                                <div class="mb-5">
+                                    <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                                    <input type="text" name="usuario" id="exampleInputEmail1">
+                                </div>
+                                <div class="mb-5 position-relative">
+                                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                                    <input type="password" name="contrasena" id="exampleInputPassword1"
+                                        class="form-control password-input">
+                                    <span class="password-toggle-icon" onclick="togglePassword()">
+                                        <i id="toggleIcon" class="bi bi-eye"></i>
+                                    </span>
+                                </div>
+                                <div class="mb-5 rn-check-box">
+                                    <input type="checkbox" class="rn-check-box-input" id="exampleCheck1">
+                                    <label class="rn-check-box-label" for="exampleCheck1">Remember me
+                                        leter</label>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="row w-100">
+                                        <div class="col-6 d-flex justify-content-center">
+                                            <button type="submit" class="btn btn-info">INICIAR</button>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-center">
+                                            <button type="button" data-bs-dismiss="modal"
+                                                class="btn btn-warning">CANCELAR</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="social-share-media form-wrapper-one">
-                                        <h6>Another way to log in</h6>
-                                        <p> Lorem ipsum dolor sit, amet sectetur adipisicing elit.cumque.</p>
-                                        <button class="another-login login-facebook"> <img class="small-image"
-                                                src="assets/images/icons/google.png" alt=""> <span>Log in with
-                                                Google</span></button>
-                                        <button class="another-login login-facebook"> <img class="small-image"
-                                                src="assets/images/icons/facebook.png" alt=""> <span>Log in with
-                                                Facebook</span></button>
-                                        <button class="another-login login-twitter"> <img class="small-image"
-                                                src="assets/images/icons/tweeter.png" alt=""> <span>Log in with
-                                                Twitter</span></button>
-                                        <button class="another-login login-linkedin"> <img class="small-image"
-                                                src="assets/images/icons/linkedin.png" alt=""> <span>Log in with
-                                                linkedin</span></button>
-                                    </div>
+                            </form>
+                            <div class="login-area rn-section-gapTop">
+                            <div class="col-lg-12 col-md-6 col-sm-12">
+                                <div class="social-share-media form-wrapper-one">
+                                    <button class="another-login login-facebook">
+                                        <img class="small-image" src="assets_registro/images/icons/google.png" alt="">
+                                        <span>Iniciar con Google</span>
+                                    </button>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="rn-footer-one bg-color--1 mt--100">
         <div class="footer-top">
             <div class="container">
@@ -456,6 +296,23 @@
                 dropdownParent: $('#placebidModal')
             });
         });
+
+        /*PASS*/
+        function togglePassword() {
+            var passwordInput = document.getElementById("exampleInputPassword1");
+            var toggleIcon = document.getElementById("toggleIcon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.remove("bi-eye");
+                toggleIcon.classList.add("bi-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.remove("bi-eye-slash");
+                toggleIcon.classList.add("bi-eye");
+            }
+        }
+
     </script>
 
 
