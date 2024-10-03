@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
@@ -100,16 +101,16 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/completions";
-        String apiKey = System.getenv("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");
+        String apiKey = "sk-VrJG-AWcITQeB1hXIzpmMM7YJx5wmKn1Mgc2tE2-nZT3BlbkFJe-utkOMVj0DMHFLoFMvOG9CS5ATwJsv_-ARlJtHKUA";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(apiKey);
 
         JSONObject requestBody = new JSONObject();
-        requestBody.put("model", "gpt-3.5-turbo");
+        requestBody.put("model", "gpt-4o-mini");
         requestBody.put("prompt", prompt);
-        requestBody.put("max_tokens", 500);
+        requestBody.put("max_tokens", 2000);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
         for (int i = 0; i < 3; i++) { // Intenta hasta 3 veces
@@ -151,6 +152,11 @@ public class PreTestController {
     @GetMapping("/vista_resultado_pre_test")
     public String vista_resultado_pre_test(Model model, HttpSession session) {
         return "test/pre-test/vista_resultado_pre_test";
+    }
+
+    @PostMapping("/requisitos_estudiantes")
+    public String formularioColegio(HttpServletRequest request, Model model) {
+        return "test/pre-test/requisitos";
     }
 
     @PostMapping("/guardar_respuesta2")

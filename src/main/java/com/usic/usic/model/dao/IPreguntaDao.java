@@ -19,4 +19,7 @@ public interface IPreguntaDao extends JpaRepository<Pregunta, Long>{
        "AND tt.id_tipo_test = :id_tipo_test " +
        "GROUP BY p.idPregunta)")
     Long findMinPreguntaNotInRespuestas(@Param("idEstudiante") Long idEstudiante, @Param("id_tipo_test") Long id_tipo_test);
+
+    @Query("SELECT COUNT(p) FROM Pregunta p WHERE p.tipoTest.id_tipo_test = :idTipoTest")
+    Long countByTipoTest(@Param("idTipoTest") Long idTipoTest);
 }

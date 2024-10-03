@@ -35,10 +35,10 @@ public class TestController {
 
     @GetMapping("/")
     public String getMethodName() {
-        return "redirect:/vista-test";
+        return "redirect:/orientacion_vocacional";
     }
     
-    @GetMapping(value = "/vista-test")
+    @GetMapping(value = "/orientacion_vocacional")
     public String vistaPersona(@Validated Persona persona, Model model) {
         model.addAttribute("personas", personaService.findAll());
         model.addAttribute("colegios", colegioService.findAll());
@@ -47,7 +47,7 @@ public class TestController {
         model.addAttribute("estudiantes", estudianteService.findAll());
         model.addAttribute("persona", new Persona());
 
-        return "test/vista_registro1";
+        return "test/inicio_test";
     }
 
     @GetMapping(value = "/tests")
@@ -55,6 +55,6 @@ public class TestController {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
-        return "test/tipo_test";
+        return "test/vista_tests";
     }
 }

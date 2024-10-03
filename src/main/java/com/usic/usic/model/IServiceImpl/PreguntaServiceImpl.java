@@ -44,5 +44,10 @@ public class PreguntaServiceImpl implements IPreguntaService{
     public Long findMaxRespuestaOrMinPregunta(Long idEstudiante, Long id_tipo_test) {
         return preguntaDao.findMinPreguntaNotInRespuestas(idEstudiante, id_tipo_test);
     }
+
+    @Override
+    public Long countByTipoTest(Long idTipoTest) {
+        return preguntaDao.countByTipoTest(idTipoTest);
+    }
     
 }

@@ -32,7 +32,7 @@ public class LoginController {
 
             if (usuario.getEstado().equals("INHABILITADO")) {
                 System.out.println("NO ESTA ACTIVO ESTE USUARIO");
-                return "redirect:/vista-test";
+                return "redirect:/orientacion_vocacional";
             }
 
             if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
@@ -58,7 +58,7 @@ public class LoginController {
 
         } else {
             System.out.println("tas fuera");
-            return "redirect:/vista-test";
+            return "redirect:/orientacion_vocacional";
         }
     }
 
@@ -75,6 +75,6 @@ public class LoginController {
 
             flash.addAttribute("validado", "Se cerro sesion con exito");
         }
-        return "redirect:/vista-test";
+        return "redirect:/orientacion_vocacional";
     }
 }

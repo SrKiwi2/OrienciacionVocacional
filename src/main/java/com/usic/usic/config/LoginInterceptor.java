@@ -19,7 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         response.setHeader("Expires", "0");
 
         if (session == null || session.getAttribute("usuario") == null) {
-            response.sendRedirect("/vista-test");
+            response.sendRedirect("/orientacion_vocacional");
             return false;
         }
 
@@ -27,10 +27,10 @@ public class LoginInterceptor implements HandlerInterceptor{
         String requestURI = request.getRequestURI();
 
         if (requestURI.startsWith("/vista-administrador") && !rol.equals("ADMINISTRADOR") && !rol.equals("SUPER USUARIO")) {
-            response.sendRedirect("/vista-test"); // Redirige al login si el rol no es ADMINISTRADOR
+            response.sendRedirect("/orientacion_vocacional"); // Redirige al login si el rol no es ADMINISTRADOR
             return false;
-        } else if (requestURI.startsWith("/tipo_test") && !rol.equals("ESTUDIANTES")) {
-            response.sendRedirect("/vista-test"); // Redirige al login si el rol no es ESTUDIANTES
+        } else if (requestURI.startsWith("/tests") && !rol.equals("ESTUDIANTES")) {
+            response.sendRedirect("/orientacion_vocacional"); // Redirige al login si el rol no es ESTUDIANTES
             return false;
         }
 
