@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -102,7 +100,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/completions";
-        String apiKey = "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";
+        String apiKey = System.getenv("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");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
