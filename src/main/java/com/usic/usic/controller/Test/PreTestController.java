@@ -21,6 +21,7 @@ import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
 import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPreguntaService;
@@ -52,6 +53,9 @@ public class PreTestController {
     @Autowired
     private IUsuarioService usuarioService;
 
+    @Autowired
+    private Sp_preguntas sp_preguntas;
+
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
 
@@ -59,6 +63,8 @@ public class PreTestController {
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
         Long idTipoTest = 1L;
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+
+        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
         if (idPregunta != 0) {
 
