@@ -250,24 +250,39 @@ public class PreTestController {
         return "redirect:/pre_test";
     }
 
-    @GetMapping("/pre_test_modificar/{id_pregunta_respuesta}")
-    public String pre_test_modificar(@PathVariable("id_pregunta_respuesta") Long id_pregunta_respuesta, Model model, HttpSession session) {
+    @GetMapping("/pre_test_modificar")
+    public String pre_test_modificar(@RequestParam("id_pregunta_respuesta") Long id_pregunta_respuesta, Model model, HttpSession session) {
 
         EstudianteRespuesta estudianteRespuesta = estudianteRespuestaService.findById(id_pregunta_respuesta);
         Estudiante estudiante = estudianteService.findById(estudianteRespuesta.getEstudiante().getIdEstudiante());
         Respuesta respuesta = respuestaService.findById(estudianteRespuesta.getRespuesta().getIdRespuesta());
         Pregunta pregunta = preguntaService.findById(respuesta.getPregunta().getIdPregunta());
 
-        Long idTipoTest = 1L;        
+        Long idTipoTest = 1L;
 
+        model.addAttribute("v_id_pregunta_respuesta", id_pregunta_respuesta);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
         model.addAttribute("estudianteRespuesta", estudianteRespuesta);
         model.addAttribute("respuesta", respuesta);
-        model.addAttribute("pregunta", respuesta);
+        model.addAttribute("respuestas",  respuestaService.findAll());
+        model.addAttribute("pregunta", pregunta);
 
         return "test/vista_pregunta_modificar";
     } 
 
+    @PostMapping("/guardar_respuesta_modificacion")
+    public String guardar_respuesta_modificacion(
+        @RequestParam("id_estudianteRespuesta") Long id_estudianteRespuesta,
+        @RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+
+        EstudianteRespuesta estudianteRespuesta = estudianteRespuestaService.findById(id_estudianteRespuesta);
+        Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
+        
+        estudianteRespuesta.setRespuesta(respuesta);
+        estudianteRespuesta.setModificacion(new Date());
+        estudianteRespuestaService.save(estudianteRespuesta);
+        return "redirect:/pre_test";
+    }
 
 
     @GetMapping("/pre_test_prueba")
