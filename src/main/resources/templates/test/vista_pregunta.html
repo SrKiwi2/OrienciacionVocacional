@@ -20,20 +20,125 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <style>
             .btn-round {
-              width: 50px;
-              height: 50px;
-              border-radius: 50%;
-              font-size: 20px;
-              padding: 0;
-            }
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 20px;
+    padding: 0;
+    display: flex; /* Para centrar el texto */
+    justify-content: center; /* Para centrar el texto */
+    align-items: center; /* Para centrar el texto */
+    background-color: #ffc107; /* Color de fondo (puedes cambiarlo) */
+    color: white; /* Color del texto (puedes cambiarlo) */
+    border: none; /* Sin borde */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+    transition: all 0.3s; /* Transición para efectos de hover */
+    animation: pulse 1.5s infinite; /* Animación de palpitación */
+}
+
+.btn-round:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Sombra más intensa al pasar el mouse */
+    transform: translateY(-2px); /* Sube ligeramente al pasar el mouse */
+    animation: none; /* Detener la animación al hacer hover */
+}
+
+/* Reflejo del botón */
+.btn-round::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2); /* Color del reflejo */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1.2); /* Ajusta el tamaño y posición del reflejo */
+    filter: blur(8px); /* Desenfoque del reflejo */
+    opacity: 0.5; /* Opacidad del reflejo */
+    z-index: -1; /* Asegura que el reflejo esté detrás del botón */
+}
+
+/* Animación de palpitación */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1); /* Escala normal */
+    }
+    50% {
+        transform: scale(1.1); /* Escala ligeramente más grande */
+    }
+}
         </style>
-
     <link rel="stylesheet" href="../assets/css/fondo_test.css">
+        <style>
+            #particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Para que las partículas estén detrás del contenido */
+}
 
+.particle {
+    position: absolute;
+    font-size: 500px;
+    color: #fcbf49; /* Color del "?" */
+    animation: float 10s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Añadimos varias partículas de "?" en diferentes posiciones y velocidades */
+.particle:nth-child(1) {
+    left: 10%;
+    animation-duration: 8s;
+    font-size: 450px;
+}
+
+.particle:nth-child(2) {
+    left: 30%;
+    animation-duration: 12s;
+    font-size: 400px;
+}
+
+.particle:nth-child(3) {
+    left: 50%;
+    animation-duration: 15s;
+    font-size: 350px;
+}
+
+.particle:nth-child(4) {
+    left: 70%;
+    animation-duration: 9s;
+    font-size: 300px;
+}
+
+.particle:nth-child(5) {
+    left: 90%;
+    animation-duration: 14s;
+    font-size: 250px;
+}
+        </style>
 </head>
 
-<body class="template-color-1">
+<body style="background-color: #fefae0;">
+    <div id="particles"></div>
     <div class="container">
+        
         <div class="row">
             <div class="col-12">
                 <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog"
@@ -65,7 +170,7 @@
                                         <img src="../assets/images/profile/user-5.jpg" class="img-fluid" alt="...">
                                     </div>
                                     <div class="col-md-6 col-12 pt-3">
-                                        <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}"></th:block>
+                                        <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
                                             <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
                                                 <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                                     <div class="form-check">
@@ -85,7 +190,7 @@
                                                         </th:block>
                                                     </div>
                                                 </th:block>
-                                            </form>                                    
+                                            </form>
                                         </th:block>
                                     </div>
                                 </div>
@@ -237,6 +342,18 @@
                 var url = "/pre_test_modificar?id_pregunta_respuesta=" + idEstudianteRespuesta;
                 window.location.href = url;
             }
+        }
+    </script>
+    <script>
+        // Selecciona el contenedor de partículas
+        const particlesContainer = document.getElementById('particles');
+        
+        // Añadimos 5 partículas (puedes cambiar la cantidad)
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.innerText = '?'; // Cada partícula será un signo de interrogación
+            particlesContainer.appendChild(particle);
         }
     </script>
 
