@@ -17405,6 +17405,7 @@ figcaption {
   margin-bottom: 5px;
 }
 
+
 @media only screen and (min-width: 1200px) and (max-width: 1599px) {
   .banner-left-bg-svg .title {
     font-size: 70px;
@@ -27129,7 +27130,7 @@ body.active-dark-mode .select2-container--default .select2-results__option--high
 }
 
 .password-input {
-  padding-right: 4rem; /* Espacio para el ícono */
+  padding-right: 4rem;
 }
 
 .password-toggle-icon {
@@ -27141,6 +27142,10 @@ body.active-dark-mode .select2-container--default .select2-results__option--high
 }
 
 .password-toggle-icon i {
-  font-size: 3rem; 
-  margin-top: 20%;
+  position: absolute;
+  font-size: 2rem; 
+  right: 5px;
+  top: 8px;
+  cursor: pointer;
 }
+

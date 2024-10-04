@@ -1,0 +1,20 @@
+/*=============== BASE ===============*/
+.button-wrapper {
+	margin-inline: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+	padding: 1rem; /* Ajuste de padding independiente */
+	box-sizing: border-box; /* Para manejar mejor los márgenes y padding */
+  }
+
+.button-wrapper * {
+	box-sizing: inherit; /* Asegura que todos los elementos dentro sigan el box-sizing */
+	padding: 0; /* Evita el padding por defecto en elementos internos */
+	margin: 0; /* Evita márgenes por defecto */
+  }
+
+a{
+	text-decoration: none;
+}
