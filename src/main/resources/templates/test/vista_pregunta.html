@@ -47,9 +47,9 @@
 
                                     <div class="col-md-6 col-12 text-center">
                                         <label for="respuestasRespondidas_select" class="form-label">Preguntas Respondidas</label>
-                                        <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select">
+                                        <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select" onchange="redireccionar(this.value)">
                                             <th:block th:each="rrs : ${respuestasRespondidas}">
-                                                <option th:value="${rrs.id_pregunta}" th:text="${rrs.descrip_preg}"></option>
+                                                <option th:value="${rrs.id_estudiante_respuesta}" th:text="${rrs.descrip_preg}"></option>
                                             </th:block>
                                         </select>
                                     </div>
@@ -170,6 +170,15 @@
                 }
             });
         });
+    </script>
+    <script>
+        function redireccionar(idEstudianteRespuesta) {
+            if (idEstudianteRespuesta) {
+                // Aquí defines la URL a la que quieres redirigir, puedes agregar el ID como parámetro
+                var url = "/nuevaRuta?id=" + idEstudianteRespuesta;
+                window.location.href = url;
+            }
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

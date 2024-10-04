@@ -88,61 +88,6 @@
                                         </th:block>
                                     </form>                                    
                                 </th:block>
-                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'RESPUESTA CON COMPLEMENTO'}">
-                                    <form class="was-validated" action="/guardar_respuesta2" method="post">
-                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                                            <label for="" th:text="${r.respuesta}"></label>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-text">
-                                                    <input class="form-check-input mt-0 checkbox-input" type="checkbox" th:id="${r.idRespuesta}"
-                                                        th:value="${r.idRespuesta}" name="checkboxes"
-                                                        aria-label="Checkbox for following text input" onchange="toggleInput(this)">
-                                                </div>
-                                                <input type="text" class="form-control" name="textInputs"
-                                                    aria-label="Text input with checkbox" disabled>
-                                            </div>
-                                        </th:block>
-                                        <hr class="my-4">
-                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
-                                    </form>
-                                </th:block>
-                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'ABIERTA'}">
-                                    <form class="was-validated" action="/guardar_respuesta3" method="post">
-                                        <input type="hidden" name="id_pregunta" th:value="${pregunta.idPregunta}">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Completar</span>
-                                            <textarea class="form-control" name="respuesta_pregunta" aria-label="With textarea" required></textarea>
-                                        </div>
-                                        <hr class="my-4">
-                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
-                                    </form>
-                                </th:block>
-                                <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION MULTIPLE'}">
-                                    <form class="was-validated" action="/guardar_respuesta4" method="post">
-                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                                            <th:block th:if="${not #strings.startsWith(r.respuesta, 'Otr')}">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" name="checkboxes2" type="checkbox" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}">
-                                                    <label class="form-check-label" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                </div>
-                                            </th:block> 
-                                            <th:block th:if="${#strings.startsWith(r.respuesta, 'Otr')}">
-                                                <label for="" th:text="${r.respuesta}"></label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-text">
-                                                        <input class="form-check-input mt-0 checkbox-input" type="checkbox" th:id="${r.idRespuesta}"
-                                                            th:value="${r.idRespuesta}" name="checkboxes2"
-                                                            aria-label="Checkbox for following text input" onchange="toggleInput(this)">
-                                                    </div>
-                                                    <input type="text" class="form-control" name="textInputs"
-                                                        aria-label="Text input with checkbox" disabled>
-                                                </div>
-                                            </th:block>
-                                        </th:block>
-                                        <hr class="my-4">
-                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
-                                    </form>
-                                </th:block>
                             </div>
                         </div>
                     </div>

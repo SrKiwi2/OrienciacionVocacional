@@ -14,7 +14,7 @@ public class Sp_preguntas {
     private JdbcTemplate jdbcTemplate;
 
     public List<Map<String, Object>> ObtenerRespuestasrespondidas(Long id_estudiante, Long id_tipo_test) {
-        String sql = "select p.id_pregunta, ('Pregunta: ' || p.id_pregunta) as descrip_preg from estudiante_respuesta er inner join respuesta r on r.id_respuesta = er.id_respuesta inner join pregunta p on p.id_pregunta = r.id_pregunta inner join tipo_test tt on tt.id_tipo_test = p.id_tipo_test where er.id_estudiante = ? and tt.id_tipo_test = ? and er._estado  = 'ACTIVO' and r._estado = 'ACTIVO' and p._estado = 'ACTIVO' and tt._estado = 'ACTIVO' group by p.id_pregunta order by p.id_pregunta asc, descrip_preg;";
+        String sql = "select er.*,('Pregunta: ' || p.id_pregunta) as descrip_preg from estudiante_respuesta er inner join respuesta r on r.id_respuesta = er.id_respuesta inner join pregunta p on p.id_pregunta = r.id_pregunta inner join tipo_test tt on tt.id_tipo_test = p.id_tipo_test where er.id_estudiante = ?   and tt.id_tipo_test = ?   and er._estado  = 'ACTIVO'   and r._estado = 'ACTIVO'   and p._estado = 'ACTIVO'   and tt._estado = 'ACTIVO'order by p.id_pregunta asc";
         Object[] params = new Object[] {id_estudiante, id_tipo_test};
     
         try {

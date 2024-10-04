@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
@@ -248,6 +249,26 @@ public class PreTestController {
         }
         return "redirect:/pre_test";
     }
+
+    @GetMapping("/pre_test_modificar/{id_pregunta_respuesta}")
+    public String pre_test_modificar(@PathVariable("id_pregunta_respuesta") Long id_pregunta_respuesta, Model model, HttpSession session) {
+
+        EstudianteRespuesta estudianteRespuesta = estudianteRespuestaService.findById(id_pregunta_respuesta);
+        Estudiante estudiante = estudianteService.findById(estudianteRespuesta.getEstudiante().getIdEstudiante());
+        Respuesta respuesta = respuestaService.findById(estudianteRespuesta.getRespuesta().getIdRespuesta());
+        Pregunta pregunta = preguntaService.findById(respuesta.getPregunta().getIdPregunta());
+
+        Long idTipoTest = 1L;        
+
+        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
+        model.addAttribute("estudianteRespuesta", estudianteRespuesta);
+        model.addAttribute("respuesta", respuesta);
+        model.addAttribute("pregunta", respuesta);
+
+        return "test/vista_pregunta_modificar";
+    } 
+
+
 
     @GetMapping("/pre_test_prueba")
     public String pre_test_prueba(Model model, HttpSession session) {
