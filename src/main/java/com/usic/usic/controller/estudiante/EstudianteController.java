@@ -61,6 +61,8 @@ public class EstudianteController {
 
     @GetMapping("/total-respuestas-si/{idEstudiante}")
     public ResponseEntity<Integer> getTotalRespuestasSi(@PathVariable Long idEstudiante) {
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
+        System.out.println(estudiante);
         int totalRespuestasSi = estudianteRespuestaService.countRespuestasSiByEstudiante(idEstudiante);
         return ResponseEntity.ok(totalRespuestasSi);
     }

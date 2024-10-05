@@ -13,18 +13,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Desactiva protección CSRF para pruebas, no recomendado en producción
                 .authorizeHttpRequests(authz -> authz
-                    .requestMatchers("/orientacion_vocacional",
-                                                "/assets_registro/**", 
-                                                "/assets/**", 
-                                                "/iniciar-sesion", 
-                                                "/vista-administrador",
-                                                "/guardar_estudiante_inicio",
-                                                "/pre_test",
-                                                "/guardar_respuesta",
-                                                "/interpretar_respuestas",
-                                                "/vista_resultado_pre_test_ia",
-                                                "/total-respuestas-si").permitAll() // Permitir acceso sin autenticación
-                    .anyRequest().authenticated() // Requiere autenticación para las demás rutas
+                    .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                     .loginPage("/orientacion_vocacional")

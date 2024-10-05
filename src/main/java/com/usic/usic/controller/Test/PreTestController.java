@@ -93,29 +93,45 @@ public class PreTestController {
 
         List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasConSI(estudiante.getIdEstudiante());
 
-        StringBuilder prompt = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
+        StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
         for (Object[] pr : preguntasYRespuestas) {
             String pregunta = (String) pr[0];
-            prompt.append("- ").append(pregunta).append("\n");
+            promptIntereses.append("- ").append(pregunta).append("\n");
         }
-        prompt.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
-        prompt.append("Proporciona una respuesta motivadora, clara y específica, dividiéndola en dos secciones:\n");
-        prompt.append("1. **Intereses**: Menciona cuáles son mis intereses, usando un tono positivo y resaltando mis fortalezas. \n");
-        prompt.append("2. **Aptitudes**: Explica mis aptitudes de forma alentadora, y describe mis fortalezas con detalles específicos. \n");
-        prompt.append("Ambas secciones son obligatorias y deben ser incluidas. \n");
-        prompt.append("Sé encantador y usa frases como 'tus aptitudes son...', 'porque eres...', 'por tal razón tienes la habilidad de...' etc. Haz que el mensaje sea motivador y positivo.");
-        prompt.append("no te extiendas mucho con las palabras se breve y conciso");
 
-        String interpretacionCompleta = llamarAI(prompt.toString());
+        promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
+        promptIntereses.append("Proporcioname una respuesta motivadora, clara y específica, enfocándote en mis intereses segun tu opinion.");
+        promptIntereses.append("Utiliza un tono positivo y menciona cuáles son mis intereses, resaltando mis fortalezas. \n");
+        promptIntereses.append("Sé encantador y utiliza frases como 'tus intereses son...'. que sea breve y conciso, maximo de 100 palabras.");
 
-        // Utiliza expresiones regulares para separar los intereses y las aptitudes
-        String[] secciones = interpretacionCompleta.split("Aptitudes:");
-        String intereses = secciones[0].replace("Intereses:", "").trim();
-        String aptitudes = secciones.length > 1 ? secciones[1].trim() : "Tus aptitudes no fueron detectadas, pero tienes la capacidad de desarrollarlas con dedicación y práctica.";
-        
+        String interpretacionIntereses = llamarAI(promptIntereses.toString());
 
-        session.setAttribute("opinionIAIntereses", intereses);
-        session.setAttribute("opinionIAAptitudes", aptitudes);
+        StringBuilder promptAptitudes = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
+        for (Object[] pr : preguntasYRespuestas) {
+            String pregunta = (String) pr[0];
+            promptAptitudes.append("- ").append(pregunta).append("\n");
+        }
+
+        promptAptitudes.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
+        promptAptitudes.append("Proporciona una respuesta motivadora, clara y específica, enfocándote en mis aptitudes segun tu opinion.");
+        promptAptitudes.append("Explica mis aptitudes de forma alentadora, y describe mis fortalezas con detalles específicos. \n");
+        promptAptitudes.append("Sé encantador y utiliza frases como 'tus aptitudes son...'. que sea breve y conciso. maximo de 100 palabras.");
+
+        String interpretacionAptitudes = llamarAI(promptAptitudes.toString());
+
+        // prompt para las áreas profesionales
+        StringBuilder promptAreas = new StringBuilder("Basándote en los siguientes intereses y aptitudes que me haz proporcionado:\n");
+        promptAreas.append("Intereses: ").append(interpretacionIntereses).append("\n");
+        promptAreas.append("Aptitudes: ").append(interpretacionAptitudes).append("\n");
+        promptAreas.append("Determina las áreas profesionales más adecuadas para mi. \n");
+        promptAreas.append("Ejemplos de áreas son: Área Administrativa, Área de Humanidades y Ciencias Sociales y Jurídicas, Área Artística, Área de Ciencias de la Salud, etc. \n");
+        promptAreas.append("Sé específico y proporciona una lista clara de las áreas que podrían corresponder a los intereses y aptitudes que me has proporcionado.");
+
+        String interpretacionAreas = llamarAI(promptAreas.toString());
+
+        session.setAttribute("opinionIAIntereses", interpretacionIntereses);
+        session.setAttribute("opinionIAAptitudes", interpretacionAptitudes);
+        session.setAttribute("opinionIAAreas", interpretacionAreas); 
         session.setAttribute("idEstudiante", estudiante.getIdEstudiante());
         
         return "redirect:/vista_resultado_pre_test_ia";
@@ -126,7 +142,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -139,7 +155,7 @@ public class PreTestController {
         // Mensaje de sistema para dar contexto a la IA
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "Eres un psicopedagogo que analiza preguntas y respuestas de estudiantes para saber sus actitudes e interes.");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus actitudes e interes.");
         messages.put(systemMessage);
 
         // Mensaje del usuario con el prompt
@@ -149,7 +165,7 @@ public class PreTestController {
         messages.put(userMessage);
 
         requestBody.put("messages", messages);
-        requestBody.put("max_tokens", 300);
+        requestBody.put("max_tokens", 500);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
