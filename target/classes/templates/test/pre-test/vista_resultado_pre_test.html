@@ -11,9 +11,13 @@
 
 <body>
     <div id="main-wrapper">
-        <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}">
+        
         <div class="body-wrapper">
             <div class="container-fluid">
+                <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}" th:if="${estudiante != null}">
+                <input type="hidden" id="idEstudiante" th:value="${session.estudiante}"  th:if="${idEstudiante != null}">
+
+                <!-- <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}"> -->
                 <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-4 card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
@@ -44,8 +48,14 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
+                                <!-- INTERESES -->
                                 <h5>SEÑOR ESTUDIANTE</h5>
-                                <p>${opinionIA}</p>
+                                <h6 class="text-primary">Intereses</h6>
+                                <p th:text="${opinionIAIntereses}"></p>
+                                
+                                <!-- APTITUDES -->
+                                <h6 class="text-success">Aptitudes</h6>
+                                <p th:text="${opinionIAAptitudes}"></p>
                             </div>
                         </div>
                     </div>
@@ -54,6 +64,37 @@
                     <button class="btn btn-primary mx-3 btn-inscribirse" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">INSCRIBIRSE</button>
                     <button class="btn btn-secondary btn-terminar" onclick="terminar()">TERMINAR</button>
                 </div>
+
+                <style>
+                    .card {
+                            border-radius: 15px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .card-title {
+                            font-weight: 700;
+                            font-size: 1.2rem;
+                        }
+
+                        .text-primary {
+                            color: #007bff;
+                        }
+
+                        .text-success {
+                            color: #28a745;
+                        }
+
+                        p {
+                            font-size: 1rem;
+                            line-height: 1.6;
+                        }
+
+                        h6 {
+                            margin-top: 20px;
+                            font-weight: 600;
+                        }
+
+                </style>
 
                 <style>
                     /* Efectos para el botón "INSCRIBIRSE" */

@@ -3,6 +3,10 @@ package com.usic.usic.controller.Test;
 import java.util.Date;
 import java.util.List;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
@@ -35,6 +38,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PreTestController {
@@ -92,24 +96,37 @@ public class PreTestController {
         StringBuilder prompt = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
         for (Object[] pr : preguntasYRespuestas) {
             String pregunta = (String) pr[0];
-            String respuesta = (String) pr[1];
-            prompt.append("- ").append(pregunta).append(": ").append(respuesta).append("\n");
+            prompt.append("- ").append(pregunta).append("\n");
         }
-        prompt.append("Con base en las respuestas anteriores, ¿cuáles son los intereses y aptitudes del estudiante?");
+        prompt.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
+        prompt.append("Proporciona una respuesta motivadora, clara y específica, dividiéndola en dos secciones:\n");
+        prompt.append("1. **Intereses**: Menciona cuáles son mis intereses, usando un tono positivo y resaltando mis fortalezas. \n");
+        prompt.append("2. **Aptitudes**: Explica mis aptitudes de forma alentadora, y describe mis fortalezas con detalles específicos. \n");
+        prompt.append("Ambas secciones son obligatorias y deben ser incluidas. \n");
+        prompt.append("Sé encantador y usa frases como 'tus aptitudes son...', 'porque eres...', 'por tal razón tienes la habilidad de...' etc. Haz que el mensaje sea motivador y positivo.");
+        prompt.append("no te extiendas mucho con las palabras se breve y conciso");
 
-        String interpretacion = llamarAI(prompt.toString());
+        String interpretacionCompleta = llamarAI(prompt.toString());
 
-        model.addAttribute("interpretacion", interpretacion);
-        model.addAttribute("estudiante", estudiante);
-        System.out.println(interpretacion);
-        return "test/pre-test/vista_resultado_pre_test";
+        // Utiliza expresiones regulares para separar los intereses y las aptitudes
+        String[] secciones = interpretacionCompleta.split("Aptitudes:");
+        String intereses = secciones[0].replace("Intereses:", "").trim();
+        String aptitudes = secciones.length > 1 ? secciones[1].trim() : "Tus aptitudes no fueron detectadas, pero tienes la capacidad de desarrollarlas con dedicación y práctica.";
+        
+
+        session.setAttribute("opinionIAIntereses", intereses);
+        session.setAttribute("opinionIAAptitudes", aptitudes);
+        session.setAttribute("idEstudiante", estudiante.getIdEstudiante());
+        
+        return "redirect:/vista_resultado_pre_test_ia";
     }
+
 
     private String llamarAI(String prompt) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String apiUrl = "https://api.openai.com/v1/completions";
-        String apiKey = "sk-VrJG-AWcITQeB1hXIzpmMM7YJx5wmKn1Mgc2tE2-nZT3BlbkFJe-utkOMVj0DMHFLoFMvOG9CS5ATwJsv_-ARlJtHKUA";
+        String apiUrl = "https://api.openai.com/v1/chat/completions";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -117,15 +134,30 @@ public class PreTestController {
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", "gpt-4o-mini");
-        requestBody.put("prompt", prompt);
-        requestBody.put("max_tokens", 2000);
+
+        JSONArray messages = new JSONArray();
+        // Mensaje de sistema para dar contexto a la IA
+        JSONObject systemMessage = new JSONObject();
+        systemMessage.put("role", "system");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza preguntas y respuestas de estudiantes para saber sus actitudes e interes.");
+        messages.put(systemMessage);
+
+        // Mensaje del usuario con el prompt
+        JSONObject userMessage = new JSONObject();
+        userMessage.put("role", "user");
+        userMessage.put("content", prompt); // El prompt generado dinámicamente
+        messages.put(userMessage);
+
+        requestBody.put("messages", messages);
+        requestBody.put("max_tokens", 300);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
+
         for (int i = 0; i < 3; i++) { // Intenta hasta 3 veces
             try {
                 ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
                 JSONObject jsonResponse = new JSONObject(response.getBody());
-                return jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
+                return jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
             } catch (HttpClientErrorException e) {
                 if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
                     // Esperar un tiempo antes de reintentar
@@ -157,9 +189,22 @@ public class PreTestController {
         return "redirect:/pre_test";
     }
 
-    @GetMapping("/vista_resultado_pre_test")
+    @GetMapping("/vista_resultado_pre_test_ia")
     public String vista_resultado_pre_test(Model model, HttpSession session) {
-        
+
+        String intereses = (String) session.getAttribute("opinionIAIntereses");
+        String aptitudes = (String) session.getAttribute("opinionIAAptitudes");
+    
+        if (intereses == null) {
+            intereses = "No hay resultados disponibles."; // Manejo en caso de que no se haya generado respuesta
+        }
+        if (aptitudes == null) {
+            aptitudes = "No hay resultados disponibles."; // Manejo en caso de que no se haya generado respuesta
+        }
+    
+        model.addAttribute("opinionIAIntereses", intereses);
+        model.addAttribute("opinionIAAptitudes", aptitudes);
+
         return "test/pre-test/vista_resultado_pre_test";
     }
 

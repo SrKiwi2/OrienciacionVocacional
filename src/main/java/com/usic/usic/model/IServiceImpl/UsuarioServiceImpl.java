@@ -57,5 +57,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public Usuario findByUsername(String username) {
         return usuarioDao.findByUsername(username);
     }
-    
+
+    @Override
+    public String findEstadoByCorreoOrDefault(String correo) {
+        return usuarioDao.findEstadoByCorreoOrDefault(correo);
+    }
 }

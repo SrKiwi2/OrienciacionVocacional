@@ -4,6 +4,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Rol;
@@ -13,6 +14,7 @@ import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.Service.IUsuarioService;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class SistemaOrientacionVocacionalApplication {
 
 	public static void main(String[] args) {

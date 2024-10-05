@@ -14,7 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/vista-administrador/**", "/tests/**")
+                .addPathPatterns("/vista-administrador/**", "/tests/**" , "/pre_test/**")
                 .excludePathPatterns("/orientacion_vocacional");
     }
 }
