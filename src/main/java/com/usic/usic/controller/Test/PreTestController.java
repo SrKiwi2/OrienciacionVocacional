@@ -31,7 +31,6 @@ import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 import com.usic.usic.model.Service.IUsuarioService;
-import com.usic.usic.model.dao.ITipoTestDao;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
