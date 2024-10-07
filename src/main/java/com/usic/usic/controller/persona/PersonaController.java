@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IPersonaService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Genero;
@@ -46,7 +49,7 @@ public class PersonaController {
     }
 
     @PostMapping(value = "/guardar-persona")
-    public String guardarPersona(
+    public ResponseEntity<String> guardarPersona(
         @RequestParam(value = "idPersona", required = false) Long idPersona,
         @RequestParam("nombre") String nombre,
         @RequestParam("paterno") String paterno,
@@ -75,7 +78,16 @@ public class PersonaController {
         persona.setGenero(genero);  
 
         personaService.save(persona);
-        return "redirect:/vista-persona";
+        return ResponseEntity.ok("Se guardó el registro con éxito");
+    }
+
+    @PostMapping("/listarRegistroPersona")
+    public String ListarNacionalidad(HttpServletRequest request, Model model) {
+
+        model.addAttribute("personas", personaService.findAll());
+        model.addAttribute("colegios", colegioService.findAll()); // Lista de colegios
+        model.addAttribute("sexos", sexoService.findAll());
+        return "Persona/tabla-registroPersona";
     }
 
     @PostMapping(value = "/eliminar-persona/{idPersona}")

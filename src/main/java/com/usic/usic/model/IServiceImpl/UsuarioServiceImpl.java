@@ -1,6 +1,7 @@
 package com.usic.usic.model.IServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -61,5 +62,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public String findEstadoByCorreoOrDefault(String correo) {
         return usuarioDao.findEstadoByCorreoOrDefault(correo);
+    }
+
+    @Override
+    public Optional<Usuario> findByCorreo(String correo) {
+        return usuarioDao.findByCorreo(correo);
     }
 }

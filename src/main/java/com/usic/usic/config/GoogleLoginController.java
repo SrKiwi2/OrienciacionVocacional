@@ -5,7 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IUsuarioService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,16 +23,26 @@ public class GoogleLoginController {
     private IUsuarioService usuarioService;
 
     @GetMapping("/oauth2/success")
-    public String handleOAuth2Success(Authentication authentication, Model model, RedirectAttributes redirectAttributes) {
+    public String handleOAuth2Success(Authentication authentication, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes, RedirectAttributes flash) {
         // Obtener la información del correo desde Google
         OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
         String email = oauth2User.getAttribute("email");
+        System.out.println(email);
 
         // Buscar el usuario en la base de datos a través del correo
         String estado = usuarioService.findEstadoByCorreoOrDefault(email);
 
-        if ("E".equals(estado)) {
+        Usuario usuario = usuarioService.findByCorreo(email).orElse(null);
+
+        System.out.println(usuario);
+
+        if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
             // Si el estado es 'E', redirigir a la vista de tests
+                HttpSession sessionEstudiantes = request.getSession(true);
+                sessionEstudiantes.setAttribute("usuario", usuario);
+                sessionEstudiantes.setAttribute("persona", usuario.getPersona());
+                sessionEstudiantes.setAttribute("nombre_rol", usuario.getRol().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
             System.out.println("Estuden con gmail ingreso a los test");
             return "redirect:/tests";
         } else {
@@ -44,5 +60,4 @@ public class GoogleLoginController {
             }
         }
     }
-    
 }

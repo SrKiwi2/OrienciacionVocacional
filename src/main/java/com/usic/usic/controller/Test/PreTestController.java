@@ -3,9 +3,6 @@ package com.usic.usic.controller.Test;
 import java.util.Date;
 import java.util.List;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
 import com.usic.usic.model.Entity.Respuesta;
+import com.usic.usic.model.Entity.ResultadoIA;
+import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
+import com.usic.usic.model.Service.IResultadoIaService;
+import com.usic.usic.model.Service.ITipoTestService;
 import com.usic.usic.model.Service.IUsuarioService;
+import com.usic.usic.model.dao.ITipoTestDao;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -38,7 +39,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PreTestController {
@@ -60,6 +60,12 @@ public class PreTestController {
 
     @Autowired
     private Sp_preguntas sp_preguntas;
+
+    @Autowired
+    private IResultadoIaService resultadoIaService;
+
+    @Autowired
+    private ITipoTestService tipoTestService;
 
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
@@ -87,7 +93,7 @@ public class PreTestController {
     }
 
     @GetMapping("/interpretar_respuestas")
-    public String interpretarRespuestas(Model model, HttpSession session) {
+    public String interpretarRespuestas(Model model, HttpSession session, ResultadoIA resultadoIA) {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
@@ -102,7 +108,7 @@ public class PreTestController {
         promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
         promptIntereses.append("Proporcioname una respuesta motivadora, clara y específica, enfocándote en mis intereses segun tu opinion.");
         promptIntereses.append("Utiliza un tono positivo y menciona cuáles son mis intereses, resaltando mis fortalezas. \n");
-        promptIntereses.append("Sé encantador y utiliza frases como 'tus intereses son...'. que sea breve y conciso, maximo de 100 palabras.");
+        promptIntereses.append("Sé encantador y utiliza frases como 'tus intereses son...'. que sea breve y conciso, maximo de 50 palabras.");
 
         String interpretacionIntereses = llamarAI(promptIntereses.toString());
 
@@ -115,7 +121,7 @@ public class PreTestController {
         promptAptitudes.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
         promptAptitudes.append("Proporciona una respuesta motivadora, clara y específica, enfocándote en mis aptitudes segun tu opinion.");
         promptAptitudes.append("Explica mis aptitudes de forma alentadora, y describe mis fortalezas con detalles específicos. \n");
-        promptAptitudes.append("Sé encantador y utiliza frases como 'tus aptitudes son...'. que sea breve y conciso. maximo de 100 palabras.");
+        promptAptitudes.append("Sé encantador y utiliza frases como 'tus aptitudes son...'. que sea breve y conciso. maximo de 50 palabras.");
 
         String interpretacionAptitudes = llamarAI(promptAptitudes.toString());
 
@@ -126,14 +132,25 @@ public class PreTestController {
         promptAreas.append("Determina las áreas profesionales más adecuadas para mi. \n");
         promptAreas.append("Ejemplos de áreas son: Área Administrativa, Área de Humanidades y Ciencias Sociales y Jurídicas, Área Artística, Área de Ciencias de la Salud, etc. \n");
         promptAreas.append("Sé específico y proporciona una lista clara de las áreas que podrían corresponder a los intereses y aptitudes que me has proporcionado.");
+        promptAreas.append("Máximo de 50 palabras.");
 
         String interpretacionAreas = llamarAI(promptAreas.toString());
+
+        System.out.println(interpretacionAreas);
 
         session.setAttribute("opinionIAIntereses", interpretacionIntereses);
         session.setAttribute("opinionIAAptitudes", interpretacionAptitudes);
         session.setAttribute("opinionIAAreas", interpretacionAreas); 
         session.setAttribute("idEstudiante", estudiante.getIdEstudiante());
-        
+
+        String respuestaIaEstudiante = interpretacionIntereses + "/" + interpretacionAptitudes + "/" + interpretacionAreas;
+
+        TipoTest tipoTest = tipoTestService.findById(1L);
+
+        resultadoIA.setEstudiante(estudiante);
+        resultadoIA.setResultado(respuestaIaEstudiante);
+        resultadoIA.setTipoTest(tipoTest);
+        resultadoIaService.save(resultadoIA);
         return "redirect:/vista_resultado_pre_test_ia";
     }
 
@@ -142,7 +159,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -155,7 +172,7 @@ public class PreTestController {
         // Mensaje de sistema para dar contexto a la IA
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus actitudes e interes.");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus actitudes, interes y .");
         messages.put(systemMessage);
 
         // Mensaje del usuario con el prompt
@@ -165,7 +182,7 @@ public class PreTestController {
         messages.put(userMessage);
 
         requestBody.put("messages", messages);
-        requestBody.put("max_tokens", 500);
+        requestBody.put("max_tokens", 1000);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
@@ -208,18 +225,15 @@ public class PreTestController {
     @GetMapping("/vista_resultado_pre_test_ia")
     public String vista_resultado_pre_test(Model model, HttpSession session) {
 
+        Long idEstudiante = (Long) session.getAttribute("idEstudiante");
         String intereses = (String) session.getAttribute("opinionIAIntereses");
         String aptitudes = (String) session.getAttribute("opinionIAAptitudes");
-    
-        if (intereses == null) {
-            intereses = "No hay resultados disponibles."; // Manejo en caso de que no se haya generado respuesta
-        }
-        if (aptitudes == null) {
-            aptitudes = "No hay resultados disponibles."; // Manejo en caso de que no se haya generado respuesta
-        }
-    
+        String areas = (String) session.getAttribute("opinionIAAreas");
+
         model.addAttribute("opinionIAIntereses", intereses);
         model.addAttribute("opinionIAAptitudes", aptitudes);
+        model.addAttribute("opinionIAAreas", areas);
+        model.addAttribute("idEstudiante", idEstudiante);
 
         return "test/pre-test/vista_resultado_pre_test";
     }

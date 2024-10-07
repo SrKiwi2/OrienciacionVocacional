@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
-    <title>Resultado</title>
+    <title>Orientacion Vocacional</title>
 </head>
 
 <body>
     <div id="main-wrapper">
-        
         <div class="body-wrapper">
             <div class="container-fluid">
-                <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}" th:if="${estudiante != null}">
-                <input type="hidden" id="idEstudiante" th:value="${session.estudiante}"  th:if="${idEstudiante != null}">
+                <!-- <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}" th:if="${estudiante != null}">
+                <input type="hidden" id="idEstudiante" th:value="${session.estudiante}"  th:if="${idEstudiante != null}"> -->
+                <input type="hidden" id="idEstudiante" th:value="${idEstudiante}">
 
                 <!-- <input type="hidden" id="idEstudiante" th:value="${estudiante.idEstudiante}"> -->
                 <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-4 card">

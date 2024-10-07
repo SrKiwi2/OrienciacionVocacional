@@ -82,6 +82,9 @@ public class UsuarioController {
     public ResponseEntity<String> RegistrarUsuario(HttpServletRequest request, @Validated Usuario usuario) {
 
         if (usuarioService.buscarPorUsuario(usuario.getUsername())  == null) {
+            usuario.setPassword(usuario.getPassword());
+            usuario.setRol(usuario.getRol());
+            usuario.setPersona(usuario.getPersona());
             usuario.setEstado("ACTIVO");
             usuarioService.save(usuario);
             return ResponseEntity.ok("Se guardó el registro con éxito");

@@ -1,0 +1,62 @@
+<section class="content">
+    <div class="datatables">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <h5 class="mb-0">File export</h5>
+                        </div>
+                        <p class="card-subtitle mb-3">
+                            Datos de los estudiantes vigentes
+                        </p>
+                        <div class="table-responsive">
+                            <table id="file_export"
+                                class="table border w-100 table-striped table-bordered display text-nowrap"
+                                style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombres</th>
+                                        <th>Apellido Parteno</th>
+                                        <th>Apellido Materno</th>
+                                        <th>C.I</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="per, index : ${personas}" th:if="${per.estado != 'E'}">
+                                        <td th:text="${index.index+1}"></td>
+                                        <td th:text="${per.nombre}"></td>
+                                        <td th:text="${per.paterno}"></td>
+                                        <td th:text="${per.materno}"></td>
+                                        <td th:text="${per.ci}"></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-warning me-2" type="button" style="color: aliceblue;" th:attr="onclick='editarPersona(' + ${per.idPersona} + ')'">
+                                                <i class="ti ti-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='eliminarPersona(\'' + ${per.idPersona} + '\', \'' + ${per.nombre}+'\')'">
+                                                <i class="ti ti-trash"></i>
+                                            </a>
+                                        </td>                                                     
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

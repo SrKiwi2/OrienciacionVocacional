@@ -1,5 +1,7 @@
 package com.usic.usic.model.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long>{
 
     @Query("SELECT COALESCE((SELECT u.estado FROM Usuario u JOIN u.persona p WHERE p.correo LIKE %:correo%), 'NO EXISTE') AS estado")
     String findEstadoByCorreoOrDefault(@Param("correo") String correo);
+
+    @Query("SELECT u FROM Usuario u JOIN u.persona p WHERE p.correo = :correo")
+    Optional<Usuario> findByCorreo(@Param("correo") String correo);
 }
