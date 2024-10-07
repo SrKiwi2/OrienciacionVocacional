@@ -1,0 +1,52 @@
+<section class="content">
+    <div class="datatables">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-subtitle mb-3">
+                    Preguntas vigentes
+                </p>
+                <div class="table-responsive">
+                    <table id="file_export"
+                        class="table border w-100 table-striped table-bordered display text-nowrap"
+                        style="font-size: 12px">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Pregunta</th>
+                                <th>Tipo Pregunta</th>
+                                <th>Tipo Test</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="preguntasTableBody">
+                            <tr th:each="p, index : ${preguntas}">
+                                <td th:text="${index.index+1}"></td>
+                                <td th:text="${p.pregunta}"></td>
+                                <td th></td>
+                                <td th></td>
+                                <td class="text-center">
+                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;" data-bs-toggle="modal" data-bs-target="#registroModal" th:attr="onclick='cargarModFormulario(\'' + ${c.idColegio} + '\')'">
+                                        <i class="ti ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='EliminarRegistro(\'' + ${c.idColegio} + '\', \'' + ${c.nombreColegio}+'\')'">
+                                        <i class="ti ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

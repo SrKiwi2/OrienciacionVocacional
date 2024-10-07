@@ -66,6 +66,11 @@ public class PreTestController {
     @Autowired
     private ITipoTestService tipoTestService;
 
+    @PostMapping("/requisitos_estudiantes")
+    public String requisitosEstudiante(HttpServletRequest request, Model model) {
+        return "test/pre-test/requisitos";
+    }
+
     @GetMapping("/pre_test")
     public String pre_test(Model model, HttpSession session) {
 
@@ -124,7 +129,6 @@ public class PreTestController {
 
         String interpretacionAptitudes = llamarAI(promptAptitudes.toString());
 
-        // prompt para las áreas profesionales
         StringBuilder promptAreas = new StringBuilder("Basándote en los siguientes intereses y aptitudes que me haz proporcionado:\n");
         promptAreas.append("Intereses: ").append(interpretacionIntereses).append("\n");
         promptAreas.append("Aptitudes: ").append(interpretacionAptitudes).append("\n");
@@ -134,8 +138,6 @@ public class PreTestController {
         promptAreas.append("Máximo de 50 palabras.");
 
         String interpretacionAreas = llamarAI(promptAreas.toString());
-
-        System.out.println(interpretacionAreas);
 
         session.setAttribute("opinionIAIntereses", interpretacionIntereses);
         session.setAttribute("opinionIAAptitudes", interpretacionAptitudes);
@@ -158,7 +160,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -168,16 +170,14 @@ public class PreTestController {
         requestBody.put("model", "gpt-4o-mini");
 
         JSONArray messages = new JSONArray();
-        // Mensaje de sistema para dar contexto a la IA
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
         systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus actitudes, interes y .");
         messages.put(systemMessage);
 
-        // Mensaje del usuario con el prompt
         JSONObject userMessage = new JSONObject();
         userMessage.put("role", "user");
-        userMessage.put("content", prompt); // El prompt generado dinámicamente
+        userMessage.put("content", prompt);
         messages.put(userMessage);
 
         requestBody.put("messages", messages);
@@ -185,25 +185,24 @@ public class PreTestController {
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
-        for (int i = 0; i < 3; i++) { // Intenta hasta 3 veces
+        for (int i = 0; i < 3; i++) {
             try {
                 ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
                 JSONObject jsonResponse = new JSONObject(response.getBody());
                 return jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
             } catch (HttpClientErrorException e) {
                 if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
-                    // Esperar un tiempo antes de reintentar
                     try {
-                        Thread.sleep(2000); // Espera 2 segundos
+                        Thread.sleep(2000);
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                     }
                 } else {
-                    throw e; // Lanzar otras excepciones
+                    throw e;
                 }
             }
         }
-        return "No se pudo obtener la interpretación de la IA."; // Mensaje de fallo
+        return "No se pudo obtener la interpretación de la IA.";
     }
     
     @PostMapping("/guardar_respuesta")
@@ -236,10 +235,7 @@ public class PreTestController {
         return "test/pre-test/vista_resultado_pre_test";
     }
 
-    @PostMapping("/requisitos_estudiantes")
-    public String formularioColegio(HttpServletRequest request, Model model) {
-        return "test/pre-test/requisitos";
-    }
+    // FIN PRE TEST
 
     @PostMapping("/guardar_respuesta2")
     public String guardar_respuesta2(@RequestParam(value = "checkboxes", required = false) List<String> checkboxes,
