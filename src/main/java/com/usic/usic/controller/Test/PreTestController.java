@@ -217,7 +217,6 @@ public class PreTestController {
         estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
         estudianteRespuesta.setRespuesta(respuesta);
         estudianteRespuestaService.save(estudianteRespuesta);
-        System.out.println(respuesta_pregunta);
         return "redirect:/pre_test";
     }
 
@@ -254,7 +253,6 @@ public class PreTestController {
                 String textValue = textInputs.get(i);
 
                 Respuesta respuesta = respuestaService.findById(checkboxValue);
-                System.out.println("Checkbox: " + checkboxValue + ", Texto: " + textValue);
 
                 EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
                 estudianteRespuesta.setEstado("ACTIVO");

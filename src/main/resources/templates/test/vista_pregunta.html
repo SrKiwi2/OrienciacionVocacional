@@ -20,21 +20,21 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <style>
             .btn-round {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 20px;
-    padding: 0;
-    display: flex; /* Para centrar el texto */
-    justify-content: center; /* Para centrar el texto */
-    align-items: center; /* Para centrar el texto */
-    background-color: #ffc107; /* Color de fondo (puedes cambiarlo) */
-    color: white; /* Color del texto (puedes cambiarlo) */
-    border: none; /* Sin borde */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra */
-    transition: all 0.3s; /* Transición para efectos de hover */
-    animation: pulse 1.5s infinite; /* Animación de palpitación */
-}
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                font-size: 50px;
+                padding: 0;
+                display: flex; /* Para centrar el texto */
+                justify-content: center; /* Para centrar el texto */
+                align-items: center; /* Para centrar el texto */
+                background-color: #ffc107; /* Color de fondo (puedes cambiarlo) */
+                color: white; /* Color del texto (puedes cambiarlo) */
+                border: none; /* Sin borde */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra */
+                transition: all 0.3s; /* Transición para efectos de hover */
+                animation: pulse 1.5s infinite; /* Animación de palpitación */
+            }
 
 .btn-round:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Sombra más intensa al pasar el mouse */
@@ -68,81 +68,83 @@
     }
 }
         </style>
-    <link rel="stylesheet" href="../assets/css/fondo_test.css">
+        <link rel="stylesheet" href="../assets/css/fondo_test.css">
         <style>
             #particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1; /* Para que las partículas estén detrás del contenido */
-}
-
-.particle {
-    position: absolute;
-    font-size: 500px;
-    color: #fcbf49; /* Color del "?" */
-    animation: float 10s infinite ease-in-out;
-    opacity: 0.8;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* Añadimos varias partículas de "?" en diferentes posiciones y velocidades */
-.particle:nth-child(1) {
-    left: 10%;
-    animation-duration: 8s;
-    font-size: 450px;
-}
-
-.particle:nth-child(2) {
-    left: 30%;
-    animation-duration: 12s;
-    font-size: 400px;
-}
-
-.particle:nth-child(3) {
-    left: 50%;
-    animation-duration: 15s;
-    font-size: 350px;
-}
-
-.particle:nth-child(4) {
-    left: 70%;
-    animation-duration: 9s;
-    font-size: 300px;
-}
-
-.particle:nth-child(5) {
-    left: 90%;
-    animation-duration: 14s;
-    font-size: 250px;
-}
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1;
+                /* Para que las partículas estén detrás del contenido */
+            }
+        
+            .particle {
+                position: absolute;
+                font-size: 500px;
+                color: #fcbf49;
+                /* Color del "?" */
+                animation: float 10s infinite ease-in-out;
+                opacity: 0.8;
+            }
+        
+            @keyframes float {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }
+        
+                50% {
+                    opacity: 1;
+                }
+        
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        
+            /* Añadimos varias partículas de "?" en diferentes posiciones y velocidades */
+            .particle:nth-child(1) {
+                left: 10%;
+                animation-duration: 8s;
+                font-size: 450px;
+            }
+        
+            .particle:nth-child(2) {
+                left: 30%;
+                animation-duration: 12s;
+                font-size: 400px;
+            }
+        
+            .particle:nth-child(3) {
+                left: 50%;
+                animation-duration: 15s;
+                font-size: 350px;
+            }
+        
+            .particle:nth-child(4) {
+                left: 70%;
+                animation-duration: 9s;
+                font-size: 300px;
+            }
+        
+            .particle:nth-child(5) {
+                left: 90%;
+                animation-duration: 14s;
+                font-size: 250px;
+            }
         </style>
 </head>
 
 <body style="background-color: #fefae0;">
     <div id="particles"></div>
     <div class="container">
-        
         <div class="row">
             <div class="col-12">
-                <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog"
-                    id="modalSignin">
+                <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content rounded-4 shadow">
                             <div class="row px-2 py-2 pt-2">
@@ -153,7 +155,7 @@
                                 </div>
                                 <div class="col-md-8 col-12 d-flex justify-content-end">
                                     <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select" onchange="redireccionar(this.value)">
-                                        <option value="0">Seleccione...</option>
+                                        <option value="0">Volver a responder...</option>
                                         <th:block th:each="rrs : ${respuestasRespondidas}">
                                             <option th:value="${rrs.id_estudiante_respuesta}" th:text="${rrs.descrip_preg}"></option>
                                         </th:block>
@@ -161,15 +163,15 @@
                                 </div>
                             </div>
 
-                            <div class="modal-header p-5 pb-4 border-bottom-0 text-center">
+                            <div class="modal-header pb-5 pt-5 border-bottom-0 text-center">
                                 <h1 class="fw-bold mb-0 fs-2" th:text="${pregunta.pregunta}"></h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-6 col-12">
-                                        <img src="../assets/images/profile/user-5.jpg" class="img-fluid" alt="...">
+                                        <img src="../assets/images/profile/preguntas_img.png" class="img-fluid" alt="...">
                                     </div>
-                                    <div class="col-md-6 col-12 pt-3">
+                                    <div class="col-md-6 col-12 pt-5">
                                         <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
                                             <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
                                                 <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
@@ -357,9 +359,7 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- <div th:replace="~{layout_test/script :: script}"></div> -->
 </body>
 
