@@ -160,7 +160,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -1,0 +1,93 @@
+<div class="modal-header">
+    <h5 class="modal-title" th:text="${edit}? 'Modificar Pregunta' : 'Registrar Pregunta'"></h5>
+    <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" id="FormularioPregunta" method="POST"
+        th:action="${edit} ?@{/editarPregunta} : @{/registrarPregunta}">
+        <div class="modal-body">
+            <div class="card-body">
+                <div th:if="${edit=='true'}">
+                    <input type="hidden" th:field="${preguntass.idPregunta}">
+                </div>
+                <div class="form-group">
+                    <label for="pregunta">Pregunta</label>
+                    <input type="text" id="pregunta" class="form-control" th:field="${preguntass.pregunta}" required>
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    <label for="tipopregunta">Tipo Pregunta</label><br>
+                    <select class="form-select" name="tipoPregunta">
+                        <th:block th:each="tipoP : ${tipoPregunta}">
+                            <option th:value="${tipoP.idTipoPregunta}" th:text="${tipoP.tipo_pregunta}" th:selected="${tipoP.idTipoPregunta == pregunta.tipoPregunta.idTipoPregunta}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="form-group col-md-12 mb-3">
+                    <label for="nacionalidad">Tipo Test</label><br>
+                    <select class="form-select" name="tipoTest">
+                        <th:block th:each="tipoT : ${tipoTest}">
+                            <option th:value="${tipoT.idTipoTest}" th:text="${tipoT.tipo_test}" th:selected="${tipoT.idTipoTest == pregunta.tipoTest.idTipoTest}"></option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success" th:text="${edit} ? 'Guardar Cambios' : 'Registrar'"></button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#FormularioRegistrar').submit(function (event) {
+            event.preventDefault();
+            var form = document.getElementById("FormularioRegistrar");
+            var action = form.action;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (response) {
+                    var mensaje = response;
+                    if (mensaje === 'Se guardó el registro con éxito') {
+                        cargarFormulario();
+                        cargarTabla();
+                        Swal.fire(
+                            'Registrado!',
+                            mensaje + '.',
+                            'success'
+                        );
+                    }else{
+                        if (mensaje === 'Se modificó el registro con éxito') {
+                            cargarFormulario();
+                            cargarTabla();
+                            Swal.fire(
+                                'Modificado!',
+                                mensaje + '.',
+                                'success'
+                            );
+                        }else{
+                            if (mensaje === 'Ya existe este registro') {
+                                cargarFormulario();
+                                cargarTabla();
+                                Swal.fire(
+                                    'Imposible Continuar!',
+                                    mensaje + '.',
+                                    'error'
+                                );
+                            }
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

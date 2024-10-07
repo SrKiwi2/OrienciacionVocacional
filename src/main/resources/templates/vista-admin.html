@@ -149,22 +149,46 @@
             
                         <li class="nav-small-cap">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
-                            <span class="hide-menu">TEST</span>
+                            <span class="hide-menu">CONFIG TEST</span>
                         </li>
             
-                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ESTUDIANTES' or session.nombre_rol == 'SUPER USUARIO'}">
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                                 <span class="d-flex">
                                     <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                                 </span>
-                                <span class="hide-menu">TEST</span>
+                                <span class="hide-menu">Pregunta</span>
                             </a>
             
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item">
-                                    <a href="/tests" class="sidebar-link">
+                                    <a id="opcionesPregunta" type="button" class="sidebar-link">
                                         <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Test</span>
+                                        <span class="hide-menu">Preguntas</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a id="opcionesTipoPregunta" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Tipo pregunta</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <span class="d-flex">
+                                    <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                                </span>
+                                <span class="hide-menu">Tipo Test</span>
+                            </a>
+            
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a id="opcionesTipoTest" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Tests</span>
                                     </a>
                                 </li>
                             </ul>
@@ -316,6 +340,36 @@
                         botonPulsado.classList.remove("active");
                     }
                     botonPulsado = document.getElementById("opcionesAvanceEstudiantes");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesPregunta").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_pregunta");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesPregunta");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesTipoPregunta").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_tipo_pregunta");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesTipoPregunta");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesTipoTest").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_tipo_test");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesTipoTest");
                     botonPulsado.classList.add("active");
                 });
 

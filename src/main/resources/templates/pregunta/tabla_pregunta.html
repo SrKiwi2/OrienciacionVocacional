@@ -22,13 +22,13 @@
                             <tr th:each="p, index : ${preguntas}">
                                 <td th:text="${index.index+1}"></td>
                                 <td th:text="${p.pregunta}"></td>
-                                <td th></td>
-                                <td th></td>
+                                <td th:text="${p.tipoPregunta.tipo_pregunta}"></td>
+                                <td th:text="${p.tipoTest.descripcion}"></td>
                                 <td class="text-center">
-                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;" data-bs-toggle="modal" data-bs-target="#registroModal" th:attr="onclick='cargarModFormulario(\'' + ${c.idColegio} + '\')'">
+                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;" data-bs-toggle="modal" data-bs-target="#registroModal" th:attr="onclick='cargarModFormulario(\'' + ${p.idPregunta} + '\')'">
                                         <i class="ti ti-pencil"></i>
                                     </a>
-                                    <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='EliminarRegistro(\'' + ${c.idColegio} + '\', \'' + ${c.nombreColegio}+'\')'">
+                                    <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='EliminarRegistro(\'' + ${p.idPregunta} + '\', \'' + ${p.pregunta}+'\')'">
                                         <i class="ti ti-trash"></i>
                                     </a>
                                 </td>
