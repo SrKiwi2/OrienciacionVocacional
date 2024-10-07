@@ -152,6 +152,25 @@
                                     <button type="button" class="btn btn-warning btn-round">
                                         <b th:text="${pregunta.idPregunta}">5</b>
                                     </button>
+
+                                    <button type="button" class="btn btn-warning btn-round"></button>
+                                        <b th:text="${pregunta.idPregunta}">5</b>
+                                    </button>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
+                                                <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                                 <div class="col-md-8 col-12 d-flex justify-content-end">
                                     <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select" onchange="redireccionar(this.value)">
@@ -188,6 +207,27 @@
                                                             </label>
                                                         </th:block>
                                                         <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
+                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
+
+                                                        </th:block>
+                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
+                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
+                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
+                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
                                                             <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
                                                         </th:block>
                                                     </div>

@@ -336,7 +336,7 @@ public class PreTestController {
         model.addAttribute("pregunta", pregunta);
 
         return "test/vista_pregunta_modificar";
-    } 
+    }
 
     @PostMapping("/guardar_respuesta_modificacion")
     public String guardar_respuesta_modificacion(
