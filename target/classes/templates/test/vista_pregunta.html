@@ -137,6 +137,37 @@
                 font-size: 250px;
             }
         </style>
+        <style>
+            /* Marco de fotografía */
+            .img-frame {
+                border: 12px solid #ddd; /* Cambia el color del borde si lo prefieres */
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 2px;
+            }
+
+            /* Animación flotante */
+            @keyframes float2 {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            .animated-float {
+                animation: float2 3s ease-in-out infinite;
+            }
+        </style>
+        <style>
+            .modal-content {
+            background-color: rgba(255, 255, 255, 0); /* Fondo completamente transparente */
+            border: none; /* Si quieres eliminar los bordes */
+            }
+        </style>
 </head>
 
 <body style="background-color: #fefae0;">
@@ -146,31 +177,12 @@
             <div class="col-12">
                 <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
                     <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content rounded-4 shadow">
+                        <div class="modal-content rounded-4">
                             <div class="row px-2 py-2 pt-2">
                                 <div class="col-md-4 col-12 d-flex justify-content-center pb-2">
                                     <button type="button" class="btn btn-warning btn-round">
                                         <b th:text="${pregunta.idPregunta}">5</b>
                                     </button>
-
-                                    <button type="button" class="btn btn-warning btn-round"></button>
-                                        <b th:text="${pregunta.idPregunta}">5</b>
-                                    </button>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
-                                                <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                            </th:block>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                        </div>
-                                    </div>
-
-
-
                                 </div>
                                 <div class="col-md-8 col-12 d-flex justify-content-end">
                                     <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select" onchange="redireccionar(this.value)">
@@ -188,7 +200,7 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-6 col-12">
-                                        <img src="../assets/images/profile/preguntas_img.png" class="img-fluid" alt="...">
+                                        <img src="../assets/images/profile/preguntas_img.png" class="img-fluid img-frame animated-float" alt="...">
                                     </div>
                                     <div class="col-md-6 col-12 pt-5">
                                         <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
@@ -209,27 +221,6 @@
                                                         <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
                                                             <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
                                                         </th:block>
-                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
-
-                                                        </th:block>
-                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                        </th:block>
-
-                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
-                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                        </th:block>
-
-                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
-                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                        </th:block>
-
-                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
-                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                        </th:block>
-
-                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}"></th:block>
-                                                            <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
-                                                        </th:block>
                                                     </div>
                                                 </th:block>
                                             </form>
@@ -237,11 +228,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-
-                            </div>
-
-
                                 <!-- <div class="row p-2">
                                     <div class="col-md-6 col-12">
                                         <center><button type="button" class="btn btn-warning btn-round"><b th:text="${pregunta.idPregunta}">5</b></button></center>
