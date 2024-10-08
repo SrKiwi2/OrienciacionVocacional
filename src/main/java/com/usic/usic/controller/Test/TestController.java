@@ -57,4 +57,12 @@ public class TestController {
         response.setHeader("Expires", "0");
         return "test/vista_tests";
     }
+
+    @GetMapping(value = "/tests1")
+    public String tipo_test1(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+        return "test/prueba";
+    }
 }
