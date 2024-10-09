@@ -1,30 +1,22 @@
 <div class="modal-header">
-    <h5 class="modal-title" th:text="${edit}? 'Modificar Pregunta' : 'Registrar Pregunta'"></h5>
+    <h5 class="modal-title" th:text="${edit}? 'Modificar Tipo Test' : 'Registrar Tipo Test'"></h5>
     <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" id="FormularioPregunta" method="POST"
-        th:action="${edit} ?@{/editarPregunta} : @{/registrarPregunta}">
+    <form class="form-horizontal" id="FormularioTipoTests" method="POST"
+        th:action="${edit} ?@{/editarTipoTest} : @{/registrarTipoTest}">
         <div class="modal-body">
             <div class="card-body">
                 <div th:if="${edit=='true'}">
-                    <input type="hidden" th:field="${preguntass.idPregunta}">
+                    <input type="hidden" th:field="${tipoTestss.id_tipo_test}">
                 </div>
                 <div class="form-group">
-                    <label for="pregunta">Pregunta</label>
-                    <input type="text" id="pregunta" class="form-control" th:field="${preguntass.pregunta}" autocomplete="off" required>
+                    <label for="pregunta">tipo test</label>
+                    <input type="text" id="tipoTest" class="form-control" th:field="${tipoTestss.tipoTest}" autocomplete="off" required>
                 </div>
-                <div class="form-group col-md-12 mb-3">
-                    <label for="tipopregunta">Tipo Pregunta</label><br>
-                    <select class="form-select" name="tipoPregunta" th:field="${preguntass.tipoPregunta}">
-                        <option th:each="per : ${tipoPregunta}" th:value="${per.id_tipo_pregunta}" th:text="${per.tipo_pregunta}"></option>
-                    </select>
-                </div>
-                <div class="form-group col-md-12 mb-3">
-                    <label for="nacionalidad">Tipo Test</label><br>
-                    <select class="form-select" name="tipoTest" th:field="${preguntass.tipoTest}">
-                        <option th:each="test : ${tipoTest}" th:value="${test.id_tipo_test}" th:text="${test.descripcion}"></option>
-                    </select>
+                <div class="form-group">
+                    <label for="pregunta">Descripción</label>
+                    <input type="text" id="descripcion" class="form-control" th:field="${tipoTestss.descripcion}" autocomplete="off" required>
                 </div>
             </div>
         </div>
@@ -37,9 +29,9 @@
 
 <script>
     $(document).ready(function() {
-        $('#FormularioPregunta').submit(function (event) {
+        $('#FormularioTipoTests').submit(function (event) {
             event.preventDefault();
-            var form = document.getElementById("FormularioPregunta");
+            var form = document.getElementById("FormularioTipoTests");
             var action = form.action;
             var formData = $(this).serialize();
             $.ajax({

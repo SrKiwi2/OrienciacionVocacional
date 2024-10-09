@@ -6,5 +6,5 @@ import com.usic.usic.model.Entity.TipoTest;
 
 @Service
 public interface ITipoTestService extends IServiceGenerico<TipoTest, Long>{
-    
+    TipoTest findByTipoTest(String tipoTest);
 }

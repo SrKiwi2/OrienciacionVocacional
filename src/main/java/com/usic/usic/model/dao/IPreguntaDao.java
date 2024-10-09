@@ -22,4 +22,6 @@ public interface IPreguntaDao extends JpaRepository<Pregunta, Long>{
 
     @Query("SELECT COUNT(p) FROM Pregunta p WHERE p.tipoTest.id_tipo_test = :idTipoTest")
     Long countByTipoTest(@Param("idTipoTest") Long idTipoTest);
+
+    Pregunta findByPregunta(String pregunta);
 }

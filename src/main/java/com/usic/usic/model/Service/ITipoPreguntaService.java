@@ -8,4 +8,6 @@ import com.usic.usic.model.Entity.TipoPregunta;
 @Service
 public interface ITipoPreguntaService extends IServiceGenerico<TipoPregunta, Long>{
     List<TipoPregunta> getTipoPreguntaByRespuestaId(Long idRespuesta);
+
+    TipoPregunta findByTipoPregunta(String tipoPregunta);
 }

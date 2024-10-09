@@ -34,5 +34,10 @@ public class TipoTestServiceImpl implements ITipoTestService{
     public void deleteById(Long idEntidad) {
         tipoTestDao.deleteById(idEntidad);
     }
+
+    @Override
+    public TipoTest findByTipoTest(String tipoTest) {
+        return tipoTestDao.findByTipoTest(tipoTest);
+    }
     
 }

@@ -1,0 +1,50 @@
+<section class="content">
+    <div class="datatables">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-subtitle mb-3">
+                    Tipo Tests vigentes
+                </p>
+                <div class="table-responsive">
+                    <table id="file_export"
+                        class="table border w-100 table-striped table-bordered display text-nowrap"
+                        style="font-size: 12px">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tipo Tests</th>
+                                <th>Descripción</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tipoPreguntasTableBody">
+                            <tr th:each="tts, index : ${tipoTestss}">
+                                <td th:text="${index.index+1}"></td>
+                                <td th:text="${tts.tipoTest}"></td>
+                                <td th:text="${tts.descripcion}"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;" data-bs-toggle="modal" data-bs-target="#registroModal" th:attr="onclick='cargarModFormulario(\'' + ${tts.id_tipo_test} + '\')'">
+                                        <i class="ti ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" type="button" style="color: aliceblue;" th:attr="onclick='EliminarRegistro(\'' + ${tts.id_tipo_test} + '\', \'' + ${tts.tipoTest}+'\')'">
+                                        <i class="ti ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

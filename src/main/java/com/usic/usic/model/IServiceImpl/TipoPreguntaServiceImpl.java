@@ -39,5 +39,10 @@ public class TipoPreguntaServiceImpl implements ITipoPreguntaService{
     public List<TipoPregunta> getTipoPreguntaByRespuestaId(Long idRespuesta) {
         return tipoPreguntaDao.findTipoPreguntaByRespuestaId(idRespuesta);
     }
+
+    @Override
+    public TipoPregunta findByTipoPregunta(String tipoPregunta) {
+        return tipoPreguntaDao.findByTipoPregunta(tipoPregunta);
+    }
     
 }

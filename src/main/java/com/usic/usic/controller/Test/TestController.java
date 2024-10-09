@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.usic.usic.anotaciones.ValidarUsuarioAutenticado;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;

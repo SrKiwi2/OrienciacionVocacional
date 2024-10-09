@@ -18,4 +18,6 @@ public interface ITipoPreguntaDao extends JpaRepository<TipoPregunta, Long>{
        "and tp.estado = 'ACTIVO'")
     List<TipoPregunta> findTipoPreguntaByRespuestaId(@Param("idRespuesta") Long idRespuesta);
 
+    TipoPregunta findByTipoPregunta(String tipoPregunta);
+
 }

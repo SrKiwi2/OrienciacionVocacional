@@ -31,9 +31,7 @@ public class ColegioController {
     public String formularioColegio(HttpServletRequest request, Model model) {
 
         model.addAttribute("colegioss", new Colegio());
-
         return "Complementos/Colegio/formulario-colegio";
-       
     }
 
     @GetMapping("/formularioEditColegio/{idColegio}")
@@ -49,7 +47,6 @@ public class ColegioController {
     public String ListarColegio(HttpServletRequest request, Model model) {
 
         model.addAttribute("colegios", colegioService.findAll());
-
         return "Complementos/Colegio/tabla-colegio";
     }
 
@@ -63,7 +60,6 @@ public class ColegioController {
         } else {
             return ResponseEntity.ok("Ya existe este registro");
         }
-
     }
 
     @PostMapping("/editarColegio")
@@ -82,7 +78,6 @@ public class ColegioController {
             @PathVariable("idColegio") Long idColegio) {
 
         colegioService.deleteById(idColegio);
-
         return ResponseEntity.ok("Se eliminó el registro con éxito");
     }
 }

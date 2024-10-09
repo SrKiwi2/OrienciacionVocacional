@@ -12,22 +12,18 @@
                 </div>
                 <div class="form-group">
                     <label for="pregunta">Pregunta</label>
-                    <input type="text" id="pregunta" class="form-control" th:field="${preguntass.pregunta}" required>
+                    <input type="text" id="pregunta" class="form-control" th:field="${preguntass.pregunta}" autocomplete="off" required>
                 </div>
                 <div class="form-group col-md-12 mb-3">
                     <label for="tipopregunta">Tipo Pregunta</label><br>
-                    <select class="form-select" name="tipoPregunta">
-                        <th:block th:each="tipoP : ${tipoPregunta}">
-                            <option th:value="${tipoP.idTipoPregunta}" th:text="${tipoP.tipo_pregunta}" th:selected="${tipoP.idTipoPregunta == pregunta.tipoPregunta.idTipoPregunta}"></option>
-                        </th:block>
+                    <select class="form-select" name="tipoPregunta" th:field="${preguntass.tipoPregunta}">
+                        <option th:each="per : ${tipoPregunta}" th:value="${per.id_tipo_pregunta}" th:text="${per.tipo_pregunta}"></option>
                     </select>
                 </div>
                 <div class="form-group col-md-12 mb-3">
                     <label for="nacionalidad">Tipo Test</label><br>
-                    <select class="form-select" name="tipoTest">
-                        <th:block th:each="tipoT : ${tipoTest}">
-                            <option th:value="${tipoT.idTipoTest}" th:text="${tipoT.tipo_test}" th:selected="${tipoT.idTipoTest == pregunta.tipoTest.idTipoTest}"></option>
-                        </th:block>
+                    <select class="form-select" name="tipoTest" th:field="${preguntass.tipoTest}">
+                        <option th:each="test : ${tipoTest}" th:value="${test.id_tipo_test}" th:text="${test.descripcion}"></option>
                     </select>
                 </div>
             </div>
@@ -41,9 +37,9 @@
 
 <script>
     $(document).ready(function() {
-        $('#FormularioRegistrar').submit(function (event) {
+        $('#FormularioPregunta').submit(function (event) {
             event.preventDefault();
-            var form = document.getElementById("FormularioRegistrar");
+            var form = document.getElementById("FormularioPregunta");
             var action = form.action;
             var formData = $(this).serialize();
             $.ajax({

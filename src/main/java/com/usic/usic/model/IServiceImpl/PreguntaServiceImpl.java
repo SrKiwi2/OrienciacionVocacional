@@ -1,7 +1,6 @@
 package com.usic.usic.model.IServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,26 +17,22 @@ public class PreguntaServiceImpl implements IPreguntaService{
 
     @Override
     public List<Pregunta> findAll() {
-        // TODO Auto-generated method stub
         return preguntaDao.findAll(); //
     }
 
     @Override
     public Pregunta findById(Long idEntidad) {
-        // TODO Auto-generated method stub
         return preguntaDao.findById(idEntidad).orElse(null);
     }
 
     @Override
     public Pregunta save(Pregunta entidad) {
-        // TODO Auto-generated method stub
         return preguntaDao.save(entidad);
     }
 
     @Override
     public void deleteById(Long idEntidad) {
-        // TODO Auto-generated method stub
-        preguntaDao.deleteById(idEntidad); //
+        preguntaDao.deleteById(idEntidad);
     }
 
     @Override
@@ -48,6 +43,11 @@ public class PreguntaServiceImpl implements IPreguntaService{
     @Override
     public Long countByTipoTest(Long idTipoTest) {
         return preguntaDao.countByTipoTest(idTipoTest);
+    }
+
+    @Override
+    public Pregunta findByPregunta(String pregunta) {
+        return preguntaDao.findByPregunta(pregunta);
     }
     
 }

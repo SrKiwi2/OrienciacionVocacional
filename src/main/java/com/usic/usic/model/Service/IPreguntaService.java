@@ -10,4 +10,6 @@ public interface IPreguntaService extends IServiceGenerico <Pregunta, Long>{
     Long findMaxRespuestaOrMinPregunta(Long idEstudiante, Long id_tipo_test);
 
     Long countByTipoTest(@Param("idTipoTest") Long idTipoTest);
+
+    Pregunta findByPregunta(String pregunta);
 }
