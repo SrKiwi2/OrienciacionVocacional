@@ -21,7 +21,7 @@ $(function () {
                 },
             },
         },
-        labels: ["Cricket"],
+        labels: ["Completaron"],
     };
 
     var chart_radial_basic = new ApexCharts(
@@ -52,7 +52,7 @@ $(function () {
                 },
             },
         },
-        labels: ["Cricket"],
+        labels: ["Completaron"],
     };
 
     var chart_radial_basic = new ApexCharts(
@@ -83,7 +83,7 @@ $(function () {
                 },
             },
         },
-        labels: ["Cricket"],
+        labels: ["Completaron"],
     };
 
     var chart_radial_basic = new ApexCharts(
@@ -114,7 +114,7 @@ $(function () {
                 },
             },
         },
-        labels: ["Cricket"],
+        labels: ["Completaron"],
     };
 
     var chart_radial_basic = new ApexCharts(
