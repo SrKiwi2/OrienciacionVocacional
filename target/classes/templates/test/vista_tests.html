@@ -139,12 +139,14 @@
                 </p>
             </div>
             <div class="row g-4">
-                <!-- start single product -->
-                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800"
-                    class="col-6 col-lg-4 col-md-6 col-sm-6 col-12">
+
+                <!-- PRIMER TEST HABILIDADES SOCIALES-->
+                <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-6 col-lg-4 col-md-6 col-sm-6 col-12">
                     <div class="product-style-one no-overlay ">
                         <div class="card-thumbnail">
-                            <a href="/tipo_test"><img src="assets_registro/images/capy1.png" alt="NFT_portfolio"></a>
+                            <a href="javascript:void(0)">
+                                <img src="assets_registro/images/capy1.png" alt="NFT_portfolio">
+                            </a>
                         </div>
                         <div class="react-area" style="margin-top: 15%;">
                             <hr size="8px">
@@ -152,13 +154,45 @@
                         </div>
                     </div>
                 </div>
-                <!-- end single product -->
+
+                <!-- MODAL -->
+                <div id="testModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <div class="modal-header">
+                            <h2>Test de Habilidades Sociales</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p>El test de Habilidades Sociales está diseñado para evaluar tu capacidad de interacción social, empatía, y habilidades de comunicación. ¿Estás listo para descubrir más sobre tus fortalezas sociales?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="start-btn" onclick="startTest()">INICIAR AHORA!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN TEST HABILIDADES SOCIALES-->
+
+                <script>
+                    function showModal() {
+                        document.getElementById("testModal").style.display = "block";
+                    }
+
+                    function closeModal() {
+                        document.getElementById("testModal").style.display = "none";
+                    }
+
+                    function startTest() {
+                        // Aquí puedes redirigir al test o comenzar la lógica que desees
+                        window.location.href = "/habilidades_sociales";
+                    }
+                </script>
+
                 <!-- start single product -->
                 <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800"
                     class="col-6 col-lg-4 col-md-6 col-sm-6 col-12">
                     <div class="product-style-one no-overlay">
                         <div class="card-thumbnail">
-                            <a href="/tipo_test"><img src="assets_registro/images/jaguar1.png" alt="NFT_portfolio"></a>
+                            <a href="/intereses_profesionales"><img src="assets_registro/images/jaguar1.png" alt="NFT_portfolio"></a>
                         </div>
                         <div class="react-area" style="margin-top: 15%;">
                             <hr size="8px">

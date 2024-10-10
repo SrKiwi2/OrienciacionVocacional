@@ -23,15 +23,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class HabilidadesSocialesController {
-    
+public class InteresesProfesionalesController {
+
     @Autowired
     private IEstudianteService estudianteService;
 
     @Autowired
     private IPreguntaService preguntaService;
 
-    @Autowired
+   @Autowired
     private IRespuestaService respuestaService;
 
     @Autowired
@@ -40,13 +40,13 @@ public class HabilidadesSocialesController {
     @Autowired
     private IEstudianteRespuestaService estudianteRespuestaService;
 
-    @GetMapping("/habilidades_sociales")
-    public String habilidades_sociales(Model model, HttpSession session) {
+    @GetMapping("/intereses_profesionales")
+    public String intereses_profesionales(Model model, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
         System.out.println(estudiante);
-        Long idTipoTest = 2L;
+        Long idTipoTest = 3L;
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
@@ -66,8 +66,8 @@ public class HabilidadesSocialesController {
         }
     }
 
-    @PostMapping("/guardar_respuesta_HS")
-    public String guardar_respuesta_hs(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+    @PostMapping("/guardar_respuesta_IP")
+    public String guardar_respuesta_ip(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
 
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);

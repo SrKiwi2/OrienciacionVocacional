@@ -9,6 +9,7 @@ import com.usic.usic.model.Entity.Pregunta;
 public interface IPreguntaDao extends JpaRepository<Pregunta, Long>{
     @Query("SELECT COALESCE(MIN(p.idPregunta), 0) " +
        "FROM Pregunta p " +
+       "INNER JOIN p.tipoTest tt " +
        "WHERE p.idPregunta NOT IN (" +
        "SELECT p.idPregunta " +
        "FROM EstudianteRespuesta er " +
@@ -16,9 +17,11 @@ public interface IPreguntaDao extends JpaRepository<Pregunta, Long>{
        "INNER JOIN r.pregunta p " +
        "INNER JOIN p.tipoTest tt " +
        "WHERE er.estudiante.idEstudiante = :idEstudiante " +
-       "AND tt.id_tipo_test = :id_tipo_test " +
-       "GROUP BY p.idPregunta)")
-    Long findMinPreguntaNotInRespuestas(@Param("idEstudiante") Long idEstudiante, @Param("id_tipo_test") Long id_tipo_test);
+       "GROUP BY p.idPregunta) " +
+       "AND tt.id_tipo_test = :id_tipo_test")
+    Long findMinPreguntaNotInRespuestas(@Param("idEstudiante") Long idEstudiante, @Param("id_tipo_test") Long idTipoTest);
+
+
 
     @Query("SELECT COUNT(p) FROM Pregunta p WHERE p.tipoTest.id_tipo_test = :idTipoTest")
     Long countByTipoTest(@Param("idTipoTest") Long idTipoTest);

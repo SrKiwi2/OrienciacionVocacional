@@ -132,12 +132,12 @@
                                 <span class="hide-menu">Seguimiento</span>
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item">
+                                <!-- <li class="sidebar-item">
                                     <a id="opcionesEstudiantesInscritos" type="button" class="sidebar-link">
                                         <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
                                         <span class="hide-menu">Estudiantes inscritos</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="sidebar-item">
                                     <a id="opcionesAvanceEstudiantes" type="button" class="sidebar-link">
                                         <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
@@ -335,7 +335,7 @@
 
                 $("#opcionesAvanceEstudiantes").click(function (e){
                     e.preventDefault();
-                    cargarContenido("");
+                    cargarContenido("/vista_psicopedagoga");
                     if (botonPulsado.classList.contains("active")){
                         botonPulsado.classList.remove("active");
                     }
