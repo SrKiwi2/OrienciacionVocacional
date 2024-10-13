@@ -1,0 +1,60 @@
+<section class="content">
+    <div class="datatables">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-subtitle mb-3">
+                    Habilitar test
+                </p>
+                <div class="table-responsive">
+                    <table id="file_export" class="table border w-100 table-striped table-bordered display text-nowrap" style="font-size: 12px">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Test</th>
+                                <th>Descripción</th>
+                                <th>Tiempo</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="configuracionTableBody">
+                            <tr th:each="e, index : ${tests}" th:if="${e.estado != 'INHABILITADO'}">
+                                <td th:text="${index.index+1}"></td>
+                                <td th:text="${e.tipoTest}"></td>
+                                <td th:text="${e.descripcion}"></td>
+                                <td th:text="${e.fechaInicio +  ' - ' + e.fechaFin}"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-success me-2" type="button" style="color: aliceblue;"
+                                        data-bs-toggle="modal" data-bs-target="#registroModal"
+                                        th:attr="onclick='setIdTipoTest(' + ${e.id_tipo_test} + ')'">
+                                        <i>Habilitar</i>
+                                    </a>
+                                    <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"
+                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
+                                        th:attr="onclick='cargarDatosFormulario(' + ${e.id_tipo_test} + ', \'view\')'">
+                                        <i>Avance</i>
+                                    </a>
+                                    <a class="btn btn-danger me-2" type="button" style="color: aliceblue;"
+                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
+                                        th:attr="onclick='cargarFormEdit(\'' + ${e.id_tipo_test} + '\', \'edit\')'">
+                                        <i>Cerrar</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#file_export').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

@@ -46,7 +46,7 @@ public class InteresesProfesionalesController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
         System.out.println(estudiante);
-        Long idTipoTest = 3L;
+        Long idTipoTest = 5L;
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));

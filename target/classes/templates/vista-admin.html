@@ -132,16 +132,17 @@
                                 <span class="hide-menu">Seguimiento</span>
                             </a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <!-- <li class="sidebar-item">
-                                    <a id="opcionesEstudiantesInscritos" type="button" class="sidebar-link">
-                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Estudiantes inscritos</span>
-                                    </a>
-                                </li> -->
+                                
                                 <li class="sidebar-item">
                                     <a id="opcionesAvanceEstudiantes" type="button" class="sidebar-link">
                                         <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
                                         <span class="hide-menu">Avance de Estudiantes</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a id="opcionesHabilitarTest" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Habilitar Tests</span>
                                     </a>
                                 </li>
                             </ul>
@@ -323,16 +324,6 @@
                     botonPulsado.classList.add("active");
                 });
 
-                $("#opcionesEstudiantesInscritos").click(function (e){
-                    e.preventDefault();
-                    cargarContenido("");
-                    if (botonPulsado.classList.contains("active")){
-                        botonPulsado.classList.remove("active");
-                    }
-                    botonPulsado = document.getElementById("opcionesEstudiantesInscritos");
-                    botonPulsado.classList.add("active");
-                });
-
                 $("#opcionesAvanceEstudiantes").click(function (e){
                     e.preventDefault();
                     cargarContenido("/vista_psicopedagoga");
@@ -340,6 +331,16 @@
                         botonPulsado.classList.remove("active");
                     }
                     botonPulsado = document.getElementById("opcionesAvanceEstudiantes");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesHabilitarTest").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista_configuracion");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesHabilitarTest");
                     botonPulsado.classList.add("active");
                 });
 

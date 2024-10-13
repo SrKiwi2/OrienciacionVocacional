@@ -1,0 +1,78 @@
+<div id="main-wrapper">
+    <div class="container-fluid mw-100">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Habilitacion de test por timepo definido</h5>
+            </div>
+            <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModal" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <form action="/habilitarTest" method="post">
+                            <input type="hidden" id="id_tipo_test_modal" name="id_tipo_test"/>
+                            <div class="form-group">
+                                <label for="fechaInicio">Fecha de Inicio</label>
+                                <input type="date" class="form-control" name="fechaInicio" id="fechaInicio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaFin">Fecha de Fin</label>
+                                <input type="date" class="form-control" name="fechaFin" id="fechaFin" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Habilitar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="TablaConfiguracionTest"></div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    cargarTabla();
+    $(document).ready(function() {
+        $('#registroModal form').submit(function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Habilitado!',
+                        text: response,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                    cargarTabla();
+                    $('#registroModal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'No se pudieron establecer las fechas. Intenta nuevamente.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    console.error("Error:", xhr.responseText);
+                }
+            });
+        });
+    });
+
+    function setIdTipoTest(id_tipo_test) {
+        document.getElementById("id_tipo_test_modal").value = id_tipo_test;
+    }
+
+    function cargarTabla() {
+        $.ajax({
+            type: 'POST',
+            url: "/listarConfiguracionTest",
+            success: function (response) {
+                $("#TablaConfiguracionTest").html(response);
+            }
+        });
+    }
+</script>
+<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="../assets/js/apex-chart/apex.radial.init2.js"></script>

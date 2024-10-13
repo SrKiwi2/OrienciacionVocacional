@@ -1,7 +1,5 @@
 package com.usic.usic.controller.Test;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,20 +13,18 @@ import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
 import com.usic.usic.model.Entity.Respuesta;
-import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
-import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class HabilidadesSocialesController {
+public class InteligenciasMultiplesController {
     
     @Autowired
     private IEstudianteService estudianteService;
@@ -45,13 +41,13 @@ public class HabilidadesSocialesController {
     @Autowired
     private IEstudianteRespuestaService estudianteRespuestaService;
 
-    @GetMapping("/habilidades_sociales")
-    public String habilidades_sociales(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    @GetMapping("/inteligencias_multiples")
+    public String inteligencias_multiples(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
         System.out.println(estudiante);
-        Long idTipoTest = 2L;
+        Long idTipoTest = 3L;
 
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
@@ -71,8 +67,8 @@ public class HabilidadesSocialesController {
         }
     }
 
-    @PostMapping("/guardar_respuesta_HS")
-    public String guardar_respuesta_hs(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+    @PostMapping("/guardar_respuesta_IM")
+    public String guardar_respuesta_im(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
 
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);

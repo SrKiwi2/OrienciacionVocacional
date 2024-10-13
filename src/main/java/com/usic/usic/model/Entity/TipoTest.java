@@ -1,5 +1,7 @@
 package com.usic.usic.model.Entity;
 
+import java.time.LocalDate;
+
 import com.usic.usic.config.AuditoriaConfig;
 
 import jakarta.persistence.Column;
@@ -23,6 +25,10 @@ public class TipoTest extends AuditoriaConfig{
 
     @Column(name = "tipo_test")
     private String tipoTest;
+
+    private LocalDate fechaInicio;
+
+    private LocalDate fechaFin;
 
     private String descripcion;
 }
