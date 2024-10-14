@@ -277,31 +277,119 @@ input[type="radio"] {
                                         <img src="../assets/images/profile/pregunta1.png" class="img-fluid img-frame animated-float mt-4" alt="Pregunta" style="max-width: 400px;">
                                     </div>
                                     <div class="col-md-4 col-12 mt-4 text-center">
-                                    <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
-                                        <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                                            <!-- Input escondido -->
-                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}"
-                                                th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required onchange="this.form.submit();">
                                     
-                                            <!-- Botón ME INTERESA -->
-                                            <th:block th:if="${r.respuesta == 'SI'}">
-                                                <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
-                                                    <img class="img-hover img-like" src="../assets/images/profile/like.png" alt="ME INTERESA">
-                                                </label>
+                                        
+
+                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
+                                                <!-- <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
+                                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}"
+                                                                th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required
+                                                                onchange="this.form.submit();">
+                                                            <th:block th:if="${r.respuesta == 'SI'}">
+                                                                <label class="btn btn-success" style="width: 100%;" th:for="${r.idRespuesta}">
+                                                                    <b>ME INTERESA</b>
+                                                                </label>
+                                                            </th:block>
+                                                            <th:block th:if="${r.respuesta == 'NO'}">
+                                                                <label class="btn btn-danger" style="width: 100%;" th:for="${r.idRespuesta}">
+                                                                    <b>NO ME INTERESA</b>
+                                                                </label>
+                                                            </th:block>
+                                                            <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
+                                                                <label class="btn btn-primary" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                            </th:block>
+                                                        </div>
+                                                    </th:block>
+                                                </form> -->
+                                                <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
+                                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                        <!-- Input escondido -->
+                                                        <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}"
+                                                            th:value="${r.idRespuesta}" required onchange="this.form.submit();">
+                                                
+                                                        <!-- Botón ME INTERESA -->
+                                                        <th:block th:if="${r.respuesta == 'SI'}">
+                                                            <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
+                                                                <img class="img-hover img-like" src="../assets/images/profile/like.png" alt="ME INTERESA">
+                                                            </label>
+                                                        </th:block>
+                                                
+                                                        <!-- Imagen NO ME INTERESA -->
+                                                        <th:block th:if="${r.respuesta == 'NO'}">
+                                                            <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
+                                                                <img class="img-hover img-dislike" src="../assets/images/profile/dislike.png" alt="NO ME">
+                                                            </label>
+                                                        </th:block>
+                                                
+                                                        <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
+                                                            <label class="btn btn-primary mx-2" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                        </th:block>
+                                                    </th:block>
+                                                </form>
                                             </th:block>
-                                         
-                                            <!-- Imagen NO ME INTERESA -->
-                                            <th:block th:if="${r.respuesta == 'NO'}">
-                                                <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
-                                                    <img class="img-hover img-dislike" src="../assets/images/profile/dislike.png" alt="NO ME">
-                                                </label>
+                                    
+                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'RESPUESTA CON COMPLEMENTO'}">
+                                                <form class="was-validated" action="/guardar_respuesta2" method="post">
+                                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                        <label for="" th:text="${r.respuesta}"></label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-text">
+                                                                <input class="form-check-input mt-0 checkbox-input" type="checkbox" th:id="${r.idRespuesta}"
+                                                                    th:value="${r.idRespuesta}" name="checkboxes"
+                                                                    aria-label="Checkbox for following text input" onchange="toggleInput(this)">
+                                                            </div>
+                                                            <input type="text" class="form-control" name="textInputs" aria-label="Text input with checkbox"
+                                                                disabled>
+                                                        </div>
+                                                    </th:block>
+                                                    <hr class="my-4">
+                                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                                </form>
                                             </th:block>
-                                         
-                                            <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
-                                                <label class="btn btn-primary mx-2" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                    
+                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'ABIERTA'}">
+                                                <form class="was-validated" action="/guardar_respuesta3" method="post">
+                                                    <input type="hidden" name="id_pregunta" th:value="${pregunta.idPregunta}">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Completar</span>
+                                                        <textarea class="form-control" name="respuesta_pregunta" aria-label="With textarea"
+                                                            required></textarea>
+                                                    </div>
+                                                    <hr class="my-4">
+                                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                                </form>
                                             </th:block>
-                                        </th:block>
-                                    </form>
+                                    
+                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION MULTIPLE'}">
+                                                <form class="was-validated" action="/guardar_respuesta4" method="post">
+                                                    <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
+                                                        <th:block th:if="${not #strings.startsWith(r.respuesta, 'Otr')}">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" name="checkboxes2" type="checkbox" th:id="${r.idRespuesta}"
+                                                                    th:value="${r.idRespuesta}">
+                                                                <label class="form-check-label" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                            </div>
+                                                        </th:block>
+                                                        <th:block th:if="${#strings.startsWith(r.respuesta, 'Otr')}">
+                                                            <label for="" th:text="${r.respuesta}"></label>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-text">
+                                                                    <input class="form-check-input mt-0 checkbox-input" type="checkbox"
+                                                                        th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" name="checkboxes2"
+                                                                        aria-label="Checkbox for following text input" onchange="toggleInput(this)">
+                                                                </div>
+                                                                <input type="text" class="form-control" name="textInputs"
+                                                                    aria-label="Text input with checkbox" disabled>
+                                                            </div>
+                                                        </th:block>
+                                                    </th:block>
+                                                    <hr class="my-4">
+                                                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-warning" type="submit">Siguiente pregunta</button>
+                                                </form>
+                                            </th:block>
+                                        
                                     </div>
                                 </div>
                             </div>
