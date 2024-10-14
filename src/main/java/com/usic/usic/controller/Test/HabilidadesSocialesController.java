@@ -1,13 +1,24 @@
 package com.usic.usic.controller.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usic.usic.model.Entity.Estudiante;
@@ -15,12 +26,16 @@ import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
 import com.usic.usic.model.Entity.Respuesta;
+import com.usic.usic.model.Entity.ResultadoIA;
+import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
+import com.usic.usic.model.Service.IResultadoIaService;
+import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -43,14 +58,17 @@ public class HabilidadesSocialesController {
     @Autowired
     private IEstudianteRespuestaService estudianteRespuestaService;
 
-    @GetMapping("/habilidades_sociales")
-    public String habilidades_sociales(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    @Autowired
+    private ITipoTestService tipoTestService;
+
+    @Autowired
+    private IResultadoIaService resultadoIaService;
+
+    @GetMapping("/habilidades_sociales/{idTipoTest}")
+    public String habilidades_sociales(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        System.out.println(estudiante.getPersona().getNombre());
-        Long idTipoTest = 2L;
-
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
@@ -69,17 +87,81 @@ public class HabilidadesSocialesController {
         }
     }
 
-    @PostMapping("/guardar_respuesta_HS")
-    public String guardar_respuesta_hs(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+    @GetMapping("/interpretar_respuestas_hs")
+    public String interpretarRespuestas(Model model, HttpSession session, ResultadoIA resultadoIA) {
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
-        Persona persona = (Persona) request.getSession().getAttribute("persona");
-        Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
-        EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
-        estudianteRespuesta.setEstado("ACTIVO");
-        estudianteRespuesta.setComplemento("n/a");
-        estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
-        estudianteRespuesta.setRespuesta(respuesta);
-        estudianteRespuestaService.save(estudianteRespuesta);
-        return "redirect:/pre_test";
+        List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasConSI(estudiante.getIdEstudiante());
+
+        StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
+        for (Object[] pr : preguntasYRespuestas) {
+            String pregunta = (String) pr[0];
+            promptIntereses.append("- ").append(pregunta).append("\n");
+        }
+
+        promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
+        promptIntereses.append("Este es un test de habilidades sociales para un estudiante, orientado a identificar cómo interactúa con su entorno.");
+        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres principales habilidades sociales.\n");
+        promptIntereses.append("Sé encantador y utiliza frases como 'tus principales habilidades son...'. que sea breve y conciso, maximo de 50 palabras.");
+
+        String habilidadesSociales = llamarAI(promptIntereses.toString());
+
+        TipoTest tipoTest = tipoTestService.findById(2L);
+
+        resultadoIA.setEstudiante(estudiante);
+        resultadoIA.setResultado(habilidadesSociales);
+        resultadoIA.setTipoTest(tipoTest);
+        resultadoIaService.save(resultadoIA);
+        return "redirect:/vista_resultado_pre_test_ia";
+    }
+
+    private String llamarAI(String prompt) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String apiUrl = "https://api.openai.com/v1/chat/completions";
+        String apiKey = "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";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(apiKey);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", "gpt-4o-mini");
+
+        JSONArray messages = new JSONArray();
+        JSONObject systemMessage = new JSONObject();
+        systemMessage.put("role", "system");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus habilidades sociales.");
+        messages.put(systemMessage);
+
+        JSONObject userMessage = new JSONObject();
+        userMessage.put("role", "user");
+        userMessage.put("content", prompt);
+        messages.put(userMessage);
+
+        requestBody.put("messages", messages);
+        requestBody.put("max_tokens", 1000);
+
+        HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
+
+        for (int i = 0; i < 3; i++) {
+            try {
+                ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
+                JSONObject jsonResponse = new JSONObject(response.getBody());
+                return jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
+            } catch (HttpClientErrorException e) {
+                if (e.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                    }
+                } else {
+                    throw e;
+                }
+            }
+        }
+        return "No se pudo obtener la interpretación de la IA.";
     }
 }

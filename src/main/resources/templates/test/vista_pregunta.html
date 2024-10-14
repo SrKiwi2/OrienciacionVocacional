@@ -280,7 +280,7 @@ input[type="radio"] {
                                     
                                         
 
-                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION INDIVIDUAL'}">
+                                            <th:block th:if="${pregunta.tipoPregunta.tipoPregunta == 'SELECCION INDIVIDUAL'}">
                                                 <!-- <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                                         <div class="form-check">
@@ -331,7 +331,7 @@ input[type="radio"] {
                                                 </form>
                                             </th:block>
                                     
-                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'RESPUESTA CON COMPLEMENTO'}">
+                                            <th:block th:if="${pregunta.tipoPregunta.tipoPregunta == 'RESPUESTA CON COMPLEMENTO'}">
                                                 <form class="was-validated" action="/guardar_respuesta2" method="post">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                                         <label for="" th:text="${r.respuesta}"></label>
@@ -350,7 +350,7 @@ input[type="radio"] {
                                                 </form>
                                             </th:block>
                                     
-                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'ABIERTA'}">
+                                            <th:block th:if="${pregunta.tipoPregunta.tipoPregunta == 'ABIERTA'}">
                                                 <form class="was-validated" action="/guardar_respuesta3" method="post">
                                                     <input type="hidden" name="id_pregunta" th:value="${pregunta.idPregunta}">
                                                     <div class="input-group">
@@ -363,7 +363,7 @@ input[type="radio"] {
                                                 </form>
                                             </th:block>
                                     
-                                            <th:block th:if="${pregunta.tipoPregunta.tipo_pregunta == 'SELECCION MULTIPLE'}">
+                                            <th:block th:if="${pregunta.tipoPregunta.tipoPregunta == 'SELECCION MULTIPLE'}">
                                                 <form class="was-validated" action="/guardar_respuesta4" method="post">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                                         <th:block th:if="${not #strings.startsWith(r.respuesta, 'Otr')}">

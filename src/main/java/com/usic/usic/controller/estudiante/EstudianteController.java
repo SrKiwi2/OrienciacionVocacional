@@ -193,7 +193,7 @@ public class EstudianteController {
 
         flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
 
-        return "redirect:/pre_test"; //aqui va al pre test, parapresnetar lo cambie---- k
+        return "redirect:/pre_test/1";
     }
 
     

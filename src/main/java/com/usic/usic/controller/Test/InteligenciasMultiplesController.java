@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,13 +43,10 @@ public class InteligenciasMultiplesController {
     private IEstudianteRespuestaService estudianteRespuestaService;
 
     @GetMapping("/inteligencias_multiples")
-    public String inteligencias_multiples(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String inteligencias_multiples(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        System.out.println(estudiante);
-        Long idTipoTest = 3L;
-
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
@@ -65,19 +63,5 @@ public class InteligenciasMultiplesController {
             model.addAttribute("pregunta", "No hay preguntas disponibles.");
             return "redirect:/interpretar_respuestas";
         }
-    }
-
-    @PostMapping("/guardar_respuesta_IM")
-    public String guardar_respuesta_im(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
-
-        Persona persona = (Persona) request.getSession().getAttribute("persona");
-        Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
-        EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
-        estudianteRespuesta.setEstado("ACTIVO");
-        estudianteRespuesta.setComplemento("n/a");
-        estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
-        estudianteRespuesta.setRespuesta(respuesta);
-        estudianteRespuestaService.save(estudianteRespuesta);
-        return "redirect:/pre_test";
     }
 }

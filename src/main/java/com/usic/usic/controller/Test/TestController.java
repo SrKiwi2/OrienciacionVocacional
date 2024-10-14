@@ -89,7 +89,6 @@ public class TestController {
     public ResponseEntity<String> validarFechasTest(@PathVariable Long idTipoTest, HttpSession session) {
         
         try {
-            System.out.println(idTipoTest);
             TipoTest tipoTest = tipoTestService.findById(idTipoTest);
             LocalDate fechaActual = LocalDate.now();
 
@@ -97,7 +96,6 @@ public class TestController {
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
-
 
             if (idPregunta == 0) {
                 return ResponseEntity.ok("Ya has realizado este test: " + tipoTest.getTipoTest());
