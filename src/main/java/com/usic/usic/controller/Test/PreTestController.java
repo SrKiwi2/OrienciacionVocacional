@@ -94,7 +94,7 @@ public class PreTestController {
             System.out.println("Tipo de Pregunta: " + pregunta.getTipoPregunta().getTipoPregunta());
             
             model.addAttribute("pregunta", pregunta);
-            model.addAttribute("respuestas",  respuestaService.findById(pregunta.getIdPregunta()));
+            model.addAttribute("respuestas",  respuestaService.findAll());
             model.addAttribute("registro_pre_test", new EstudianteRespuesta());
             return "test/vista_pregunta";
         } else {
@@ -214,7 +214,7 @@ public class PreTestController {
     }
     
     @PostMapping("/guardar_respuesta")
-    public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta,@RequestParam("id_tipo_test") Long id_tipo_test, HttpServletRequest request) {
+    public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta,@RequestParam("v_idTipoTest") Long id_tipo_test, HttpServletRequest request) {
 
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
