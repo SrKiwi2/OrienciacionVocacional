@@ -83,6 +83,7 @@ public class PreTestController {
         System.out.println(idPregunta);
         System.out.println(idTipoTest);
 
+        model.addAttribute("v_idTipoTest", idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
         if (idPregunta != 0) {
@@ -213,7 +214,7 @@ public class PreTestController {
     }
     
     @PostMapping("/guardar_respuesta")
-    public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+    public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta,@RequestParam("id_tipo_test") Long id_tipo_test, HttpServletRequest request) {
 
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
@@ -223,7 +224,7 @@ public class PreTestController {
         estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
         estudianteRespuesta.setRespuesta(respuesta);
         estudianteRespuestaService.save(estudianteRespuesta);
-        return "redirect:/pre_test";
+        return "redirect:/pre_test/"+id_tipo_test;
     }
 
     @GetMapping("/vista_resultado_pre_test_ia")

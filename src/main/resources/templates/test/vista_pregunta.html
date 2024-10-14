@@ -304,6 +304,7 @@ input[type="radio"] {
                                                     </th:block>
                                                 </form> -->
                                                 <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
+                                                    <input type="hidden" th:name="${v_idTipoTest}" th:value="${v_idTipoTest}">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
                                                         <!-- Input escondido -->
                                                         <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}"
