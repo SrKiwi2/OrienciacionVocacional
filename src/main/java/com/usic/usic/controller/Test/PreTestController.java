@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
@@ -71,22 +72,28 @@ public class PreTestController {
         return "test/pre-test/requisitos";
     }
 
-    @GetMapping("/pre_test")
-    public String pre_test(Model model, HttpSession session) {
+    @GetMapping("/pre_test/{idTipoTest}")
+    public String pre_test(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        Long idTipoTest = 1L;
+        // Long idTipoTest = 3L;
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+
+        System.out.println(idPregunta);
+        System.out.println(idTipoTest);
 
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
         if (idPregunta != 0) {
 
             Pregunta pregunta = preguntaService.findById(idPregunta);
+
+            System.out.println("Pregunta: " + pregunta.getPregunta());
+            System.out.println("Tipo de Pregunta: " + pregunta.getTipoPregunta().getTipoPregunta());
             
             model.addAttribute("pregunta", pregunta);
-            model.addAttribute("respuestas",  respuestaService.findAll());
+            model.addAttribute("respuestas",  respuestaService.findById(pregunta.getIdPregunta()));
             model.addAttribute("registro_pre_test", new EstudianteRespuesta());
             return "test/vista_pregunta";
         } else {
@@ -160,7 +167,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

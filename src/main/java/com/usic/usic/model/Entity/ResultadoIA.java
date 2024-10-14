@@ -2,6 +2,7 @@ package com.usic.usic.model.Entity;
 
 import com.usic.usic.config.AuditoriaConfig;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class ResultadoIA extends AuditoriaConfig{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idResultadoIa;
 
+    @Column(columnDefinition = "TEXT")
     private String resultado;
 
     @ManyToOne(fetch = FetchType.EAGER)

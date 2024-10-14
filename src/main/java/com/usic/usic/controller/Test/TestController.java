@@ -79,13 +79,12 @@ public class TestController {
 
     @PostMapping("/validarFechasTest/{idTipoTest}")
     public ResponseEntity<String> validarFechasTest(@PathVariable Long idTipoTest) {
-        TipoTest tipoTest = tipoTestService.findById(idTipoTest);  // Obtener el tipo de test
+        TipoTest tipoTest = tipoTestService.findById(idTipoTest);
         LocalDate fechaActual = LocalDate.now();
         try {
-            // Comprobar si la fecha actual está dentro del rango
             if ((fechaActual.isEqual(tipoTest.getFechaInicio()) || fechaActual.isAfter(tipoTest.getFechaInicio())) &&
                 (fechaActual.isEqual(tipoTest.getFechaFin()) || fechaActual.isBefore(tipoTest.getFechaFin()))) {
-                return ResponseEntity.ok("Bienvenido, comenzamos? Este test: " + tipoTest.getDescripcion());
+                return ResponseEntity.ok("Bienvenido al test vocacional de habilidades sociales, este test tiene el fin de: " + tipoTest.getDescripcion());
             } else {
                 return ResponseEntity.ok("Este Test no está vigente, las fechas válidas son desde " + tipoTest.getFechaInicio() + " hasta " + tipoTest.getFechaFin());
             }

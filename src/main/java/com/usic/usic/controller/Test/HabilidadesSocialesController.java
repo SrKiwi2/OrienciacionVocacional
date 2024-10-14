@@ -15,14 +15,12 @@ import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
 import com.usic.usic.model.Entity.Respuesta;
-import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
-import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -50,7 +48,7 @@ public class HabilidadesSocialesController {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        System.out.println(estudiante);
+        System.out.println(estudiante.getPersona().getNombre());
         Long idTipoTest = 2L;
 
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
