@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody id="configuracionTableBody">
-                            <tr th:each="e, index : ${tests}" th:if="${e.estado != 'INHABILITADO'}">
+                            <tr th:each="e, index : ${tests}" th:if="${e.estado != 'X'}">
                                 <td th:text="${index.index+1}"></td>
                                 <td th:text="${e.tipoTest}"></td>
                                 <td th:text="${e.descripcion}"></td>
@@ -27,11 +27,6 @@
                                         data-bs-toggle="modal" data-bs-target="#registroModal"
                                         th:attr="onclick='setIdTipoTest(' + ${e.id_tipo_test} + ')'">
                                         <i>Habilitar</i>
-                                    </a>
-                                    <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"
-                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
-                                        th:attr="onclick='cargarDatosFormulario(' + ${e.id_tipo_test} + ', \'view\')'">
-                                        <i>Avance</i>
                                     </a>
                                     <a class="btn btn-danger me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"

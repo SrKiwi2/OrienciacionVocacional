@@ -138,7 +138,7 @@
                 <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-6 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="product-style-one no-overlay">
                         <div class="card-thumbnail">
-                            <a href="#" id="chaside" data-id="4">
+                            <a href="#" id="chaside" data-id="1">
                                 <img src="assets_registro/images/capy1.png" alt="NFT_portfolio">
                             </a>
                         </div>
@@ -196,8 +196,6 @@
     <div th:replace="~{layout_test/script :: script}"></div>
 
     <script th:inline="javascript">
-
-        //CHASIDE PRE TEST
         $(document).ready(function() {
             $('#chaside, #habilidadesSociales, #inteligenciasMultiples, #interesesProfesionales').click(function(event) {
                 event.preventDefault();
@@ -216,145 +214,12 @@
                                 cancelButtonText: 'Cancelar'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/pre_test/{idTipoTest}";
+                                    window.location.href = "/pre_test/" + idTipoTest;
                                 }
                             });
                         } else {
                             Swal.fire({
                                 title: 'Aviso!',
-                                text: response,
-                                icon: 'info',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: xhr.responseText,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-
-        //HABILIDADES SOCIALES
-        $(document).ready(function() {
-            $('#habilidadesSociales').click(function(event) {
-                event.preventDefault();
-                var idTipoTest = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '/validarFechasTest/' + idTipoTest,
-                    success: function(response) {
-                        if (response.includes("Bienvenido")) {
-                            Swal.fire({
-                                title: '¡Bienvenido!',
-                                text: response,
-                                icon: 'success',
-                                showCancelButton: true,
-                                confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "/pre_test/{idTipoTest}";
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Aviso!',
-                                text: response,
-                                icon: 'info',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: xhr.responseText,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        //INTELIGENCIAS MULTIPLES
-        $(document).ready(function() {
-            $('#inteligenciasMultiples').click(function(event) {
-                event.preventDefault();
-                var idTipoTest = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '/validarFechasTest/' + idTipoTest,
-                    success: function(response) {
-                        if (response.includes("Bienvenido")) {
-                            Swal.fire({
-                                title: '¡Bienvenido!',
-                                text: response,
-                                icon: 'success',
-                                showCancelButton: true,
-                                confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "/pre_test";
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Aviso!',
-                                text: response,
-                                icon: 'info',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(xhr) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: xhr.responseText,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        //INTERESE PROFESIONALES
-        $(document).ready(function() {
-            $('#interesesProfesionales').click(function(event) {
-                event.preventDefault();
-                var idTipoTest = $(this).data('id');
-                $.ajax({
-                    type: 'POST',
-                    url: '/validarFechasTest/' + idTipoTest,
-                    success: function(response) {
-                        if (response.includes("Bienvenido")) {
-                            Swal.fire({
-                                title: '¡Bienvenido!',
-                                text: response,
-                                icon: 'success',
-                                showCancelButton: true,
-                                confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "/intereses_profesionales";
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Alerta!',
                                 text: response,
                                 icon: 'info',
                                 confirmButtonText: 'OK'

@@ -2,6 +2,7 @@ package com.usic.usic.controller.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,16 +14,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.TipoTest;
+import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.INacionalidadService;
 import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TestController {
@@ -43,6 +48,9 @@ public class TestController {
 
     @Autowired
     private ITipoTestService tipoTestService; 
+
+    @Autowired
+    private IPreguntaService preguntaService;
 
     @GetMapping("/")
     public String getMethodName() {
@@ -78,16 +86,30 @@ public class TestController {
     }
 
     @PostMapping("/validarFechasTest/{idTipoTest}")
-    public ResponseEntity<String> validarFechasTest(@PathVariable Long idTipoTest) {
-        TipoTest tipoTest = tipoTestService.findById(idTipoTest);
-        LocalDate fechaActual = LocalDate.now();
+    public ResponseEntity<String> validarFechasTest(@PathVariable Long idTipoTest, HttpSession session) {
+        
         try {
-            if ((fechaActual.isEqual(tipoTest.getFechaInicio()) || fechaActual.isAfter(tipoTest.getFechaInicio())) &&
-                (fechaActual.isEqual(tipoTest.getFechaFin()) || fechaActual.isBefore(tipoTest.getFechaFin()))) {
-                return ResponseEntity.ok("Bienvenido al test vocacional de habilidades sociales, este test tiene el fin de: " + tipoTest.getDescripcion());
+            System.out.println(idTipoTest);
+            TipoTest tipoTest = tipoTestService.findById(idTipoTest);
+            LocalDate fechaActual = LocalDate.now();
+
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
+
+            Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+
+
+            if (idPregunta == 0) {
+                return ResponseEntity.ok("Ya has realizado este test: " + tipoTest.getTipoTest());
             } else {
-                return ResponseEntity.ok("Este Test no está vigente, las fechas válidas son desde " + tipoTest.getFechaInicio() + " hasta " + tipoTest.getFechaFin());
+                if ((fechaActual.isEqual(tipoTest.getFechaInicio()) || fechaActual.isAfter(tipoTest.getFechaInicio())) &&
+                    (fechaActual.isEqual(tipoTest.getFechaFin()) || fechaActual.isBefore(tipoTest.getFechaFin()))) {
+                    return ResponseEntity.ok("Bienvenido al test vocacional de habilidades sociales, este test tiene el fin de: " + tipoTest.getDescripcion());
+                } else {
+                    return ResponseEntity.ok("Este Test no está vigente, las fechas válidas son desde " + tipoTest.getFechaInicio() + " hasta " + tipoTest.getFechaFin());
+                }
             }
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al acceder al test: " + e.getMessage());
         }

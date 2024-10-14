@@ -2,6 +2,7 @@ package com.usic.usic.model.IServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,9 @@ public class TipoTestServiceImpl implements ITipoTestService{
     public List<TipoTest> findTestsHabilitados(LocalDate fechaActual) {
         return tipoTestDao.findTestsHabilitados(fechaActual);
     }
-    
+
+    // @Override
+    // public List<Object[]> findTipoTestRealizado(Long idEstudiante) {
+    //     return tipoTestDao.findTipoTestRealizado(idEstudiante);
+    // }
 }

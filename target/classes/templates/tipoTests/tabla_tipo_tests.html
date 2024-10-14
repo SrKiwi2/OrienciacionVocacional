@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody id="tipoPreguntasTableBody">
-                            <tr th:each="tts, index : ${tipoTestss}">
+                            <tr th:each="tts, index : ${tipoTestss}" th:if="${tts.estado != 'X'}">
                                 <td th:text="${index.index+1}"></td>
                                 <td th:text="${tts.tipoTest}"></td>
                                 <td th:text="${tts.descripcion}"></td>
