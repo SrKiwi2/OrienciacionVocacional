@@ -12,7 +12,7 @@
     <meta name="theme-style-mode" content="1"> <!-- 0 == light, 1 == dark -->
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets_registro/images/uap.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets_registro/images/uap.png">
     <!-- CSS 
     ============================================ -->
     <!-- <link rel="stylesheet" href="assets_registro/css/vendor/bootstrap.min.css"> -->
@@ -20,32 +20,57 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/fondo_test.css">
 
-    <style>
-        /* Modal Styles */
+<style>
+
+body {
+    background: linear-gradient(45deg, #f77f00, #e6e6e6, #06d69ebe, #1982c4);
+    background-size: 400% 400%;
+    animation: gradientBackground 10s ease infinite;
+    height: 100vh;
+    margin: 0;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: 600% 600%;
+        animation: gradientBackground 15s ease infinite; 
+    }
+}
+
+/* Modal Styles */
 .modal-content {
     background-color: rgba(255, 255, 255, 0);
     border: none;
 }
 
-/* Flexbox to align elements horizontally */
 .d-flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Space between buttons */
+    gap: 10px; 
     width: 100%;
     padding: 10px;
-    flex-direction: row; /* Horizontal alignment by default */
+    flex-direction: row; 
 }
 
-/* Ensures buttons have a maximum size and expand equally */
 label {
     max-width: 150px;
     margin: 0 10px;
-    flex-grow: 1; /* Both buttons expand equally */
+    flex-grow: 1; 
 }
 
-/* Round Button Styles */
 .btn-round {
     width: 70px;
     height: 70px;
@@ -63,14 +88,12 @@ label {
     animation: pulse 1.5s infinite;
 }
 
-/* Button hover effect */
 .btn-round:hover {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
     transform: translateY(-2px);
     animation: none;
 }
 
-/* Glow effect for round button */
 .btn-round::after {
     content: '';
     position: absolute;
@@ -86,7 +109,6 @@ label {
     z-index: -1;
 }
 
-/* Pulse animation for the button */
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
@@ -96,7 +118,6 @@ label {
     }
 }
 
-/* Image Frame Styles */
 .img-frame {
     border: 5px solid #ddd;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -106,7 +127,6 @@ label {
     max-width: 300px;
 }
 
-/* Floating animation for the image */
 @keyframes float2 {
     0% {
         transform: translateY(0px);
@@ -123,19 +143,16 @@ label {
     animation: float2 3s ease-in-out infinite;
 }
 
-/* Centering the image container */
 .img-p {
     text-align: center;
     margin-top: 4%;
 }
 
-/* Centering the button container */
 .btn-sn {
     text-align: center;
     margin-top: 5%;
 }
 
-/* Particle Animation for the background */
 #particles {
     position: absolute;
     top: 0;
@@ -148,20 +165,70 @@ label {
 
 .particle {
     position: absolute;
-    font-size: 500px;
-    color: #fcbf49;
+    font-size: 400px;
     animation: float 10s infinite ease-in-out;
     opacity: 0.8;
+    color: #fcbf49; /* Color por defecto */
 }
 
-/* Particle Variations */
-.particle:nth-child(1) { left: 10%; animation-duration: 8s; font-size: 450px; }
-.particle:nth-child(2) { left: 30%; animation-duration: 12s; font-size: 400px; }
-.particle:nth-child(3) { left: 50%; animation-duration: 15s; font-size: 350px; }
-.particle:nth-child(4) { left: 70%; animation-duration: 9s; font-size: 300px; }
-.particle:nth-child(5) { left: 90%; animation-duration: 14s; font-size: 250px; }
+/* Partículas con diferentes colores */
+.particle:nth-child(1) { 
+    left: 10%; 
+    animation-duration: 8s; 
+    font-size: 300px; 
+    color: #ff595e; /* Rojo */
+}
 
-/* Float Animation for Particles */
+.particle:nth-child(2) { 
+    left: 30%; 
+    animation-duration: 12s; 
+    font-size: 300px; 
+    color: #1982c4; /* Azul */
+}
+
+.particle:nth-child(3) { 
+    left: 50%; 
+    animation-duration: 15s; 
+    font-size: 350px; 
+    color: #6a4c93; /* Púrpura */
+}
+
+.particle:nth-child(4) { 
+    left: 70%; 
+    animation-duration: 9s; 
+    font-size: 300px; 
+    color: #8ac926; /* Verde */
+}
+
+.particle:nth-child(5) { 
+    left: 90%; 
+    animation-duration: 14s; 
+    font-size: 250px; 
+    color: #ffca3a; /* Amarillo */
+}
+
+/* Añadir nuevas formas */
+.circle {
+    border-radius: 50%;
+    background-color: #f77f00;
+    width: 150px;
+    height: 150px;
+    animation: float 11s infinite ease-in-out;
+    opacity: 0.7;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid #06d6a0;
+    position: absolute;
+    animation: float 9s infinite ease-in-out;
+    opacity: 0.7;
+}
+
+/* Animación flotante para las partículas */
 @keyframes float {
     0% {
         transform: translateY(100vh) rotate(0deg);
@@ -176,7 +243,7 @@ label {
     }
 }
 
-/* Zoom and Hover Effects for Images */
+
 .img-hover {
     transition: transform 0.7s ease;
 }
@@ -185,46 +252,40 @@ label {
     transform: scale(1.2);
 }
 
-/* Radio Inputs hidden */
 input[type="radio"] {
     display: none;
 }
 
-/* Media Queries for responsive images */
 @media screen and (min-width: 768px) {
     .img-frame {
-        max-width: 400px; /* Larger image for medium and large screens */
+        max-width: 400px;
     }
 }
 
 /* For smaller screens */
 @media screen and (max-width: 450px) {
     .img-frame {
-        max-width: 400px; /* Adjust size for smaller screens */
+        max-width: 400px;
     }
 }
 
-/* Like and Dislike Image sizes for different screens */
 .img-like, .img-dislike {
     width: 130px;
     height: auto;
 }
 
-/* Adjust size on medium screens */
 @media (max-width: 778px) {
     .img-like, .img-dislike {
         width: 100px;
     }
 }
 
-/* Adjust size on small screens */
 @media (max-width: 480px) {
     .img-like, .img-dislike {
         width: 100px;
     }
 }
 
-/* Additional spacing for small screens */
 @media (max-width: 768px) {
     .btn-sn {
         margin-top: 20px;
@@ -236,11 +297,67 @@ input[type="radio"] {
     text-align: center;
 }
 
+/* Estilos para el contenedor */
+.col-md-6.d-flex.justify-content-end {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #f0f0f0; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.432); 
+    width: 100%; 
+}
+
+.form-select {
+    width: 100%; 
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease; 
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #d69406;
+    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3);
+}
+
+.form-select option {
+    color: #333;
+    padding: 10px;
+}
+
+.form-select:hover {
+    background-color: #fafafa;
+    border-color: #d69406;
+}
+
+@media (max-width: 768px) {
+    .form-select {
+        width: 100%; 
+    }
+}
+
+
 </style>
 </head>
 
-<body style="background-color: #fefae0;">
-    <div id="particles"></div>
+<body>
+    <div id="particles">
+    <div class="particle">★</div>  <!-- Estrella o cualquier símbolo -->
+    <div class="particle">▲</div>  <!-- Otro símbolo -->
+    <div class="particle">●</div>  <!-- Círculo -->
+    <div class="particle">■</div>  <!-- Cuadrado -->
+    <div class="particle">◆</div>  <!-- Diamante -->
+
+    <!-- Nuevas figuras geométricas -->
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -265,6 +382,8 @@ input[type="radio"] {
                                         </th:block>
                                     </select>
                                 </div>
+                                
+                                
                             </div>
                 
                             <!-- Modal Header -->
@@ -313,14 +432,14 @@ input[type="radio"] {
                                                         <!-- Botón ME INTERESA -->
                                                         <th:block th:if="${r.respuesta == 'SI'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
-                                                                <img class="img-hover img-like" src="../assets/images/profile/like.png" alt="ME INTERESA">
+                                                                <img class="img-hover img-like shadow" style="border-radius: 1.5rem;" src="../assets/images/profile/like.png" alt="ME INTERESA">
                                                             </label>
                                                         </th:block>
                                                 
                                                         <!-- Imagen NO ME INTERESA -->
                                                         <th:block th:if="${r.respuesta == 'NO'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
-                                                                <img class="img-hover img-dislike" src="../assets/images/profile/dislike.png" alt="NO ME">
+                                                                <img class="img-hover img-dislike shadow" style="border-radius: 1.5rem;" src="../assets/images/profile/dislike.png" alt="NO ME">
                                                             </label>
                                                         </th:block>
                                                 

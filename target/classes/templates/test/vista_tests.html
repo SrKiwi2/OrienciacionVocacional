@@ -20,24 +20,24 @@
                         <nav id="sideNav" class="mainmenu-nav d-none d-xl-block">
                             <ul class="mainmenu">
                                 <li class="has-droupdown has-menu-child-item">
-                                    <a href="index.html">Inicio</a>
+                                    <a href="#">Inicio</a>
                                     <ul class="submenu">
-                                        <li><a href="index.html">Home page - 01 <i class="feather-home"></i></a></li>
-                                        <li><a href="index-two.html">Home page - 02<i class="feather-home"></i></a></li>
-                                        <li><a href="index-three.html">Home page - 03<i class="feather-home"></i></a></li>
+                                        <li><a href="#">Home page - 01 <i class="feather-home"></i></a></li>
+                                        <li><a href="#">Home page - 02<i class="feather-home"></i></a></li>
+                                        <li><a href="#">Home page - 03<i class="feather-home"></i></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="about.html">Acerca de</a>
+                                <li><a href="#">Acerca de</a>
                                 </li>
                                 <li class="has-droupdown has-menu-child-item">
                                     <a href="#">Test Vocacional</a>
                                     <ul class="submenu">
-                                        <li><a class="live-expo" href="explore-live.html">Live Explore</a></li>
-                                        <li><a class="live-expo" href="explore-live-two.html">Live Explore Carousel</a></li>
-                                        <li><a class="live-expo" href="explore-live-three.html">Live With Place Bid</a></li>
+                                        <li><a class="live-expo" href="#">Live Explore</a></li>
+                                        <li><a class="live-expo" href="#">Live Explore Carousel</a></li>
+                                        <li><a class="live-expo" href="#">Live With Place Bid</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="#">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="product-style-one no-overlay">
                         <div class="card-thumbnail">
                             <a href="#" id="chaside" data-id="1">
-                                <img src="assets_registro/images/loro1.png" alt="NFT_portfolio">
+                                <img src="assets_registro/images/loros.png" alt="NFT_portfolio">
                             </a>
                         </div>
                         <div class="react-area" style="margin-top: 30%;">
@@ -196,8 +196,8 @@
     <div th:replace="~{layout_test/script :: script}"></div>
 
     <script th:inline="javascript">
-        //CHASIDE
-        $(document).ready(function() {
+            //CHASIDE
+            $(document).ready(function() {
             $('#chaside').click(function(event) {
                 event.preventDefault();
                 var idTipoTest = $(this).data('id');
@@ -212,7 +212,8 @@
                                 icon: 'success',
                                 showCancelButton: true,
                                 confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
+                                cancelButtonText: 'Cancelar',
+                                customClass: 'swal2-large' 
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.href = "/pre_test/" + idTipoTest;
@@ -223,7 +224,8 @@
                                 title: 'Aviso!',
                                 text: response,
                                 icon: 'info',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: 'swal2-large'
                             });
                         }
                     },
@@ -232,12 +234,14 @@
                             title: 'Error!',
                             text: xhr.responseText,
                             icon: 'error',
-                            confirmButtonText: 'OK'
+                            confirmButtonText: 'OK',
+                            customClass: 'swal2-large'
                         });
                     }
                 });
             });
         });
+
 
         //HABILIDADES SOCIALES
 
@@ -256,7 +260,8 @@
                                 icon: 'success',
                                 showCancelButton: true,
                                 confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
+                                cancelButtonText: 'Cancelar',
+                                customClass: 'swal2-large' 
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.href = "/habilidades_sociales/" + idTipoTest;
@@ -267,7 +272,8 @@
                                 title: 'Aviso!',
                                 text: response,
                                 icon: 'info',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: 'swal2-large' 
                             });
                         }
                     },
@@ -276,7 +282,8 @@
                             title: 'Error!',
                             text: xhr.responseText,
                             icon: 'error',
-                            confirmButtonText: 'OK'
+                            confirmButtonText: 'OK',
+                            customClass: 'swal2-large' 
                         });
                     }
                 });
@@ -299,7 +306,8 @@
                                 icon: 'success',
                                 showCancelButton: true,
                                 confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
+                                cancelButtonText: 'Cancelar',
+                                customClass: 'swal2-large' 
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.href = "/inteligencias_multiples/" + idTipoTest;
@@ -310,7 +318,8 @@
                                 title: 'Aviso!',
                                 text: response,
                                 icon: 'info',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: 'swal2-large'
                             });
                         }
                     },
@@ -319,7 +328,8 @@
                             title: 'Error!',
                             text: xhr.responseText,
                             icon: 'error',
-                            confirmButtonText: 'OK'
+                            confirmButtonText: 'OK',
+                            customClass: 'swal2-large' 
                         });
                     }
                 });
@@ -343,7 +353,8 @@
                                 icon: 'success',
                                 showCancelButton: true,
                                 confirmButtonText: 'Empecemos',
-                                cancelButtonText: 'Cancelar'
+                                cancelButtonText: 'Cancelar',
+                                customClass: 'swal2-large' 
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.href = "/intereses_profesionales/" + idTipoTest;
@@ -354,7 +365,8 @@
                                 title: 'Aviso!',
                                 text: response,
                                 icon: 'info',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: 'swal2-large' 
                             });
                         }
                     },
@@ -363,7 +375,8 @@
                             title: 'Error!',
                             text: xhr.responseText,
                             icon: 'error',
-                            confirmButtonText: 'OK'
+                            confirmButtonText: 'OK',
+                            customClass: 'swal2-large' 
                         });
                     }
                 });

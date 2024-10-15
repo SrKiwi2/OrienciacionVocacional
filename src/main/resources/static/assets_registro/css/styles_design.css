@@ -305,3 +305,18 @@ a {
     height: 80px;
   }
 }
+
+/* Estilo personalizado para agrandar el SweetAlert2 */
+.swal2-large {
+  width: 600px !important;
+  font-size: 18px; 
+}
+
+.swal2-large .swal2-title {
+  font-size: 24px; 
+}
+
+.swal2-large .swal2-content {
+  font-size: 16px; 
+}
+
