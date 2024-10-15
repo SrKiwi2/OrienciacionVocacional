@@ -1,0 +1,263 @@
+body {
+    background: linear-gradient(45deg, #f77f00, #e6e6e6, #46d1ac54, #1982c4);
+    background-size: 400% 400%;
+    animation: gradientBackground 10s ease infinite;
+    height: 100vh;
+    margin: 0;
+}
+
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: 600% 600%;
+        animation: gradientBackground 15s ease infinite; 
+    }
+}
+
+/* Modal Styles */
+.modal-content {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+    width: 100%;
+    padding: 10px;
+    flex-direction: row; 
+}
+
+label {
+    max-width: 150px;
+    margin: 0 10px;
+    flex-grow: 1; 
+}
+
+.btn-round {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 50px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    animation: pulse 1.5s infinite;
+}
+
+.btn-round:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+    animation: none;
+}
+
+.btn-round::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    filter: blur(8px);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.img-frame {
+    border: 5px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+}
+
+@keyframes float2 {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animated-float {
+    animation: float2 3s ease-in-out infinite;
+}
+
+.img-p {
+    text-align: center;
+    margin-top: 4%;
+}
+
+.btn-sn {
+    text-align: center;
+    margin-top: 5%;
+}
+
+#particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    animation: float infinite ease-in-out;
+    opacity: 0.8;
+    transform: translateY(100vh);
+}
+
+/* Animación flotante */
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg); 
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1; 
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0; 
+    }
+}
+
+
+/* Transición de transformación */
+.img-hover {
+    transition: transform 0.7s ease;
+}
+
+.img-hover:hover {
+    transform: scale(1.2); /* Efecto al pasar el ratón por encima */
+}
+
+/* Animación de rebote al hacer clic */
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5); /* Aumenta el tamaño al 150% en el medio del efecto */
+    }
+    100% {
+        transform: scale(1); /* Vuelve al tamaño original */
+    }
+}
+
+/* Aplicar la animación cuando se hace clic */
+.clicked-like {
+    animation: pop 0.4s ease-out;
+}
+
+.clicked-dislike {
+    animation: pop 0.4s ease-out;
+}
+
+/* Estilos ya existentes */
+.img-like, .img-dislike {
+    width: 130px;
+    height: auto;
+}
+
+@media (max-width: 778px) {
+    .img-like, .img-dislike {
+        width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .img-like, .img-dislike {
+        width: 100px;
+    }
+}
+
+
+/* Estilos para el contenedor */
+.col-md-6.d-flex.justify-content-end {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #f0f0f0; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.432); 
+    width: 100%; 
+}
+
+.form-select {
+    width: 100%; 
+    padding: 10px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease; 
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: #d69406;
+    box-shadow: 0 4px 12px rgba(0, 150, 136, 0.3);
+}
+
+.form-select option {
+    color: #333;
+    padding: 10px;
+}
+
+.form-select:hover {
+    background-color: #fafafa;
+    border-color: #d69406;
+}
+
+@media (max-width: 768px) {
+    .form-select {
+        width: 100%; 
+    }
+}
