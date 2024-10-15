@@ -77,28 +77,17 @@ public class PreTestController {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        // Long idTipoTest = 3L;
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
-
-        System.out.println(idPregunta);
-        System.out.println(idTipoTest);
-
         model.addAttribute("v_idTipoTest", idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
         if (idPregunta != 0) {
-
             Pregunta pregunta = preguntaService.findById(idPregunta);
-
-            System.out.println("Pregunta: " + pregunta.getPregunta());
-            System.out.println("Tipo de Pregunta: " + pregunta.getTipoPregunta().getTipoPregunta());
-            
             model.addAttribute("pregunta", pregunta);
             model.addAttribute("respuestas",  respuestaService.findAll());
             model.addAttribute("registro_pre_test", new EstudianteRespuesta());
             return "test/vista_pregunta";
         } else {
-
             model.addAttribute("pregunta", "No hay preguntas disponibles.");
             return "redirect:/interpretar_respuestas";
         }
