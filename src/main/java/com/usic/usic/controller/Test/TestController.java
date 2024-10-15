@@ -97,6 +97,10 @@ public class TestController {
 
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
 
+            if (tipoTest.getFechaInicio() == null || tipoTest.getFechaFin() == null) {
+                return ResponseEntity.ok("Este test aún no está habilitado porque no tiene fechas asignadas.");
+            }
+
             if (idPregunta == 0) {
                 return ResponseEntity.ok("Ya has realizado este test: " + tipoTest.getTipoTest());
             } else {

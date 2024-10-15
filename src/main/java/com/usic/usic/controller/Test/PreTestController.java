@@ -34,6 +34,7 @@ import com.usic.usic.model.Service.ITipoTestService;
 import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,6 +79,7 @@ public class PreTestController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
         Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+
         model.addAttribute("v_idTipoTest", idTipoTest);
         model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
@@ -95,6 +97,7 @@ public class PreTestController {
 
     @GetMapping("/interpretar_respuestas")
     public String interpretarRespuestas(Model model, HttpSession session, ResultadoIA resultadoIA) {
+
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
@@ -148,16 +151,16 @@ public class PreTestController {
         resultadoIA.setEstudiante(estudiante);
         resultadoIA.setResultado(respuestaIaEstudiante);
         resultadoIA.setTipoTest(tipoTest);
+        resultadoIA.setEstado("ACTIVO");
         resultadoIaService.save(resultadoIA);
         return "redirect:/vista_resultado_pre_test_ia";
     }
-
 
     private String llamarAI(String prompt) {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -217,7 +220,11 @@ public class PreTestController {
     }
 
     @GetMapping("/vista_resultado_pre_test_ia")
-    public String vista_resultado_pre_test(Model model, HttpSession session) {
+    public String vista_resultado_pre_test(Model model, HttpSession session, HttpServletResponse response) {
+
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
 
         Long idEstudiante = (Long) session.getAttribute("idEstudiante");
         String intereses = (String) session.getAttribute("opinionIAIntereses");
@@ -230,6 +237,19 @@ public class PreTestController {
         model.addAttribute("idEstudiante", idEstudiante);
 
         return "test/pre-test/vista_resultado_pre_test";
+    }
+
+    @PostMapping("/terminar_test")
+    public String terminarTest(HttpSession session) {
+        // Limpiar los atributos de sesión relacionados con el test
+        session.removeAttribute("idEstudiante");
+        session.removeAttribute("opinionIAIntereses");
+        session.removeAttribute("opinionIAAptitudes");
+        session.removeAttribute("opinionIAAreas");
+        session.removeAttribute("testFinalizado");
+        session.invalidate(); // Invalida toda la sesión si quieres eliminar todos los datos
+
+        return "redirect:/";  // Redirigir al inicio de la aplicación
     }
 
     // FIN PRE TEST
