@@ -343,10 +343,11 @@ public class PreTestController {
         Respuesta respuesta = respuestaService.findById(estudianteRespuesta.getRespuesta().getIdRespuesta());
         Pregunta pregunta = preguntaService.findById(respuesta.getPregunta().getIdPregunta());
 
-        Long idTipoTest = 1L;
+        TipoTest tipoTest = tipoTestService.findById(pregunta.getTipoTest().getId_tipo_test());
 
         model.addAttribute("v_id_pregunta_respuesta", id_pregunta_respuesta);
-        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
+        model.addAttribute("v_idTipoTest", tipoTest.getId_tipo_test());
+        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), tipoTest.getId_tipo_test()));
         model.addAttribute("estudianteRespuesta", estudianteRespuesta);
         model.addAttribute("respuesta", respuesta);
         model.addAttribute("respuestas",  respuestaService.findAll());
@@ -358,7 +359,8 @@ public class PreTestController {
     @PostMapping("/guardar_respuesta_modificacion")
     public String guardar_respuesta_modificacion(
         @RequestParam("id_estudianteRespuesta") Long id_estudianteRespuesta,
-        @RequestParam("respuesta_pregunta") Long respuesta_pregunta, HttpServletRequest request) {
+        @RequestParam("respuesta_pregunta") Long respuesta_pregunta,
+        @RequestParam("v_idTipoTest") Long id_tipo_test, HttpServletRequest request) {
 
         EstudianteRespuesta estudianteRespuesta = estudianteRespuestaService.findById(id_estudianteRespuesta);
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
@@ -366,7 +368,7 @@ public class PreTestController {
         estudianteRespuesta.setRespuesta(respuesta);
         estudianteRespuesta.setModificacion(new Date());
         estudianteRespuestaService.save(estudianteRespuesta);
-        return "redirect:/pre_test";
+        return "redirect:/pre_test/"+id_tipo_test;
     }
 
 
