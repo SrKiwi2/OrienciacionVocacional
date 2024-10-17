@@ -91,7 +91,6 @@ public class UsuarioController {
         } else {
             return ResponseEntity.ok("Ya existe este registro");
         }
-
     }
 
     @PostMapping("/editarUsuario")

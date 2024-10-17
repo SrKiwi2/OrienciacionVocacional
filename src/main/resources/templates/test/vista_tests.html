@@ -142,9 +142,10 @@
                                 <img src="assets_registro/images/loros.png" alt="NFT_portfolio">
                             </a>
                         </div>
-                        <div class="react-area" style="margin-top: 30%;">
+                        <div class="react-area" style="margin-top: 12%;">
                             <hr size="8px">
                             <h3 class="text-center">CHASIDE (pre test)</h3>
+                            <p class="text-center" th:text="'Vigenten del: ' + ${preTest.fechaInicio + ' al ' + preTest.fechaFin}"></p>
                         </div>
                     </div>
                 </div>
@@ -156,9 +157,10 @@
                                 <img src="assets_registro/images/capy-hs.png" alt="NFT_portfolio">
                             </a>
                         </div>
-                        <div class="react-area" style="margin-top: 8%;">
+                        <div class="react-area" style="margin-top: 12%;">
                             <hr>
                             <h3 class="text-center">Habilidades Sociales</h3>
+                            <p class="text-center" th:text="${HabiSocial.fechaInicio != null and HabiSocial.fechaFin != null ? 'Vigente del: ' + HabiSocial.fechaInicio + ' al ' + HabiSocial.fechaFin : 'Test no habilitado'}"></p>
                         </div>
                     </div>
                 </div>
@@ -171,6 +173,7 @@
                         <div class="react-area" style="margin-top: 8%;">
                             <hr size="8px">
                             <h3 class="text-center">Inteligencias múltiples</h3>
+                            <p class="text-center" th:text="${InterMulti.fechaInicio != null and InterMulti.fechaFin != null ? 'Vigente del: ' + InterMulti.fechaInicio + ' al ' + InterMulti.fechaFin : 'Test no habilitado'}"></p>
                         </div>
                     </div>
                 </div>
@@ -178,11 +181,12 @@
                 <div data-sal="slide-up" data-sal-delay="150" data-sal-duration="800" class="col-6 col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="product-style-one no-overlay">
                         <div class="card-thumbnail">
-                            <a href="#" id="interesesProfesionales" data-id="5"><img src="assets_registro/images/jaguar1.png" alt="NFT_portfolio"></a>
+                            <a href="#" id="interesesProfesionales" data-id="4"><img src="assets_registro/images/jaguar1.png" alt="NFT_portfolio"></a>
                         </div>
                         <div class="react-area" style="margin-top: 8%;">
                             <hr size="8px">
                             <h3 class="text-center">Intereses profesionales</h3>
+                            <p class="text-center" th:text="${InteProfe.fechaInicio != null and InteProfe.fechaFin != null ? 'Vigente del: ' + InteProfe.fechaInicio + ' al ' + InteProfe.fechaFin : 'Test no habilitado'}"></p>
                         </div>
                     </div>
                 </div>

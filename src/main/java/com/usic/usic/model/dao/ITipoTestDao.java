@@ -16,12 +16,23 @@ public interface ITipoTestDao extends JpaRepository<TipoTest, Long> {
     @Query("SELECT t FROM TipoTest t WHERE :fechaActual BETWEEN t.fechaInicio AND t.fechaFin")
     List<TipoTest> findTestsHabilitados(@Param("fechaActual") LocalDate fechaActual);
 
-    // @Query("SELECT tt.id_tipo_test, tt.tipoTest, 'REALIZADO' AS estado " +
-    //    "FROM TipoTest tt " +
-    //    "JOIN tt.preguntas p " +
-    //    "JOIN p.respuestas r " +
-    //    "JOIN r.estudiantesRespuestas er " +
-    //    "WHERE er.estudiante.idEstudiante = :idEstudiante " +
-    //    "GROUP BY tt.id_tipo_test, tt.tipoTest")
-    //    List<Object[]> findTipoTestRealizado(@Param("idEstudiante") Long idEstudiante);
+    @Query("SELECT COUNT(DISTINCT p.idPregunta) " +
+       "FROM Pregunta p " +
+       "INNER JOIN p.tipoTest tt " +
+       "WHERE tt.id_tipo_test = :id_tipo_test " +
+       "AND p.idPregunta NOT IN ( " +
+       "   SELECT p.idPregunta " +
+       "   FROM EstudianteRespuesta er " +
+       "   INNER JOIN er.respuesta r " +
+       "   INNER JOIN r.pregunta p " +
+       "   INNER JOIN p.tipoTest tt " +
+       "   WHERE er.estudiante.idEstudiante = :idEstudiante " +
+       "   AND tt.id_tipo_test = :id_tipo_test " +
+       "   AND er.estado = 'ACTIVO' " +
+       "   AND r.estado = 'ACTIVO' " +
+       "   AND p.estado = 'ACTIVO' " +
+       "   AND tt.estado = 'ACTIVO' " +
+       "   GROUP BY p.idPregunta) " )
+    Long countDistinctPreguntasNotRespondidas(@Param("id_tipo_test") Long id_tipo_test, @Param("idEstudiante") Long idEstudiante);
+
 }

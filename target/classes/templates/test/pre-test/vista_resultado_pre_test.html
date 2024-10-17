@@ -157,6 +157,13 @@
         </div>
 
         <script>
+            // Este script evitará el comportamiento de retroceso del navegador
+            window.history.pushState(null, document.title, window.location.href);
+            window.addEventListener('popstate', function () {
+                window.history.pushState(null, document.title, window.location.href);
+            });
+
+
             function cargarRequisitos() {
                 $.ajax({
                     type: 'POST',
@@ -166,9 +173,7 @@
                     }
                 });
             }
-        </script>
 
-        <script>
             function handleColorTheme(e) {
                 $("html").attr("data-color-theme", e);
                 $(e).prop("checked", !0);

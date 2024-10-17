@@ -101,7 +101,7 @@ public class HabilidadesSocialesController {
         }
 
         promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
-        promptIntereses.append("Este es un test de habilidades sociales para un estudiante, orientado a identificar cómo interactúa con su entorno.");
+        promptIntereses.append("Estas son preguntas que evaluan las habilidades sociales de un estudiante, en base a su interacción con su entorno.");
         promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres principales habilidades sociales.\n");
         promptIntereses.append("Sé encantador y utiliza frases como 'tus principales habilidades son...'. que sea breve y conciso, maximo de 50 palabras.");
 
@@ -132,7 +132,7 @@ public class HabilidadesSocialesController {
         JSONArray messages = new JSONArray();
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus habilidades sociales.");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus habilidades sociales en interaccion con su entorno.");
         messages.put(systemMessage);
 
         JSONObject userMessage = new JSONObject();

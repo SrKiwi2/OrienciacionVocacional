@@ -76,22 +76,31 @@ public class PreTestController {
     @GetMapping("/pre_test/{idTipoTest}")
     public String pre_test(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+        Boolean testFinalizado = (Boolean) session.getAttribute("testFinalizado");
+        if (testFinalizado != null && testFinalizado) {
+            return "redirect:/vista_resultado_pre_test_ia";
+        }else{
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
+            Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+            Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
+            System.out.println(contadorPreguntas);
+           
+            model.addAttribute("mostrarCargando", contadorPreguntas == 1);
+            model.addAttribute("v_idTipoTest", idTipoTest);
+            model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
-        model.addAttribute("v_idTipoTest", idTipoTest);
-        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
-
-        if (idPregunta != 0) {
-            Pregunta pregunta = preguntaService.findById(idPregunta);
-            model.addAttribute("pregunta", pregunta);
-            model.addAttribute("respuestas",  respuestaService.findAll());
-            model.addAttribute("registro_pre_test", new EstudianteRespuesta());
-            return "test/vista_pregunta";
-        } else {
-            model.addAttribute("pregunta", "No hay preguntas disponibles.");
-            return "redirect:/interpretar_respuestas";
+            if (idPregunta != 0 && contadorPreguntas != 1) {
+                Pregunta pregunta = preguntaService.findById(idPregunta);
+                
+                model.addAttribute("pregunta", pregunta);
+                model.addAttribute("respuestas",  respuestaService.findAll());
+                model.addAttribute("registro_pre_test", new EstudianteRespuesta());
+                return "test/vista_pregunta";
+            } else {
+                model.addAttribute("pregunta", "No hay preguntas disponibles.");
+                return "redirect:/interpretar_respuestas";
+            }
         }
     }
 
@@ -185,9 +194,16 @@ public class PreTestController {
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
+        long startTime = System.currentTimeMillis();
+
         for (int i = 0; i < 3; i++) {
             try {
                 ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
+                long endTime = System.currentTimeMillis(); // Tiempo de finalización
+                long duration = endTime - startTime;
+
+                System.out.println("Tiempo de respuesta de la IA: " + duration + " ms");
+
                 JSONObject jsonResponse = new JSONObject(response.getBody());
                 return jsonResponse.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
             } catch (HttpClientErrorException e) {
@@ -230,6 +246,8 @@ public class PreTestController {
         String intereses = (String) session.getAttribute("opinionIAIntereses");
         String aptitudes = (String) session.getAttribute("opinionIAAptitudes");
         String areas = (String) session.getAttribute("opinionIAAreas");
+
+        session.setAttribute("testFinalizado", true);
 
         model.addAttribute("opinionIAIntereses", intereses);
         model.addAttribute("opinionIAAptitudes", aptitudes);

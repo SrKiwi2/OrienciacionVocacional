@@ -18,4 +18,13 @@ public interface IEstudianteRespuestaDao extends JpaRepository<EstudianteRespues
            "WHERE er.estudiante.idEstudiante = :idEstudiante " +
            "AND r.respuesta = 'SI'")
     List<Object[]> findPreguntasYRespuestasConSI(@Param("idEstudiante") Long idEstudiante);
+
+    // @Query("SELECT er.idEstudiante FROM EstudianteRespuesta er " +
+    //        "INNER JOIN er.respuesta r " +
+    //        "INNER JOIN r.pregunta p " +
+    //        "INNER JOIN p.tipoTest tt " +
+    //        "WHERE tt.idTipoTest = :idTipoTest " +
+    //        "GROUP BY er.idEstudiante " +
+    //        "HAVING COUNT(DISTINCT er.idRespuesta) >= 98")
+    // List<Long> findEstudiantesConRespuestas(@Param("idTipoTest") Long idTipoTest);
 }

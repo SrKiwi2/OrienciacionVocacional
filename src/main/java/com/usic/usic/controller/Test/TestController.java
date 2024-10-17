@@ -74,6 +74,10 @@ public class TestController {
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
+        model.addAttribute("preTest", tipoTestService.findById(1L));
+        model.addAttribute("HabiSocial", tipoTestService.findById(2L));
+        model.addAttribute("InterMulti", tipoTestService.findById(3L));
+        model.addAttribute("InteProfe", tipoTestService.findById(4L));
         return "test/vista_tests";
     }
 

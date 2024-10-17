@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="refresh" content="5;url=/interpretar_respuestas_procesar" /> <!-- Redirige después de 5 segundos -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Cargando...</span>
+        </div>
+        <p class="mt-3">Estoy generando tu resultado en base a tus respuestas, espera un poco...</p>
+        <img src="/assets/images/loading_results.png" alt="Generando resultados" style="width: 150px;">
+    </div>
+</body>
+</html>

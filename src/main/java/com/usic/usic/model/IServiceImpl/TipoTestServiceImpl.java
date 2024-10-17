@@ -47,8 +47,8 @@ public class TipoTestServiceImpl implements ITipoTestService{
         return tipoTestDao.findTestsHabilitados(fechaActual);
     }
 
-    // @Override
-    // public List<Object[]> findTipoTestRealizado(Long idEstudiante) {
-    //     return tipoTestDao.findTipoTestRealizado(idEstudiante);
-    // }
+    @Override
+    public Long countDistinctPreguntasNotRespondidas(Long id_tipo_test, Long idEstudiante) {
+        return tipoTestDao.countDistinctPreguntasNotRespondidas(id_tipo_test, idEstudiante);
+    }
 }
