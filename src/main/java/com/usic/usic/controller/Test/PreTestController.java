@@ -84,13 +84,14 @@ public class PreTestController {
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
+            System.out.println(idPregunta);
             System.out.println(contadorPreguntas);
            
-            model.addAttribute("mostrarCargando", contadorPreguntas == 98);
+            model.addAttribute("mostrarCargando", contadorPreguntas == 0);
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
-            if (idPregunta != 0 && contadorPreguntas != 1) {
+            if (idPregunta != 0 && contadorPreguntas != 0) {
                 Pregunta pregunta = preguntaService.findById(idPregunta);
                 
                 model.addAttribute("pregunta", pregunta);
@@ -169,7 +170,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -223,7 +224,7 @@ public class PreTestController {
     
     @PostMapping("/guardar_respuesta")
     public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta,@RequestParam("v_idTipoTest") Long id_tipo_test, HttpServletRequest request) {
-
+        
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
         EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
@@ -232,7 +233,29 @@ public class PreTestController {
         estudianteRespuesta.setEstudiante(estudianteService.findByPersona(persona));
         estudianteRespuesta.setRespuesta(respuesta);
         estudianteRespuestaService.save(estudianteRespuesta);
-        return "redirect:/pre_test/"+id_tipo_test;
+
+        String redirectUrl;
+
+        switch (id_tipo_test.intValue()) {
+            case 1:
+                redirectUrl = "redirect:/pre_test/" + id_tipo_test;
+                break;
+            case 2:
+                redirectUrl = "redirect:/habilidades_sociales/" + id_tipo_test;
+                break;
+            case 3:
+                redirectUrl = "redirect:/inteligencias_multiples/" + id_tipo_test;
+                break;
+            case 4:
+                redirectUrl = "redirect:/intereses_profesionales/" + id_tipo_test;
+                break;
+            default:
+                // Puedes manejar un caso por defecto en caso de que no coincida con ningún valor esperado
+                redirectUrl = "redirect:/default"; // Redirigir a una página por defecto
+                break;
+        }
+
+         return redirectUrl;
     }
 
     @GetMapping("/vista_resultado_pre_test_ia")

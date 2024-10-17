@@ -38,6 +38,7 @@ import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -67,23 +68,34 @@ public class HabilidadesSocialesController {
     @GetMapping("/habilidades_sociales/{idTipoTest}")
     public String habilidades_sociales(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
-        Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
-        Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
-        model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
-
-        if (idPregunta != 0) {
-
-            Pregunta pregunta = preguntaService.findById(idPregunta);
-            
-            model.addAttribute("pregunta", pregunta);
-            model.addAttribute("respuestas",  respuestaService.findAll());
-            model.addAttribute("registro_pre_test", new EstudianteRespuesta());
-            return "test/vista_pregunta";
-        } else {
-
-            model.addAttribute("pregunta", "No hay preguntas disponibles.");
-            return "redirect:/interpretar_respuestas";
+        Boolean testHsFinalizado = (Boolean) session.getAttribute("testHBFinalizado");
+        if (testHsFinalizado != null && testHsFinalizado) {
+            return "test/habilidades_sociales/hs_completado";
+        }else{
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
+            Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+            Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
+            System.out.println("Habilidades sociales");
+            System.out.println(contadorPreguntas);
+               
+            model.addAttribute("mostrarCargando", contadorPreguntas == 0);
+            model.addAttribute("v_idTipoTest", idTipoTest);
+            model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
+    
+            if (idPregunta != 0 && contadorPreguntas != 0) {
+    
+                Pregunta pregunta = preguntaService.findById(idPregunta);
+                
+                model.addAttribute("pregunta", pregunta);
+                model.addAttribute("respuestas",  respuestaService.findAll());
+                model.addAttribute("registro_pre_test", new EstudianteRespuesta());
+                return "test/vista_pregunta";
+            } else {
+    
+                model.addAttribute("pregunta", "No hay preguntas disponibles.");
+                return "redirect:/interpretar_respuestas_hs";
+            }
         }
     }
 
@@ -112,15 +124,26 @@ public class HabilidadesSocialesController {
         resultadoIA.setEstudiante(estudiante);
         resultadoIA.setResultado(habilidadesSociales);
         resultadoIA.setTipoTest(tipoTest);
+        resultadoIA.setEstado("ACTIVO");
         resultadoIaService.save(resultadoIA);
-        return "redirect:/vista_resultado_pre_test_ia";
+
+        model.addAttribute("mostrarModal", true);
+        return "redirect:/finTestHabilidadesSociales";
+    }
+
+    @GetMapping("/finTestHabilidadesSociales")
+    public String vista_resultado_pre_test(Model model, HttpSession session, HttpServletResponse response) {
+
+        session.setAttribute("testHBFinalizado", true);
+
+        return "test/habilidades_sociales/hs_completado";
     }
 
     private String llamarAI(String prompt) {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
