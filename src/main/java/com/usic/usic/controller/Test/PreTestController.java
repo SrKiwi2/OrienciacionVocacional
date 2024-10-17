@@ -86,7 +86,7 @@ public class PreTestController {
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
             System.out.println(contadorPreguntas);
            
-            model.addAttribute("mostrarCargando", contadorPreguntas == 1);
+            model.addAttribute("mostrarCargando", contadorPreguntas == 98);
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 

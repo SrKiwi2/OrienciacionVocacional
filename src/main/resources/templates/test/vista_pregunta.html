@@ -17,55 +17,22 @@
 
     <link rel="stylesheet" href="../assets/css/fondo_test.css">
     <link rel="stylesheet" href="../assets_registro/css/style_pregunta.css">
+    <!-- Enlace a Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-    <style>
-        #loadingScreen {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 9999; /* Para que esté encima de otros elementos */
-            display: flex; /* Usar flexbox para centrar contenido */
-            flex-direction: column;
-            justify-content: center; /* Centrar verticalmente */
-            align-items: center; /* Centrar horizontalmente */
-            animation: fadeIn 0.5s; /* Animación de aparición */
-        }
-
-        
-
-        /* Animación de desvanecimiento */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        h2 {
-            font-family: 'Arial', sans-serif;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        
-    </style>
 </head>
-
 <body>
     <div id="particles"></div>
 
     <div id="loadingScreen" th:if="${mostrarCargando == true}">
-        <div style="text-align: center;">
+        <div class="loading-container">
             <h2>Generando tu evaluación, por favor espere...</h2>
-            <div id="lottie-animation" style="width: 400px; height: 400px;"></div>
+            <div id="lottie-animation"></div>
         </div>
     </div>
+    
     <div th:if="${!mostrarCargando}">
         <div class="container">
             <div class="row">
