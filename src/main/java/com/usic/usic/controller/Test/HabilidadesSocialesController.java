@@ -143,7 +143,7 @@ public class HabilidadesSocialesController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
