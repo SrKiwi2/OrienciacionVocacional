@@ -31,12 +31,11 @@ images.forEach((src, index) => {
     img.src = src;
     img.alt = `Imagen ${index + 1}`;
     img.classList.add('particle');
-
-    // Asignar posiciones y animaciones aleatorias
-    img.style.left = `${getRandomInt(0, 100)}%`; // Posición horizontal aleatoria
-    img.style.animationDuration = `${getRandomInt(10, 20)}s`; // Duración de la animación aleatoria
-    img.style.width = `${getRandomInt(50, 120)}px`; // Tamaño aleatorio
-    img.style.animationDelay = `${getRandomInt(0, 5)}s`; // Añadimos un pequeño retraso solo para la animación
+    
+    img.style.left = `${getRandomInt(0, 100)}%`; 
+    img.style.animationDuration = `${getRandomInt(10, 20)}s`; 
+    img.style.width = `${getRandomInt(50, 120)}px`;
+    img.style.animationDelay = `${getRandomInt(0, 5)}s`;
 
     // Añadir la imagen al contenedor
     particlesContainer.appendChild(img);
