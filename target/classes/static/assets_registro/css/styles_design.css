@@ -306,17 +306,50 @@ a {
   }
 }
 
-/* Estilo personalizado para agrandar el SweetAlert2 */
+/* Estilo para el SweetAlert2 */
 .swal2-large {
   width: 600px !important;
-  font-size: 18px; 
+  font-size: 18px;
+  background: linear-gradient(135deg, #f4d03f  0%, #f39c12 100%) !important;
+  color: white;
+  border-radius: 12px; 
 }
 
 .swal2-large .swal2-title {
-  font-size: 24px; 
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .swal2-large .swal2-content {
-  font-size: 16px; 
+  font-size: 16px;
 }
+
+
+.swal2-large .swal2-confirm {
+  background-color: #4caf50 !important; 
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.swal2-large .swal2-cancel {
+  background-color: #f44336 !important;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* estilos habilitado - No Habilitado*/
+.test-p{
+    padding: 6px;
+    border-radius: 2rem;
+    color: #212f3d;
+    background-color: #f39c12;
+    font: bold 40% cursive;
+    font-size: 20px;
+}
+
+
 
