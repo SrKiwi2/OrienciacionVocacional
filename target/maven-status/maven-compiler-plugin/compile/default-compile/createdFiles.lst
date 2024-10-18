@@ -1,0 +1,6 @@
+com/usic/usic/model/Service/IServiceGenerico.class
+com/usic/usic/model/Entity/Carrera.class
+com/usic/usic/config/AuditoriaConfig.class
+com/usic/usic/model/Entity/Nacionalidad.class
+com/usic/usic/model/Service/INacionalidadService.class
+com/usic/usic/controller/Nacionalidad/NacionalidadController.class

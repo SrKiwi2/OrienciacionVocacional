@@ -29,6 +29,12 @@ import com.usic.usic.model.Service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+
+
 @Controller
 public class EstudianteController {
 
@@ -199,33 +205,65 @@ public class EstudianteController {
     
     @PostMapping("/estudiante/habilitar/{idEstudiante}")
     public ResponseEntity<?> habilitarEstudiante(@PathVariable Long idEstudiante) {
-        Estudiante estudiante = estudianteService.findById(idEstudiante);
-        
-        if (estudiante != null) {
-            estudiante.setEstado("HABILITADO"); 
-            estudianteService.save(estudiante); 
+    Estudiante estudiante = estudianteService.findById(idEstudiante);
 
-            Persona persona = estudiante.getPersona();
-            if (persona != null) {
-                Usuario usuario = persona.getUsuario();
-                if (usuario != null) {
-                    usuario.setEstado("E");
+    if (estudiante == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
+    }
 
-                    String asunto = "CREDENCIAL DE ACCESO";
-                    String cuerpo = "Estimado/a "+ persona.getNombre() +",\n\nTus credenciales de acceso al sistema de orientacion Vocacional son:\nUsuario: "+ persona.getPaterno() + "\nContraseña: " + persona.getCi()+"_uap" + "\n\nGracias.";
-                    enviarEmail.enviarCorreo(persona.getCorreo(), asunto, cuerpo);
+    estudiante.setEstado("HABILITADO");
+    estudianteService.save(estudiante);
 
-                    usuarioService.save(usuario);
-                    return ResponseEntity.ok().body("Usuario de estudiante habilitado con éxito.");
-                }else{
-                    return ResponseEntity.ok().body("Estudiante habilitado, pero no se encontró un usuario asociado.");
-                }
-            }else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una persona asociada al estudiante.");
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
-        } 
+    Persona persona = estudiante.getPersona();
+    if (persona == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una persona asociada.");
+    }
+
+    Usuario usuario = persona.getUsuario();
+    if (usuario == null) {
+        return ResponseEntity.ok("Estudiante habilitado, pero no se encontró un usuario asociado.");
+    }
+
+    usuario.setEstado("E");
+    usuarioService.save(usuario);
+
+    String plantilla;
+    try {
+        plantilla = cargarPlantillaHTML("src/main/resources/templates/correo/send_correo.html");
+    } catch (IOException e) {
+        System.out.println("df");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error al cargar la plantilla de correo.");
+    }
+
+    String nombreCompleto = construirNombreCompleto(persona);
+    
+    String cuerpo = plantilla
+            .replace("{{nombre}}", nombreCompleto)
+            .replace("{{usuario}}", persona.getPaterno()) 
+            .replace("{{password}}", persona.getCi() + "_uap");
+
+    enviarEmail.enviarCorreo(persona.getCorreo(), "CREDENCIAL DE ACCESO", cuerpo, true);
+
+    return ResponseEntity.ok("Usuario de estudiante habilitado con éxito.");
+    }
+
+    private String cargarPlantillaHTML(String rutaArchivo) throws IOException {
+    return new String(Files.readAllBytes(Paths.get(rutaArchivo)), StandardCharsets.UTF_8);
+    }
+
+    private String construirNombreCompleto(Persona persona) {
+    StringBuilder nombreCompleto = new StringBuilder(persona.getNombre());
+
+    if (persona.getPaterno() != null && !persona.getPaterno().isEmpty()) {
+        nombreCompleto.append(" ").append(persona.getPaterno());
+    }
+
+    if (persona.getMaterno() != null && !persona.getMaterno().isEmpty()) {
+        nombreCompleto.append(" ").append(persona.getMaterno());
+    }
+
+    return nombreCompleto.toString();
     }
 
 
