@@ -1,6 +1,5 @@
 package com.usic.usic.controller.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -15,17 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
-import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
-import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
@@ -37,7 +31,6 @@ import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -143,7 +136,7 @@ public class HabilidadesSocialesController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

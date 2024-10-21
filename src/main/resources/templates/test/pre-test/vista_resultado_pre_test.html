@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
     <title>Orientacion Vocacional</title>
+    <link rel="stylesheet" href="../assets/css/styles_chaside.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -17,13 +20,11 @@
                 <div class="font-weight-medium shadow-none position-relative overflow-hidden mb-4 card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="font-weight-medium mb-0"><span
-                                    class="lstick d-inline-block align-middle"></span> RESULTADO DE TU EVALUACION EN EL PRE TEST CHASIDE</h4>
+                            <h4 class="font-weight-medium mb-0"><span class="lstick d-inline-block align-middle"></span> RESULTADO DE TU EVALUACION EN EL PRE TEST CHASIDE</h4>
                             <nav aria-label="breadcrumb" class="d-flex align-items-center">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a class="text-primary text-decoration-none" href="/">INICIO
-                                        </a>
+                                        <a class="text-primary text-decoration-none" href="/">INICIO</a>
                                     </li>
                                     <li class="breadcrumb-item" aria-current="page">Orientación Vocacional</li>
                                 </ol>
@@ -44,12 +45,11 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <!-- INTERESES -->
                                 <h5>SEÑOR ESTUDIANTE</h5>
+
                                 <h6 class="text-primary">Intereses</h6>
                                 <p th:text="${opinionIAIntereses}"></p>
                                 
-                                <!-- APTITUDES -->
                                 <h6 class="text-success">Aptitudes</h6>
                                 <p th:text="${opinionIAAptitudes}"></p>
 
@@ -59,94 +59,21 @@
                         </div>
                     </div>
                 </div>
+
+               
+
                 <div class="d-flex justify-content-center mt-4">
+                    <!-- <a type="button" th:attr="onclick='pdfResultado(\'' + ${idEstudiante} + '\')'" class="btn btn-primary">Descargar Reporte PDF</a> -->
+                    <button type="button" th:attr="onclick='pdfResultado(\'' + ${idEstudiante} + '\')'" class="btn btn-primary">Descargar Reporte PDF</button>
+                    
                     <button class="btn btn-primary mx-3 btn-inscribirse" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">INSCRIBIRSE</button>
+
                     <form action="/terminar_test" method="POST">
                         <button class="btn btn-secondary btn-terminar" onclick="terminar()">TERMINAR</button>
                     </form>
                 </div>
 
-                <style>
-                    .card {
-                            border-radius: 15px;
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                        }
-
-                        .card-title {
-                            font-weight: 700;
-                            font-size: 1.2rem;
-                        }
-
-                        .text-primary {
-                            color: #007bff;
-                        }
-
-                        .text-success {
-                            color: #28a745;
-                        }
-
-                        p {
-                            font-size: 1rem;
-                            line-height: 1.6;
-                        }
-
-                        h6 {
-                            margin-top: 20px;
-                            font-weight: 600;
-                        }
-
-                </style>
-
-                <style>
-                    /* Efectos para el botón "INSCRIBIRSE" */
-                    .btn-inscribirse {
-                        background-color: #007bff;
-                        border: none;
-                        color: white;
-                        font-size: 1.2rem;
-                        padding: 0.75rem 1.5rem;
-                        border-radius: 50px;
-                        transition: all 0.4s ease;
-                        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-                    }
-                
-                    .btn-inscribirse:hover {
-                        background-color: #0056b3;
-                        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
-                        transform: scale(1.05);
-                    }
-                
-                    .btn-inscribirse:active {
-                        transform: scale(0.95);
-                        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);
-                    }
-                
-                    /* Efectos para el botón "TERMINAR" */
-                    .btn-terminar {
-                        background-color: #6c757d;
-                        border: none;
-                        color: white;
-                        font-size: 1.2rem;
-                        padding: 0.75rem 1.5rem;
-                        border-radius: 50px;
-                        transition: all 0.4s ease;
-                        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
-                    }
-                
-                    .btn-terminar:hover {
-                        background-color: #5a6268;
-                        box-shadow: 0 6px 12px rgba(108, 117, 125, 0.5);
-                        transform: scale(1.05);
-                    }
-                
-                    .btn-terminar:active {
-                        transform: scale(0.95);
-                        box-shadow: 0 2px 4px rgba(108, 117, 125, 0.5);
-                    }
-                </style>
-
                 <!-- MODAL DE INFRMACION DE REQUISITOS DE INSCRIPCION -->
-
                 <div class="modal fade" id="informacion" tabindex="-1" aria-labelledby="informacion" aria-hidden="true">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content" id="requisitos">
@@ -157,6 +84,29 @@
         </div>
 
         <script>
+
+            function pdfResultado(idEstudiante) {
+                console.log("Cargando PDF para el estudiante ID: " + idEstudiante); 
+                var urlPdf = '/reporte/pdf/' + idEstudiante;
+                console.log("URL del PDF: " + urlPdf);
+
+                Swal.fire({ 
+                    title: "RESULTADOS - TEST VOCACIONAL CHASIDE",
+                    html: `
+                        <iframe width="100%" height="500" src="` + urlPdf + `" frameborder="0" allowfullscreen></iframe>
+                        <br>
+                        <a href="` + urlPdf + `" download="Resultado_CHASIDE.pdf" class="btn btn-success" style="margin-top: 15px;">
+                            Descargar PDF
+                        </a>
+                    `,
+                    width: '85%',
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+            }
+
+
             // Este script evitará el comportamiento de retroceso del navegador
             window.history.pushState(null, document.title, window.location.href);
             window.addEventListener('popstate', function () {

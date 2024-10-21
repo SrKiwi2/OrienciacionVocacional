@@ -84,22 +84,25 @@ public class PreTestController {
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
-            System.out.println(idPregunta);
-            System.out.println(contadorPreguntas);
-           
-            model.addAttribute("mostrarCargando", contadorPreguntas == 0);
+
+            System.out.println(idPregunta); //las preguntas que el estudinate no ha respondido
+            System.out.println(contadorPreguntas); //contador de la cantidad de preguntas que el estudiante no ha respondido
+            
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
 
-            if (idPregunta != 0 && contadorPreguntas != 0) {
+            if (idPregunta != 0) {
                 Pregunta pregunta = preguntaService.findById(idPregunta);
-                
+                model.addAttribute("mostrarCargando", contadorPreguntas == 0);
                 model.addAttribute("pregunta", pregunta);
                 model.addAttribute("respuestas",  respuestaService.findAll());
                 model.addAttribute("registro_pre_test", new EstudianteRespuesta());
+                System.out.println("Aqui estoy saliendo 1");
                 return "test/vista_pregunta";
             } else {
+                model.addAttribute("mostrarCargando", contadorPreguntas == 1);
                 model.addAttribute("pregunta", "No hay preguntas disponibles.");
+                System.out.println("Estoy slaiendo de aquii 2");
                 return "redirect:/interpretar_respuestas";
             }
         }
@@ -170,7 +173,7 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

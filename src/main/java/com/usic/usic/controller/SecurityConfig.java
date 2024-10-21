@@ -11,6 +11,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .headers(headers -> headers
+                    .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Nueva API para permitir iframes desde el mismo origen
+                )
                 .csrf(csrf -> csrf.disable()) // Desactiva protección CSRF para pruebas, no recomendado en producción
                 .authorizeHttpRequests(authz -> authz
                     .anyRequest().permitAll()

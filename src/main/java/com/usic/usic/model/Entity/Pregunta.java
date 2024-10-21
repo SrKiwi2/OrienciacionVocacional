@@ -24,6 +24,8 @@ public class Pregunta extends AuditoriaConfig{
 
     private String pregunta;
 
+    private Integer orden;
+
     @ManyToOne
     @JoinColumn(name = "id_tipo_test")
     private TipoTest tipoTest;

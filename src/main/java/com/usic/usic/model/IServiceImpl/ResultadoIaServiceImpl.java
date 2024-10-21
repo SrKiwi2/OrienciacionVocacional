@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.dao.IResultadoIaDao;
@@ -33,6 +34,11 @@ public class ResultadoIaServiceImpl implements IResultadoIaService {
     @Override
     public void deleteById(Long idEntidad) {
         resultadoIaDao.deleteById(idEntidad);
+    }
+
+    @Override
+    public List<ResultadoIA> findByEstudiante(Estudiante estudiante) {
+        return resultadoIaDao.findByEstudiante(estudiante);
     }
     
 }

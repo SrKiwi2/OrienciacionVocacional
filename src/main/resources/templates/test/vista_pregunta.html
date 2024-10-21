@@ -26,7 +26,7 @@
 <body>
     <div id="particles"></div>
 
-    <div id="loadingScreen" th:if="${mostrarCargando == true}">
+    <div id="loadingScreen" th:if="${mostrarCargando}">
         <div class="loading-container">
             <h2>Generando tu evaluación, por favor espere...</h2>
             <div id="lottie-animation"></div>
@@ -116,12 +116,13 @@
             path: 'https://lottie.host/71ac9971-b085-430b-8cf6-d6b6b41b49aa/DdqC5muc7X.json' // La URL del archivo JSON
         });
     </script>
-    
 
     <script>
         window.onload = function() {
             const loadingScreen = document.getElementById("loadingScreen");
-            loadingScreen.style.display = "block";
+            if (loadingScreen) {
+                loadingScreen.style.display = "block"; // Asegúrate de que esté visible
+            }
         };
     </script>
     

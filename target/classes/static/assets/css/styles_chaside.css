@@ -1,0 +1,72 @@
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.text-primary {
+    color: #007bff;
+}
+
+.text-success {
+    color: #28a745;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h6 {
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.btn-inscribirse {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-inscribirse:hover {
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-inscribirse:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Efectos para el botón "TERMINAR" */
+.btn-terminar {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+.btn-terminar:hover {
+    background-color: #5a6268;
+    box-shadow: 0 6px 12px rgba(108, 117, 125, 0.5);
+    transform: scale(1.05);
+}
+
+.btn-terminar:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(108, 117, 125, 0.5);
+}
