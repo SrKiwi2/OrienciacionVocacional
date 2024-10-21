@@ -273,44 +273,4 @@ public class EstudianteController {
         }
         return nombreCompleto.toString();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @GetMapping(value = "regEstudiante")
-    public String getEstudiante(Model model) {
-
-        model.addAttribute("estudiantes", estudianteService.findAll());
-        model.addAttribute("estudiante", new Estudiante());
-
-        return "test/";
-    }
-    
-
-    // Colegio colegio = colegioService.findById(idColegio);
-    //     if (colegio == null) {
-    //         colegio = new Colegio();
-    //     }
 }

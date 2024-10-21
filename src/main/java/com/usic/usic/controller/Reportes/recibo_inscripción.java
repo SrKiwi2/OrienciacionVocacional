@@ -178,7 +178,7 @@ public class recibo_inscripción {
             cell.setPadding(5);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase("2024", contentFont));
+            cell = new PdfPCell(new Phrase("2", contentFont));
             cell.setPadding(5);
             table.addCell(cell);
 
