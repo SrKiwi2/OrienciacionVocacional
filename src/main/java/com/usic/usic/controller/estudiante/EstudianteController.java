@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
@@ -29,6 +37,7 @@ import com.usic.usic.model.Service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -205,65 +214,64 @@ public class EstudianteController {
     
     @PostMapping("/estudiante/habilitar/{idEstudiante}")
     public ResponseEntity<?> habilitarEstudiante(@PathVariable Long idEstudiante) {
-    Estudiante estudiante = estudianteService.findById(idEstudiante);
+        Estudiante estudiante = estudianteService.findById(idEstudiante);
 
-    if (estudiante == null) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
+        if (estudiante == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
+        }
+
+        estudiante.setEstado("HABILITADO");
+        estudianteService.save(estudiante);
+
+        Persona persona = estudiante.getPersona();
+        if (persona == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una persona asociada.");
+        }
+
+        Usuario usuario = persona.getUsuario();
+        if (usuario == null) {
+            return ResponseEntity.ok("Estudiante habilitado, pero no se encontró un usuario asociado.");
+        }
+
+        usuario.setEstado("E");
+        usuarioService.save(usuario);
+
+        String plantilla;
+
+        try {
+            plantilla = cargarPlantillaHTML("src/main/resources/templates/correo/send_correo.html");
+        } catch (IOException e) {
+            System.out.println("df");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al cargar la plantilla de correo.");
+        }
+
+        String nombreCompleto = construirNombreCompleto(persona);
+        
+        String cuerpo = plantilla
+                .replace("{{nombre}}", nombreCompleto)
+                .replace("{{usuario}}", persona.getPaterno()) 
+                .replace("{{password}}", persona.getCi() + "_uap");
+
+        enviarEmail.enviarCorreo(persona.getCorreo(), "CREDENCIAL DE ACCESO", cuerpo, true);
+
+        return ResponseEntity.ok("Usuario de estudiante habilitado con éxito.");
     }
 
-    estudiante.setEstado("HABILITADO");
-    estudianteService.save(estudiante);
-
-    Persona persona = estudiante.getPersona();
-    if (persona == null) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontró una persona asociada.");
-    }
-
-    Usuario usuario = persona.getUsuario();
-    if (usuario == null) {
-        return ResponseEntity.ok("Estudiante habilitado, pero no se encontró un usuario asociado.");
-    }
-
-    usuario.setEstado("E");
-    usuarioService.save(usuario);
-
-    String plantilla;
-    try {
-        plantilla = cargarPlantillaHTML("src/main/resources/templates/correo/send_correo.html");
-    } catch (IOException e) {
-        System.out.println("df");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error al cargar la plantilla de correo.");
-    }
-
-    String nombreCompleto = construirNombreCompleto(persona);
-    
-    String cuerpo = plantilla
-            .replace("{{nombre}}", nombreCompleto)
-            .replace("{{usuario}}", persona.getPaterno()) 
-            .replace("{{password}}", persona.getCi() + "_uap");
-
-    enviarEmail.enviarCorreo(persona.getCorreo(), "CREDENCIAL DE ACCESO", cuerpo, true);
-
-    return ResponseEntity.ok("Usuario de estudiante habilitado con éxito.");
-    }
 
     private String cargarPlantillaHTML(String rutaArchivo) throws IOException {
-    return new String(Files.readAllBytes(Paths.get(rutaArchivo)), StandardCharsets.UTF_8);
+        return new String(Files.readAllBytes(Paths.get(rutaArchivo)), StandardCharsets.UTF_8);
     }
 
     private String construirNombreCompleto(Persona persona) {
-    StringBuilder nombreCompleto = new StringBuilder(persona.getNombre());
-
-    if (persona.getPaterno() != null && !persona.getPaterno().isEmpty()) {
-        nombreCompleto.append(" ").append(persona.getPaterno());
-    }
-
-    if (persona.getMaterno() != null && !persona.getMaterno().isEmpty()) {
-        nombreCompleto.append(" ").append(persona.getMaterno());
-    }
-
-    return nombreCompleto.toString();
+        StringBuilder nombreCompleto = new StringBuilder(persona.getNombre());
+        if (persona.getPaterno() != null && !persona.getPaterno().isEmpty()) {
+            nombreCompleto.append(" ").append(persona.getPaterno());
+        }
+        if (persona.getMaterno() != null && !persona.getMaterno().isEmpty()) {
+            nombreCompleto.append(" ").append(persona.getMaterno());
+        }
+        return nombreCompleto.toString();
     }
 
 

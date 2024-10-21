@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IEstudianteService;
@@ -39,6 +40,11 @@ public class EstudianteServiceimpl implements IEstudianteService{
     @Override
     public Estudiante findByPersona(Persona persona) {
         return estudianteDao.findByPersonaId(persona.getIdPersona());
+    }
+
+    @Override
+    public Colegio findColegioByIdEstudiante(Long idEstudiante) {
+        return estudianteDao.findColegioByIdEstudiante(idEstudiante);
     }
     
 }
