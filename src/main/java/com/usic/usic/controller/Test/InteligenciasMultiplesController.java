@@ -113,16 +113,16 @@ public class InteligenciasMultiplesController {
         }
 
         promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
-        promptIntereses.append("Estas son preguntas que evaluan las habilidades sociales de un estudiante, en base a su interacción con su entorno.");
-        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres principales habilidades sociales.\n");
+        promptIntereses.append("Estas son preguntas que evaluan mis inteligencias.");
+        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis 3 inteligencias principales\n");
         promptIntereses.append("Sé encantador y utiliza frases como 'tus principales habilidades son...'. que sea breve y conciso, maximo de 50 palabras.");
 
-        String habilidadesSociales = llamarAI(promptIntereses.toString());
+        String InteligenciasMultiples = llamarAI(promptIntereses.toString());
 
         TipoTest tipoTest = tipoTestService.findById(2L);
 
         resultadoIA.setEstudiante(estudiante);
-        resultadoIA.setResultado(habilidadesSociales);
+        resultadoIA.setResultado(InteligenciasMultiples);
         resultadoIA.setTipoTest(tipoTest);
         resultadoIA.setEstado("ACTIVO");
         resultadoIaService.save(resultadoIA);
@@ -155,7 +155,7 @@ public class InteligenciasMultiplesController {
         JSONArray messages = new JSONArray();
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus habilidades sociales en interaccion con su entorno.");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber mis inteligencias, como: Inteligencia lisnguistica, logico - matematica, espacial, musical, etc.");
         messages.put(systemMessage);
 
         JSONObject userMessage = new JSONObject();
