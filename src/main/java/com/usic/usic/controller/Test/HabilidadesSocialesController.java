@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,9 @@ public class HabilidadesSocialesController {
 
     @Autowired
     private IResultadoIaService resultadoIaService;
+
+    @Value("${spring.ai.openai.chat.api-key}")
+    private String apiKey;
 
     @GetMapping("/habilidades_sociales/{idTipoTest}")
     public String habilidades_sociales(@PathVariable Long idTipoTest, Model model, HttpSession session) {
@@ -136,7 +140,6 @@ public class HabilidadesSocialesController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,17 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
-import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Pregunta;
-import com.usic.usic.model.Entity.Respuesta;
 import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
@@ -36,7 +32,6 @@ import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -64,7 +59,9 @@ public class InteligenciasMultiplesController {
     @Autowired
     private IEstudianteRespuestaService estudianteRespuestaService;
 
-    
+    @Value("${spring.ai.openai.chat.api-key}")
+    private String apiKey;
+
     @GetMapping("/inteligencias_multiples/{idTipoTest}")
     public String inteligencias_multiples(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
@@ -143,7 +140,6 @@ public class InteligenciasMultiplesController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

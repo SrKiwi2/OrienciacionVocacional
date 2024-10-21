@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ import com.usic.usic.model.Service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
@@ -67,6 +69,9 @@ public class PreTestController {
 
     @Autowired
     private ITipoTestService tipoTestService;
+
+    @Value("${spring.ai.openai.chat.api-key}")
+    private String apiKey;
 
     @PostMapping("/requisitos_estudiantes")
     public String requisitosEstudiante(HttpServletRequest request, Model model) {
@@ -173,8 +178,6 @@ public class PreTestController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
-        //sk-proj-··rBLiufGzILv1A_7GHg_OvpGMRc0OkZ8ahPFLdxTuF34tDosa6REEFbNUp_PDPz0ntwywa0xV0NT3BlbkFJGnxdSSROVgTB2oe2CNqyKmQbub7A0ETBbiFAgCXm4_g6s-zIDT9WTqAsSqNeudiMCHNpcyfzoA··
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
