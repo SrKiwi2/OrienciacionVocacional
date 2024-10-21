@@ -141,7 +141,7 @@ public class InteresesProfesionalesController {
 
         RestTemplate restTemplate = new RestTemplate();
         String apiUrl = "https://api.openai.com/v1/chat/completions";
-        String apiKey = "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";
+        String apiKey = "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";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
