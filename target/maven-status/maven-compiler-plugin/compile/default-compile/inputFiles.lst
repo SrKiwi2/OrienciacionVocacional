@@ -35,9 +35,12 @@
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/config/AuditoriaConfig.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/Test/TestController.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/pregunta/PreguntaController.java
+/home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/Reportes/resultados_chaside.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/IServiceImpl/RolServiceImpl.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/anotaciones/SesionUtil.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/dao/IUsuarioDao.java
+/home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/IServiceImpl/FacultadServiceImpl.java
+/home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/Reportes/recibo_inscripción.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/config/GoogleLoginController.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/Entity/Genero.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/Usuario/UsuarioController.java
@@ -56,7 +59,9 @@
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/IServiceImpl/TipoPreguntaServiceImpl.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/SecurityConfig.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/Service/ITipoColegioService.java
+/home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/dao/IFacultadDao.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/IServiceImpl/ICarreraServiceImpl.java
+/home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/Service/IFacultadService.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/model/Entity/Carrera.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/Nacionalidad/NacionalidadController.java
 /home/usic10/JARVIS - 2024/USIC-2024/OrienciacionVocacional/src/main/java/com/usic/usic/controller/estudiante/EstudianteController.java
