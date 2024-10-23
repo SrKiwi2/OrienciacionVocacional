@@ -26,14 +26,24 @@
 <body>
     <div id="particles"></div>
 
-    <div id="loadingScreen" th:if="${mostrarCargando}">
+    <!-- <div id="loadingScreen" th:if="${mostrarCargando}">
         <div class="loading-container">
             <h2>Generando tu evaluación, por favor espere...</h2>
             <div id="lottie-animation"></div>
         </div>
-    </div>
+    </div> -->
+
     
-    <div th:if="${!mostrarCargando}">
+        <div id="loading-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.8); z-index: 9999; text-align: center;">
+            <div class="loading-container">
+                <h2>Generando tu evaluación, por favor espere...</h2>
+                <div id="lottie-animation"></div>
+            </div>
+        </div> 
+    
+    
+    
+    
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -62,6 +72,7 @@
                                 <div class="modal-header border-bottom-0 text-center" style="min-height: 100px;">
                                     <h1 class="fw-bold mb-0 fs-3 text-break text-wrap" style="max-width: 100%;" th:text="${pregunta.pregunta}"></h1>
                                 </div>
+                                
                             
                                 <div class="modal-body">
                                     <div class="row">
@@ -73,9 +84,14 @@
                                                 <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
                                                     <input type="hidden" name="v_idTipoTest" th:value="${v_idTipoTest}">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-                            
-                                                        <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}"
-                                                            th:value="${r.idRespuesta}" required onchange="this.form.submit();" style="display: none;">
+                                                        <th:block th:if="${mostrarCargando == true}">
+                                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required onchange="mostrarPantallaCarga(); this.form.submit();" style="display: none;">
+                                                        </th:block>
+
+                                                        <th:block th:if="${mostrarCargando != true}">
+                                                            <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required onchange="this.form.submit();" style="display: none;">
+                                                        </th:block>
+                                                        
                             
                                                         <th:block th:if="${r.respuesta == 'SI'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
@@ -106,7 +122,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.1/lottie.min.js"></script>
     <script>
@@ -165,14 +181,21 @@
         //     });
         // }
 
-        function showLoadingScreen() {
-            const loadingScreen = document.getElementById("loadingScreen");
-            loadingScreen.style.display = "block";
-        }
+        // function showLoadingScreen() {
+        //     const loadingScreen = document.getElementById("loadingScreen");
+        //     loadingScreen.style.display = "block";
+        // }
 
-        function hideLoadingScreen() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            loadingScreen.style.display = 'none';
+        // function hideLoadingScreen() {
+        //     const loadingScreen = document.getElementById('loadingScreen');
+        //     loadingScreen.style.display = 'none';
+        // }
+    </script>
+
+    <script>
+        function mostrarPantallaCarga() {
+            // Muestra el spinner de carga
+            document.getElementById('loading-screen').style.display = 'block';
         }
     </script>
     
