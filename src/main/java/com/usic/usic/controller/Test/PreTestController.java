@@ -91,8 +91,6 @@ public class PreTestController {
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
 
-            System.out.println("Estoy aqui mi señor u.u 1");
-
             model.addAttribute("mostrarCargando", contadorPreguntas == 1);
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
@@ -204,7 +202,7 @@ public class PreTestController {
         for (int i = 0; i < 3; i++) {
             try {
                 ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
-                long endTime = System.currentTimeMillis(); // Tiempo de finalización
+                long endTime = System.currentTimeMillis();
                 long duration = endTime - startTime;
 
                 System.out.println("Tiempo de respuesta de la IA: " + duration + " ms");
@@ -307,18 +305,16 @@ public class PreTestController {
 
     @PostMapping("/terminar_test")
     public String terminarTest(HttpSession session) {
-        // Limpiar los atributos de sesión relacionados con el test
+
         session.removeAttribute("idEstudiante");
         session.removeAttribute("opinionIAIntereses");
         session.removeAttribute("opinionIAAptitudes");
         session.removeAttribute("opinionIAAreas");
         session.removeAttribute("testFinalizado");
-        session.invalidate(); // Invalida toda la sesión si quieres eliminar todos los datos
+        session.invalidate();
 
-        return "redirect:/";  // Redirigir al inicio de la aplicación
+        return "redirect:/";
     }
-
-    // FIN PRE TEST
 
     @PostMapping("/guardar_respuesta2")
     public String guardar_respuesta2(@RequestParam(value = "checkboxes", required = false) List<String> checkboxes,
