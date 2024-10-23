@@ -85,6 +85,28 @@
         });
     }
 
+    function informePsicopedagogico(idEstudiante) {
+        console.log("Cargando PDF para el estudiante ID: " + idEstudiante); 
+        var urlPdf = '/psicopedagogico/pdf/' + idEstudiante;
+        console.log("URL del PDF: " + urlPdf);
+        Swal.fire({ 
+            title: "RECIBO - INSCRIPCIÓN PROYECTO ORIENTACIÓN ORIENTACIÓN",
+            html: `
+                <iframe width="100%" height="700" src="` + urlPdf + `" frameborder="0" allowfullscreen></iframe>
+                <br>
+                <a href="` + urlPdf + `" download="Recibo.pdf" class="btn btn-success" style="margin-top: 15px;">
+                    Descargar PDF
+                </a>
+            `,
+            width: '80%',
+            showCloseButton: true,
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
+    }
+
+    
+
     function enviarIdEstudiante(element) {
         // Obtener el idEstudiante del atributo data-id del botón
         const idEstudiante = element.getAttribute("data-id");

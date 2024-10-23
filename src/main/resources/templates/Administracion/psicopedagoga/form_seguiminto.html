@@ -64,7 +64,6 @@
         </div>
     </div>
 
-    <!-- Sección III. Objetivo de la Evaluación -->
     <div class="card mb-3">
         <div class="card-header">
             <strong>III. OBJETIVO DE LA EVALUACIÓN</strong>
@@ -74,7 +73,6 @@
         </div>
     </div>
 
-    <!-- Sección IV. Instrumentos Utilizados -->
     <div class="card mb-3">
         <div class="card-header">
             <strong>IV. INSTRUMENTOS UTILIZADOS</strong>
@@ -97,20 +95,52 @@
         </div>
     </div>
 
-    <!-- Sección IV. Interpretación de los Resultados -->
     <div class="card mb-3">
         <div class="card-header">
             <strong>V. INTERPRETACIÓN DE LOS RESULTADOS</strong>
         </div>
         <div class="card-body">
             <label for="fechaEntrega" class="form-label">CHASIDE</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
             <label for="fechaEntrega" class="form-label">HABILIDADES SOCIALES</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
             <label for="fechaEntrega" class="form-label">INTELIGENCIAS MULTIPLE</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
             <label for="fechaEntrega" class="form-label">INTERESES PROFESIONALES</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>VI. CONCLUSIONES</strong>
+        </div>
+        <div class="card-body">
+            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce una conclusion"></textarea><br>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="sexo" class="form-label">ÁREA</label>
+                    <select class="form-select" name="facultad" multiple>
+                        <th:block th:each="f : ${facultades}" >
+                            <option th:value="${f.idFacultad}" th:text="${f.facultad}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="unidadEducativa" class="form-label">CARRERAS</label>
+                    <select class="form-select" name="carrera" multiple>
+                        <th:block th:each="ca : ${carreras}">
+                            <option th:value="${ca.idCarrera}" th:text="${ca.carrera}"></option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -2,7 +2,6 @@ package com.usic.usic.model.Entity;
 
 import com.usic.usic.config.AuditoriaConfig;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,16 +11,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "facultad")
+@Table(name = "informe_psicopedagoga")
 @Setter
 @Getter
-public class Facultad extends AuditoriaConfig{
+public class informePsicopedagoga extends AuditoriaConfig {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_facultad")
-    private Long idFacultad;
 
-    private String facultad;
+    private Long idInformePsicopedagoga;
 
-    private String sigla;
+    private String interpretacion;
 }

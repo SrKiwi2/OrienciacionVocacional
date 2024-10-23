@@ -25,7 +25,8 @@
                                 <td th:text="${e.persona.materno}"></td>
                                 <td th:text="${e.persona.ci}"></td>
                                 <td class="text-center">
-                                    
+                                    <button type="button" th:attr="onclick='informePsicopedagogico(\'' + ${e.idEstudiante} + '\')'" class="btn btn-primary">informe PDF</button>
+
                                     <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#evaluacionEstudianteModal"
                                         th:attr="onclick='DatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">

@@ -24,9 +24,11 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.usic.usic.model.Entity.Carrera;
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Facultad;
+import com.usic.usic.model.Service.ICarreraService;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IFacultadService;
@@ -40,6 +42,9 @@ public class recibo_inscripción {
     @Autowired
     private IFacultadService facultadService;
 
+    @Autowired
+    private ICarreraService carreraService;
+
 
     @GetMapping("/recibo/pdf/{idEstudiante}")
     public ResponseEntity<byte[]> reporteChasidePdf(@PathVariable Long idEstudiante) {
@@ -48,6 +53,7 @@ public class recibo_inscripción {
             Estudiante estudiante = estudianteService.findById(idEstudiante);
             Colegio colegio = estudianteService.findColegioByIdEstudiante(idEstudiante);
             Facultad facultad = facultadService.findById(1L);
+            Carrera carrera = carreraService.findById(1L);
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             Document document = new Document(PageSize.LETTER);;
@@ -159,7 +165,7 @@ public class recibo_inscripción {
             cell.setPadding(5);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase(facultad.getCarrera().getCarrera(), contentFont));
+            cell = new PdfPCell(new Phrase(carrera.getCarrera(), contentFont));
             cell.setPadding(5);
             table.addCell(cell);
 
