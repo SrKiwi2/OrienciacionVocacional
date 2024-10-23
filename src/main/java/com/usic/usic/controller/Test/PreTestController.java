@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.EstudianteRespuesta;
 import com.usic.usic.model.Entity.Persona;
@@ -90,24 +91,20 @@ public class PreTestController {
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
 
-            System.out.println(idPregunta); //las preguntas que el estudinate no ha respondido
-            System.out.println(contadorPreguntas); //contador de la cantidad de preguntas que el estudiante no ha respondido
-            
+            System.out.println("Estoy aqui mi señor u.u 1");
+
+            model.addAttribute("mostrarCargando", contadorPreguntas == 1);
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
-
+            
             if (idPregunta != 0) {
                 Pregunta pregunta = preguntaService.findById(idPregunta);
-                model.addAttribute("mostrarCargando", contadorPreguntas == 0);
                 model.addAttribute("pregunta", pregunta);
                 model.addAttribute("respuestas",  respuestaService.findAll());
                 model.addAttribute("registro_pre_test", new EstudianteRespuesta());
-                System.out.println("Aqui estoy saliendo 1");
                 return "test/vista_pregunta";
             } else {
-                model.addAttribute("mostrarCargando", contadorPreguntas == 1);
                 model.addAttribute("pregunta", "No hay preguntas disponibles.");
-                System.out.println("Estoy slaiendo de aquii 2");
                 return "redirect:/interpretar_respuestas";
             }
         }
@@ -231,7 +228,7 @@ public class PreTestController {
     
     @PostMapping("/guardar_respuesta")
     public String guardar_respuesta(@RequestParam("respuesta_pregunta") Long respuesta_pregunta,@RequestParam("v_idTipoTest") Long id_tipo_test, HttpServletRequest request) {
-        
+
         Persona persona = (Persona) request.getSession().getAttribute("persona");
         Respuesta respuesta = respuestaService.findById(respuesta_pregunta);
         EstudianteRespuesta estudianteRespuesta = new EstudianteRespuesta();
@@ -257,12 +254,33 @@ public class PreTestController {
                 redirectUrl = "redirect:/intereses_profesionales/" + id_tipo_test;
                 break;
             default:
-                // Puedes manejar un caso por defecto en caso de que no coincida con ningún valor esperado
-                redirectUrl = "redirect:/default"; // Redirigir a una página por defecto
+                redirectUrl = "redirect:/default";
                 break;
         }
 
          return redirectUrl;
+    }
+
+    @PostMapping("/cargarPreguntas")
+    public String cargarPreguntas(@RequestParam("idTipoTest") Long idTipoTest, HttpServletRequest request, Model model) {
+        System.out.println("Me he ejecutado mi señor u.u");
+        HttpSession session = request.getSession();
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
+
+
+        model.addAttribute("v_idTipoTest", idTipoTest);
+
+        Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+        if (idPregunta != 0) {
+            Pregunta pregunta = preguntaService.findById(idPregunta);
+            model.addAttribute("pregunta", pregunta);
+            model.addAttribute("respuestas", respuestaService.findAll());
+            return "test/fragmento_pregunta";
+        } else {
+            model.addAttribute("pregunta", "No hay más preguntas disponibles.");
+            return "test/fragmento_pregunta";
+        }
     }
 
     @GetMapping("/vista_resultado_pre_test_ia")

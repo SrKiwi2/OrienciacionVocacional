@@ -1,0 +1,110 @@
+<form class="form-horizontal" id="FormularioRegistrar" method="POST">
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>I. DATOS PERSONALES</strong>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <input type="hidden" th:field="${estudiante.idEstudiante}">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre y Apellido</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="${estudiante.persona.nombre}" disabled>
+                </div>
+                <div class="col-md-4">
+                    <label for="sexo" class="form-label">Sexo</label>
+                    <select class="form-select" name="genero">
+                        <th:block th:each="g : ${genero}">
+                            <option th:value="${g.idGenero}" th:text="${g.nombreGenero}" th:selected="${g.idGenero == estudiante.persona.genero.idGenero}" disabled></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad" name="edad" th:value="${edad}" disabled>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="grado" class="form-label">Grado de Instrucción</label>
+                    <input type="text" class="form-control" id="grado" name="grado" th:field="${estudiante.grado}" disabled>
+                </div>
+                <div class="col-md-4">
+                    <label for="unidadEducativa" class="form-label">Unidad Educativa</label>
+                    <select class="form-select" name="colegio">
+                        <th:block th:each="c : ${colegio}">
+                            <option th:value="${c.idColegio}" th:text="${c.nombreColegio}" th:selected="${c.idColegio == estudiante.colegio.idColegio}" disabled></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="evaluador" class="form-label">Evaluador</label>
+                    <input type="text" class="form-control" id="evaluador" name="evaluador" th:value="${usuario}" disabled>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
+                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega" th:value="${fechaActual}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>II. RESULTADOS DE LA IA EN LOS TEST VOCACIONALES</strong>
+        </div>
+        <div class="card-body">
+            <div th:each="resultado : ${resultados}">
+                <div class="mb-3">
+                    <h6 th:text="${resultado.tipoTest.tipoTest}"></h6>
+                    <p th:utext="${'<p>' + resultado.resultado + '</p>'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección III. Objetivo de la Evaluación -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>III. OBJETIVO DE LA EVALUACIÓN</strong>
+        </div>
+        <div class="card-body">
+            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4">Determinar las caracteristicas de personalidad destacadas, con relación a las aptitudes, actitudes, intereses y aspiraciones que presenta el/la estudiante para su correcta toma de decisiones en la eleccion de una Carrera profesional. </textarea>
+        </div>
+    </div>
+
+    <!-- Sección IV. Instrumentos Utilizados -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>IV. INSTRUMENTOS UTILIZADOS</strong>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li th:each="tipoTest : ${tiposTest}" th:text="${tipoTest.tipoTest}"></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección IV. Interpretación de los Resultados -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <strong>V. INTERPRETACIÓN DE LOS RESULTADOS</strong>
+        </div>
+        <div class="card-body">
+            <label for="fechaEntrega" class="form-label">CHASIDE</label>
+            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <label for="fechaEntrega" class="form-label">HABILIDADES SOCIALES</label>
+            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <label for="fechaEntrega" class="form-label">INTELIGENCIAS MULTIPLE</label>
+            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+            <label for="fechaEntrega" class="form-label">INTERESES PROFESIONALES</label>
+            <textarea class="form-control" id="evaluador" name="evaluador" placeholder="Evaluador" rows="4"></textarea><br>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Generar Informe Psicopedagogico</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    </div>
+</form>

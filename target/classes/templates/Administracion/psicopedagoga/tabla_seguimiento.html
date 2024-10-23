@@ -25,10 +25,11 @@
                                 <td th:text="${e.persona.materno}"></td>
                                 <td th:text="${e.persona.ci}"></td>
                                 <td class="text-center">
-                                    <a class="btn btn-success me-2" type="button" style="color: aliceblue;"
-                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
-                                        th:attr="onclick='cargarDatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
-                                        <i>Generar Reporte</i>
+                                    
+                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
+                                        data-bs-toggle="modal" data-bs-target="#evaluacionEstudianteModal"
+                                        th:attr="onclick='DatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
+                                        <i class="ti ti-eye"> Generar Reporte</i>
                                     </a>
                                     <a class="btn btn-primary me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
@@ -45,6 +46,7 @@
     </div>
 </section>
 <script>
+    
     $(document).ready(function () {
         $('#file_export').DataTable({
             dom: 'Bfrtip',

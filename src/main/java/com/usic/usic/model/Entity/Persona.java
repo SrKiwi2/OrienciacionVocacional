@@ -1,5 +1,9 @@
 package com.usic.usic.model.Entity;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.usic.usic.config.AuditoriaConfig;
 
 import jakarta.persistence.CascadeType;
@@ -42,6 +46,9 @@ public class Persona extends AuditoriaConfig{
 
     @Column(name = "correo")
     private String correo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fecha;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
     private Usuario Usuario;

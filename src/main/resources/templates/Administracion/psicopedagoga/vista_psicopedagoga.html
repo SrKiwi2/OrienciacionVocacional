@@ -34,23 +34,33 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-items-center mb-3">
                 <h5 class="mb-0">Lista de estudiantes inscritos</h5>
             </div>
-            <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModal" aria-hidden="true">
-                <div class="modal-dialog ">
-                    <div class="modal-content" id="formularioColegio_">
+            <div id="TablaSeguimientoEstudiantes"></div>
+
+            <div class="modal fade" id="evaluacionEstudianteModal" tabindex="-1" aria-labelledby="evaluacionEstudianteModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">INFORME PSICOPEDAGOGICO</h5>
+                            <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-content" id="estudinateSeguimiento">
+            
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id="TablaSeguimientoEstudiantes"></div>
         </div>
     </div>
 </div>
 
-<script  th:inline="javascript">
+<script th:inline="javascript">
     cargarTabla();
     function cargarTabla() {
         $.ajax({
@@ -61,6 +71,43 @@
             }
         });
     }
+
+    function DatosFormulario(idEstudiante) {
+        $.ajax({
+            url: '/datosEstudianteSeguimiento/' + idEstudiante,
+            method: 'GET',
+            success: function (response) {
+                $("#estudinateSeguimiento").html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function enviarIdEstudiante(element) {
+        // Obtener el idEstudiante del atributo data-id del botón
+        const idEstudiante = element.getAttribute("data-id");
+        alert("ID del Estudiante: " + idEstudiante);
+
+        const formulario = document.getElementById("FormularioRegistrar");
+        const formData = new FormData(formulario);
+        formData.append('idEstudiante', idEstudiante);
+        const jsonData = Object.fromEntries(formData.entries());
+
+        // Realizar una solicitud AJAX al controlador
+        fetch('/estudianteEvaluacion/' + idEstudiante) // Asegúrate de que esta ruta sea la correcta en tu aplicación
+        .then(response => response.json())
+        .then(estudiante => {
+            // Rellenar los campos del formulario con los datos del estudiante
+            document.getElementById('nombre').value = estudiante.persona.nombre; // Nombre
+            // Rellena otros campos según sea necesario
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos del estudiante:', error);
+        });
+    }
 </script>
+
 <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
 <script src="../assets/js/apex-chart/apex.radial.init2.js"></script>

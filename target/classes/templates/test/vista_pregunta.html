@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 </head>
 <body>
     <div id="particles"></div>
@@ -58,11 +58,11 @@
                                         </select>
                                     </div>
                                 </div>
-    
+
                                 <div class="modal-header border-bottom-0 text-center" style="min-height: 100px;">
                                     <h1 class="fw-bold mb-0 fs-3 text-break text-wrap" style="max-width: 100%;" th:text="${pregunta.pregunta}"></h1>
                                 </div>
-    
+                            
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-8 col-12 text-center">
@@ -73,16 +73,16 @@
                                                 <form class="was-validated" action="/guardar_respuesta" method="post" id="respuestaForm">
                                                     <input type="hidden" name="v_idTipoTest" th:value="${v_idTipoTest}">
                                                     <th:block th:each="r : ${respuestas}" th:if="${r.pregunta.idPregunta == pregunta.idPregunta}">
-    
+                            
                                                         <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}"
                                                             th:value="${r.idRespuesta}" required onchange="this.form.submit();" style="display: none;">
-    
+                            
                                                         <th:block th:if="${r.respuesta == 'SI'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
                                                                 <img class="img-hover img-like" style="border-radius: 1.5rem;" src="../assets/images/profile/like.png" alt="ME INTERESA">
                                                             </label>
                                                         </th:block>
-    
+                            
                                                         <th:block th:if="${r.respuesta == 'NO'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
                                                                 <img class="img-hover img-dislike" style="border-radius: 1.5rem;" src="../assets/images/profile/dislike.png" alt="NO ME">
@@ -98,6 +98,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- <div class="modal-content" id="modalPregunta"></div> -->
                             </div>
                         </div>
                     </div>
@@ -118,12 +120,60 @@
     </script>
 
     <script>
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarPreguntas();
+        });
+        
+        // function cargarPreguntas() {
+        //     console.log("cargarPreguntas() se ha ejecutado");
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "/cargarPreguntas",
+        //         data: { idTipoTest: idTipoTest },
+        //         success: function (response) {
+        //             $("#modalPregunta").html(response);
+        //             console.log("Respuesta recibida:", response);
+
+        //             var form = document.getElementById('respuestaForm');
+        //             if (form) {
+        //                 form.addEventListener('submit', function (event) {
+        //                     event.preventDefault();
+        //                     showLoadingScreen();
+        //                     fetch(form.action, {
+        //                         method: form.method,
+        //                         body: new FormData(form)
+        //                     }).then(response => {
+        //                         if (response.ok) {
+        //                             return response.json();
+        //                         } else {
+        //                             throw new Error('Error en la respuesta');
+        //                         }
+        //                     }).then(data => {
+        //                         console.log(data);
+        //                         cargarPreguntas();
+        //                     }).catch(error => {
+        //                         console.error('Error:', error);
+        //                     }).finally(() => {
+        //                         hideLoadingScreen();
+        //                     });
+        //                 });
+        //             }
+        //         },
+        //         error: function (xhr, status, error) {
+        //             console.error("Error en la solicitud AJAX:", status, error);
+        //         }
+        //     });
+        // }
+
+        function showLoadingScreen() {
             const loadingScreen = document.getElementById("loadingScreen");
-            if (loadingScreen) {
-                loadingScreen.style.display = "block"; // Asegúrate de que esté visible
-            }
-        };
+            loadingScreen.style.display = "block";
+        }
+
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.display = 'none';
+        }
     </script>
     
     <script>
@@ -138,6 +188,7 @@
 
             checkbox.addEventListener('change', function () {
                 if (this.checked) {
+                    
                     input.disabled = false;
                 } else {
                     input.disabled = true;
@@ -147,6 +198,7 @@
 
         function redireccionar(idEstudianteRespuesta) {
             if (idEstudianteRespuesta) {
+                
                 var url = "/pre_test_modificar?id_pregunta_respuesta=" + idEstudianteRespuesta;
                 window.location.href = url;
             }

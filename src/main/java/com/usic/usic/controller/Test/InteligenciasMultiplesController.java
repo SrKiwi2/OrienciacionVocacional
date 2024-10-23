@@ -116,7 +116,7 @@ public class InteligenciasMultiplesController {
 
         String InteligenciasMultiples = llamarAI(promptIntereses.toString());
 
-        TipoTest tipoTest = tipoTestService.findById(2L);
+        TipoTest tipoTest = tipoTestService.findById(3L);
 
         resultadoIA.setEstudiante(estudiante);
         resultadoIA.setResultado(InteligenciasMultiples);

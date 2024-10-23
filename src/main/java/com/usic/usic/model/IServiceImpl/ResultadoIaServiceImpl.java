@@ -40,5 +40,10 @@ public class ResultadoIaServiceImpl implements IResultadoIaService {
     public List<ResultadoIA> findByEstudiante(Estudiante estudiante) {
         return resultadoIaDao.findByEstudiante(estudiante);
     }
+
+    @Override
+    public List<ResultadoIA> findByEstudianteAndTipoTest(Estudiante estudiante, Long id_tipo_test) {
+        return resultadoIaDao.findByEstudianteAndTipoTest(estudiante, id_tipo_test);
+    }
     
 }

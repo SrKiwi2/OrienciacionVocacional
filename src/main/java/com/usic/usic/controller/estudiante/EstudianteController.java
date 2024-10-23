@@ -12,14 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
@@ -37,7 +29,6 @@ import com.usic.usic.model.Service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -122,6 +113,7 @@ public class EstudianteController {
         persona.setNombre(persona.getNombre().toUpperCase());
         persona.setPaterno(persona.getPaterno().toUpperCase());
         persona.setMaterno(persona.getMaterno().toUpperCase());
+        persona.setFecha(persona.getFecha());
         persona.setEstado("E");
         personaService.save(persona);
 
@@ -176,6 +168,7 @@ public class EstudianteController {
         persona.setNombre(persona.getNombre().toUpperCase());
         persona.setPaterno(persona.getPaterno().toUpperCase());
         persona.setMaterno(persona.getMaterno().toUpperCase());
+        persona.setFecha(persona.getFecha());
         persona.setEstado("E");
         personaService.save(persona);
 

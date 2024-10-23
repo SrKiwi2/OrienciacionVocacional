@@ -76,6 +76,10 @@
                                     <option value="O">Otro</option>
                                 </select>
                             </div>
+                            <div class="form-group col-md-3 mb-3">
+                                <label for="vigencia">Fecha</label>
+                                <input type="date" class="form-control" autocomplete="off" name="fecha" id="date" required>
+                            </div>
                         </div>
                         <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
                         <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
@@ -179,6 +183,7 @@
         $('#colegio').val('');
         $('#correo').val('');
         $('#sexo').val('');
+        $('#date').val('');
     }
     function editarPersona(idPersona) {
         $.ajax({
@@ -194,6 +199,7 @@
 
                 $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
                 $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
+                $('#date').val(persona.fecha);
             },
             error: function() {
                 alert('Error al obtener los datos de la persona.');

@@ -103,20 +103,20 @@ public class InteresesProfesionalesController {
 
         List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasConSI(estudiante.getIdEstudiante());
 
-        StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido 'SI' a las siguientes preguntas:\n");
+        StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido con: 'No me gusta', 'Me gusta un poco', 'Me gusta  bastante' y 'Me encanta demasiado' a las siguientes preguntas:\n");
         for (Object[] pr : preguntasYRespuestas) {
             String pregunta = (String) pr[0];
             promptIntereses.append("- ").append(pregunta).append("\n");
         }
 
         promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
-        promptIntereses.append("Estas son preguntas que evaluan las habilidades sociales de un estudiante, en base a su interacción con su entorno.");
-        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres principales habilidades sociales.\n");
+        promptIntereses.append("Estas son preguntas que evaluan mis desenvolvimiento, gustos y preferencias");
+        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres areas habilidades sociales.\n");
         promptIntereses.append("Sé encantador y utiliza frases como 'tus principales habilidades son...'. que sea breve y conciso, maximo de 50 palabras.");
 
         String habilidadesSociales = llamarAI(promptIntereses.toString());
 
-        TipoTest tipoTest = tipoTestService.findById(2L);
+        TipoTest tipoTest = tipoTestService.findById(4L);
 
         resultadoIA.setEstudiante(estudiante);
         resultadoIA.setResultado(habilidadesSociales);
@@ -151,7 +151,7 @@ public class InteresesProfesionalesController {
         JSONArray messages = new JSONArray();
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para saber sus habilidades sociales en interaccion con su entorno.");
+        systemMessage.put("content", "Eres un psicopedagogo que analiza las preguntas y respuestas de estudiantes para identificar el desenvolvimiento, gustos y preferencias de un estudiante, con relación a un área determinada del conocimiento.");
         messages.put(systemMessage);
 
         JSONObject userMessage = new JSONObject();
