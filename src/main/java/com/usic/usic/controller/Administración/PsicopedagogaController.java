@@ -31,6 +31,7 @@ import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.IServiceImpl.InformePsicopedagogicoServiceImpl;
+import com.usic.usic.model.Repository.Sp_resultado;
 import com.usic.usic.model.Service.ICarreraService;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
@@ -62,9 +63,24 @@ public class PsicopedagogaController {
 
     @Autowired
     private InformePsicopedagogicoServiceImpl informePsicopedagogicoServiceImpl;
+
+    @Autowired
+    private Sp_resultado sp_resultado;
     
     @GetMapping("/vista_psicopedagoga")
-    public String vistaPsicopedagoga() {
+    public String vistaPsicopedagoga(Model model) {
+
+        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(1L));
+        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(2L));
+        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
+        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
+
+        model.addAttribute("num_test_chaside", sp_resultado.ObtenerNumeroEstudiantesTerminados(1L));
+        model.addAttribute("num_test_sociales", sp_resultado.ObtenerNumeroEstudiantesTerminados(2L));
+        model.addAttribute("num_test_profesionales", sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
+        model.addAttribute("num_test_multiples", sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
+
+
         return "Administracion/psicopedagoga/vista_psicopedagoga";
     }
 
