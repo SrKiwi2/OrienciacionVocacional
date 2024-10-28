@@ -13,4 +13,6 @@ public interface IEstudianteRespuestaService extends IServiceGenerico<Estudiante
     int countRespuestasSiByEstudiante(@Param("idEstudiante") Long idEstudiante);
 
     List<Object[]> findPreguntasYRespuestasConSI(@Param("idEstudiante") Long idEstudiante);
+
+    List<Object[]> findPreguntasYRespuestasGustadas(@Param("idEstudiante") Long idEstudiante);
 }

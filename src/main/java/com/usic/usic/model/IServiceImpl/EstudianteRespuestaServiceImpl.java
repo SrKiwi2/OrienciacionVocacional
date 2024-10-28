@@ -48,6 +48,10 @@ public class EstudianteRespuestaServiceImpl implements IEstudianteRespuestaServi
     public List<Object[]> findPreguntasYRespuestasConSI(Long idEstudiante) {
         return estudianteRespuestaDao.findPreguntasYRespuestasConSI(idEstudiante);
     }
+    @Override
+    public List<Object[]> findPreguntasYRespuestasGustadas(Long idEstudiante) {
+       return estudianteRespuestaDao.findPreguntasYRespuestasGustadas(idEstudiante);
+    }
     
     
 

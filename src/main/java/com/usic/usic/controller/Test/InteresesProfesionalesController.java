@@ -99,7 +99,7 @@ public class InteresesProfesionalesController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
         Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
 
-        List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasConSI(estudiante.getIdEstudiante());
+        List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasGustadas(estudiante.getIdEstudiante());
 
         StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido con: 'No me gusta', 'Me gusta un poco', 'Me gusta  bastante' y 'Me encanta demasiado' a las siguientes preguntas:\n");
         for (Object[] pr : preguntasYRespuestas) {
