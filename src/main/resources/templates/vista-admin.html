@@ -7,7 +7,7 @@
             <aside th:fragment="sidebar" class="left-sidebar with-vertical">
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar>
                     <ul id="sidebarnav" class="px-2">
-                        <li class="sidebar-item pt-3 pb-2 sidebar-profile">
+                        <li class="sidebar-item pt-3 pb-2 sidebar-profile" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <a class="sidebar-link has-arrow opacity-100 gap-2" type="button" aria-expanded="false">
                                 <span class="d-flex">
                                     <img src="../assets/images/profile/user-1.jpg" class="rounded-3" width="30" alt="user" />
@@ -38,7 +38,7 @@
                             </ul>
                         </li>
             
-                        <li class="nav-small-cap">
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">INICIO</span>
                         </li>
@@ -90,12 +90,12 @@
                             </ul>
                         </li>
 
-                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">ESTUDIANTES</span>
                         </li>
 
-                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
                             <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                                 <span class="d-flex">
                                     <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
@@ -119,12 +119,12 @@
                             </ul>
                         </li>
 
-                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'DOCENTE'}">
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">SEGUIMIENTOS ESTUDIANTIL</span>
                         </li>
 
-                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'DOCENTE'}">
+                        <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
                             <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                                 <span class="d-flex">
                                     <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
@@ -148,7 +148,7 @@
                             </ul>
                         </li>
             
-                        <li class="nav-small-cap">
+                        <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                             <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                             <span class="hide-menu">CONFIG TEST</span>
                         </li>
@@ -209,9 +209,8 @@
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
         <script src="../assets/js/vendor.min.js"></script>
-        <!-- Import Js Files -->
+
         <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
         <script src="../assets/js/theme/app.dark.init.js"></script>
@@ -220,18 +219,16 @@
         <script src="../assets/js/theme/sidebarmenu.js"></script>
         <script src="../assets/js/theme/feather.min.js"></script>
 
-        <!-- solar icons -->
         <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
         <script src="../assets/libs/nestable/jquery.nestable.js"></script>
         <script src="../assets/js/plugins/nestable-init.js"></script>
 
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
         <script src="../assets/js/datatable/datatable-advanced.init.js"></script>
-
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>

@@ -11,21 +11,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.FileOutputStream;
+
+import com.itextpdf.text.Document; 
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.usic.usic.model.Entity.Carrera;
 import com.usic.usic.model.Entity.Estudiante;
+import com.usic.usic.model.Entity.Facultad;
+import com.usic.usic.model.Entity.InformePsicopedagoga;
 import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Entity.TipoTest;
+import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.IServiceImpl.InformePsicopedagogicoServiceImpl;
+import com.usic.usic.model.Service.ICarreraService;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
+import com.usic.usic.model.Service.IFacultadService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class PsicopedagogaController {
@@ -37,13 +55,13 @@ public class PsicopedagogaController {
     private ITipoTestService tipoTestService;
 
     @Autowired
-    private IResultadoIaService resultadoIaService;
+    private IFacultadService facultadService;
 
     @Autowired
-    private IColegioService colegioService;
+    private ICarreraService carreraService;
 
     @Autowired
-    private IGeneroService generoService;
+    private InformePsicopedagogicoServiceImpl informePsicopedagogicoServiceImpl;
     
     @GetMapping("/vista_psicopedagoga")
     public String vistaPsicopedagoga() {
@@ -82,24 +100,66 @@ public class PsicopedagogaController {
         }
     }
 
-    @GetMapping(value = "/estudiantes/{idEstudiante}")
-    public ResponseEntity<String> administracionEstudianteVistaPersona(@PathVariable Long idEstudiante, Model model) {
+    @PostMapping("/guardarInforme")
+    public String guardarInforme(@ModelAttribute InformePsicopedagoga informePsicopedagoga, 
+                                @RequestParam("facultad") List<Long> facultadesIds, 
+                                @RequestParam("carrera") List<Long> carrerasIds, 
+                                @RequestParam("chaside") String chaside,
+                                @RequestParam("habilidadesSociales") String habilidadesSociales,
+                                @RequestParam("inteligenciasMultiples") String inteligenciasMultiples,
+                                @RequestParam("interesesProfesionales") String interesProfesionales,
+                                @RequestParam("conclusion") String conclusion,
+                                @RequestParam("idEstudiante") Long idEstudiante,
+                                RedirectAttributes redirectAttributes,
+                                HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        // Asigna la Facultad y Carrera a la entidad
+        Facultad facultad = facultadService.findById(facultadesIds.get(0)); // puedes ajustar para manejar múltiples facultades
+        Carrera carrera = carreraService.findById(carrerasIds.get(0)); // puedes ajustar para manejar múltiples carreras
 
         Estudiante estudiante = estudianteService.findById(idEstudiante);
-        // List<ResultadoIA> resultados = resultadoIaService.findByEstudiante(estudiante);
-        List<ResultadoIA> chasideResultados = resultadoIaService.findByEstudianteAndTipoTest(estudiante, 1L);
-        List<ResultadoIA> habisociaResultados = resultadoIaService.findByEstudianteAndTipoTest(estudiante, 2L);
-        List<ResultadoIA> intemultResultados = resultadoIaService.findByEstudianteAndTipoTest(estudiante, 3L);
-        List<ResultadoIA> inteprofResultados = resultadoIaService.findByEstudianteAndTipoTest(estudiante, 4L);
+        informePsicopedagoga.setEstudiante(estudiante);
+        informePsicopedagoga.setFacultad(facultad);
+        informePsicopedagoga.setCarrera(carrera);
+        String interpretacion = String.join(" / ", chaside, habilidadesSociales, inteligenciasMultiples, interesProfesionales);
+        informePsicopedagoga.setInterpretacion(interpretacion);
+        informePsicopedagoga.setConclusion(conclusion);
+        informePsicopedagoga.setRegistroIdUsuario(usuario.getIdUsuario());
+        informePsicopedagoga.setModificacionIdUsuario(usuario.getIdUsuario());
+        informePsicopedagogicoServiceImpl.save(informePsicopedagoga);
 
-        model.addAttribute("estudiante", estudiante);
-        model.addAttribute("colegios", colegioService.findAll());
-        model.addAttribute("generos", generoService.findAll());
+        System.out.println("Todo bien maestro, en teoria se guardó");
+        // Generar el PDF
+        generarPDF(informePsicopedagoga);
 
-        model.addAttribute("CHASIDE", chasideResultados.isEmpty() ? "" : chasideResultados.get(0).getResultado());
-        model.addAttribute("HABISOCIA", habisociaResultados.isEmpty() ? "" : habisociaResultados.get(0).getResultado());
-        model.addAttribute("INTEMULT", intemultResultados.isEmpty() ? "" : intemultResultados.get(0).getResultado());
-        model.addAttribute("INTEPROF", inteprofResultados.isEmpty() ? "" : inteprofResultados.get(0).getResultado());
-        return ResponseEntity.ok("ok");
+        redirectAttributes.addFlashAttribute("message", "Informe guardado y PDF generado exitosamente");
+        return "redirect:/ruta_formulario";
+    }
+
+    private void generarPDF(InformePsicopedagoga informe) {
+        String nombreArchivo = "Informe_" + informe.getEstudiante().getPersona().getNombre() + ".pdf";
+        
+        System.out.println("Jefe, mostrando PDF!!");
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            document.open();
+            
+            // Agregar contenido al PDF
+            document.add(new Paragraph("Informe Psicopedagógico"));
+            document.add(new Paragraph("Nombre del Estudiante: " + informe.getEstudiante().getPersona().getNombre()));
+            document.add(new Paragraph("Facultad: " + informe.getFacultad().getFacultad()));
+            document.add(new Paragraph("Carrera: " + informe.getCarrera().getCarrera()));
+            document.add(new Paragraph("Interpretación: " + informe.getInterpretacion()));
+            document.add(new Paragraph("Conclusión: " + informe.getConclusion()));
+            
+            // Cerrar el documento
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

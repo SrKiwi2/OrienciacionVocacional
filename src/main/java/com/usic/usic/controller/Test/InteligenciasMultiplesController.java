@@ -73,10 +73,8 @@ public class InteligenciasMultiplesController {
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
-            System.out.println("inteligencias_multiples");
-            System.out.println(contadorPreguntas);
                
-            model.addAttribute("mostrarCargando", contadorPreguntas == 0);
+            model.addAttribute("mostrarCargando", contadorPreguntas == 1);
             model.addAttribute("v_idTipoTest", idTipoTest);
             model.addAttribute("respuestasRespondidas", sp_preguntas.ObtenerRespuestasrespondidas(estudiante.getIdEstudiante(), idTipoTest));
     

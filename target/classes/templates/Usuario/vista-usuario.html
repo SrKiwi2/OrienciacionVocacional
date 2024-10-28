@@ -51,7 +51,6 @@
             type: 'POST',
             url: "/FormularioUsuario",
             success: function (response) {
-
                 $("#formularioUsuario_").html(response);
             }
         });
@@ -88,12 +87,13 @@
         });
     }
 
-    function cargarModFormulario(id) {
+    function cargarModFormularioU(idUsuario) {
         $.ajax({
-            url: '/formularioEditUsuario/' + id,
+            url: '/formularioEditUsuario/' + idUsuario,
             method: 'GET',
             success: function (response) {
                 $("#formularioUsuario_").html(response);
+                toastr.info('¿Modificar Registro?');
             },
             error: function (xhr, status, error) {
                 console.log(error);

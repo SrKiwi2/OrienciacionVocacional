@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         String rol = (String) session.getAttribute("nombre_rol");
         String requestURI = request.getRequestURI();
 
-        if (requestURI.startsWith("/vista-administrador") && !rol.equals("ADMINISTRADOR") && !rol.equals("SUPER USUARIO") && !rol.equals("DOCENTE")) {
+        if (requestURI.startsWith("/vista-administrador") && !rol.equals("ADMINISTRADOR") && !rol.equals("SUPER USUARIO") && !rol.equals("PSICOPEDAGOGA")) {
             response.sendRedirect("/orientacion_vocacional"); // Redirige al login si el rol no es ADMINISTRADOR
             return false;
         } else if (requestURI.startsWith("/tests") && !rol.equals("ESTUDIANTES")) {

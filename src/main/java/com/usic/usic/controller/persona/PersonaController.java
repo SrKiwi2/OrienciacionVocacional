@@ -64,9 +64,9 @@ public class PersonaController {
             persona = new Persona();
         }
         persona.setCi(ci);
-        persona.setNombre(nombre);
-        persona.setPaterno(paterno);
-        persona.setMaterno(materno);
+        persona.setNombre(nombre.toUpperCase());
+        persona.setPaterno(paterno.toUpperCase());
+        persona.setMaterno(materno.toUpperCase());
         persona.setCorreo(correo);
         persona.setEstado("ACTIVO");
         

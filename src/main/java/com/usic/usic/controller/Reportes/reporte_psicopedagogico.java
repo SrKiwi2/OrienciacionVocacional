@@ -69,9 +69,7 @@ public class reporte_psicopedagogico {
     @GetMapping("/estudianteEvaluacion/{idEstudiante}")
     public ResponseEntity<Estudiante> obtenerEstudiante(@PathVariable Long idEstudiante, Model model) {
         Estudiante estudiante = estudianteService.findById(idEstudiante);
-
         model.addAttribute("estudiante", estudiante);
-
         return ResponseEntity.ok(estudiante);
     }
 

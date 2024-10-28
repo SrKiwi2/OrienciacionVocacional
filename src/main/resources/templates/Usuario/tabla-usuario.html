@@ -28,7 +28,7 @@
                                     <div class="btn-group">
                                         <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#registroModal"
-                                            th:attr="onclick='cargarModFormulario(\'' + ${u.idUsuario} + '\')'"><i class="ti ti-pencil"></i></a>
+                                            th:attr="onclick='cargarModFormularioU(\'' + ${u.idUsuario} + '\')'"><i class="ti ti-pencil"></i></a>
                                         <a class="btn btn-danger" type="button" style="color: aliceblue;"
                                             th:attr="onclick='EliminarRegistro(\'' + ${u.idUsuario} + '\', \'' + ${u.username}+'\')'"><i class="ti ti-trash"></i></a>
                                     </div>

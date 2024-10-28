@@ -3,7 +3,7 @@
     <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonCerrarModal"></a>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" id="FormularioRegistrar" method="POST"
+    <form class="form-horizontal" id="FormularioRegistrarU" method="POST"
         th:action="${edit} ?@{/editarUsuario} : @{/registrarUsuario}">
         <div class="modal-body">
             <div class="card-body">
@@ -12,16 +12,15 @@
                 </div>
                 <div class="form-group col-md-12 mb-3" >
                     <label for="usuario">USUARIO</label>
-                    <input type="text" id="usuario" class="form-control" th:field="${usuarioss.username}" required>
+                    <input type="text" name="username" class="form-control" th:field="${usuarioss.username}" required>
                 </div>
                 <div class="form-group col-md-12 mb-3" >
                     <label for="usuario">CONTRASEÑA</label>
-                    <input type="text" id="contraseña" class="form-control" th:field="${usuarioss.password}" required>
+                    <input type="text" name="password" class="form-control" th:field="${usuarioss.password}" required>
                 </div>
                 <div class="form-group col-md-12 mb-3">
                     <label for="categoria">Rol</label>
-                    <select class="form-select" name="idRol" id="idRol">
-                        
+                    <select class="form-select" name="rol">
                         <th:block th:each="ro: ${roles}">
                             <option th:value="${ro.idRol}" th:text="${ro.nombre}" th:selected="${usuarioss.rol != null and ro.idRol == usuarioss.rol.idRol}"></option>
                         </th:block>
@@ -29,8 +28,7 @@
                 </div>
                 <div class="form-group col-md-12 mb-3">
                     <label for="categoria">Persona</label>
-                    <select class="form-select" name="idPersona" id="personal">
-                        
+                    <select class="form-select" name="persona">
                         <th:block th:each="p : ${personas}">
                             <option th:value="${p.idPersona}" th:text="${p.nombre}" th:selected="${usuarioss.persona != null and p.idPersona == usuarioss.persona.idPersona}"></option>
                         </th:block>
@@ -47,9 +45,9 @@
 
 <script>
     $(document).ready(function() {
-        $('#FormularioRegistrar').submit(function (event) {
+        $('#FormularioRegistrarU').submit(function (event) {
             event.preventDefault();
-            var form = document.getElementById("FormularioRegistrar");
+            var form = document.getElementById("FormularioRegistrarU");
             var action = form.action;
             var formData = $(this).serialize();
             $.ajax({

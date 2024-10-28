@@ -25,7 +25,7 @@ public abstract class AuditoriaConfig implements Serializable{
     private static final long serialVersionUID = 2629195288020321924L;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "_fecha_registro")
+    @Column(name = "_fecha_registro", updatable = false)
     @CreatedBy
     private Date registro = new Timestamp(System.currentTimeMillis());
 

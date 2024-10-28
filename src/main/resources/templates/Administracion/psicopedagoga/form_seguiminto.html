@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="row mb-3">
-                <input type="hidden" th:field="${estudiante.idEstudiante}">
+                <input type="hidden" th:field="${estudiante.idEstudiante}" name="idEstudiante">
                 <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre y Apellido</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" th:field="${estudiante.persona.nombre}" disabled>
@@ -86,28 +86,20 @@
 
     <div class="card mb-3">
         <div class="card-header">
-            <strong>IV. INSTRUMENTOS UTILIZADOS</strong>
-        </div>
-        <div class="card-body">
-            <ul>
-                <li th:each="tipoTest : ${tiposTest}" th:text="${tipoTest.tipoTest}"></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="card mb-3">
-        <div class="card-header">
             <strong>V. INTERPRETACIÓN DE LOS RESULTADOS</strong>
         </div>
         <div class="card-body">
             <label for="fechaEntrega" class="form-label">CHASIDE</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <textarea class="form-control" id="chaside" name="chaside" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+
             <label for="fechaEntrega" class="form-label">HABILIDADES SOCIALES</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <textarea class="form-control" id="habilidadeSociales" name="habilidadesSociales" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+
             <label for="fechaEntrega" class="form-label">INTELIGENCIAS MULTIPLE</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <textarea class="form-control" id="inteligenciasMultiples" name="inteligenciasMultiples" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+
             <label for="fechaEntrega" class="form-label">INTERESES PROFESIONALES</label>
-            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <textarea class="form-control" id="interesesProfesionales" name="interesesProfesionales" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
         </div>
     </div>
 
@@ -116,12 +108,11 @@
             <strong>VI. CONCLUSIONES</strong>
         </div>
         <div class="card-body">
-            <textarea class="form-control" id="evaluador" name="evaluador" rows="4" placeholder="Introduce una conclusion"></textarea><br>
+            <textarea class="form-control" id="conclusion" name="conclusion" rows="4" placeholder="Introduce una conclusion"></textarea><br>
         </div>
     </div>
 
     <div class="card mb-3">
-        
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-6">

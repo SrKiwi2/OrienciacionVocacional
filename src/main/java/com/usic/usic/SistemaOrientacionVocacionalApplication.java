@@ -27,7 +27,7 @@ public class SistemaOrientacionVocacionalApplication {
 		return args -> {
 			System.out.println("SISTEMA ORIENTACION VOCACIONAL INICIANDO...");
 
-			String[] roles = {"SUPER USUARIO", "ADMINISTRADOR", "ESTUDIANTES", "DOCENTE"};
+			String[] roles = {"SUPER USUARIO", "ADMINISTRADOR", "ESTUDIANTES", "PSICOPEDAGOGA"};
 			Rol[] rolObjects = new Rol[roles.length];
 			for (int i = 0; i < roles.length; i++) {
                 Rol rol = rolService.buscarPorNombre(roles[i]);
