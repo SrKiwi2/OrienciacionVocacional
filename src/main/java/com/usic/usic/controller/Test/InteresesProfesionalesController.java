@@ -101,19 +101,17 @@ public class InteresesProfesionalesController {
 
         List<Object[]> preguntasYRespuestas = estudianteRespuestaService.findPreguntasYRespuestasGustadas(estudiante.getIdEstudiante());
 
-        StringBuilder promptIntereses = new StringBuilder("El estudiante ha respondido con: 'No me gusta', 'Me gusta un poco', 'Me gusta  bastante' y 'Me encanta demasiado' a las siguientes preguntas:\n");
+        StringBuilder promptInteresesP = new StringBuilder("El estudiante ha respondido con: 'No me gusta', 'Me gusta un poco', 'Me gusta  bastante' y 'Me encanta demasiado' a las siguientes preguntas:\n");
         for (Object[] pr : preguntasYRespuestas) {
             String pregunta = (String) pr[0];
-            promptIntereses.append("- ").append(pregunta).append("\n");
+            promptInteresesP.append("- ").append(pregunta).append("\n");
         }
 
-        promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
-        promptIntereses.append("Estas son preguntas que evaluan mis desenvolvimiento, gustos y preferencias");
-        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres areas profesionales\n");
-        promptIntereses.append("Sé encantador y utiliza frases como 'tus desenvolvimiento son...' 'tus gustos son...' 'tus preferencias son'");
-        promptIntereses.append(" y 'tus areas de conocimientos son... ejemplo: Ciencias jurídicas y políticas: Derecho, Matemátematica - informática: Ing. de sistemas, Ing. Civil... maximo tres Areas con sus carreras.");
-
-        String interesesProfesionales = llamarAI(promptIntereses.toString());
+        promptInteresesP.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo, identificando las áreas en las que el estudiante se desenvuelve con mayor afinidad. ");
+        promptInteresesP.append("Describe sus desarrollos y afinidades usando un tono positivo, y menciona frases como 'tus desenvolvimientos son...', 'tus gustos son...', y 'tus preferencias son...'. ");
+        promptInteresesP.append("Con base en estos desarrollos, selecciona tres áreas profesionales potenciales e incluye un máximo de tres carreras relacionadas en cada área (por ejemplo, Ciencias Jurídicas y Políticas: Derecho, Matemáticas e Informática: Ingeniería en Sistemas, Ingeniería Civil).");
+        promptInteresesP.append("Dame un resultado en un maximo de 150 palabras, bien acomodado y claro");
+        String interesesProfesionales = llamarAI(promptInteresesP.toString());
 
         TipoTest tipoTest = tipoTestService.findById(4L);
 
