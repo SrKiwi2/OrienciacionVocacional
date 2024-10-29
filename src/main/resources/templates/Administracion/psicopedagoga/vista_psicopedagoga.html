@@ -20,7 +20,7 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="text-center">Intereses profesionalesssss</h5>
+                        <h5 class="text-center">Intereses profesionales</h5>
                         <div id="chart-radial-basic2"></div>
                     </div>
                 </div>
@@ -34,6 +34,14 @@
                 </div>
             </div>
         </div>
+
+        <input type="hidden" id="num_test_chaside" th:value="${num_test_chaside}">
+        <input type="hidden" id="num_test_sociales" th:value="${num_test_sociales}">
+        <input type="hidden" id="num_test_profesionales" th:value="${num_test_profesionales}">
+        <input type="hidden" id="num_test_multiples" th:value="${num_test_multiples}">
+
+        <input type="hidden" id="num_estudiantes_totales" th:value="${num_estudiantes_totales}">
+
 
         <div class="row">
             <div class="col-12 d-flex justify-content-between align-items-center mb-3">
@@ -84,6 +92,8 @@
             }
         });
     }
+
+    
 
     function informePsicopedagogico(idEstudiante) {
         console.log("Cargando PDF para el estudiante ID: " + idEstudiante); 

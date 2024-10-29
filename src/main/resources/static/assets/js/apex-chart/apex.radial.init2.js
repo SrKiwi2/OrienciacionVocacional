@@ -1,7 +1,15 @@
 $(function () {
+    let numTestChaside = document.getElementById("num_test_chaside").value;
+    let numTestSociales = document.getElementById("num_test_sociales").value;
+    let numTestProfesionales = document.getElementById("num_test_profesionales").value;
+    let numTestMultiples = document.getElementById("num_test_multiples").value;
+
+    let numEstudiantesTotales = document.getElementById("num_estudiantes_totales").value;
+
+    
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [90],
+        series: [(numTestChaside*100)/numEstudiantesTotales],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -32,7 +40,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [70],
+        series: [(numTestSociales*100)/numEstudiantesTotales],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -63,7 +71,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [30],
+        series: [(numTestProfesionales*100)/numEstudiantesTotales],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -94,7 +102,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [10],
+        series: [(numTestMultiples*100)/numEstudiantesTotales],
         chart: {
             fontFamily: "inherit",
             height: 300,

@@ -37,4 +37,20 @@ public class Sp_resultado {
             return null;
         }
     }
+
+    public Integer ObtenerEstudiantesTotales() {
+        String sql = "select count(distinct e.id_estudiante) "+
+                        "from estudiante e "+
+                        "inner join persona p on p.id_persona = e.id_persona "+
+                        "where e._estado != 'X' and p._estado != 'X'";
+
+        try {
+            // Se pasa el parámetro id_tipo_test dos veces (uno para cada ? en la consulta)
+            return jdbcTemplate.queryForObject(sql, new Object[]{}, Integer.class);
+        } catch (DataAccessException e) {
+            // Manejar la excepción si es necesario
+            return null;
+        }
+    }
+
 }

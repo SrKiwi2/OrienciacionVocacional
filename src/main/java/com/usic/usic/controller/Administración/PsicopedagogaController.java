@@ -68,15 +68,14 @@ public class PsicopedagogaController {
     @GetMapping("/vista_psicopedagoga")
     public String vistaPsicopedagoga(Model model) {
 
-        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(1L));
-        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(2L));
-        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
-        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
-
         model.addAttribute("num_test_chaside", sp_resultado.ObtenerNumeroEstudiantesTerminados(1L));
         model.addAttribute("num_test_sociales", sp_resultado.ObtenerNumeroEstudiantesTerminados(2L));
         model.addAttribute("num_test_profesionales", sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
         model.addAttribute("num_test_multiples", sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
+
+        model.addAttribute("num_estudiantes_totales", sp_resultado.ObtenerEstudiantesTotales());
+
+        System.out.println(sp_resultado.ObtenerEstudiantesTotales());
 
 
         return "Administracion/psicopedagoga/vista_psicopedagoga";
