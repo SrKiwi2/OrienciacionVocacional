@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Genero;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,11 +47,10 @@ public class PersonaController {
     public String formularioPersona(HttpServletRequest request, Model model) {
         model.addAttribute("persona", new Persona());
         model.addAttribute("genero", sexoService.findAll());
-        model.addAttribute("edit", false);
         return "Persona/formulario_persona";
     }
 
-    @GetMapping("/persona/{idPersona}")
+    @GetMapping("/formularioPersona/{idPersona}")
     public String editarPersonaFormulario(@PathVariable("idPersona") Long idPersona, Model model) {
         Persona persona = personaService.findById(idPersona);
         model.addAttribute("persona", persona);
@@ -59,57 +59,42 @@ public class PersonaController {
         return "Persona/formulario_persona";
     }
 
-    @PostMapping(value = "/guardar-persona")
-    public ResponseEntity<String> guardarPersona(
-        @RequestParam(value = "idPersona", required = false) Long idPersona,
-        @RequestParam("nombre") String nombre,
-        @RequestParam("paterno") String paterno,
-        @RequestParam("materno") String materno,
-        @RequestParam("ci") String ci,
-        @RequestParam("correo") String correo,
-        @RequestParam("idGenero") Long idGenero,
-        Model model) {
+    @PostMapping("/registrarPersona")
+    public ResponseEntity<String> registrarPersona(HttpServletRequest request, @Validated Persona persona) {
 
-        Persona persona = personaService.validarCI(ci);
-        if (persona == null) {
-            persona = new Persona();
+        if (personaService.validarCI(persona.getCi()) == null) {
+            Persona persona_ = new Persona();
+            persona_.setCi(persona.getCi());
+            persona_.setCorreo(persona.getCorreo());
+            persona_.setGenero(persona.getGenero());
+            persona_.setNombre(persona.getNombre());
+            persona_.setPaterno(persona.getPaterno());
+            persona_.setMaterno(persona.getMaterno());
+            persona_.setEstado("ACTIVO");
+           personaService.save(persona_);
+           return ResponseEntity.ok("Se guardó el registro con éxito");
+        }else{
+            return ResponseEntity.ok("Ya existe este registro");
         }
-        persona.setCi(ci);
-        persona.setNombre(nombre.toUpperCase());
-        persona.setPaterno(paterno.toUpperCase());
-        persona.setMaterno(materno.toUpperCase());
-        persona.setCorreo(correo);
-        persona.setEstado("ACTIVO");
-        
-        Genero genero = sexoService.findById(idGenero);
-        if (genero == null) {
-            genero = new Genero();
-            persona.setGenero(genero);
-        }
-        persona.setGenero(genero);  
-
-        personaService.save(persona);
-        return ResponseEntity.ok("Se guardó el registro con éxito");
     }
 
     @PostMapping("/editarPersona")
-    public ResponseEntity<String> editarPersona(
-            @ModelAttribute Persona persona,
-            @RequestParam(value = "idGenero") Long idGenero) {
-
-        Persona persona_ = personaService.findById(persona.getIdPersona());
-        System.out.println("persona: " + persona_.getNombre() + persona_.getPaterno());
-
-        persona_.setNombre(persona.getNombre().toUpperCase());
-        persona_.setPaterno(persona.getPaterno().toUpperCase());
-        persona_.setMaterno(persona.getMaterno().toUpperCase());
-        persona_.setCi(persona.getCi());
-        persona_.setCorreo(persona.getCorreo());
-        persona_.setGenero(sexoService.findById(idGenero));
-        persona_.setEstado("ACTIVO");
-        personaService.save(persona_);
-
-        return ResponseEntity.ok("modificado");
+    public ResponseEntity<String> editarPersona(@Validated Persona persona) {
+        Persona personaExistente = personaService.findById(persona.getIdPersona());
+        if (personaExistente != null) {
+            personaExistente.setCi(persona.getCi());
+            personaExistente.setCorreo(persona.getCorreo());
+            personaExistente.setGenero(persona.getGenero());
+            personaExistente.setNombre(persona.getNombre());
+            personaExistente.setPaterno(persona.getPaterno());
+            personaExistente.setMaterno(persona.getMaterno());
+            personaExistente.setEstado("ACTIVO");
+            
+            personaService.save(personaExistente);
+            return ResponseEntity.ok("Se modificó el registro con éxito");
+        } else {
+            return ResponseEntity.badRequest().body("No se encontró la persona a editar.");
+        } 
     }
 
     @PostMapping("/listarRegistroPersona")

@@ -109,15 +109,16 @@ public class InteresesProfesionalesController {
 
         promptIntereses.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo.");
         promptIntereses.append("Estas son preguntas que evaluan mis desenvolvimiento, gustos y preferencias");
-        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres areas habilidades sociales.\n");
-        promptIntereses.append("Sé encantador y utiliza frases como 'tus principales habilidades son...'. que sea breve y conciso, maximo de 50 palabras.");
+        promptIntereses.append("Utiliza un tono positivo e identifica y describe mis tres areas profesionales\n");
+        promptIntereses.append("Sé encantador y utiliza frases como 'tus desenvolvimiento son...' 'tus gustos son...' 'tus preferencias son'");
+        promptIntereses.append(" y 'tus areas de conocimientos son... ejemplo: Ciencias jurídicas y políticas: Derecho, Matemátematica - informática: Ing. de sistemas, Ing. Civil... maximo tres Areas con sus carreras.");
 
-        String habilidadesSociales = llamarAI(promptIntereses.toString());
+        String interesesProfesionales = llamarAI(promptIntereses.toString());
 
         TipoTest tipoTest = tipoTestService.findById(4L);
 
         resultadoIA.setEstudiante(estudiante);
-        resultadoIA.setResultado(habilidadesSociales);
+        resultadoIA.setResultado(interesesProfesionales);
         resultadoIA.setTipoTest(tipoTest);
         resultadoIA.setEstado("ACTIVO");
         resultadoIaService.save(resultadoIA);
@@ -128,9 +129,7 @@ public class InteresesProfesionalesController {
 
     @GetMapping("/finTestInteresesProfesionales")
     public String vista_resultado_im(Model model, HttpSession session, HttpServletResponse response) {
-
         session.setAttribute("testIPFinalizado", true);
-
         return "test/resultado_tests/resultados_tests";
     }
 

@@ -1,12 +1,16 @@
 <div id="main-wrapper">
     <div class="container-fluid mw-100">
         <div class="row">
-            <div class="card">
-                <div class="border-bottom title-part-padding">
-                    <h4 class="card-title mb-0">Datos Persona</h4>
-                </div>
-                <div class="card-body">
-                    <div id="formularioPersona"></div>
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h4 class="mb-0">Lista de Persona</h4>
+                <button type="button" class="btn btn-primary btn-mg" onclick="cargarFormulario()" data-bs-toggle="modal" data-bs-target="#registroModalPersona">
+                    Registrar Persona
+                </button>
+            </div>
+            <div class="modal fade" id="registroModalPersona" tabindex="-1" aria-labelledby="registroModalPersona" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content" id="formularioPersona">
+                    </div>
                 </div>
             </div>
             <div id="tablaRegistroPersona"></div>
@@ -14,10 +18,7 @@
     </div>
 </div>
 <script>
-    cargarTabla();
-    cargarFormulario()
-    limpiarFormulario()
-
+    cargarTabla()
     function cargarTabla() {
         $.ajax({
             type: 'POST',
@@ -40,7 +41,7 @@
 
     function editarPersona(idPersona) {
         $.ajax({
-            url: '/persona/' + idPersona,
+            url: '/formularioPersona/' + idPersona,
             method: 'GET',
             success: function (response) {
                 $("#formularioPersona").html(response);
@@ -49,16 +50,6 @@
                 console.log(error);
             }
         });
-    }
-
-    function limpiarFormulario() {
-        $('#idPersona').val('');
-        $('#nombre').val('');
-        $('#apellidoP').val('');
-        $('#apellidoM').val('');
-        $('#ci').val('');
-        $('#correo').val('');
-        $('#sexo').val('');
     }
 
     function eliminarPersona(idPersona) {

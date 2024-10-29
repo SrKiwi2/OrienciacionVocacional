@@ -28,7 +28,7 @@
 
         <div id="loading-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.8); z-index: 9999; text-align: center;">
             <div class="loading-container">
-                <h2>¡Un momento, por favor! Estoy analizando cuidadosamente su respuesta para proporcionarle el resultado adecuado. ¡Casi listo!</h2>
+                <h2>¡Un momento, por favor! Estoy analizando tus respuestas para proporcionarte tu resultado. ¡Casi listo!</h2>
                 <div id="lottie-animation"></div>
             </div>
         </div> 
@@ -95,7 +95,7 @@
                                                         </th:block>
                                                 
                                                         <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
-                                                            <label class="btn btn-primary mx-2" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
+                                                            <label class="btn btn-primary mx-2" style="margin: 5px 0;" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
                                                         </th:block>
                                                     </th:block>
                                                 </form>

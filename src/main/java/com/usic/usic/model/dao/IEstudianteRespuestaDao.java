@@ -23,7 +23,7 @@ public interface IEstudianteRespuestaDao extends JpaRepository<EstudianteRespues
        "JOIN er.respuesta r " +
        "JOIN r.pregunta p " +
        "WHERE er.estudiante.idEstudiante = :idEstudiante " +
-       "AND r.respuesta IN ('Me gusta bastante', 'Me encanta demasiado')")
+       "AND r.respuesta IN ('No me gusta', 'Me gusta un poco', 'Me gusta bastante', 'Me encanta demasiado')")
     List<Object[]> findPreguntasYRespuestasGustadas(@Param("idEstudiante") Long idEstudiante);
 
 }

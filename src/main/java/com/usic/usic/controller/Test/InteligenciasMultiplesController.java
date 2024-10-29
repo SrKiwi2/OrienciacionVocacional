@@ -128,9 +128,7 @@ public class InteligenciasMultiplesController {
 
     @GetMapping("/finTestInteligenciasMultiples")
     public String vista_resultado_im(Model model, HttpSession session, HttpServletResponse response) {
-
         session.setAttribute("testIMFinalizado", true);
-
         return "test/resultado_tests/resultados_tests";
     }
 
