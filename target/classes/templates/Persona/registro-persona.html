@@ -6,51 +6,7 @@
                     <h4 class="card-title mb-0">Datos Persona</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/guardar-persona" id="FormularioRegistrarPersona" method="post">
-                        <input type="hidden" name="idPersona" th:value="${persona.idPersona}" />
-                        <div class="row">
-                            <div class="form-group col-md-3 mb-3">
-                                <label for="nombre">Nombres</label>
-                                <input type="text" class="form-control" required
-                                    style="text-transform: uppercase;" name="nombre" id="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="form-group col-md-3 mb-3">
-                                <label for="apellidoP">Apellido Paterno</label>
-                                <input type="text" class="form-control" required
-                                    style="text-transform: uppercase;" name="paterno" id="apellidoP"
-                                    placeholder="Apellido Paterno">
-                            </div>
-                            <div class="form-group col-md-3 mb-3">
-                                <label for="apellidoM">Apellido Materno</label>
-                                <input type="text" class="form-control" required
-                                    style="text-transform: uppercase;" name="materno" id="apellidoM"
-                                    placeholder="Apellido Materno">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-2 mb-3">
-                                <label for="ci">C.I.</label>
-                                <input type="text" class="form-control" name="ci" id="ci" placeholder="C.I."
-                                    required>
-                            </div>
-                            <div class="form-group col-md-3 mb-3">
-                                <label for="vigencia">Correo</label>
-                                <input type="email" class="form-control" name="correo" id="correo"
-                                    placeholder="CORREO" required>
-                            </div>
-                            <div class="form-group col-md-3 mb-3">
-                                <label for="categoria">Genero</label>
-                                <select class="form-select" name="idGenero" id="sexo">
-                                    
-                                    <th:block th:each="sexo : ${sexos}">
-                                        <option th:value="${sexo.idGenero}" th:text="${sexo.nombreGenero}"></option>
-                                    </th:block>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit" id="guardarUniversitario" class="btn btn-primary">Guardar</button>
-                        <button type="button" id="limpiarUniversitario" class="btn btn-danger" onclick="limpiarFormulario()">Cancelar</button>
-                    </form>
+                    <div id="formularioPersona"></div>
                 </div>
             </div>
             <div id="tablaRegistroPersona"></div>
@@ -58,9 +14,10 @@
     </div>
 </div>
 <script>
-
     cargarTabla();
+    cargarFormulario()
     limpiarFormulario()
+
     function cargarTabla() {
         $.ajax({
             type: 'POST',
@@ -71,35 +28,39 @@
         });
     }
 
+    function cargarFormulario() {
+        $.ajax({
+            type: 'POST',
+            url: "/formularioPersona",
+            success: function (response) {
+                $("#formularioPersona").html(response);
+            }
+        });
+    }
+
+    function editarPersona(idPersona) {
+        $.ajax({
+            url: '/persona/' + idPersona,
+            method: 'GET',
+            success: function (response) {
+                $("#formularioPersona").html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
     function limpiarFormulario() {
         $('#idPersona').val('');
         $('#nombre').val('');
         $('#apellidoP').val('');
         $('#apellidoM').val('');
         $('#ci').val('');
-        $('#colegio').val('');
         $('#correo').val('');
         $('#sexo').val('');
     }
-    function editarPersona(idPersona) {
-        $.ajax({
-            url: '/persona/' + idPersona,
-            type: 'GET',
-            success: function(persona) {
-                $('#idPersona').val(persona.idPersona);
-                $('#nombre').val(persona.nombre);
-                $('#apellidoP').val(persona.paterno);
-                $('#apellidoM').val(persona.materno);
-                $('#ci').val(persona.ci);
-                $('#correo').val(persona.correo);
-                $('#colegio').val(persona.colegio ? persona.colegio.idColegio : '');
-                $('#sexo').val(persona.genero ? persona.genero.idGenero : '');
-            },
-            error: function() {
-                alert('Error al obtener los datos de la persona.');
-            }
-        });
-    }
+
     function eliminarPersona(idPersona) {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -134,37 +95,4 @@
             }
         });
     }
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#FormularioRegistrarPersona').submit(function (event) {
-            event.preventDefault();
-            var form = document.getElementById("FormularioRegistrarPersona");
-            var action = form.action;
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function (response) {
-                    var mensaje = response;
-                    if (mensaje === 'Se guardó el registro con éxito') {
-                        limpiarFormulario()
-                        cargarTabla();
-                        Swal.fire(
-                            'Registrado!',
-                            mensaje + '.',
-                            'success'
-                        );
-                    }
-                },
-                error: function (xhr, status, error) {
-                    toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
-                    console.error(error);
-                }
-            });
-        });
-    });
 </script>

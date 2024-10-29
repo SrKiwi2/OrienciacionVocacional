@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Service.IColegioService;
@@ -19,7 +20,6 @@ import com.usic.usic.model.Entity.Genero;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PersonaController {
@@ -42,10 +42,21 @@ public class PersonaController {
         return "Persona/registro-persona";
     }
 
+    @PostMapping("/formularioPersona")
+    public String formularioPersona(HttpServletRequest request, Model model) {
+        model.addAttribute("persona", new Persona());
+        model.addAttribute("genero", sexoService.findAll());
+        model.addAttribute("edit", false);
+        return "Persona/formulario_persona";
+    }
+
     @GetMapping("/persona/{idPersona}")
-    @ResponseBody
-    public Persona obtenerPersona(@PathVariable("idPersona") Long idPersona) {
-        return personaService.findById(idPersona);
+    public String editarPersonaFormulario(@PathVariable("idPersona") Long idPersona, Model model) {
+        Persona persona = personaService.findById(idPersona);
+        model.addAttribute("persona", persona);
+        model.addAttribute("genero", sexoService.findAll());
+        model.addAttribute("edit", true);
+        return "Persona/formulario_persona";
     }
 
     @PostMapping(value = "/guardar-persona")
@@ -79,6 +90,26 @@ public class PersonaController {
 
         personaService.save(persona);
         return ResponseEntity.ok("Se guardó el registro con éxito");
+    }
+
+    @PostMapping("/editarPersona")
+    public ResponseEntity<String> editarPersona(
+            @ModelAttribute Persona persona,
+            @RequestParam(value = "idGenero") Long idGenero) {
+
+        Persona persona_ = personaService.findById(persona.getIdPersona());
+        System.out.println("persona: " + persona_.getNombre() + persona_.getPaterno());
+
+        persona_.setNombre(persona.getNombre().toUpperCase());
+        persona_.setPaterno(persona.getPaterno().toUpperCase());
+        persona_.setMaterno(persona.getMaterno().toUpperCase());
+        persona_.setCi(persona.getCi());
+        persona_.setCorreo(persona.getCorreo());
+        persona_.setGenero(sexoService.findById(idGenero));
+        persona_.setEstado("ACTIVO");
+        personaService.save(persona_);
+
+        return ResponseEntity.ok("modificado");
     }
 
     @PostMapping("/listarRegistroPersona")
