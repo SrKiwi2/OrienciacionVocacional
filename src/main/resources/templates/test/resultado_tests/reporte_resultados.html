@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe en tamaño oficio con filas y columnas</title>
+    <style>
+        /* Tamaño del documento */
+        @page {
+            size: 8.5in 13in;
+            margin: 1in;
+        }
+
+        /* Estructura básica */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Contenedor principal */
+        .container {
+            width: 100%;
+            max-width: 8.5in;
+            padding: 1in;
+            background: white;
+            margin: auto;
+        }
+
+        /* Encabezado */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Cuerpo del informe en filas y columnas */
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* Espacio entre filas */
+            margin: 20px 0;
+        }
+
+        /* Estilos de las filas */
+        .row {
+            display: flex;
+            gap: 15px;
+            /* Espacio entre columnas */
+        }
+
+        /* Columnas dentro de cada fila */
+        .column {
+            flex: 1;
+            /* Cada columna ocupará el mismo espacio */
+            padding: 10px;
+            
+            
+            background-color: #f4f4f4;
+        }
+
+        /* Estilo para títulos dentro de columnas */
+        .column h2 {
+            font-size: 16px;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .column p {
+            font-size: 14px;
+            text-align: justify;
+        }
+
+        /* Pie de página */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header">
+            <div class="row">
+                <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
+                    <img src="../assets/images/logos/DIRECCION_ACADEMICA LOGO_Mesa de trabajo_1.png" style="width: 150px; height: 150px;" alt="homepage" />
+                </div>
+                <div class="column" style="flex: 2;">
+                    <div class="row">
+                        <div class="column" style="display: flex; align-items: center; justify-content: center">
+                            <h1>INFORME PSIPEDAGÓGICO</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <h3>PROGRAMA DE ORIENTACIÓN VOCACIONAL Y PROFESIONAL</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                    <img src="../assets/images/logos/Logo_Gabinete_Psicopedagógico.png" style="width: 150px; height: 150px;" alt="homepage" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido en filas y columnas -->
+        <div class="content">
+            <div class="row">
+                <div class="column">
+                    <p>El Vicerrectorado, Dirección Académica, Centro de proyectos Especiales y Formación Permanente a travéz del Gabinete <b>Psicopedagógico</b> gace la entrega de los resultados de Orientación Vocacional y Profesional a estudiantes que culminaron el Primer Modulo del Programa de Admisión y Permanencia Estudiantil en la UAP.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="column">
+                    <label><b>I. DATOS PERSONALES</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="row">
+                        <div class="column">
+                            <p><b>NOMBRE Y APELLIDOS</b></p>
+                        </div>
+                        <div class="column">
+                            <p>JOSE ANGEL CORO NAVARRO</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p><b>SEXO</b></p>
+                        </div>
+                        <div class="column">
+                            <p>MASCULINO</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <p><b>EDAD</b></p>
+                        </div>
+                        <div class="column">
+                            <p>17 AÑOS</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <p><b>GRADO DE INSTRUCCIÓN</b></p>
+                        </div>
+                        <div class="column">
+                            <p>6TO. DE SECUNDARIA</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <p><b>UNDAD EDUCATIVA</b></p>
+                        </div>
+                        <div class="column">
+                            <p>DEFENSORES DEL ACRE</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <p><b>EVALUADOR</b></p>
+                        </div>
+                        <div class="column">
+                            <p>LIC. YGNACIO MENDOZA NILACA</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <p><b>FECHA DE ENTREGA</b></p>
+                        </div>
+                        <div class="column">
+                            <p>19 DE OCTUBRE DE 2023</p>
+                        </div>
+                        <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                            <p style="color: #666;">Foto del estudiante</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página -->
+        <div class="footer">
+            <p>Confidencial - Solo para uso interno</p>
+            <p>Página 1</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -126,4 +126,10 @@ public class TestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al acceder al test: " + e.getMessage());
         }
     }
+
+    @GetMapping(value = "/reporte_test")
+    public String reporte_test() {
+        
+        return "test/resultado_tests/reporte_resultados";
+    }
 }
