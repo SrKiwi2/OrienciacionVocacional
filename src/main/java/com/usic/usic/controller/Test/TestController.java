@@ -132,4 +132,9 @@ public class TestController {
         
         return "test/resultado_tests/reporte_resultados";
     }
+    @GetMapping(value = "/reporte_test2")
+    public String reporte_test2() {
+        
+        return "test/resultado_tests/reporte_prueba_resultados";
+    }
 }

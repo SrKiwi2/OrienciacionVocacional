@@ -7,9 +7,23 @@
     <title>Informe en tamaño oficio con filas y columnas</title>
     <style>
         /* Tamaño del documento */
-        @page {
-            size: 8.5in 13in;
-            margin: 1in;
+        
+        /* Estilos específicos para impresión */
+        @media print {
+        .container {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Ocultar los márgenes extra de la pantalla */
+        body {
+            margin: 0;
+        }
+
+        /* Si deseas que ciertos elementos no aparezcan en la impresión */
+        .no-print {
+            display: none;
+        }
         }
 
         /* Estructura básica */
@@ -24,8 +38,8 @@
         /* Contenedor principal */
         .container {
             width: 100%;
-            max-width: 8.5in;
-            padding: 1in;
+            max-width: 6.5in;
+            padding: 0.5in;
             background: white;
             margin: auto;
         }
@@ -53,21 +67,24 @@
             flex-direction: column;
             gap: 20px;
             /* Espacio entre filas */
-            margin: 10px 0;
+            margin: 2px 0;
+            page-break-inside: avoid; /* Evitar corte en salto de página */
+            font-size: 9px;
         }
 
         /* Estilos de las filas */
         .row {
             display: flex;
-            gap: 5px;
+            gap: 1px;
             /* Espacio entre columnas */
+            margin: 0px 0;
         }
 
         /* Columnas dentro de cada fila */
         .column {
             flex: 1;
             /* Cada columna ocupará el mismo espacio */
-            padding: 5px;
+            padding: 1px;
             
             
             background-color: #f4f4f4;
@@ -81,7 +98,6 @@
         }
 
         .column p {
-            font-size: 14px;
             text-align: justify;
         }
 
@@ -103,27 +119,26 @@
         <div class="header">
             <div class="row">
                 <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
-                    <img src="../assets/images/logos/DIRECCION_ACADEMICA LOGO_Mesa de trabajo_1.png" style="width: 150px; height: 150px;" alt="homepage" />
+                    <img src="../assets/images/logos/DIRECCION_ACADEMICA LOGO_Mesa de trabajo_1.png" style="width: 80px; height: 80px;" alt="homepage" />
                 </div>
                 <div class="column" style="flex: 2;">
                     <div class="row">
                         <div class="column" style="display: flex; align-items: center; justify-content: center">
-                            <h1>INFORME PSIPEDAGÓGICO</h1>
+                            <h3>INFORME PSICOPEDAGÓGICO</h3>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column" style="display: flex; align-items: center; justify-content: center;">
-                            <h3>PROGRAMA DE ORIENTACIÓN VOCACIONAL Y PROFESIONAL</h3>
+                            <h4>PROGRAMA DE ORIENTACIÓN VOCACIONAL Y PROFESIONAL</h4>
                         </div>
                     </div>
                 </div>
                 <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                    <img src="../assets/images/logos/Logo_Gabinete_Psicopedagógico.png" style="width: 150px; height: 150px;" alt="homepage" />
+                    <img src="../assets/images/logos/Logo_Gabinete_Psicopedagógico.png" style="width: 80px; height: 80px;" alt="homepage" />
                 </div>
             </div>
         </div>
 
-        <!-- Contenido en filas y columnas -->
         <div class="content">
             <div class="row">
                 <div class="column">
@@ -316,19 +331,30 @@
                 <div class="column">
                     <div class="row">
                         <div class="column">
-                            <p><b>Otros: </b></p>
+                            <p><b>Otros: </b></span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="content">
+            <div class="row">
+                <div class="column" style="padding-top: 100px;">
+                    <table style="width: 100%; font-size: 11px;">
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td style="width: 33.3333%;"><span>Lic. Ygnacio Mendoza Nilaca</span><br><b>TEC. GAB. PSICOPEDAGÓGICO</b><br></td>
+                                <td style="width: 33.3333%;"><span>Dr. Humberto Fernández Calle Ph.D.</span><br> <b>DIRECTOR ACADÉMICO a.i. UAP</b><br></td>
+                                <td style="width: 33.3333%;"><span>M.Sc. Oscar Felipe Melgar Saucedo</span><br> <b>VICERRECTOR UAP</b><br></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         
 
-        <!-- Pie de página -->
-        <div class="footer">
-            <p>Confidencial - Solo para uso interno</p>
-            <p>Página 1</p>
-        </div>
     </div>
 </body>
 

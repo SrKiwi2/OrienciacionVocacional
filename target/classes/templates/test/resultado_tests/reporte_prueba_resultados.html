@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe</title>
+    <style>
+        /* Configuración de la página en tamaño oficio */
+        @page {
+            size: 8.5in 13in;
+            margin: 1in; /* Márgenes de 1 pulgada */
+        }
+        /* Configuración del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
+        }
+        /* Contenedor del informe */
+        .report-container {
+            width: 100%;
+            max-width: 7.5in; /* Ancho ajustado a la página con márgenes */
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Encabezado del informe */
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .report-header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+        .report-header p {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #666;
+        }
+        /* Contenido del informe */
+        .report-content {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        /* Pie de página */
+        .report-footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="report-header">
+            <h1>Informe de Actividades</h1>
+            <p>Fecha: 30 de octubre de 2024</p>
+            <p>Autor: [Nombre del autor]</p>
+        </div>
+        <div class="report-content">
+            <p>Este es el contenido del informe. Puedes agregar párrafos, listas, tablas y cualquier otro elemento que necesites para estructurar la información de manera organizada.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum elit vel est elementum, sit amet fringilla velit interdum.</p>
+        </div>
+        <div class="report-footer">
+            <p>Página 1 de 1</p>
+        </div>
+    </div>
+</body>
+</html>
