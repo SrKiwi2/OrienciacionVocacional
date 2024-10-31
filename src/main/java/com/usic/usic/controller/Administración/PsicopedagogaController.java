@@ -88,7 +88,9 @@ public class PsicopedagogaController {
 
     @PostMapping("/listarSeguimiento")
     public String ListarSeguimiento(HttpServletRequest request, Model model) {
-        model.addAttribute("estudiantes", estudianteService.findAll());
+        List<Estudiante> estudiantes = estudianteService.findAllOrdered();
+        model.addAttribute("estudiantes", estudiantes);
+        model.addAttribute("totalRegistros", estudiantes.size());
         return "Administracion/psicopedagoga/tabla_seguimiento";
     }
 

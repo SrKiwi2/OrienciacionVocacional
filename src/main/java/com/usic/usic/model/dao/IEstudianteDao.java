@@ -1,5 +1,7 @@
 package com.usic.usic.model.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +16,7 @@ public interface IEstudianteDao extends JpaRepository<Estudiante, Long>{
 
     @Query("SELECT e.colegio FROM Estudiante e WHERE e.idEstudiante = :idEstudiante")
     Colegio findColegioByIdEstudiante(@Param("idEstudiante") Long idEstudiante);
+
+    @Query("SELECT e FROM Estudiante e WHERE e.estado NOT IN ('INHABILITADO', 'X') ORDER BY e.idEstudiante DESC")
+    List<Estudiante> findAllOrdered();
 }

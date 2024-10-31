@@ -46,5 +46,9 @@ public class EstudianteServiceimpl implements IEstudianteService{
     public Colegio findColegioByIdEstudiante(Long idEstudiante) {
         return estudianteDao.findColegioByIdEstudiante(idEstudiante);
     }
-    
+
+    @Override
+    public List<Estudiante> findAllOrdered() {
+        return estudianteDao.findAllOrdered();
+    }
 }

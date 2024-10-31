@@ -37,29 +37,20 @@
                                         <td th:text="${e.grado}"></td>
                                         <td class="text-center">
 
-                                            <!-- <a th:href="@{'/estudiante/ver/' + ${e.idEstudiante}}" class="btn btn-info btn-sm">
-                                                Ver Datos
-                                            </a>
-                        
-                                            <a th:href="@{'/estudiante/editar/' + ${e.idEstudiante}}" class="btn btn-warning btn-sm">
-                                                Editar
-                                            </a> -->
                                             <div id="spinner-overlay2" class="spinner-overlay2" style="display: none;">
                                                 <div class="spinner-border text-primary" role="status">
                                                     <span class="visually-hidden">Cargando...</span>
                                                 </div>
                                             </div>
 
-                                            <button type="button" th:attr="onclick='pdfResultado(\'' + ${e.idEstudiante} + '\')'" class="btn btn-primary">Descargar Reporte PDF</button>
-
                                             <a class="btn btn-success" type="button" style="color: aliceblue;"
                                                 th:attr="onclick='habilitarEstudiante(' + ${e.idEstudiante} + ')'">
                                                 <i class="ti ti-check"> Habilitar</i>
                                             </a>
-                                            <a class="btn btn-danger" type="button" style="color: aliceblue;"
+                                            <!-- <a class="btn btn-danger" type="button" style="color: aliceblue;"
                                                 th:attr="onclick='rechazarEstudiante(' + ${e.idEstudiante} + ')'">
                                                 <i class="ti ti-clock-cancel"> Rechazar</i>
-                                            </a>
+                                            </a> -->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,26 +72,6 @@
             ]
         });
     });
-
-    function pdfResultado(idEstudiante) {
-        console.log("Cargando PDF para el estudiante ID: " + idEstudiante); 
-        var urlPdf = '/recibo/pdf/' + idEstudiante;
-        console.log("URL del PDF: " + urlPdf);
-        Swal.fire({ 
-            title: "RECIBO - INSCRIPCIÓN PROYECTO ORIENTACIÓN ORIENTACIÓN",
-            html: `
-                <iframe width="100%" height="700" src="` + urlPdf + `" frameborder="0" allowfullscreen></iframe>
-                <br>
-                <a href="` + urlPdf + `" download="Recibo.pdf" class="btn btn-success" style="margin-top: 15px;">
-                    Descargar PDF
-                </a>
-            `,
-            width: '80%',
-            showCloseButton: true,
-            showConfirmButton: false,
-            allowOutsideClick: false
-        });
-    }
 </script>
 
 <Style>

@@ -1,5 +1,7 @@
 package com.usic.usic.model.Service;
 
+import java.util.List;
+
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +14,6 @@ public interface IEstudianteService extends IServiceGenerico<Estudiante, Long>{
     Estudiante findByPersona(Persona persona);
 
     Colegio findColegioByIdEstudiante(@Param("idEstudiante") Long idEstudiante);
+
+    List<Estudiante> findAllOrdered();
 }

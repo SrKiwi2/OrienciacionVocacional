@@ -1,4 +1,10 @@
-<div id="main-wrapper">
+<div id="main-wrapper">    
+    <div id="animacionHabilitar" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(46, 46, 46, 0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="loading-container" style="text-align: center;">
+            <h2 style="font-size: 24px; color: #ffffff; margin-bottom: 20px;">Habilitando Estudiante...</h2>
+            <div id="animacion" style="width: 150px; height: 150px; margin: auto;"></div>
+        </div>
+    </div> 
     <div class="container-fluid mw-100">
         <div class="row">
             <div class="card">
@@ -91,6 +97,65 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.1/lottie.min.js"></script>
+
+<script>
+    function habilitarEstudiante(idEstudiante) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, habilitar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Muestra la pantalla de carga
+                document.getElementById('animacionHabilitar').style.display = 'flex';
+
+                // Cargar la animación Lottie si aún no está cargada
+                if (!window.animation) {
+                    window.animation = lottie.loadAnimation({
+                        container: document.getElementById('animacion'), // Contenedor de la animación
+                        renderer: 'svg', // Tipo de renderizado
+                        loop: true, // Repetir la animación
+                        autoplay: true, // Comienza automáticamente
+                        path: 'https://lottie.host/b80e1175-6d81-4487-a864-cab102236748/zqDyw5W3F5.json' // URL del archivo JSON
+                    });
+                }
+
+                // Llamada AJAX para habilitar al estudiante
+                $.ajax({
+                    type: 'POST',
+                    url: '/estudiante/habilitar/' + idEstudiante,
+                    success: function(response) {
+                        // Oculta la pantalla de carga
+                        document.getElementById('animacionHabilitar').style.display = 'none';
+                        Swal.fire(
+                            'Habilitado!',
+                            'El estudiante ha sido habilitado.',
+                            'success'
+                        );
+
+                        cargarTabla(); // Actualiza la tabla después de habilitar
+                    },
+                    error: function(xhr, status, error) {
+                        // Oculta la pantalla de carga
+                        document.getElementById('animacionHabilitar').style.display = 'none';
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo habilitar al estudiante.',
+                            'error'
+                        );
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    }
+</script>
+
 <script>
     cargarTabla();
     $(document).ready(function () {
@@ -131,45 +196,6 @@
             url: "/listarEstudiantesInicio",
             success: function (response) {
                 $("#TablaEstudiantes").html(response);
-            }
-        });
-    }
-
-    function habilitarEstudiante(idEstudiante) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, habilitar!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $("#spinner-overlay2").show();
-                $.ajax({
-                    type: 'POST',
-                    url: '/estudiante/habilitar/' + idEstudiante,
-                    success: function(response) {
-                        $("#spinner-overlay2").show();
-                        Swal.fire(
-                            'Habilitado!',
-                            'El estudiante ha sido habilitado.',
-                            'success'
-                        );
-
-                        cargarTabla();
-                    },
-                    error: function(xhr, status, error) {
-                        $("#spinner-overlay2").show();
-                        Swal.fire(
-                            'Error!',
-                            'No se pudo habilitar al estudiante.',
-                            'error'
-                        );
-                        console.error(error);
-                    }
-                });
             }
         });
     }

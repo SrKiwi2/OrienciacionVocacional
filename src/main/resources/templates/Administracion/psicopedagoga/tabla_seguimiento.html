@@ -18,15 +18,13 @@
                             </tr>
                         </thead>
                         <tbody id="estudiantesTableBody">
-                            <tr th:each="e, index : ${estudiantes}" th:if="${e.estado != 'INHABILITADO' and e.estado != 'X'}">
-                                <td th:text="${index.index+1}"></td>
+                            <tr th:each="e, index : ${estudiantes}">
+                                <td th:text="${totalRegistros - index.index}"></td>
                                 <td th:text="${e.persona.nombre}"></td>
                                 <td th:text="${e.persona.paterno}"></td>
                                 <td th:text="${e.persona.materno}"></td>
                                 <td th:text="${e.persona.ci}"></td>
                                 <td class="text-center">
-                                    <button type="button" th:attr="onclick='informePsicopedagogico(\'' + ${e.idEstudiante} + '\')'" class="btn btn-primary">informe PDF</button>
-
                                     <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
                                         data-bs-toggle="modal" data-bs-target="#evaluacionEstudianteModal"
                                         th:attr="onclick='DatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
