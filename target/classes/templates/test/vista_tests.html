@@ -128,10 +128,7 @@
         <div class="container">
             <div class="banner-left-bg-svg">
                 <h1 class="title" style="text-align: center;">TEST DE ORIENTACIÓN VOCACIONAL</h1>
-                <p class="disc" style="text-align: center;">
-                    Iniciar Test :
-                    <hr>
-                </p>
+                <p class="disc" style="text-align: center;" th:text="'Bienvenido: ' + ${session.usuario.persona.nombre} +' '+${session.usuario.persona.paterno} +' '+${session.usuario.persona.materno}"><hr></p>
             </div>
             <div class="row g-4">
                 <!-- start single product -->

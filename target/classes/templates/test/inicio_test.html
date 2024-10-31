@@ -143,7 +143,7 @@
                                 <div class="col-md-2 col-xm-12">
                                     <label class="form-label">Numero de C.I.</label>
                                     <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci"
-                                        placeholder="INTRODUCE UN CI" required>
+                                        placeholder="INTRODUCE UN CI" required oninput="this.value = this.value.replace(/\s/g, '')">
                                 </div>
                                 <div class="col-md-2 col-xm-12">
                                     <label class="form-label">Genero</label>

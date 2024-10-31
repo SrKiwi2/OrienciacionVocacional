@@ -31,7 +31,7 @@
                             <div class="form-group col-md-2 mb-3">
                                 <label for="ci">C.I.</label>
                                 <input type="text" class="form-control" autocomplete="off" name="ci" id="ci" placeholder="C.I."
-                                    required>
+                                    required oninput="this.value = this.value.replace(/\s/g, '')">
                             </div>
                             <div class="form-group col-md-3 mb-3">
                                 <label for="vigencia">Correo</label>
