@@ -1,5 +1,8 @@
 package com.usic.usic.model.Entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.usic.usic.config.AuditoriaConfig;
 
 import jakarta.persistence.Column;
@@ -9,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -30,4 +35,8 @@ public class Carrera extends AuditoriaConfig{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_facultad")
     private Facultad facultad;
+
+    @ManyToMany(mappedBy = "carrera")
+    private Set<InformePsicopedagoga> informePsicopedagogas = new HashSet<>();
+    
 }
