@@ -208,7 +208,7 @@ public class EstudianteController {
     @PostMapping("/estudiante/habilitar/{idEstudiante}")
     public ResponseEntity<?> habilitarEstudiante(@PathVariable Long idEstudiante) {
         Estudiante estudiante = estudianteService.findById(idEstudiante);
-
+        System.out.println("accedi al metodo");
         if (estudiante == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudiante no encontrado.");
         }
