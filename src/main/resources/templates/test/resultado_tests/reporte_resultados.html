@@ -161,37 +161,41 @@
                         <tbody>
                             <tr>
                                 <td style="width: 33.3333%;"><b>NOMBRE Y APELLIDOS</b></td>
-                                <td style="width: 33.3333%;">JOSE ANGEL CORO NAVARRO</td>
+                                <td style="width: 33.3333%;" th:text="${informePsicopedagoga.estudiante.persona.nombre+' '+informePsicopedagoga.estudiante.persona.paterno+' '+informePsicopedagoga.estudiante.persona.materno}">JOSE ANGEL CORO NAVARRO</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
                                 <td style="width: 33.3333%;"><b>SEXO</b></td>
-                                <td style="width: 33.3333%;">MASCULINO</td>
+                                <td style="width: 33.3333%;" th:text="${informePsicopedagoga.estudiante.persona.genero.nombreGenero}">MASCULINO</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
                                 <td style="width: 33.3333%;"><b>EDAD</b></td>
-                                <td style="width: 33.3333%;">17 A&Ntilde;OS</td>
+                                <td style="width: 33.3333%;" th:text="${edad}"></td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
                                 <td style="width: 33.3333%;"><b>GRADO DE INSTRUCCIÓN</b></td>
-                                <td style="width: 33.3333%;">6TO. DE SECUNADA</td>
+                                <td style="width: 33.3333%;" th:if="${informePsicopedagoga.estudiante.grado == 'B'}">BACHILLER</td>
+                                <td style="width: 33.3333%;" th:if="${informePsicopedagoga.estudiante.grado == '6to'}">6TO SECUNDARIA</td>
+                                <td style="width: 33.3333%;" th:if="${informePsicopedagoga.estudiante.grado == '5to'}">5TO SECUNDARIA</td>
+                                <td style="width: 33.3333%;" th:if="${informePsicopedagoga.estudiante.grado == '4to'}">4TO SECUNDARIA</td>
+                                <td style="width: 33.3333%;" th:if="${informePsicopedagoga.estudiante.grado == '0'}">OTRO</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
                                 <td style="width: 33.3333%;"><b>UNIDAD EDUCATIVA</b></td>
-                                <td style="width: 33.3333%;">DEFENSORES DEL ACRE</td>
+                                <td style="width: 33.3333%;" th:text="${informePsicopedagoga.estudiante.colegio.nombreColegio}">DEFENSORES DEL ACRE</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
                                 <td style="width: 33.3333%;"><b>EVALUADOR</b></td>
-                                <td style="width: 33.3333%;">LIC. YGNACIO MENDOZA NILACA</td>
+                                <td style="width: 33.3333%;" th:text="${evaluador}"></td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
-                                <td style="width: 33.3333%;"><b>FECHA DE ENTREGA</b></td>
-                                <td style="width: 33.3333%;">19 DE OCTUBRE DE 2023</td>
+                                <td style="width: 33.3333%;"><b>FECHA GENERADO</b></td>
+                                <td style="width: 33.3333%;" th:text="${fecha_generado}">19 DE OCTUBRE DE 2023</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                         </tbody>
@@ -225,7 +229,7 @@
                     </div>
                     <div class="row">
                         <div class="column">
-                            <p>Determinar las características de personalidades de personalidad destacadas. con relación a las aptitudes, actitudes. intereses y aspiraciones que presenta el/la estudiante para su correcta toma de decisiones en la elección de una Carrera profesional.</p>
+                            <p><b>TEST:</b>  CHASIDE, HABILIDADES SOCIALES, INTELIGENCIAS MULTIPLES, INTERESES PROFESIONALES</p>
                         </div>
                     </div>
                 </div>
@@ -239,11 +243,6 @@
                             <label><b>IV. INTERPRETACIÓN DE LOS RESULTADOS:</b></label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="column">
-                            <p>Determinar las características de personalidades de personalidad destacadas. con relación a las aptitudes, actitudes. intereses y aspiraciones que presenta el/la estudiante para su correcta toma de decisiones en la elección de una Carrera profesional.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -252,33 +251,29 @@
                 <div class="column">
                     <div class="row">
                         <div class="column">
-                            <label><b>IV. INTERPRETACIÓN DE LOS RESULTADOS:</b></label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
                             <p>
-                                <em> 
-                                    <b>Habilidades sociales:</b> Posee habilidades para comprender y expresar sus sentimientos y emociones, muestra una reacción emocional y congnitiva, capaz de percibir y hacer notar las cosas desde su punto de vista ante los demas. Se muestra asertivo y con mucha expresion al mismo tiempo, especialmente frente a las diferentes situaciones que se le presenta.
-                                </em>  
+                                <em th:text="${' - '+intepretaciones.columna1}"></em>  
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
                             <p>
-                                <em> 
-                                    <b>Estilos de aprendizaje:</b> Posee habilidades para comprender y expresar sus sentimientos y emociones, muestra una reacción emocional y congnitiva, capaz de percibir y hacer notar las cosas desde su punto de vista ante los demas. Se muestra asertivo y con mucha expresion al mismo tiempo, especialmente frente a las diferentes situaciones que se le presenta.
-                                </em>  
+                                <em th:text="${' - '+intepretaciones.columna2}"></em>  
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
                             <p>
-                                <em> 
-                                    <b>Coeficiente intelectual:</b> Posee habilidades para comprender y expresar sus sentimientos y emociones, muestra una reacción emocional y congnitiva, capaz de percibir y hacer notar las cosas desde su punto de vista ante los demas. Se muestra asertivo y con mucha expresion al mismo tiempo, especialmente frente a las diferentes situaciones que se le presenta.
-                                </em>  
+                                <em th:text="${' - '+intepretaciones.columna3}"></em>  
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <p>
+                                <em th:text="${' - '+intepretaciones.columna4}"></em>  
                             </p>
                         </div>
                     </div>
@@ -310,13 +305,14 @@
                         <tbody>
                             <tr>
                                 <td style="width: 20%; text-align: center;"><b>ÁREA</b></td>
-                                <td style="width: 30%;">Área de ciencias y Tecnologías</td>
+                                
+                                <td style="width: 30%;" th:text="${lista_carreras[0].carrera}"></td>
+                                
+                                
                                 <td style="width: 20%; text-align: center;"><b>CARRERAS</b></td>
                                 <td style="width: 30%;">
-                                    <ul>
-                                        <li>Ingeniería Civil</li>
-                                        <li>Arquitectura</li>
-                                        <li>Ingeniería de Sistemas</li>
+                                    <ul th:each="listc : ${lista_carreras}">
+                                        <li th:text="${listc.carrera}"></li>
                                     </ul>
                                 </td>
                             </tr>

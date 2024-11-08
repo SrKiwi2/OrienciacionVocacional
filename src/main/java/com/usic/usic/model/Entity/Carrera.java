@@ -36,7 +36,7 @@ public class Carrera extends AuditoriaConfig{
     @JoinColumn(name = "id_facultad")
     private Facultad facultad;
 
-    @ManyToMany(mappedBy = "carrera")
+    @ManyToMany(mappedBy = "carreras")
     private Set<InformePsicopedagoga> informePsicopedagogas = new HashSet<>();
     
 }

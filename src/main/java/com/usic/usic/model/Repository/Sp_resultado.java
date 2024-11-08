@@ -1,7 +1,14 @@
 package com.usic.usic.model.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -49,6 +56,34 @@ public class Sp_resultado {
             return jdbcTemplate.queryForObject(sql, new Object[]{}, Integer.class);
         } catch (DataAccessException e) {
             // Manejar la excepción si es necesario
+            return null;
+        }
+    }
+
+    public Map<String, Object> ObtenerInterpretaciones(Long v_id_informe_psicopedagoga) {
+        String sql = "SELECT split_part(p.interpretacion, '/', 1) AS columna1, split_part(p.interpretacion, '/', 2) AS columna2, split_part(p.interpretacion, '/', 3) AS columna3, split_part(p.interpretacion, '/', 4) AS columna4 FROM informe_psicopedagoga p WHERE p.id_informe_psicopedagoga = ?";
+        Object[] params = new Object[] {v_id_informe_psicopedagoga};
+    
+        try {
+            return jdbcTemplate.queryForMap(sql, params);
+        } catch (EmptyResultDataAccessException e) {
+            
+            return null;
+        }
+    }
+
+    public List<Map<String, Object>> ObtenerCarrerasXInforme(Long v_id_informe_psicopedagoga) {
+        String sql = "select carrera.carrera, facultad.facultad " +
+                        "from informe_carrera " +
+                        "inner join carrera on carrera.id_carrera = informe_carrera.id_carrera " +
+                        "inner join facultad on facultad.id_facultad = carrera.id_facultad " +
+                        "where informe_carrera.id_informe_psicopedagoga = ?";
+        Object[] params = new Object[] {v_id_informe_psicopedagoga};
+    
+        try {
+            return jdbcTemplate.queryForList(sql, params);
+        } catch (EmptyResultDataAccessException e) {
+            
             return null;
         }
     }

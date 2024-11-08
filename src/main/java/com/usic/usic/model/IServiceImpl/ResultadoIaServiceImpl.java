@@ -9,6 +9,7 @@ import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.dao.IResultadoIaDao;
+import com.usic.usic.model.dao.IResultadoIaDao.InterpretacionProjection;
 
 @Service
 public class ResultadoIaServiceImpl implements IResultadoIaService {
@@ -44,6 +45,12 @@ public class ResultadoIaServiceImpl implements IResultadoIaService {
     @Override
     public List<ResultadoIA> findByEstudianteAndTipoTest(Estudiante estudiante, Long id_tipo_test) {
         return resultadoIaDao.findByEstudianteAndTipoTest(estudiante, id_tipo_test);
+    }
+
+    @Override
+    public List<InterpretacionProjection> findInterpretacionByIdInforme(Long idInforme) {
+        // TODO Auto-generated method stub
+        return resultadoIaDao.findInterpretacionByIdInforme(idInforme);
     }
     
 }

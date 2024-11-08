@@ -1,4 +1,5 @@
-<form class="form-horizontal" id="FormularioRegistrar" method="POST">
+<link rel="stylesheet" href="../../assets/libs/select2/dist/css/select2.min.css">
+<form class="form-horizontal" id="FormularioRegistrar" action="/guardarInforme" method="POST">
     <div class="card mb-3">
         <div class="card-header">
             <strong>I. DATOS PERSONALES</strong>
@@ -115,17 +116,9 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="sexo" class="form-label">ÁREA</label>
-                    <select class="form-select" name="facultad" multiple>
-                        <th:block th:each="f : ${facultades}" >
-                            <option th:value="${f.idFacultad}" th:text="${f.facultad}"></option>
-                        </th:block>
-                    </select>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="unidadEducativa" class="form-label">CARRERAS</label>
-                    <select class="form-select" name="carrera" multiple>
+                    <select class="form-select" name="l_carrera" multiple>
                         <th:block th:each="ca : ${carreras}">
                             <option th:value="${ca.idCarrera}" th:text="${ca.carrera}"></option>
                         </th:block>
@@ -139,4 +132,8 @@
         <button type="submit" class="btn btn-success">Generar Informe Psicopedagogico</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
     </div>
+
+    <script src="../../assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="../../assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="../../assets/js/forms/select2.init.js"></script>
 </form>

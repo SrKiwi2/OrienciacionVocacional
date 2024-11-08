@@ -1,7 +1,12 @@
 package com.usic.usic.controller.Administración;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +42,7 @@ import com.usic.usic.model.Service.IFacultadService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
+import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -58,6 +64,12 @@ public class PsicopedagogaController {
 
     @Autowired
     private ICarreraService carreraService;
+
+    @Autowired
+    private IUsuarioService iUsuarioService;
+
+    @Autowired
+    private IResultadoIaService iResultadoIaService;
 
     @Autowired
     private InformePsicopedagogicoServiceImpl informePsicopedagogicoServiceImpl;
@@ -117,8 +129,7 @@ public class PsicopedagogaController {
 
     @PostMapping("/guardarInforme")
     public String guardarInforme(@ModelAttribute InformePsicopedagoga informePsicopedagoga, 
-                                @RequestParam("facultad") List<Long> facultadesIds, 
-                                @RequestParam("carrera") List<Long> carrerasIds, 
+                                @RequestParam("l_carrera") Long[] carrerasIds, 
                                 @RequestParam("chaside") String chaside,
                                 @RequestParam("habilidadesSociales") String habilidadesSociales,
                                 @RequestParam("inteligenciasMultiples") String inteligenciasMultiples,
@@ -130,14 +141,10 @@ public class PsicopedagogaController {
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        // Asigna la Facultad y Carrera a la entidad
-        Facultad facultad = facultadService.findById(facultadesIds.get(0)); // puedes ajustar para manejar múltiples facultades
-        Carrera carrera = carreraService.findById(carrerasIds.get(0)); // puedes ajustar para manejar múltiples carreras
+
 
         Estudiante estudiante = estudianteService.findById(idEstudiante);
         informePsicopedagoga.setEstudiante(estudiante);
-        informePsicopedagoga.setFacultad(facultad);
-        informePsicopedagoga.setCarrera(carrera);
         String interpretacion = String.join(" / ", chaside, habilidadesSociales, inteligenciasMultiples, interesProfesionales);
         informePsicopedagoga.setInterpretacion(interpretacion);
         informePsicopedagoga.setConclusion(conclusion);
@@ -145,12 +152,32 @@ public class PsicopedagogaController {
         informePsicopedagoga.setModificacionIdUsuario(usuario.getIdUsuario());
         informePsicopedagogicoServiceImpl.save(informePsicopedagoga);
 
-        System.out.println("Todo bien maestro, en teoria se guardó");
-        // Generar el PDF
-        generarPDF(informePsicopedagoga);
+        for (int i = 0; i < carrerasIds.length; i++) {
+            carreraService.insertInformeCarrera(informePsicopedagoga.getIdInformePsicopedagoga(), carrerasIds[i]);
+        }
+        // // Asigna la Facultad y Carrera a la entidad
+        // Facultad facultad = facultadService.findById(facultadesIds.get(0)); // puedes ajustar para manejar múltiples facultades
+        // Carrera carrera = carreraService.findById(carrerasIds.get(0)); // puedes ajustar para manejar múltiples carreras
 
-        redirectAttributes.addFlashAttribute("message", "Informe guardado y PDF generado exitosamente");
-        return "redirect:/ruta_formulario";
+        
+
+        // Estudiante estudiante = estudianteService.findById(idEstudiante);
+        // informePsicopedagoga.setEstudiante(estudiante);
+        // informePsicopedagoga.setFacultad(facultad);
+        // informePsicopedagoga.setCarrera(carrera);
+        // String interpretacion = String.join(" / ", chaside, habilidadesSociales, inteligenciasMultiples, interesProfesionales);
+        // informePsicopedagoga.setInterpretacion(interpretacion);
+        // informePsicopedagoga.setConclusion(conclusion);
+        // informePsicopedagoga.setRegistroIdUsuario(usuario.getIdUsuario());
+        // informePsicopedagoga.setModificacionIdUsuario(usuario.getIdUsuario());
+        // informePsicopedagogicoServiceImpl.save(informePsicopedagoga);
+
+        // System.out.println("Todo bien maestro, en teoria se guardó");
+        // // Generar el PDF
+        // generarPDF(informePsicopedagoga);
+
+        // redirectAttributes.addFlashAttribute("message", "Informe guardado y PDF generado exitosamente");
+        return "redirect:/reporte_test/"+informePsicopedagoga.getIdInformePsicopedagoga();
     }
 
     private void generarPDF(InformePsicopedagoga informe) {
@@ -176,5 +203,28 @@ public class PsicopedagogaController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @GetMapping(value = "/reporte_test/{id_informePsicopedagoga}")
+    public String reporte_test(@PathVariable("id_informePsicopedagoga")Long id_informePsicopedagoga, Model model) {
+        InformePsicopedagoga informePsicopedagoga = informePsicopedagogicoServiceImpl.findById(id_informePsicopedagoga);
+        model.addAttribute("informePsicopedagoga", informePsicopedagoga);
+        Date fecha_de_nacimiento = informePsicopedagoga.getEstudiante().getPersona().getFecha();
+        LocalDate fechaNacimientoLocalDate = fecha_de_nacimiento.toInstant()
+                                                                .atZone(ZoneId.systemDefault())
+                                                                .toLocalDate();
+        int edad = Period.between(fechaNacimientoLocalDate, LocalDate.now()).getYears();
+        model.addAttribute("edad", edad);
+        LocalDate fecha = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+        String fechaFormateada = fecha.format(formatter);
+        model.addAttribute("fecha_generado", fechaFormateada);
+        model.addAttribute("intepretaciones", sp_resultado.ObtenerInterpretaciones(id_informePsicopedagoga));
+        model.addAttribute("lista_carreras", sp_resultado.ObtenerCarrerasXInforme(id_informePsicopedagoga));
+
+        Usuario usuario = iUsuarioService.findById(informePsicopedagoga.getRegistroIdUsuario());
+        model.addAttribute("evaluador", usuario.getPersona().getNombre()+" "+usuario.getPersona().getPaterno()+" "+usuario.getPersona().getMaterno());
+
+        return "test/resultado_tests/reporte_resultados";
     }
 }

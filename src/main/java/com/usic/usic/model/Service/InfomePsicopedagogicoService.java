@@ -6,5 +6,4 @@ import com.usic.usic.model.Entity.InformePsicopedagoga;
 
 @Service
 public interface InfomePsicopedagogicoService extends IServiceGenerico<InformePsicopedagoga, Long> {
-    
 }

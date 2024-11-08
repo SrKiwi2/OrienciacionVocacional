@@ -39,5 +39,11 @@ public class ICarreraServiceImpl implements ICarreraService {
     public Carrera findByCarrera(String carrera) {
         return carreraDao.findByCarrera(carrera);
     }
+
+    @Override
+    public void insertInformeCarrera(Long idInformePsicopedagoga, Long idCarrera) {
+        // TODO Auto-generated method stub
+        carreraDao.insertInformeCarrera(idInformePsicopedagoga, idCarrera);
+    }
     
 }
