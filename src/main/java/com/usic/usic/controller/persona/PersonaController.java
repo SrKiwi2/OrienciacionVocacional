@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.DTO.PersonaDTO;
 import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Genero;
 

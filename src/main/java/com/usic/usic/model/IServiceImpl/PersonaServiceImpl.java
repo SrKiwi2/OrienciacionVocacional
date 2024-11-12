@@ -4,16 +4,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
+import com.usic.usic.model.DTO.PersonaDTO;
+import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.dao.IEstudianteDao;
 import com.usic.usic.model.dao.IPersonaDao;
+
+import jakarta.annotation.Resource;
 
 @Service
 public class PersonaServiceImpl implements IPersonaService{
 
     @Autowired
     private IPersonaDao personaDao;
+
+    @Autowired
+    private IEstudianteDao estudianteDao;
 
     @Override
     public List<Persona> findAll() {
@@ -43,5 +52,18 @@ public class PersonaServiceImpl implements IPersonaService{
     @Override
     public Persona findByCorreo(String correo) {
         return personaDao.findByCorreo(correo);
+    }
+
+    @Override
+    public PersonaDTO obtenerPersonaPorCi(String ci) {
+        
+        Persona persona = personaDao.findByCi(ci)
+        .orElseThrow(() -> new ResourceAccessException("Persona no encontrada con CI: " + ci));
+
+        Estudiante estudiante = estudianteDao.findByPersonaId(persona.getIdPersona());
+
+        return new PersonaDTO(persona.getNombre(), persona.getPaterno(), persona.getMaterno(), persona.getCi(),
+        persona.getGenero().getNombreGenero(), persona.getNacionalidad().getNombreNacionalidad(), persona.getCorreo(),
+        persona.getFecha(), estudiante.getColegio().getNombreColegio(), persona.getUrl_certificado());
     }
 }

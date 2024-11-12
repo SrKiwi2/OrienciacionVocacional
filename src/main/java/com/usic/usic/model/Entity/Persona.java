@@ -47,6 +47,8 @@ public class Persona extends AuditoriaConfig{
     @Column(name = "correo")
     private String correo;
 
+    private String url_certificado;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha;
 
