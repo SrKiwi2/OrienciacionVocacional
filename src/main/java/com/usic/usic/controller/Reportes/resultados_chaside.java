@@ -54,7 +54,7 @@ public class resultados_chaside {
             document.open();
 
             Image logoIzquierdo = Image.getInstance("src/main/resources/static/assets/images/logos/uap.png");
-            Image logoDerecho = Image.getInstance("src/main/resources/static/assets/images/logos/logoUsic.png");
+            Image logoDerecho = Image.getInstance("src/main/resources/static/assets/images/logos/Logo_Gabinete_Psicopedagógico.png");
             logoIzquierdo.scaleToFit(80, 80);
             logoDerecho.scaleToFit(80, 80);
 
@@ -91,7 +91,7 @@ public class resultados_chaside {
             document.add(new Paragraph(" "));
             
             Font boldFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
-            Paragraph titulo = new Paragraph("RESULTADO DEL TEST VOCACIONAL - CHASIDE", boldFont);
+            Paragraph titulo = new Paragraph("INFORME DEL TEST VOCACIONAL - CHASIDE", boldFont);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
 
@@ -184,7 +184,7 @@ public class resultados_chaside {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDisposition(ContentDisposition.inline().filename("Resultado_CHASIDE.pdf").build());
+            headers.setContentDisposition(ContentDisposition.inline().filename("Informe_CHASIDE.pdf").build());
             headers.set("X-Frame-Options", "");
 
             return ResponseEntity.ok().headers(headers).body(out.toByteArray());

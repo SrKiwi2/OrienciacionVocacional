@@ -82,11 +82,7 @@ public class PreTestController {
     @GetMapping("/pre_test/{idTipoTest}")
     public String pre_test(@PathVariable Long idTipoTest, Model model, HttpSession session) {
 
-        Boolean testFinalizado = (Boolean) session.getAttribute("testFinalizado");
-        if (testFinalizado != null && testFinalizado) {
-            return "redirect:/vista_resultado_pre_test_ia";
-        }else{
-            Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
@@ -105,7 +101,6 @@ public class PreTestController {
                 model.addAttribute("pregunta", "No hay preguntas disponibles.");
                 return "redirect:/interpretar_respuestas";
             }
-        }
     }
 
     @GetMapping("/interpretar_respuestas")
