@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Service.IColegioService;
+import com.usic.usic.model.Service.IEstudianteRespuestaService;
+import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.DTO.PersonaDTO;
 import com.usic.usic.model.Entity.Colegio;
+import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Genero;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +37,12 @@ public class PersonaController {
 
     @Autowired
     private IGeneroService sexoService;
+
+    @Autowired
+    private IEstudianteService estudianteService;
+
+    @Autowired
+    private IEstudianteRespuestaService estudianteRespuestaService;
     
     @GetMapping(value = "/vista-persona")
     public String vistaPersona(Model model) {
@@ -109,7 +118,17 @@ public class PersonaController {
 
     @PostMapping(value = "/eliminar-persona/{idPersona}")
     public ResponseEntity<String> eliminarPersona(@PathVariable("idPersona") Long idPersona) {
-        personaService.deleteById(idPersona);
+        Persona persona_econtrada = personaService.findById(idPersona);
+        Estudiante estudiante_encontrado = estudianteService.findByPersona(persona_econtrada);
+        persona_econtrada.setEstado("X");
+        persona_econtrada.setCi("----");
+        persona_econtrada.setCorreo("----");
+
+        estudiante_encontrado.setEstado("X");
+        personaService.save(persona_econtrada);
+        estudianteService.save(estudiante_encontrado);
+
+
         return ResponseEntity.ok("Se eliminó el registro con éxito");
     }
 }

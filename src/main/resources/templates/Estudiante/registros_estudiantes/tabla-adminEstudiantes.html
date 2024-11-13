@@ -27,7 +27,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="e, index : ${estudiantes}" th:if="${e.estado == 'INHABILITADO'}">
+                                    <tr th:each="e, index : ${estudiantes}" th:if="${e.estado == 'INHABILITADO' && e.estado != 'X'}">
                                         <td th:text="${index.index+1}"></td>
                                         <td th:text="${e.persona.nombre}"></td>
                                         <td th:text="${e.persona.paterno}"></td>
@@ -47,10 +47,10 @@
                                                 th:attr="onclick='habilitarEstudiante(' + ${e.idEstudiante} + ')'">
                                                 <i class="ti ti-check"> Habilitar</i>
                                             </a>
-                                            <!-- <a class="btn btn-danger" type="button" style="color: aliceblue;"
-                                                th:attr="onclick='rechazarEstudiante(' + ${e.idEstudiante} + ')'">
-                                                <i class="ti ti-clock-cancel"> Rechazar</i>
-                                            </a> -->
+                                            <a class="btn btn-danger" type="button" style="color: aliceblue;"
+                                                th:attr="onclick='bannear(' + ${e.persona.idPersona} + ')'">
+                                                <i class="ti ti-clock-cancel"> Bannear</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 </tbody>

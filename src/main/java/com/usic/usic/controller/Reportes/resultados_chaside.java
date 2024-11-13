@@ -8,6 +8,8 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 
 import com.itextpdf.text.BaseColor;
@@ -193,4 +195,6 @@ public class resultados_chaside {
             return ResponseEntity.status(500).build();
         }
     }
+
+    
 }

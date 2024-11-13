@@ -61,17 +61,15 @@
                 </div>
 
                
-
-                <div class="d-flex justify-content-center mt-4">
-                    <!-- <a type="button" th:attr="onclick='pdfResultado(\'' + ${idEstudiante} + '\')'" class="btn btn-primary">Descargar Reporte PDF</a> -->
-                    <button type="button" th:attr="onclick='pdfResultado(\'' + ${idEstudiante} + '\')'" class="btn btn-primary">Descargar tus resultados</button>
+                <div class="d-flex justify-content-center mt-4 flex-column flex-md-row">
+                    <button class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">REQUISITOS</button>
+                    <button type="button" th:attr="onclick='pdfResultado(\'' + ${idEstudiante} + '\')'" class="btn btn-warning m-2">DESCARGA TU INFORME</button>
                     
-                    <button class="btn btn-primary mx-3 btn-inscribirse" data-bs-toggle="modal" data-bs-target="#informacion" onclick="cargarRequisitos()">INSCRIBIRSE</button>
-
                     <form action="/terminar_test" method="POST">
-                        <button class="btn btn-secondary btn-terminar" onclick="terminar()">TERMINAR</button>
+                        <button class="btn btn-danger m-2" type="submit">FINALIZAR</button>
                     </form>
                 </div>
+                
 
                 <!-- MODAL DE INFRMACION DE REQUISITOS DE INSCRIPCION -->
                 <div class="modal fade" id="informacion" tabindex="-1" aria-labelledby="informacion" aria-hidden="true">

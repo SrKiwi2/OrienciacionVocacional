@@ -111,7 +111,7 @@ public class TestController {
                 return ResponseEntity.ok("Este test aún no está habilitado porque no tiene fechas asignadas.");
             }
 
-            if (idPregunta != 0) {
+            if (idPregunta == 0) {
                 return ResponseEntity.ok("Ya has realizado este test: " + tipoTest.getTipoTest());
             } else {
                 if ((fechaActual.isEqual(tipoTest.getFechaInicio()) || fechaActual.isAfter(tipoTest.getFechaInicio())) &&

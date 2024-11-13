@@ -98,6 +98,7 @@ public class AdministrarEstudiantesController {
         persona.setMaterno(estudiante.getPersona().getMaterno());
         persona.setCorreo(estudiante.getPersona().getCorreo());
         persona.setGenero(generoService.findById(idGenero));
+        persona.setFecha(estudiante.getPersona().getFecha());
         persona.setNacionalidad(nacionalidadService.findById(idNacionalidad));
         persona.setEstado("E");
         
