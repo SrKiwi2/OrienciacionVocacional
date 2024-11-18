@@ -45,6 +45,7 @@ import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.Repository.Sp_preguntas;
 import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
+import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRespuestaService;
 import com.usic.usic.model.Service.IResultadoIaService;
@@ -62,6 +63,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class PreTestController {
@@ -92,6 +95,9 @@ public class PreTestController {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private IPersonaService personaservice;
 
     @Value("${spring.ai.openai.chat.api-key}")
     private String apiKey;
@@ -327,6 +333,27 @@ public class PreTestController {
         return "test/pre-test/vista_resultado_pre_test";
     }
 
+    private void enviarCorreoConAdjunto(String correoDestino, String asunto, String mensaje, byte[] archivoAdjunto, String nombreArchivo) {
+        try {
+            
+            MimeMessage mensajeCorreo = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mensajeCorreo, true);
+            
+            helper.setTo(correoDestino);
+            helper.setSubject(asunto);
+            helper.setText(mensaje);
+
+            // Agregar el archivo adjunto (PDF)
+            ByteArrayDataSource dataSource = new ByteArrayDataSource(archivoAdjunto, "application/pdf");
+            helper.addAttachment(nombreArchivo, dataSource);
+
+            mailSender.send(mensajeCorreo);
+            System.out.println("Correo enviado exitosamente a " + correoDestino);
+        } catch (MessagingException e) {
+            System.err.println("Error al enviar el correo: " + e.getMessage());
+        }
+    }
+
     public void reporteChasidePdf(Long idEstudiante) {
         try{
 
@@ -470,43 +497,39 @@ public class PreTestController {
 
             byte[] pdfBytes = out.toByteArray();
 
+            System.out.println("Tamaño del PDF: " + pdfBytes.length + " bytes");
+
             // Obtener la información de correo de la persona
             Persona persona = estudiante.getPersona();
             if (persona != null && persona.getCorreo() != null) {
                 enviarCorreoConAdjunto(
                     persona.getCorreo(),
-                    "Informe del Test Vocacional - CHASIDE",
+                    "INFORME TEST VOCACIONAL - CHASIDE",
                     "Estimado/a " + persona.getNombre() + " " + persona.getPaterno() + ", le enviamos los resultados de su test de orientación vocacional.",
                     pdfBytes,
-                    "Informe_CHASIDE.pdf"
+                    "INFORME_RESULTADOS_CHASIDE_"+persona.getNombre()+".pdf"
                 );
             }
+            Long id_persona = estudiante.getPersona().getIdPersona();
+            Persona persona_encontrada = personaservice.findById(id_persona);
+            persona_encontrada.setUrl_certificado("http://virtual.uap.edu.bo:9597/reporte/pdf/"+idEstudiante);
+            personaservice.save(persona_encontrada);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    private void enviarCorreoConAdjunto(String correoDestino, String asunto, String mensaje, byte[] archivoAdjunto, String nombreArchivo) {
+    @PostMapping("/chaside/{idEstudiante}")
+    public ResponseEntity<?> generarReporteChaside(@PathVariable Long idEstudiante) {
         try {
-            
-            MimeMessage mensajeCorreo = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mensajeCorreo, true);
-            
-            helper.setTo(correoDestino);
-            helper.setSubject(asunto);
-            helper.setText(mensaje);
-
-            // Agregar el archivo adjunto (PDF)
-            ByteArrayDataSource dataSource = new ByteArrayDataSource(archivoAdjunto, "application/pdf");
-            helper.addAttachment(nombreArchivo, dataSource);
-
-            mailSender.send(mensajeCorreo);
-            System.out.println("Correo enviado exitosamente a " + correoDestino);
-        } catch (MessagingException e) {
-            System.err.println("Error al enviar el correo: " + e.getMessage());
+            reporteChasidePdf(idEstudiante); // Llamada directa al método dentro del mismo controlador
+            return ResponseEntity.ok("Informe generado y enviado correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al generar el informe.");
         }
     }
-
 
     @PostMapping("/terminar_test")
     public String terminarTest(HttpSession session) {

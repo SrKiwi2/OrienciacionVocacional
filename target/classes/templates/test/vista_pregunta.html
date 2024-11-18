@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -8,16 +7,11 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <meta name="theme-style-mode" content="1">
-
     <link rel="shortcut icon" type="image/x-icon" href="../assets_registro/images/uap.png">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     <link rel="stylesheet" href="../assets/css/fondo_test.css">
     <link rel="stylesheet" href="../assets_registro/css/style_pregunta.css">
-    <!-- Enlace a Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -26,9 +20,13 @@
 <body>
     <div id="particles"></div>
 
-        <div id="loading-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.8); z-index: 9999; text-align: center;">
+        <div id="loading-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(228, 228, 228, 0.8); z-index: 9999; text-align: center;">
             <div class="loading-container">
-                <h2>¡Un momento, por favor! Estoy analizando tus respuestas para proporcionarte tu resultado. ¡Casi listo!</h2>
+
+                <p>¡Un momento, por favor!</p>
+                <p>Estoy analizando tus respuestas para proporcionarte tu resultado.</p>
+                <p>Estamos enviando tus resultados a tu correo electornico</p>
+                <p>¡Casi listo!</p>
                 <div id="lottie-animation"></div>
             </div>
         </div> 
@@ -40,13 +38,11 @@
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content rounded-4">
                                 <div class="row px-2 py-2 pt-0">
-    
                                     <div class="col-md-12 d-flex justify-content-center pb-1">
                                         <button type="button" class="btn btn-warning btn-round">
                                             <b th:text="${pregunta.orden}">5</b>
                                         </button>
                                     </div>
-    
                                     <div class="col-md-6 d-flex justify-content-end">
                                         <select class="form-select" aria-label="Default select example" id="respuestasRespondidas_select"
                                             onchange="redireccionar(this.value)">
@@ -61,7 +57,6 @@
                                 <div class="modal-header border-bottom-0 text-center" style="min-height: 100px;">
                                     <h1 class="fw-bold mb-0 fs-3 text-break text-wrap" style="max-width: 100%;" th:text="${pregunta.pregunta}"></h1>
                                 </div>
-                                
                             
                                 <div class="modal-body">
                                     <div class="row">
@@ -76,24 +71,19 @@
                                                         <th:block th:if="${mostrarCargando == true}">
                                                             <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required onchange="mostrarPantallaCarga(); this.form.submit();" style="display: none;">
                                                         </th:block>
-
                                                         <th:block th:if="${mostrarCargando != true}">
                                                             <input class="form-check-input" type="radio" th:name="${'respuesta_pregunta'}" th:id="${r.idRespuesta}" th:value="${r.idRespuesta}" required onchange="this.form.submit();" style="display: none;">
                                                         </th:block>
-                                                        
-                            
                                                         <th:block th:if="${r.respuesta == 'SI'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
                                                                 <img class="img-hover img-like" style="border-radius: 1.5rem;" src="../assets/images/profile/like.png" alt="ME INTERESA">
                                                             </label>
                                                         </th:block>
-                            
                                                         <th:block th:if="${r.respuesta == 'NO'}">
                                                             <label class="btn mx-2" th:for="${r.idRespuesta}" style="max-width: 150px;">
                                                                 <img class="img-hover img-dislike" style="border-radius: 1.5rem;" src="../assets/images/profile/dislike.png" alt="NO ME">
                                                             </label>
                                                         </th:block>
-                                                
                                                         <th:block th:if="${r.respuesta != 'SI' and r.respuesta != 'NO'}">
                                                             <label class="btn btn-primary mx-2" style="margin: 5px 0;" th:for="${r.idRespuesta}" th:text="${r.respuesta}"></label>
                                                         </th:block>
@@ -103,8 +93,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="modal-content" id="modalPregunta"></div> -->
                             </div>
                         </div>
                     </div>
@@ -112,83 +100,24 @@
             </div>
         </div>
     
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.1/lottie.min.js"></script>
     <script>
-        var animation = lottie.loadAnimation({
-            container: document.getElementById('lottie-animation'), // El contenedor donde se mostrará la animación
-            renderer: 'svg', // Tipo de renderizador
-            loop: true, // Repetir la animación
-            autoplay: true, // Iniciar la animación automáticamente
-            path: 'https://lottie.host/71ac9971-b085-430b-8cf6-d6b6b41b49aa/DdqC5muc7X.json' // La URL del archivo JSON
-        });
-    </script>
 
-    <script>
+        var animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://lottie.host/71ac9971-b085-430b-8cf6-d6b6b41b49aa/DdqC5muc7X.json'
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             cargarPreguntas();
         });
-        
-        // function cargarPreguntas() {
-        //     console.log("cargarPreguntas() se ha ejecutado");
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: "/cargarPreguntas",
-        //         data: { idTipoTest: idTipoTest },
-        //         success: function (response) {
-        //             $("#modalPregunta").html(response);
-        //             console.log("Respuesta recibida:", response);
 
-        //             var form = document.getElementById('respuestaForm');
-        //             if (form) {
-        //                 form.addEventListener('submit', function (event) {
-        //                     event.preventDefault();
-        //                     showLoadingScreen();
-        //                     fetch(form.action, {
-        //                         method: form.method,
-        //                         body: new FormData(form)
-        //                     }).then(response => {
-        //                         if (response.ok) {
-        //                             return response.json();
-        //                         } else {
-        //                             throw new Error('Error en la respuesta');
-        //                         }
-        //                     }).then(data => {
-        //                         console.log(data);
-        //                         cargarPreguntas();
-        //                     }).catch(error => {
-        //                         console.error('Error:', error);
-        //                     }).finally(() => {
-        //                         hideLoadingScreen();
-        //                     });
-        //                 });
-        //             }
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error("Error en la solicitud AJAX:", status, error);
-        //         }
-        //     });
-        // }
-
-        // function showLoadingScreen() {
-        //     const loadingScreen = document.getElementById("loadingScreen");
-        //     loadingScreen.style.display = "block";
-        // }
-
-        // function hideLoadingScreen() {
-        //     const loadingScreen = document.getElementById('loadingScreen');
-        //     loadingScreen.style.display = 'none';
-        // }
-    </script>
-
-    <script>
         function mostrarPantallaCarga() {
-            // Muestra el spinner de carga
             document.getElementById('loading-screen').style.display = 'block';
         }
-    </script>
-    
-    <script>
 
         function toggleInput(checkbox) {
             const textInput = checkbox.closest('.input-group').querySelector('input[type="text"]');
@@ -210,7 +139,6 @@
 
         function redireccionar(idEstudianteRespuesta) {
             if (idEstudianteRespuesta) {
-                
                 var url = "/pre_test_modificar?id_pregunta_respuesta=" + idEstudianteRespuesta;
                 window.location.href = url;
             }
@@ -218,8 +146,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- <div th:replace="~{layout_test/script :: script}"></div> -->
-     <script src="../assets_registro/js/img_preguntas.js"></script>
+    <script src="../assets_registro/js/img_preguntas.js"></script>
 </body>
 
 </html>

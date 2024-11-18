@@ -43,14 +43,20 @@
                                                 </div>
                                             </div>
 
-                                            <a class="btn btn-success" type="button" style="color: aliceblue;"
+                                            <a class="btn btn-success me-2" type="button" style="color: aliceblue;"
                                                 th:attr="onclick='habilitarEstudiante(' + ${e.idEstudiante} + ')'">
                                                 <i class="ti ti-check"> Habilitar</i>
                                             </a>
+
+                                            <a class="btn btn-warning me-2" type="button" style="color: aliceblue;"
+                                            th:attr="onclick='enviarPDF(' + ${e.idEstudiante} + ')'">
+                                            <i class="ti ti-file"> Informe</i>
+
                                             <a class="btn btn-danger" type="button" style="color: aliceblue;"
                                                 th:attr="onclick='bannear(' + ${e.persona.idPersona} + ')'">
                                                 <i class="ti ti-clock-cancel"> Bannear</i>
                                             </a>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>

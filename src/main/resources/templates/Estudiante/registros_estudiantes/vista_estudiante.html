@@ -4,7 +4,15 @@
             <h2 style="font-size: 24px; color: #ffffff; margin-bottom: 20px;">Habilitando Estudiante...</h2>
             <div id="animacion" style="width: 150px; height: 150px; margin: auto;"></div>
         </div>
-    </div> 
+    </div>
+
+    <div id="ReenviarInforme" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(46, 46, 46, 0.8); z-index: 9999; align-items: center; justify-content: center;">
+        <div class="loading-container" style="text-align: center;">
+            <h2 style="font-size: 24px; color: #ffffff; margin-bottom: 20px;">Reenviando informe CHASIDE...</h2>
+            <div id="animacionReenvio" style="width: 150px; height: 150px; margin: auto;"></div>
+        </div>
+    </div>
+
     <div class="container-fluid mw-100">
         <div class="row">
             <div class="card">
@@ -100,64 +108,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.1/lottie.min.js"></script>
 
 <script>
-    function habilitarEstudiante(idEstudiante) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, habilitar!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Muestra la pantalla de carga
-                document.getElementById('animacionHabilitar').style.display = 'flex';
-
-                // Cargar la animación Lottie si aún no está cargada
-                if (!window.animation) {
-                    window.animation = lottie.loadAnimation({
-                        container: document.getElementById('animacion'), // Contenedor de la animación
-                        renderer: 'svg', // Tipo de renderizado
-                        loop: true, // Repetir la animación
-                        autoplay: true, // Comienza automáticamente
-                        path: 'https://lottie.host/ead5b7de-4248-4a31-abe8-8746624c3237/pXuZlA5fzd.json' // URL del archivo JSON
-                    });
-                }
-
-                // Llamada AJAX para habilitar al estudiante
-                $.ajax({
-                    type: 'POST',
-                    url: '/estudiante/habilitar/' + idEstudiante,
-                    success: function(response) {
-                        // Oculta la pantalla de carga
-                        document.getElementById('animacionHabilitar').style.display = 'none';
-                        Swal.fire(
-                            'Habilitado!',
-                            'El estudiante ha sido habilitado.',
-                            'success'
-                        );
-
-                        cargarTabla(); // Actualiza la tabla después de habilitar
-                    },
-                    error: function(xhr, status, error) {
-                        // Oculta la pantalla de carga
-                        document.getElementById('animacionHabilitar').style.display = 'none';
-                        Swal.fire(
-                            'Error!',
-                            'No se pudo habilitar al estudiante.',
-                            'error'
-                        );
-                        console.error(error);
-                    }
-                });
-            }
-        });
-    }
-</script>
-
-<script>
     cargarTabla();
+
+    //Registrar postulante
     $(document).ready(function () {
         $('#FormularioRegistrar').submit(function (event) {
             event.preventDefault();
@@ -190,6 +143,7 @@
         });
     });
 
+    //Tabla de postulantes
     function cargarTabla() {
         $.ajax({
             type: 'POST',
@@ -211,6 +165,7 @@
         $('#sexo').val('');
         $('#date').val('');
     }
+
     function editarPersona(idPersona) {
         $.ajax({
             url: '/persona/' + idPersona,
@@ -233,32 +188,51 @@
         });
     }
 
-    function eliminarPersona(idPersona) {
+    //Habilitar postulante
+    function habilitarEstudiante(idEstudiante) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: "¡No podrás recuperar este registro!",
+            text: "¡Estás por habilitar a este estudiante a los Test Vocacionales!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminarlo!'
+            confirmButtonText: 'Sí, habilitar!'
         }).then((result) => {
             if (result.isConfirmed) {
+            
+                document.getElementById('animacionHabilitar').style.display = 'flex';
+
+                if (!window.animation) {
+                    window.animation = lottie.loadAnimation({
+                        container: document.getElementById('animacion'),
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        path: 'https://lottie.host/ead5b7de-4248-4a31-abe8-8746624c3237/pXuZlA5fzd.json'
+                    });
+                }
+
                 $.ajax({
                     type: 'POST',
-                    url: '/eliminar-persona/' + idPersona,
-                    
+                    url: '/estudiante/habilitar/' + idEstudiante,
                     success: function(response) {
+                        // Oculta la pantalla de carga
+                        document.getElementById('animacionHabilitar').style.display = 'none';
                         Swal.fire(
-                            'Eliminado!',
-                            'El registro ha sido eliminado.',
+                            'Habilitado!',
+                            'El estudiante ha sido habilitado.',
                             'success'
                         );
+
+                        cargarTabla(); 
                     },
                     error: function(xhr, status, error) {
+                        // Oculta la pantalla de carga
+                        document.getElementById('animacionHabilitar').style.display = 'none';
                         Swal.fire(
                             'Error!',
-                            'No se pudo eliminar el registro.',
+                            'No se pudo habilitar al estudiante.',
                             'error'
                         );
                         console.error(error);
@@ -296,6 +270,56 @@
                         Swal.fire(
                             'Error!',
                             'No se pudo eliminar el registro.',
+                            'error'
+                        );
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    }
+
+    function enviarPDF(idEstudiante) {
+        Swal.fire({
+            title: '¿Desea reenviar el informe CHASIDE a este estudiante?',
+            text: "¡Se reenviará su resultado del test CHASIDE!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Reenviar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                document.getElementById('ReenviarInforme').style.display = 'flex';
+
+                if (!window.animation) {
+                    window.animation = lottie.loadAnimation({
+                        container: document.getElementById('animacionReenvio'),
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        path: 'https://lottie.host/53be8c81-6efc-4447-8f79-2c78222a20c5/T2SP4GN9EK.json'
+                    });
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/chaside/' + idEstudiante,
+    
+                    success: function(response) {
+                        document.getElementById('ReenviarInforme').style.display = 'none';
+                        Swal.fire(
+                            'Reenviado!',
+                            'El informe se ha reenviado.',
+                            'success'
+                        );
+                    },
+                    error: function(xhr, status, error) {
+                        document.getElementById('ReenviarInforme').style.display = 'none';
+                        Swal.fire(
+                            'Error!',
+                            'No se pudo reenviar el informe.',
                             'error'
                         );
                         console.error(error);
