@@ -276,10 +276,7 @@ label {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 500px;
-    background-color: rgba(216, 208, 191, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 5px;
     text-align: center;
 }
 

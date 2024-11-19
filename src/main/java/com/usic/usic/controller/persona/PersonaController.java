@@ -6,11 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usic.usic.model.Service.IColegioService;
-import com.usic.usic.model.Service.IEstudianteRespuestaService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 
@@ -18,13 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Entity.Persona;
-import com.usic.usic.model.DTO.PersonaDTO;
-import com.usic.usic.model.Entity.Colegio;
 import com.usic.usic.model.Entity.Estudiante;
-import com.usic.usic.model.Entity.Genero;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PersonaController {
@@ -40,9 +34,6 @@ public class PersonaController {
 
     @Autowired
     private IEstudianteService estudianteService;
-
-    @Autowired
-    private IEstudianteRespuestaService estudianteRespuestaService;
     
     @GetMapping(value = "/vista-persona")
     public String vistaPersona(Model model) {
@@ -111,7 +102,7 @@ public class PersonaController {
     public String ListarNacionalidad(HttpServletRequest request, Model model) {
 
         model.addAttribute("personas", personaService.findAll());
-        model.addAttribute("colegios", colegioService.findAll()); // Lista de colegios
+        model.addAttribute("colegios", colegioService.findAll());
         model.addAttribute("sexos", sexoService.findAll());
         return "Persona/tabla-registroPersona";
     }
@@ -127,7 +118,6 @@ public class PersonaController {
         estudiante_encontrado.setEstado("X");
         personaService.save(persona_econtrada);
         estudianteService.save(estudiante_encontrado);
-
 
         return ResponseEntity.ok("Se eliminó el registro con éxito");
     }

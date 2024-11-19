@@ -113,7 +113,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-wrapper-one registration-area">
-                        <form class="form" action="/guardar_estudiante_inicio" method="post" novalidate>
+                        <form class="form" action="/guardar_estudiante_inicio" id="formularioPreRegistroInicio" method="post" novalidate>
                             <input type="hidden" th:field="${persona.idPersona}">
                             <p>Datos personales</p>
                             <hr>
@@ -304,12 +304,57 @@
             </div>
         </div>
     </div>
-    <!-- FT ============================================ -->
+
     <div th:replace="~{layout_test/footer :: footer}"></div>
-    <!-- JS ============================================ -->
     <div th:replace="~{layout_test/script :: script}"></div>
 
     <script>
+        $(document).ready(function() {
+            $('#formularioPreRegistroInicio').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("formularioPreRegistroInicio");
+                var action = form.action;
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if (mensaje === 'Redireccionando') {
+                            then(() => {
+                                window.location.href ="/pre_test/1";
+                            })
+                        }else if(mensaje === 'Ya estas registrado con este ci'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning"
+                            });
+                        } else if (mensaje === 'Ya estas registrado con este correo electronico'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning",
+                                customClass: 'swal2-large' 
+                            });
+                        } else  {
+                            Swal.fire(
+                                'Error!',
+                                'Respuesta inesperada del servidor: ' + mensaje + '.',
+                                'error'
+                            );
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
 
             $('#colegio').select2({
@@ -328,8 +373,8 @@
 
         /*PASS*/
         function togglePassword(event) {
-            event.preventDefault();  // Evita cualquier comportamiento predeterminado del clic
-            event.stopPropagation(); // Detiene la propagación del evento
+            event.preventDefault();
+            event.stopPropagation();
 
             var passwordInput = document.getElementById("exampleInputPassword1");
             var toggleIcon = document.getElementById("toggleIcon");
@@ -344,8 +389,6 @@
                 toggleIcon.classList.add("bi-eye");
             }
         }
-
-
 
     </script>
 </body>
