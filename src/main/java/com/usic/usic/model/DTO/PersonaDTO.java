@@ -24,10 +24,11 @@ public class PersonaDTO {
     
     private String colegio;
     private String url_certificado;
+    private String testRealizado;
 
     public PersonaDTO(String nombres, String paterno, String materno, String ci, 
                       String genero, String nacionalidad, String correo, 
-                      Date fec_nacimiento, String colegio, String url_certificado) {
+                      Date fec_nacimiento, String colegio,String url_certificado, String testRealizado) {
         this.nombres = nombres;
         this.paterno = paterno;
         this.materno = materno;
@@ -38,5 +39,6 @@ public class PersonaDTO {
         this.fec_nacimiento = fec_nacimiento;
         this.colegio = colegio;
         this.url_certificado = url_certificado;
+        this.testRealizado = testRealizado;
     }
 }

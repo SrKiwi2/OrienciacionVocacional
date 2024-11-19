@@ -45,8 +45,14 @@ public class ApiPersona {
         Persona persona_encontrada = personaService.validarCI(ci);
         Estudiante estudiante = estudianteService.findByPersona(persona_encontrada);
 
+        String test_realizado = estudianteService.hasCompletedChasideTest(estudiante.getIdEstudiante());
+        System.out.println(estudiante.getIdEstudiante());
+        System.out.println(test_realizado);
+
         PersonaDTO personaDTO = personaService.obtenerPersonaPorCi(ci);
         personaDTO.setUrl_certificado("http://virtual.uap.edu.bo:9597/reporte/pdf/"+estudiante.getIdEstudiante());
+        personaDTO.setTestRealizado(test_realizado);
+
         return ResponseEntity.ok(personaDTO);
     }
 }

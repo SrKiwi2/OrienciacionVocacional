@@ -9,6 +9,7 @@ import org.springframework.web.client.ResourceAccessException;
 import com.usic.usic.model.DTO.PersonaDTO;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
+import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.dao.IEstudianteDao;
 import com.usic.usic.model.dao.IPersonaDao;
@@ -23,6 +24,9 @@ public class PersonaServiceImpl implements IPersonaService{
 
     @Autowired
     private IEstudianteDao estudianteDao;
+
+    @Autowired
+    private IEstudianteService estudianteService;
 
     @Override
     public List<Persona> findAll() {
@@ -62,8 +66,10 @@ public class PersonaServiceImpl implements IPersonaService{
 
         Estudiante estudiante = estudianteDao.findByPersonaId(persona.getIdPersona());
 
+        String testRealizado = estudianteService.hasCompletedChasideTest(estudiante.getIdEstudiante());
+
         return new PersonaDTO(persona.getNombre(), persona.getPaterno(), persona.getMaterno(), persona.getCi(),
         persona.getGenero().getNombreGenero(), persona.getNacionalidad().getNombreNacionalidad(), persona.getCorreo(),
-        persona.getFecha(), estudiante.getColegio().getNombreColegio(), persona.getUrl_certificado());
+        persona.getFecha(), estudiante.getColegio().getNombreColegio(),testRealizado ,persona.getUrl_certificado());
     }
 }

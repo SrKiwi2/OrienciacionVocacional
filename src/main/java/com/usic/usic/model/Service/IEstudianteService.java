@@ -16,4 +16,6 @@ public interface IEstudianteService extends IServiceGenerico<Estudiante, Long>{
     Colegio findColegioByIdEstudiante(@Param("idEstudiante") Long idEstudiante);
 
     List<Estudiante> findAllOrdered();
+
+    String hasCompletedChasideTest(@Param("idEstudiante") Long idEstudiante);
 }

@@ -51,4 +51,9 @@ public class EstudianteServiceimpl implements IEstudianteService{
     public List<Estudiante> findAllOrdered() {
         return estudianteDao.findAllOrdered();
     }
+
+    @Override
+    public String hasCompletedChasideTest(Long idEstudiante) {
+        return estudianteDao.hasCompletedChasideTest(idEstudiante);
+    }
 }
