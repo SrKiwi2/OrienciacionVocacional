@@ -26,29 +26,19 @@ import java.io.FileOutputStream;
 import com.itextpdf.text.Document; 
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.usic.usic.model.Entity.Carrera;
 import com.usic.usic.model.Entity.Estudiante;
-import com.usic.usic.model.Entity.Facultad;
 import com.usic.usic.model.Entity.InformePsicopedagoga;
-import com.usic.usic.model.Entity.ResultadoIA;
 import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
 import com.usic.usic.model.IServiceImpl.InformePsicopedagogicoServiceImpl;
 import com.usic.usic.model.Repository.Sp_resultado;
 import com.usic.usic.model.Service.ICarreraService;
-import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
-import com.usic.usic.model.Service.IFacultadService;
-import com.usic.usic.model.Service.IGeneroService;
-import com.usic.usic.model.Service.IResultadoIaService;
 import com.usic.usic.model.Service.ITipoTestService;
 import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 public class PsicopedagogaController {
@@ -58,18 +48,11 @@ public class PsicopedagogaController {
 
     @Autowired
     private ITipoTestService tipoTestService;
-
-    @Autowired
-    private IFacultadService facultadService;
-
     @Autowired
     private ICarreraService carreraService;
 
     @Autowired
     private IUsuarioService iUsuarioService;
-
-    @Autowired
-    private IResultadoIaService iResultadoIaService;
 
     @Autowired
     private InformePsicopedagogicoServiceImpl informePsicopedagogicoServiceImpl;
@@ -84,12 +67,8 @@ public class PsicopedagogaController {
         model.addAttribute("num_test_sociales", sp_resultado.ObtenerNumeroEstudiantesTerminados(2L));
         model.addAttribute("num_test_profesionales", sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
         model.addAttribute("num_test_multiples", sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
-
         model.addAttribute("num_estudiantes_totales", sp_resultado.ObtenerEstudiantesTotales());
-
         System.out.println(sp_resultado.ObtenerEstudiantesTotales());
-
-
         return "Administracion/psicopedagoga/vista_psicopedagoga";
     }
 
@@ -155,6 +134,7 @@ public class PsicopedagogaController {
         for (int i = 0; i < carrerasIds.length; i++) {
             carreraService.insertInformeCarrera(informePsicopedagoga.getIdInformePsicopedagoga(), carrerasIds[i]);
         }
+
         // // Asigna la Facultad y Carrera a la entidad
         // Facultad facultad = facultadService.findById(facultadesIds.get(0)); // puedes ajustar para manejar múltiples facultades
         // Carrera carrera = carreraService.findById(carrerasIds.get(0)); // puedes ajustar para manejar múltiples carreras

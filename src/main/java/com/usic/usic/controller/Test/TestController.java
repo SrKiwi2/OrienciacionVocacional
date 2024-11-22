@@ -1,8 +1,6 @@
 package com.usic.usic.controller.Test;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +16,6 @@ import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.TipoTest;
 import com.usic.usic.model.Entity.Usuario;
-import com.usic.usic.model.Repository.Sp_resultado;
 import com.usic.usic.model.Service.IColegioService;
 import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
@@ -53,9 +50,6 @@ public class TestController {
     @Autowired
     private IPreguntaService preguntaService;
 
-    @Autowired
-    private Sp_resultado sp_resultado;
-
     @GetMapping("/")
     public String getMethodName() {
         return "redirect:/orientacion_vocacional";
@@ -69,9 +63,6 @@ public class TestController {
         model.addAttribute("generos", generoService.findAll());
         model.addAttribute("estudiantes", estudianteService.findAll());
         model.addAttribute("persona", new Persona());
-
-        System.out.println(sp_resultado.ObtenerNumeroEstudiantesTerminados(1L));
-
         return "test/inicio_test";
     }
 

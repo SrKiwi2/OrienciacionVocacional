@@ -87,6 +87,18 @@
                                         <span class="hide-menu">Administarción Nacionalidad</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item">
+                                    <a id="opcione-facultdad" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Administarción Facultad</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a id="opcione-carrera" type="button" class="sidebar-link">
+                                        <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Administarción Carrera</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -368,6 +380,26 @@
                         botonPulsado.classList.remove("active");
                     }
                     botonPulsado = document.getElementById("opcionesTipoTest");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcione-facultdad").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/facultad/vista");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcione-facultdad");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcione-carrera").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/carrera/vista");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcione-carrera");
                     botonPulsado.classList.add("active");
                 });
 

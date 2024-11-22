@@ -1,0 +1,86 @@
+<div id="main-wrapper">
+    <div class="container-fluid mw-100">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Lista de Carreras registradas</h5>
+                <button type="button" class="btn btn-primary btn-mg" onclick="cargarFormulario()" data-bs-toggle="modal" data-bs-target="#registroModal">
+                    Registrar Carrera
+                </button>
+            </div>
+            <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModal" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content" id="formularioCarrera_">
+                    </div>
+                </div>
+            </div>
+            <div id="TablaCarrera"></div>
+        </div>
+    </div>
+</div>
+<script  th:inline="javascript">
+    cargarTabla();
+
+    function cargarTabla() {
+        $.ajax({
+            type: 'POST',
+            url: "/carrera/tabla-registros",
+            success: function (response) {
+                $("#TablaCarrera").html(response);
+            }
+        });
+    }
+
+    function cargarFormulario() {
+        $.ajax({
+            type: 'POST',
+            url: "/carrera/formulario",
+            success: function (response) {
+                $("#formularioCarrera_").html(response);
+            }
+        });
+    }
+</script>   
+
+<script>
+    function EliminarRegistro(id, nombre) {
+        Swal.fire({
+            title: '¡Atención!',
+            text: '¿Estas Seguro que desea eliminar el registro: " '+ +' ' + nombre + ' "?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "/carrera/eliminar/" + id,
+                    success: function (response) {
+                        cargarTabla();
+                        Swal.fire(
+                            'Eliminado!',
+                            'Este registro se ha eliminado con éxito.',
+                            'success'
+                        );
+                    }, error: function (xhr, status, error) {s
+                        console.log(error);
+                    }
+                });
+            }
+        });
+    }
+
+    function cargarModFormulario(id) {
+        $.ajax({
+            url: '/carrera/formulario-edit/' + id,
+            method: 'GET',
+            success: function (response) {
+                $("#formularioCarrera_").html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

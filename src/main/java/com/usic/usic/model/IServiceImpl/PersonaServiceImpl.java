@@ -61,8 +61,7 @@ public class PersonaServiceImpl implements IPersonaService{
     @Override
     public PersonaDTO obtenerPersonaPorCi(String ci) {
         
-        Persona persona = personaDao.findByCi(ci)
-        .orElseThrow(() -> new ResourceAccessException("Persona no encontrada con CI: " + ci));
+        Persona persona = personaDao.validarCI(ci);
 
         Estudiante estudiante = estudianteDao.findByPersonaId(persona.getIdPersona());
 

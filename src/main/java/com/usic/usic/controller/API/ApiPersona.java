@@ -40,14 +40,13 @@ public class ApiPersona {
         if (personaService.validarCI(ci) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                              .body("El CI proporcionado no corresponde a ningún estudiante registrado.");
+                            
         }
         
         Persona persona_encontrada = personaService.validarCI(ci);
         Estudiante estudiante = estudianteService.findByPersona(persona_encontrada);
 
         String test_realizado = estudianteService.hasCompletedChasideTest(estudiante.getIdEstudiante());
-        System.out.println(estudiante.getIdEstudiante());
-        System.out.println(test_realizado);
 
         PersonaDTO personaDTO = personaService.obtenerPersonaPorCi(ci);
         personaDTO.setUrl_certificado("http://virtual.uap.edu.bo:9597/reporte/pdf/"+estudiante.getIdEstudiante());

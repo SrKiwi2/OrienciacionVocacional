@@ -170,7 +170,7 @@ public class PreTestController {
         promptAreas.append("Aptitudes: ").append(interpretacionAptitudes).append("\n");
         promptAreas.append("Determina las áreas profesionales más adecuadas para mi. \n");
         promptAreas.append("Ejemplos de áreas son: Área Administrativa, Área de Humanidades y Ciencias Sociales y Jurídicas, Área Artística, Área de Ciencias de la Salud, etc. \n");
-        promptAreas.append("Sé específico y proporciona una lista clara de las áreas que podrían corresponder a los intereses y aptitudes que me has proporcionado.");
+        promptAreas.append("Sé específico y proporciona una lista indicandome el porcentaje de las áreas que mas se adecuan a mi evaluacion que que correspondan a los intereses y aptitudes que me has proporcionado.");
         promptAreas.append("Máximo de 50 palabras.");
 
         String interpretacionAreas = llamarAI(promptAreas.toString());

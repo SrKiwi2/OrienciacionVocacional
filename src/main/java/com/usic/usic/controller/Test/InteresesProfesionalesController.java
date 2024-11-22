@@ -110,6 +110,7 @@ public class InteresesProfesionalesController {
         promptInteresesP.append("\nPor favor, analiza estas preguntas y respuestas desde la perspectiva de un evaluador psicopedagogo, identificando las áreas en las que el estudiante se desenvuelve con mayor afinidad. ");
         promptInteresesP.append("Describe sus desarrollos y afinidades usando un tono positivo, y menciona frases como 'tus desenvolvimientos son...', 'tus gustos son...', y 'tus preferencias son...'. ");
         promptInteresesP.append("Con base en estos desarrollos, selecciona tres áreas profesionales potenciales e incluye un máximo de tres carreras relacionadas en cada área (por ejemplo, Ciencias Jurídicas y Políticas: Derecho, Matemáticas e Informática: Ingeniería en Sistemas, Ingeniería Civil).");
+        promptInteresesP.append("Me las señalas en porcentaje, para saber cual de ellas se apega mas a mi afinidad.");
         promptInteresesP.append("Dame un resultado en un maximo de 150 palabras, bien acomodado y claro");
         String interesesProfesionales = llamarAI(promptInteresesP.toString());
 

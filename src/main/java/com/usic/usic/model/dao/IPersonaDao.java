@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import com.usic.usic.model.Entity.Persona;
 
 public interface IPersonaDao extends JpaRepository <Persona, Long>{
-    
-    @Query("SELECT p FROM Persona p WHERE p.ci = :ci")
+
+    @Query(value = "SELECT * FROM Persona p WHERE p.ci = :ci AND p._estado = 'E' LIMIT 1", nativeQuery = true)
     Persona validarCI(@Param("ci") String ci);
 
     Persona findByCorreo(String correo);

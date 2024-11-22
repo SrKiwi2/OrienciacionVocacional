@@ -19,7 +19,7 @@ public class PersonaDTO {
     private String nacionalidad;
     private String correo;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date fec_nacimiento;
     
     private String colegio;

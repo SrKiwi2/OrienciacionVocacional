@@ -45,5 +45,15 @@ public class ICarreraServiceImpl implements ICarreraService {
         // TODO Auto-generated method stub
         carreraDao.insertInformeCarrera(idInformePsicopedagoga, idCarrera);
     }
+
+    @Override
+    public Carrera buscarCarreraPorNombre(String carrera) {
+        return carreraDao.buscarCarreraPorNombre(carrera);
+    }
+
+    @Override
+    public List<Carrera> listarCarreras() {
+        return carreraDao.listarCarreras();
+    }
     
 }
