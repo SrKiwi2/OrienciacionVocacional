@@ -43,7 +43,6 @@ public class GoogleLoginController {
                 sessionEstudiantes.setAttribute("persona", usuario.getPersona());
                 sessionEstudiantes.setAttribute("nombre_rol", usuario.getRol().getNombre());
                 flash.addAttribute("success", usuario.getPersona().getNombre());
-            System.out.println("Estuden con gmail ingreso a los test");
             return "redirect:/tests";
         } else {
             if ("NO EXISTE".equals(estado)) {
