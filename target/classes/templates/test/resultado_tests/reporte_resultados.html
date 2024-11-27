@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe en tamaño oficio con filas y columnas</title>
+    <title>INFORME PSICOPEDAGOGICO</title>
     <style>
         /* Tamaño del documento */
         
@@ -37,6 +37,7 @@
 
         /* Contenedor principal */
         .container {
+            
             width: 100%;
             max-width: 6.5in;
             padding: 0.5in;
@@ -46,16 +47,23 @@
 
         /* Encabezado */
         .header {
+            border: 1px solid black;
             text-align: center;
             margin-bottom: 20px;
         }
+        .header-img {
+            border: 1px solid black;
+            text-align: center;
+        }
 
         .header h1 {
+            
             font-size: 24px;
             margin: 0;
         }
 
         .header p {
+            
             font-size: 14px;
             color: #666;
             margin: 0;
@@ -63,6 +71,7 @@
 
         /* Cuerpo del informe en filas y columnas */
         .content {
+            border: 1px solid black;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -74,6 +83,7 @@
 
         /* Estilos de las filas */
         .row {
+            
             display: flex;
             gap: 1px;
             /* Espacio entre columnas */
@@ -82,6 +92,7 @@
 
         /* Columnas dentro de cada fila */
         .column {
+           
             flex: 1;
             /* Cada columna ocupará el mismo espacio */
             padding: 1px;
@@ -115,38 +126,41 @@
 
 <body>
     <div class="container">
-        <!-- Encabezado -->
+        <div class="header-img">
+            <div class="row">
+                <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
+                        <img src="../assets/images/logos/centro_Mesa de trabajo 1_Mesa de trabajo 1.png" style="width: 80px; height: 90px;" alt="homepage" />
+                    </div>
+                </div>
+                <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
+                        <img src="../assets/images/logos/uap.png" style="width: 100px; height: 95px;" alt="homepage" />
+                    </div>
+                </div>
+                <div class="column" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
+                        <img src="../assets/images/logos/Logo_Gabinete_Psicopedagógico.png" style="width: 92px; height: 92px;" alt="homepage" />
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="header">
             <div class="row">
-                <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center">
-                    <img src="../assets/images/logos/DIRECCION_ACADEMICA LOGO_Mesa de trabajo_1.png" style="width: 80px; height: 80px;" alt="homepage" />
-                </div>
                 <div class="column" style="flex: 2;">
                     <div class="row">
                         <div class="column" style="display: flex; align-items: center; justify-content: center">
-                            <h3>INFORME PSICOPEDAGÓGICO</h3>
+                            <h3 style="margin-bottom: -1px;" >INFORME PSICOPEDAGÓGICO</h3>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column" style="display: flex; align-items: center; justify-content: center;">
-                            <h4>PROGRAMA DE ORIENTACIÓN VOCACIONAL Y PROFESIONAL</h4>
+                            <h4 style="margin-top: -1px;">PROGRAMA DE ORIENTACIÓN VOCACIONAL Y PROFESIONAL</h4>
                         </div>
                     </div>
                 </div>
-                <div class="column" style="flex: 1; display: flex; align-items: center; justify-content: center;">
-                    <img src="../assets/images/logos/Logo_Gabinete_Psicopedagógico.png" style="width: 80px; height: 80px;" alt="homepage" />
-                </div>
             </div>
         </div>
-
-        <div class="content">
-            <div class="row">
-                <div class="column">
-                    <p>El Vicerrectorado, Dirección Académica, Centro de proyectos Especiales y Formación Permanente a travéz del Gabinete <b>Psicopedagógico</b> gace la entrega de los resultados de Orientación Vocacional y Profesional a estudiantes que culminaron el Primer Modulo del Programa de Admisión y Permanencia Estudiantil en la UAP.</p>
-                </div>
-            </div>
-        </div>
-
         <div class="content">
             <div class="row">
                 <div class="column">
@@ -162,11 +176,6 @@
                             <tr>
                                 <td style="width: 33.3333%;"><b>NOMBRE Y APELLIDOS</b></td>
                                 <td style="width: 33.3333%;" th:text="${informePsicopedagoga.estudiante.persona.nombre+' '+informePsicopedagoga.estudiante.persona.paterno+' '+informePsicopedagoga.estudiante.persona.materno}">JOSE ANGEL CORO NAVARRO</td>
-                                <td style="width: 33.3333%;"><br></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 33.3333%;"><b>SEXO</b></td>
-                                <td style="width: 33.3333%;" th:text="${informePsicopedagoga.estudiante.persona.genero.nombreGenero}">MASCULINO</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
@@ -189,12 +198,7 @@
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
                             <tr>
-                                <td style="width: 33.3333%;"><b>EVALUADOR</b></td>
-                                <td style="width: 33.3333%;" th:text="${evaluador}"></td>
-                                <td style="width: 33.3333%;"><br></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 33.3333%;"><b>FECHA GENERADO</b></td>
+                                <td style="width: 33.3333%;"><b>FECHA DE ENTREGA</b></td>
                                 <td style="width: 33.3333%;" th:text="${fecha_generado}">19 DE OCTUBRE DE 2023</td>
                                 <td style="width: 33.3333%;"><br></td>
                             </tr>
@@ -213,7 +217,7 @@
                     </div>
                     <div class="row">
                         <div class="column">
-                            <p>Determinar las características de personalidades de personalidad destacadas. con relación a las aptitudes, actitudes. intereses y aspiraciones que presenta el/la estudiante para su correcta toma de decisiones en la elección de una Carrera profesional.</p>
+                            <p>Brindar información sobre las caracteristicas de personalidad más destacadas, con relación a sus aptitudes, valores, actitudes, interese y aspirraciones que presenta el/la estudiante, para su correcta toma de decisiones en la eleccion de una carrera profesional.</p>
                         </div>
                     </div>
                 </div>
@@ -229,7 +233,7 @@
                     </div>
                     <div class="row">
                         <div class="column">
-                            <p><b>TEST:</b>  CHASIDE, HABILIDADES SOCIALES, INTELIGENCIAS MULTIPLES, INTERESES PROFESIONALES</p>
+                            <p>CHASIDE, Habilidades Sociales, Inteligencias Multiples e Intereses Profesionales.</p>
                         </div>
                     </div>
                 </div>
@@ -252,28 +256,21 @@
                     <div class="row">
                         <div class="column">
                             <p>
-                                <em th:text="${' - '+intepretaciones.columna1}"></em>  
+                                <em th:text="${' CHASIDE: '+intepretaciones.columna1}"></em>  
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
                             <p>
-                                <em th:text="${' - '+intepretaciones.columna2}"></em>  
+                                <em th:text="${' Habilidades Sociales: '+intepretaciones.columna2}"></em>  
                             </p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
                             <p>
-                                <em th:text="${' - '+intepretaciones.columna3}"></em>  
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <p>
-                                <em th:text="${' - '+intepretaciones.columna4}"></em>  
+                                <em th:text="${' Inteligencias Múltiples: '+intepretaciones.columna3}"></em>  
                             </p>
                         </div>
                     </div>
@@ -286,18 +283,17 @@
                 <div class="column">
                     <div class="row">
                         <div class="column">
-                            <label><b>V. CONCLUCIONES:</b></label>
+                            <label><b>V. CONCLUCIONES AL PERFIL PROFESIONAL:</b></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                            <p>Determinar las caracteristicas de personalidad destacadas, con relación a las aptitudes, actitudes, intereses y aspiraciones que presenta el/la estudiante para su correcta toma de decisiones en la eleccion de una Carrera profesional.</p>
+                            <p>De acuerdo a los resultados obtenidos, el estudinate demuestra intereses vocasionales pertinentes, con las siguientes Áreas y Carreras.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
         <div class="content">
             <div class="row">
                 <div class="column">
@@ -305,10 +301,7 @@
                         <tbody>
                             <tr>
                                 <td style="width: 20%; text-align: center;"><b>ÁREA</b></td>
-                                
                                 <td style="width: 30%;" th:text="${lista_carreras[0].carrera}"></td>
-                                
-                                
                                 <td style="width: 20%; text-align: center;"><b>CARRERAS</b></td>
                                 <td style="width: 30%;">
                                     <ul th:each="listc : ${lista_carreras}">
@@ -321,36 +314,21 @@
                 </div>
             </div>
         </div>
-
         <div class="content">
             <div class="row">
-                <div class="column">
-                    <div class="row">
-                        <div class="column">
-                            <p><b>Otros: </b></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="row">
-                <div class="column" style="padding-top: 100px;">
-                    <table style="width: 100%; font-size: 11px;">
+                <div class="column" style="padding-top: 80px;">
+                    <table style="width: 100%; font-size: 10px;">
                         <tbody>
                             <tr style="text-align: center;">
-                                <td style="width: 33.3333%;"><span>Lic. Ygnacio Mendoza Nilaca</span><br><b>TEC. GAB. PSICOPEDAGÓGICO</b><br></td>
-                                <td style="width: 33.3333%;"><span>Dr. Humberto Fernández Calle Ph.D.</span><br> <b>DIRECTOR ACADÉMICO a.i. UAP</b><br></td>
-                                <td style="width: 33.3333%;"><span>M.Sc. Oscar Felipe Melgar Saucedo</span><br> <b>VICERRECTOR UAP</b><br></td>
+                                <td style="width: 33.3333%;"><br><b>TEC. GAB. PSICOPEDAGÓGICO</b><br></td>
+                                <td style="width: 33.3333%;"><br><b>RESPONSABLE DEL C.P.E Y F.P-UAP</b><br></td>
+                                <td style="width: 33.3333%;"><br><b>DIRECTOR ACADÉMICO</b><br></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
-
     </div>
 </body>
 

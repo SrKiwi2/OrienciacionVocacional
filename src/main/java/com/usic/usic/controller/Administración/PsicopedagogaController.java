@@ -106,9 +106,8 @@ public class PsicopedagogaController {
                                 @RequestParam("habilidadesSociales") String habilidadesSociales,
                                 @RequestParam("estiloAprendizaje") String estiloAprendizaje,
                                 @RequestParam("coeficienteIntelectual") String coeficienteIntelectual,
-                                @RequestParam("conclusion") String conclusion,
                                 @RequestParam("idEstudiante") Long idEstudiante,
-                                @RequestParam("fechaEntrega") Date fechaEntrega,
+                                @RequestParam("fechaEntrega") LocalDate fechaEntrega,
                                 RedirectAttributes redirectAttributes,
                                 HttpServletRequest request) {
 
@@ -120,7 +119,6 @@ public class PsicopedagogaController {
         String interpretacion = String.join(" / ", habilidadesSociales, estiloAprendizaje, coeficienteIntelectual);
         informePsicopedagoga.setFechaEntrega(fechaEntrega);
         informePsicopedagoga.setInterpretacion(interpretacion);
-        informePsicopedagoga.setConclusion(conclusion);
         informePsicopedagoga.setRegistroIdUsuario(usuario.getIdUsuario());
         informePsicopedagoga.setModificacionIdUsuario(usuario.getIdUsuario());
         informePsicopedagogicoServiceImpl.save(informePsicopedagoga);

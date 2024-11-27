@@ -45,7 +45,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
-                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega">
+                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega" required>
                 </div>
             </div>
         </div>
@@ -91,14 +91,14 @@
         </div>
         <div class="card-body">
 
-            <label for="fechaEntrega" class="form-label">HABILIDADES SOCIALES</label>
-            <textarea class="form-control" id="habilidadeSociales" name="habilidadesSociales" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <label for="fechaEntrega" class="form-label">CHASIDE</label>
+            <textarea class="form-control" id="habilidadeSociales" name="habilidadesSociales" rows="4" placeholder="Introduce tu evaluación" required></textarea><br>
 
-            <label for="fechaEntrega" class="form-label">ESTILO DE APRENDIZAJE</label>
-            <textarea class="form-control" id="inteligenciasMultiples" name="estiloAprendizaje" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <label for="fechaEntrega" class="form-label">Habilidades Sociales</label>
+            <textarea class="form-control" id="inteligenciasMultiples" name="estiloAprendizaje" rows="4" placeholder="Introduce tu evaluación" required></textarea><br>
 
-            <label for="fechaEntrega" class="form-label">COEFICIENTE INTELECTUAL</label>
-            <textarea class="form-control" id="interesesProfesionales" name="coeficienteIntelectual" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <label for="fechaEntrega" class="form-label">Inteligencias Múltiples</label>
+            <textarea class="form-control" id="interesesProfesionales" name="coeficienteIntelectual" rows="4" placeholder="Introduce tu evaluación" required></textarea><br>
         </div>
     </div>
 
@@ -118,7 +118,7 @@
                     <label for="unidadEducativa" class="form-label">CARRERAS</label>
                     <select class="form-select" name="l_carrera" multiple>
                         <th:block th:each="ca : ${carreras}">
-                            <option th:value="${ca.idCarrera}" th:text="${ca.carrera}"></option>
+                            <option th:value="${ca.idCarrera}" th:text="${ca.carrera}" required></option>
                         </th:block>
                     </select>
                 </div>
