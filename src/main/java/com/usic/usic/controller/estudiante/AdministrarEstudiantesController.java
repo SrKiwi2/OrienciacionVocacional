@@ -50,7 +50,7 @@ public class AdministrarEstudiantesController {
         return "Estudiante/admin-estudiantes/adm_estudiante";
     }
 
-    @GetMapping("/formularioEditEstudiante/{idEstudiante}") // Formulario Edit Estudiante
+    @GetMapping("/formularioEditEstudiante/{idEstudiante}")
     public String formulariEditEstudiante(@PathVariable("idEstudiante") Long idEstudiante, Model model) {
         model.addAttribute("estudiante", estudianteService.findById(idEstudiante));
         model.addAttribute("colegioss", colegioService.findAll());

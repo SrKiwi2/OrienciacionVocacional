@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="../assets/images/logos/logo-icon.svg" />
-
-    <!-- Core Css -->
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-
-    <title>AdminPro Template by WrapPixel</title>
-</head>
+<head th:replace="~{layout_test/head :: head}"></head>
 
 <body>
     <!-- Preloader -->
@@ -79,7 +66,7 @@
                                     <span
                                         class="border-top w-100 position-absolute top-50 start-50 translate-middle"></span>
                                 </div>
-                                <form action="/iniciar-sesion" method="POST">
+                                <form action="/iniciar-sesion" method="POST" id="iniciar">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Username</label>
                                         <input type="text" name="usuario" class="form-control"/>
@@ -120,17 +107,76 @@
         </div>
     </div>
     <div class="dark-transparent sidebartoggler"></div>
-    <!-- Import Js Files -->
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/libs/simplebar/dist/simplebar.min.js"></script>
-    <script src="../assets/js/theme/app.init.js"></script>
-    <script src="../assets/js/theme/theme.js"></script>
-    <script src="../assets/js/theme/app.min.js"></script>
-    <script src="../assets/js/theme/sidebarmenu.js"></script>
-    <script src="../assets/js/theme/feather.min.js"></script>
 
-    <!-- solar icons -->
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <style>
+        /* Personalizar el título */
+        .swal-title {
+            font-size: 24px; /* Cambia el tamaño del título */
+            font-weight: bold; /* Opcional: Hazlo más grueso */
+        }
+
+        /* Personalizar el texto del contenido */
+        .swal-text {
+            font-size: 18px; /* Cambia el tamaño del texto */
+        }
+
+        .swal-button {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('#iniciar').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("iniciar");
+                var action = form.action;
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if(mensaje === 'Este usuario no esta habilitado'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning",
+                                customClass: {
+                                    title: 'swal-title',
+                                    content: 'swal-text'
+                                },
+                                
+                            });
+                        }else if(mensaje === 'login estudiante'){
+                            window.location.href = "/tests";
+                        }else if(mensaje === 'login administrador'){
+                            window.location.href = "/admin/vista-administrador";
+                        }else if(mensaje === 'no existe el usuario'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning",
+                                customClass: {
+                                    title: 'swal-title',
+                                    content: 'swal-text'
+                                }
+                            });
+                        }
+                    },
+                    error: (xhr, status, error) => {
+                        console.error("Error: ", status, error);
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.');
+                    }
+                });
+            });
+        });
+
+    </script>
+    <div th:replace="~{layout_test/script :: script}"></div>
 </body>
 
 </html>

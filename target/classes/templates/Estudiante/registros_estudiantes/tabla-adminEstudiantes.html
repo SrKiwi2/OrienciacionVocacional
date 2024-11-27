@@ -5,10 +5,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-2">
-                            <h5 class="mb-0">SOLICITUD PRE REGISTRO</h5>
+                            <h5 class="mb-0">LISTA PRE-REGISTRO</h5>
                         </div>
                         <p class="card-subtitle mb-3">
-                            Datos de los estudiantes vigentes
+                            LISTA DE ESTUDIANTES QUE HAN REALIZADO EL PRE REGISTRO - POSTULANTES
                         </p>
                         <div class="table-responsive">
                             <table id="file_export"
@@ -23,6 +23,7 @@
                                         <th>C.I</th>
                                         <th>Colegio</th>
                                         <th>Grado</th>
+                                        <th>ID Estudiante</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
@@ -35,6 +36,7 @@
                                         <td th:text="${e.persona.ci}"></td>
                                         <td th:text="${e.colegio.nombreColegio}"></td>
                                         <td th:text="${e.grado}"></td>
+                                        <td class="text-center" th:text="${e.idEstudiante}"></td>
                                         <td class="text-center">
 
                                             <div id="spinner-overlay2" class="spinner-overlay2" style="display: none;">

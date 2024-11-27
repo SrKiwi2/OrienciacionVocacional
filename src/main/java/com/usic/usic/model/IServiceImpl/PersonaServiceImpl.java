@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import com.usic.usic.model.DTO.PersonaDTO;
 import com.usic.usic.model.Entity.Estudiante;
@@ -13,8 +12,6 @@ import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IPersonaService;
 import com.usic.usic.model.dao.IEstudianteDao;
 import com.usic.usic.model.dao.IPersonaDao;
-
-import jakarta.annotation.Resource;
 
 @Service
 public class PersonaServiceImpl implements IPersonaService{
@@ -70,5 +67,10 @@ public class PersonaServiceImpl implements IPersonaService{
         return new PersonaDTO(persona.getNombre(), persona.getPaterno(), persona.getMaterno(), persona.getCi(),
         persona.getGenero().getNombreGenero(), persona.getNacionalidad().getNombreNacionalidad(), persona.getCorreo(),
         persona.getFecha(), estudiante.getColegio().getNombreColegio(),testRealizado ,persona.getUrl_certificado());
+    }
+
+    @Override
+    public Persona buscarPersonaPorCI(String ci) {
+        return personaDao.buscarPersonaPorCI(ci);
     }
 }

@@ -1,6 +1,7 @@
 package com.usic.usic.controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class LoginController {
     private IUsuarioService  usuarioService;
 
     @PostMapping("/iniciar-sesion")
-    public String iniciarSesion(@RequestParam(value = "usuario") String user,
+    public ResponseEntity<?> iniciarSesion(@RequestParam(value = "usuario") String user,
                             @RequestParam(value = "contrasena") String contrasena, 
                             Model model, HttpServletRequest request,
                             RedirectAttributes flash) {
@@ -31,8 +32,7 @@ public class LoginController {
         if (usuario != null) {
 
             if (usuario.getEstado().equals("INHABILITADO")) {
-                System.out.println("NO ESTA ACTIVO ESTE USUARIO");
-                return "redirect:/orientacion_vocacional";
+                return ResponseEntity.ok("Este usuario no esta habilitado");
             }
 
             if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {
@@ -43,8 +43,7 @@ public class LoginController {
                 sessionEstudiantes.setAttribute("nombre_rol", usuario.getRol().getNombre());
                 flash.addAttribute("success", usuario.getPersona().getNombre());
                 
-                System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como estudiante.");
-                return "redirect:/tests";
+                return ResponseEntity.ok("login estudiante");
 
             }else{
                 HttpSession sessionAdministrador = request.getSession(true);
@@ -52,13 +51,11 @@ public class LoginController {
                 sessionAdministrador.setAttribute("persona", usuario.getPersona());
                 sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
                 flash.addAttribute("success", usuario.getPersona().getNombre());
-                System.out.println("El usuario " + usuario.getPersona().getNombre() + " ha iniciado sesión como administrador.");
-                return "redirect:/vista-administrador";
+                return ResponseEntity.ok("login administrador");
             }
 
         } else {
-            System.out.println("tas fuera");
-            return "redirect:/orientacion_vocacional";
+            return ResponseEntity.ok("no existe el usuario");
         }
     }
 

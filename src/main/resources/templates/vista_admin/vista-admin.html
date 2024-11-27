@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+    <head th:replace="~{layout/head :: head}" ></head>
+    <body>
+        <div th:replace="~{layout/preloader :: preloader}"></div>
+        <div id="main-wrapper">
+
+            <aside th:replace="~{layout/sidebar :: sidebar}"></aside>
+            
+            <div class="page-wrapper">
+                <header th:replace="~{layout/topbar :: topbar}"></header>
+                <div class="body-wrapper">
+                    <div class="container-fluid mw-100">
+                        <div th:replace="~{layout/card-modulo :: cardFragment('Bienvenido al Sistema de Orientación Vocacional!', 'Inicio', '/admin/vista-administrador', 'Inicio')}"></div>
+                        <div id="main-content"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer bg-color--1 mt-0 p-4">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="footer-left d-flex flex-column flex-sm-row align-items-center justify-content-between">
+                                <span class="d-block mb-2 mb-sm-0">©2024 USIC, Universidad Amazónica de Pando.</span>
+                                <ul class="privacy list-inline mb-0">
+                                    <li class="list-inline-item"><a href="#">Términos</a></li>
+                                    <li class="list-inline-item"><a href="#">Política de Privacidad</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="footer-right text-center text-lg-end">
+                                <ul class="social-icons list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="https://www.facebook.com/kevin.callisaya.165" target="_blank" aria-label="Facebook">
+                                            <i data-feather="facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" aria-label="Twitter">
+                                            <i data-feather="twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" aria-label="Instagram">
+                                            <i data-feather="instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" aria-label="LinkedIn">
+                                            <i data-feather="linkedin"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" aria-label="Email">
+                                            <i data-feather="mail"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{layout/script :: script}"></div>
+
+        <script>
+
+            var botonPulsado;
+            $(document).ready(function () {
+
+                cargarContenido("/admin/contenido-admin");
+
+                $("#opcionesAdminRol").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista-rol");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminRol");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminUsuario").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/administrar-usuario");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminUsuario");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminPersona").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista-persona");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminPersona");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesRegistroEstudiante").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista-estudiantes");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesRegistroEstudiante");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminEstudiante").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/administracion_estudiante");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminEstudiante");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminColegio").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/administrar-colegio");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminColegio");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminGenero").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/administrar-sexo");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminGenero");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAdminNacionalidad").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/administrar-nacionalidad");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAdminNacionalidad");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesAvanceEstudiantes").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista_psicopedagoga");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesAvanceEstudiantes");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesHabilitarTest").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/vista_configuracion");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesHabilitarTest");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesPregunta").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_pregunta");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesPregunta");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesTipoPregunta").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_tipo_pregunta");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesTipoPregunta");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcionesTipoTest").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/adm_vista_tipo_test");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcionesTipoTest");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcione-facultdad").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/facultad/vista");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcione-facultdad");
+                    botonPulsado.classList.add("active");
+                });
+
+                $("#opcione-carrera").click(function (e){
+                    e.preventDefault();
+                    cargarContenido("/carrera/vista");
+                    if (botonPulsado.classList.contains("active")){
+                        botonPulsado.classList.remove("active");
+                    }
+                    botonPulsado = document.getElementById("opcione-carrera");
+                    botonPulsado.classList.add("active");
+                });
+
+                function cargarContenido(url) {
+
+                    $("#main-content").html(`
+                                    <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            </div>
+                    `);
+                    const miDiv = document.getElementById("main-content");
+                    miDiv.removeAttribute("style");
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        success: function (data) {
+                            $("#main-content").html(data);
+                            miDiv.setAttribute("style", "opacity: 1; width: 100%; transition: all 0.5s ease-out;"
+                            );
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("Error al cargar contenido: " + textStatus + " " + errorThrown);
+                            Swal.fire("Error", "No se pudo cargar el contenido.", "error");
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

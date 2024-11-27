@@ -49,7 +49,7 @@ public class Sp_resultado {
         String sql = "select count(distinct e.id_estudiante) "+
                         "from estudiante e "+
                         "inner join persona p on p.id_persona = e.id_persona "+
-                        "where e._estado != 'X' and p._estado != 'X'";
+                        "where e._estado != 'INHABILITADO' and p._estado != 'X'";
 
         try {
             // Se pasa el parámetro id_tipo_test dos veces (uno para cada ? en la consulta)

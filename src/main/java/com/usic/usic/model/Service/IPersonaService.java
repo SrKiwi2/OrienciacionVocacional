@@ -14,4 +14,6 @@ public interface IPersonaService extends IServiceGenerico <Persona, Long> {
     Persona findByCorreo(String correo);
 
     PersonaDTO obtenerPersonaPorCi(String ci);
+
+    Persona buscarPersonaPorCI(String ci);
 }

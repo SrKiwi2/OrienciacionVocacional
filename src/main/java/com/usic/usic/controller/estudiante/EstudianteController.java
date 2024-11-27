@@ -67,8 +67,6 @@ public class EstudianteController {
 
     @GetMapping("/total-respuestas-si/{idEstudiante}")
     public ResponseEntity<Integer> getTotalRespuestasSi(@PathVariable Long idEstudiante) {
-        Estudiante estudiante = estudianteService.findById(idEstudiante);
-        System.out.println(estudiante);
         int totalRespuestasSi = estudianteRespuestaService.countRespuestasSiByEstudiante(idEstudiante);
         return ResponseEntity.ok(totalRespuestasSi);
     }
@@ -86,9 +84,7 @@ public class EstudianteController {
 
     @PostMapping("/listarEstudiantesInicio")
     public String listarEstudiantesInicio(HttpServletRequest request, Model model) {
-
         model.addAttribute("estudiantes", estudianteService.findAll());
-
         return "Estudiante/registros_estudiantes/tabla-adminEstudiantes";
     }
 
@@ -98,13 +94,11 @@ public class EstudianteController {
                                             @RequestParam("colegio") Long idColegio,
                                              Model model) {
 
-        // Verificar si el CI ya existe
         Persona existingPersonaByCi = personaService.validarCI(persona.getCi());
         if (existingPersonaByCi != null) {
             return ResponseEntity.badRequest().body("El CI ya está registrado.");
         }
 
-        // Verificar si el correo electrónico ya existe
         Persona existingPersonaByEmail = personaService.findByCorreo(persona.getCorreo());
         if (existingPersonaByEmail != null) {
             return ResponseEntity.badRequest().body("El correo electrónico ya está registrado.");
@@ -202,14 +196,11 @@ public class EstudianteController {
             return ResponseEntity.ok("Redireccionando");
 
         } catch (Exception ex) {
-            // Manejo de excepciones generales
-            ex.printStackTrace(); // Opcional: Para depuración
+            ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                 .body("Ah ocurrido algo inesperado :(, vuelvo a intentar" + ex.getMessage());
         }
-        
     }
-
     
     @PostMapping("/estudiante/habilitar/{idEstudiante}")
     public ResponseEntity<?> habilitarEstudiante(@PathVariable Long idEstudiante) {
@@ -272,6 +263,4 @@ public class EstudianteController {
         }
         return nombreCompleto.toString();
     }
-
-    
 }

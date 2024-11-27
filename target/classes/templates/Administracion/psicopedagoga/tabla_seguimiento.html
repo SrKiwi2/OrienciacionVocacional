@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <p class="card-subtitle mb-3">
-                    Seguimiento de Estudiantes
+                    ESTUDIANTES EN PROCESO DE EVALUCACIÓN
                 </p>
                 <div class="table-responsive">
                     <table id="file_export" class="table border w-100 table-striped table-bordered display text-nowrap" style="font-size: 12px">
@@ -25,15 +25,10 @@
                                 <td th:text="${e.persona.materno}"></td>
                                 <td th:text="${e.persona.ci}"></td>
                                 <td class="text-center">
-                                    <a class="btn btn-info me-2" type="button" style="color: aliceblue;"
+                                    <a class="btn btn-danger me-2" type="button"
                                         data-bs-toggle="modal" data-bs-target="#evaluacionEstudianteModal"
                                         th:attr="onclick='DatosFormulario(' + ${e.idEstudiante} + ', \'view\')'">
-                                        <i class="ti ti-eye"> Generar Reporte</i>
-                                    </a>
-                                    <a class="btn btn-primary me-2" type="button" style="color: aliceblue;"
-                                        data-bs-toggle="modal" data-bs-target="#formularioEstudiantesA"
-                                        th:attr="onclick='cargarFormEdit(\'' + ${e.idEstudiante} + '\', \'edit\')'">
-                                        <i>Avance</i>
+                                        <i class="ti ti-file-3d"> Generar Informe Psicopedagogico</i>
                                     </a>
                                 </td>
                             </tr>

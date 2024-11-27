@@ -5,11 +5,11 @@ $(function () {
     let numTestMultiples = document.getElementById("num_test_multiples").value;
 
     let numEstudiantesTotales = document.getElementById("num_estudiantes_totales").value;
-
+    console.log(numEstudiantesTotales);
     
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [(numTestChaside*100)/numEstudiantesTotales],
+        series: [numTestChaside],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -25,6 +25,9 @@ $(function () {
                     value: {
                         color: "#a1aab2",
                         show: true,
+                        formatter: function (val) {
+                            return Math.round(val); // Redondea al entero más cercano
+                        }
                     },
                 },
             },
@@ -40,7 +43,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [(numTestSociales*100)/numEstudiantesTotales],
+        series: [numTestSociales],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -56,6 +59,9 @@ $(function () {
                     value: {
                         color: "#a1aab2",
                         show: true,
+                        formatter: function (val) {
+                            return Math.round(val); // Redondea al entero más cercano
+                        }
                     },
                 },
             },
@@ -71,7 +77,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [(numTestProfesionales*100)/numEstudiantesTotales],
+        series: [numTestProfesionales],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -87,6 +93,9 @@ $(function () {
                     value: {
                         color: "#a1aab2",
                         show: true,
+                        formatter: function (val) {
+                            return Math.round(val); // Redondea al entero más cercano
+                        }
                     },
                 },
             },
@@ -102,7 +111,7 @@ $(function () {
 
     // Basic Radial Bar Chart -------> RADIAL CHART
     var options_basic = {
-        series: [(numTestMultiples*100)/numEstudiantesTotales],
+        series: [numTestMultiples],
         chart: {
             fontFamily: "inherit",
             height: 300,
@@ -118,6 +127,9 @@ $(function () {
                     value: {
                         color: "#a1aab2",
                         show: true,
+                        formatter: function (val) {
+                            return Math.round(val); // Redondea al entero más cercano
+                        }
                     },
                 },
             },

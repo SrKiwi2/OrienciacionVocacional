@@ -226,7 +226,7 @@
                     <div class="product-style-one no-overlay">
                         <div class="form-wrapper-one">
                             <h4 style="text-align: center;">INICIAR SESION</h4>
-                            <form action="/iniciar-sesion" method="POST">
+                            <form action="/iniciar-sesion" method="POST" id="iniciar">
                                 <div class="mb-5">
                                     <label for="exampleInputEmail1" class="form-label">Usuario</label>
                                     <input type="text" name="usuario" id="exampleInputEmail1">
@@ -315,7 +315,7 @@
                 var form = document.getElementById("formularioPreRegistroInicio");
                 var action = form.action;
                 var formData = $(this).serialize();
-                $.ajax({
+                $.ajax({    
                     type: 'POST',
                     url: $(this).attr('action'),
                     data: formData,
@@ -348,6 +348,45 @@
                     error: function (xhr, status, error) {
                         toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error);
                         console.error(error);
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            $('#iniciar').submit(function (event) {
+                event.preventDefault();
+                var form = document.getElementById("iniciar");
+                var action = form.action;
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (response) {
+                        var mensaje = response;
+                        if(mensaje === 'inhabilitado'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning"
+                            });
+                        }else if(mensaje === 'login estudiante'){
+                            window.location.href = "/tests";
+                        }else if(mensaje === 'login administrador'){
+                            window.location.href = "/admin/vista-administrador";
+                        }else if(mensaje === 'no existe el usuario'){
+                            Swal.fire({
+                                title: "Aviso!",
+                                text: mensaje,
+                                icon: "warning"
+                            });
+                        }
+                    },
+                    error: (xhr, status, error) => {
+                        console.error("Error: ", status, error);
+                        toastr.error('Ha ocurrido un error. Por favor, intenta nuevamente.');
                     }
                 });
             });

@@ -1,4 +1,4 @@
-package com.usic.usic.controller.carrera;
+package com.usic.usic.controller.Carrera;
 
 import java.util.List;
 

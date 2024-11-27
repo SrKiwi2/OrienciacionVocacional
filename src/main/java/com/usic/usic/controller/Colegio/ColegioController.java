@@ -22,8 +22,6 @@ public class ColegioController {
 
     @GetMapping(value = "/administrar-colegio")
     public String administrarColegio(Model model) {
-        // model.addAttribute("colegios", new Colegio()); 
-        // model.addAttribute("listaColegios", colegioService.findAll());
         return "Complementos/Colegio/vista-colegio";
     }
 

@@ -1,8 +1,10 @@
 package com.usic.usic.model.Entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.usic.usic.config.AuditoriaConfig;
 
 import jakarta.persistence.CascadeType;
@@ -33,6 +35,9 @@ public class InformePsicopedagoga extends AuditoriaConfig {
     private String interpretacion;
 
     private String conclusion;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Date fechaEntrega;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_estudiante")

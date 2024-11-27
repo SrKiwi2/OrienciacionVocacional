@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="sexo" class="form-label">Sexo</label>
-                    <select class="form-select" name="genero">
+                    <select class="form-select" name="genero" disabled>
                         <th:block th:each="g : ${genero}">
                             <option th:value="${g.idGenero}" th:text="${g.nombreGenero}" th:selected="${g.idGenero == estudiante.persona.genero.idGenero}" disabled></option>
                         </th:block>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="unidadEducativa" class="form-label">Unidad Educativa</label>
-                    <select class="form-select" name="colegio">
+                    <select class="form-select" name="colegio" disabled>
                         <th:block th:each="c : ${colegio}">
                             <option th:value="${c.idColegio}" th:text="${c.nombreColegio}" th:selected="${c.idColegio == estudiante.colegio.idColegio}" disabled></option>
                         </th:block>
@@ -45,7 +45,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="fechaEntrega" class="form-label">Fecha de Entrega</label>
-                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega" th:value="${fechaActual}">
+                    <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega">
                 </div>
             </div>
         </div>
@@ -90,17 +90,15 @@
             <strong>V. INTERPRETACIÓN DE LOS RESULTADOS</strong>
         </div>
         <div class="card-body">
-            <label for="fechaEntrega" class="form-label">CHASIDE</label>
-            <textarea class="form-control" id="chaside" name="chaside" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
 
             <label for="fechaEntrega" class="form-label">HABILIDADES SOCIALES</label>
             <textarea class="form-control" id="habilidadeSociales" name="habilidadesSociales" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
 
-            <label for="fechaEntrega" class="form-label">INTELIGENCIAS MULTIPLE</label>
-            <textarea class="form-control" id="inteligenciasMultiples" name="inteligenciasMultiples" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <label for="fechaEntrega" class="form-label">ESTILO DE APRENDIZAJE</label>
+            <textarea class="form-control" id="inteligenciasMultiples" name="estiloAprendizaje" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
 
-            <label for="fechaEntrega" class="form-label">INTERESES PROFESIONALES</label>
-            <textarea class="form-control" id="interesesProfesionales" name="interesesProfesionales" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
+            <label for="fechaEntrega" class="form-label">COEFICIENTE INTELECTUAL</label>
+            <textarea class="form-control" id="interesesProfesionales" name="coeficienteIntelectual" rows="4" placeholder="Introduce tu evaluación"></textarea><br>
         </div>
     </div>
 
@@ -109,7 +107,7 @@
             <strong>VI. CONCLUSIONES</strong>
         </div>
         <div class="card-body">
-            <textarea class="form-control" id="conclusion" name="conclusion" rows="4" placeholder="Introduce una conclusion"></textarea><br>
+            <textarea class="form-control" id="conclusion" name="conclusion" rows="4" disabled>De acuerdo a los resultados obtenido, con la aplicación de instrumentos, el/la postulante demuestra aptitudes, actitudes e intereses vocacionales en la siguiente Área y Carreras de estudio.</textarea><br>
         </div>
     </div>
 

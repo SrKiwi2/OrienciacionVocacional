@@ -44,7 +44,6 @@ public class FacultadController {
     @ValidarUsuarioAutenticado
     @PostMapping("/formulario")
     public String formulario(Model model, Facultad facultad) {
-        
         return "facultad/formulario";
     }
 
@@ -79,7 +78,6 @@ public class FacultadController {
         facultadService.save(facultad);
 
         return ResponseEntity.ok("Se realizó el registro correctamente");
-
     }
 
     @ValidarUsuarioAutenticado

@@ -18,14 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.FileOutputStream;
-
-import com.itextpdf.text.Document; 
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 import com.usic.usic.model.Entity.Estudiante;
 import com.usic.usic.model.Entity.InformePsicopedagoga;
 import com.usic.usic.model.Entity.TipoTest;
@@ -68,7 +62,7 @@ public class PsicopedagogaController {
         model.addAttribute("num_test_profesionales", sp_resultado.ObtenerNumeroEstudiantesTerminados(3L));
         model.addAttribute("num_test_multiples", sp_resultado.ObtenerNumeroEstudiantesTerminados(4L));
         model.addAttribute("num_estudiantes_totales", sp_resultado.ObtenerEstudiantesTotales());
-        System.out.println(sp_resultado.ObtenerEstudiantesTotales());
+        
         return "Administracion/psicopedagoga/vista_psicopedagoga";
     }
 
@@ -108,23 +102,23 @@ public class PsicopedagogaController {
 
     @PostMapping("/guardarInforme")
     public String guardarInforme(@ModelAttribute InformePsicopedagoga informePsicopedagoga, 
-                                @RequestParam("l_carrera") Long[] carrerasIds, 
-                                @RequestParam("chaside") String chaside,
+                                @RequestParam("l_carrera") Long[] carrerasIds,
                                 @RequestParam("habilidadesSociales") String habilidadesSociales,
-                                @RequestParam("inteligenciasMultiples") String inteligenciasMultiples,
-                                @RequestParam("interesesProfesionales") String interesProfesionales,
+                                @RequestParam("estiloAprendizaje") String estiloAprendizaje,
+                                @RequestParam("coeficienteIntelectual") String coeficienteIntelectual,
                                 @RequestParam("conclusion") String conclusion,
                                 @RequestParam("idEstudiante") Long idEstudiante,
+                                @RequestParam("fechaEntrega") Date fechaEntrega,
                                 RedirectAttributes redirectAttributes,
                                 HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-
         Estudiante estudiante = estudianteService.findById(idEstudiante);
         informePsicopedagoga.setEstudiante(estudiante);
-        String interpretacion = String.join(" / ", chaside, habilidadesSociales, inteligenciasMultiples, interesProfesionales);
+        String interpretacion = String.join(" / ", habilidadesSociales, estiloAprendizaje, coeficienteIntelectual);
+        informePsicopedagoga.setFechaEntrega(fechaEntrega);
         informePsicopedagoga.setInterpretacion(interpretacion);
         informePsicopedagoga.setConclusion(conclusion);
         informePsicopedagoga.setRegistroIdUsuario(usuario.getIdUsuario());
@@ -135,54 +129,7 @@ public class PsicopedagogaController {
             carreraService.insertInformeCarrera(informePsicopedagoga.getIdInformePsicopedagoga(), carrerasIds[i]);
         }
 
-        // // Asigna la Facultad y Carrera a la entidad
-        // Facultad facultad = facultadService.findById(facultadesIds.get(0)); // puedes ajustar para manejar múltiples facultades
-        // Carrera carrera = carreraService.findById(carrerasIds.get(0)); // puedes ajustar para manejar múltiples carreras
-
-        
-
-        // Estudiante estudiante = estudianteService.findById(idEstudiante);
-        // informePsicopedagoga.setEstudiante(estudiante);
-        // informePsicopedagoga.setFacultad(facultad);
-        // informePsicopedagoga.setCarrera(carrera);
-        // String interpretacion = String.join(" / ", chaside, habilidadesSociales, inteligenciasMultiples, interesProfesionales);
-        // informePsicopedagoga.setInterpretacion(interpretacion);
-        // informePsicopedagoga.setConclusion(conclusion);
-        // informePsicopedagoga.setRegistroIdUsuario(usuario.getIdUsuario());
-        // informePsicopedagoga.setModificacionIdUsuario(usuario.getIdUsuario());
-        // informePsicopedagogicoServiceImpl.save(informePsicopedagoga);
-
-        // System.out.println("Todo bien maestro, en teoria se guardó");
-        // // Generar el PDF
-        // generarPDF(informePsicopedagoga);
-
-        // redirectAttributes.addFlashAttribute("message", "Informe guardado y PDF generado exitosamente");
         return "redirect:/reporte_test/"+informePsicopedagoga.getIdInformePsicopedagoga();
-    }
-
-    private void generarPDF(InformePsicopedagoga informe) {
-        String nombreArchivo = "Informe_" + informe.getEstudiante().getPersona().getNombre() + ".pdf";
-        
-        System.out.println("Jefe, mostrando PDF!!");
-
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
-            document.open();
-            
-            // Agregar contenido al PDF
-            document.add(new Paragraph("Informe Psicopedagógico"));
-            document.add(new Paragraph("Nombre del Estudiante: " + informe.getEstudiante().getPersona().getNombre()));
-            document.add(new Paragraph("Facultad: " + informe.getFacultad().getFacultad()));
-            document.add(new Paragraph("Carrera: " + informe.getCarrera().getCarrera()));
-            document.add(new Paragraph("Interpretación: " + informe.getInterpretacion()));
-            document.add(new Paragraph("Conclusión: " + informe.getConclusion()));
-            
-            // Cerrar el documento
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @GetMapping(value = "/reporte_test/{id_informePsicopedagoga}")

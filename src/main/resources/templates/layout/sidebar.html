@@ -1,11 +1,7 @@
-
 <aside th:fragment="sidebar" class="left-sidebar with-vertical">
-    <a type="button" class="brand-link text-center active" style="text-decoration: none" id="opcionInicial"> 
-        <span class="brand-text font-weight-light">Menu Principal</span>
-    </a>
     <nav class="sidebar-nav scroll-sidebar" data-simplebar>
         <ul id="sidebarnav" class="px-2">
-            <li class="sidebar-item pt-3 pb-2 sidebar-profile">
+            <li class="sidebar-item pt-3 pb-2 sidebar-profile" th:if="${session.nombre_rol == 'ADMINISTRADOR'}">
                 <a class="sidebar-link has-arrow opacity-100 gap-2" type="button" aria-expanded="false">
                     <span class="d-flex">
                         <img src="../assets/images/profile/user-1.jpg" class="rounded-3" width="30" alt="user" />
@@ -34,21 +30,20 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li><br>
 
-            <li class="nav-small-cap">
+            <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR'}">
                 <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
                 <span class="hide-menu">INICIO</span>
             </li>
 
-            <li class="sidebar-item" th:if="${session.nombre_rol == 'ESTUDIANTE' or session.nombre_rol == 'SUPER USUARIO'}">
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR'}">
                 <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                     <span class="d-flex">
                         <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                     </span>
                     <span class="hide-menu">Administracion</span>
                 </a>
-
                 <ul aria-expanded="false" class="collapse first-level">
                     <li class="sidebar-item">
                         <a id="opcionesAdminPersona" type="button" class="sidebar-link">
@@ -56,28 +51,20 @@
                             <span class="hide-menu">Administarción Persona</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a id="opcionesRegistroEstudiante" type="button" class="sidebar-link">
-                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Registro Estudiante</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a id="opcionesAdminEstudiante" type="button" class="sidebar-link">
-                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Administarción Estudiantes</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
 
-            <li class="sidebar-item"
-                th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+            <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
+                <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                <span class="hide-menu">INICIO</span>
+            </li>
+
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO'}">
                 <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                     <span class="d-flex">
                         <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                     </span>
-                    <span class="hide-menu">Componentes</span>
+                    <span class="hide-menu">Complementos</span>
                 </a>
 
                 <ul aria-expanded="false" class="collapse first-level">
@@ -99,172 +86,107 @@
                             <span class="hide-menu">Administarción Nacionalidad</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a id="opcione-facultdad" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Administarción Facultad</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a id="opcione-carrera" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Administarción Carrera</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
-            <li class="nav-small-cap">
+            <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
                 <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
-                <span class="hide-menu">TEST</span>
+                <span class="hide-menu">ESTUDIANTES</span>
             </li>
 
-            <li class="sidebar-item" th:if="${session.nombre_rol == 'ESTUDIANTES' or session.nombre_rol == 'SUPER USUARIO'}">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
+                <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
                     <span class="d-flex">
                         <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
                     </span>
-                    <span class="hide-menu">TEST</span>
+                    <span class="hide-menu">Gestion Estudiante</span>
                 </a>
 
                 <ul aria-expanded="false" class="collapse first-level">
                     <li class="sidebar-item">
-                        <a href="/vista-test" class="sidebar-link">
+                        <a id="opcionesRegistroEstudiante" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Registro Estudiante</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a id="opcionesAdminEstudiante" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Administarción Estudiantes</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
+                <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                <span class="hide-menu">SEGUIMIENTOS ESTUDIANTIL</span>
+            </li>
+
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR' or session.nombre_rol == 'SUPER USUARIO' or session.nombre_rol == 'PSICOPEDAGOGA'}">
+                <a class="sidebar-link has-arrow" type="button" aria-expanded="false">
+                    <span class="d-flex">
+                        <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                    </span>
+                    <span class="hide-menu">Seguimiento</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                    
+                    <li class="sidebar-item">
+                        <a id="opcionesAvanceEstudiantes" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Avance de Estudiantes</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a id="opcionesHabilitarTest" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:stop-circle-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Habilitar Tests</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-small-cap" th:if="${session.nombre_rol == 'ADMINISTRADOR'}">
+                <iconify-icon icon="solar:menu-dots-bold" class="nav-small-cap-icon fs-4"></iconify-icon>
+                <span class="hide-menu">CONFIG TEST</span>
+            </li>
+
+            <li class="sidebar-item" th:if="${session.nombre_rol == 'ADMINISTRADOR'}">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                    <span class="d-flex">
+                        <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
+                    </span>
+                    <span class="hide-menu">Pregunta</span>
+                </a>
+
+                <ul aria-expanded="false" class="collapse first-level">
+                    <li class="sidebar-item">
+                        <a id="opcionesPregunta" type="button" class="sidebar-link">
                             <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Test</span>
+                            <span class="hide-menu">Preguntas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a id="opcionesTipoPregunta" type="button" class="sidebar-link">
+                            <iconify-icon icon="solar:basketball-line-duotone"></iconify-icon>
+                            <span class="hide-menu">Tipo pregunta</span>
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
     </nav>
-    <script>
-        function loadPage(url) {
-            $("#spinner-overlay").show();
-
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('main-content').innerHTML = html;
-                    $("#spinner-overlay").hide();
-                })
-                .catch(error => {
-                    console.error('Error al cargar la página:', error);
-                    $("#spinner-overlay").hide();
-                });
-        }
-    </script>
-
-    <script>
-        var botonPulsado;
-
-        $(document).ready(function(){
-
-            botonPulsado = document.getElementById("opcionInicial");
-
-            $("#opcionesAdminRol").click(function (e){
-                e.preventDefault();
-                cargarContenido("/vista-rol");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminRol");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminUsuario").click(function (e){
-                e.preventDefault();
-                cargarContenido("/administrar-usuario");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminUsuario");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminPersona").click(function (e){
-                e.preventDefault();
-                cargarContenido("/vista-persona");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminPersona");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesRegistroEstudiante").click(function (e){
-                e.preventDefault();
-                cargarContenido("/vista-estudiantes");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesRegistroEstudiante");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminEstudiante").click(function (e){
-                e.preventDefault();
-                cargarContenido("/administracion_estudiante");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminEstudiante");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminColegio").click(function (e){
-                e.preventDefault();
-                cargarContenido("/administrar-colegio");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminColegio");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminGenero").click(function (e){
-                e.preventDefault();
-                cargarContenido("/administrar-sexo");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminGenero");
-                botonPulsado.classList.add("active");
-            });
-
-            $("#opcionesAdminNacionalidad").click(function (e){
-                e.preventDefault();
-                cargarContenido("/administrar-nacionalidad");
-                if (botonPulsado.classList.contains("active")){
-                    botonPulsado.classList.remove("active");
-                }
-                botonPulsado = document.getElementById("opcionesAdminNacionalidad");
-                botonPulsado.classList.add("active");
-            });
-
-            function inicializarSidebar() {
-
-                $('.has-arrow').off('click').on('click', function (e) {
-                    e.preventDefault();
-
-                    let submenu = $(this).next('ul');
-                    let parentItem = $(this).parent();
-
-                    if (parentItem.hasClass('active')) {
-                        submenu.slideUp();  // Cerramos si ya está activo
-                        parentItem.removeClass('active');
-                    } else {
-                        // Cerramos otros menús activos
-                        $('.sidebar-item.active').not(parentItem).removeClass('active').children('ul').slideUp();
-
-                        submenu.slideDown();  // Abrimos el menú actual
-                        parentItem.addClass('active');
-                    }
-                });
-            }
-
-
-            function cargarContenido(url) {
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function(data) {
-                        $('#main-content').html(data);
-                        inicializarSidebar();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error al cargar el contenido:", error);
-                    }
-                });
-            }
-        });
-    </script>
 </aside>
