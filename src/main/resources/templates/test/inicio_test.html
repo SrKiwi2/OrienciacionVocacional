@@ -109,41 +109,39 @@
             style="max-width: 100%; width: 100%;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Registro de Datos</h3>
+                    <h3 class="modal-title">FORMULARIO DE PRE - REGISTRO</h3>
                 </div>
                 <div class="modal-body">
                     <div class="form-wrapper-one registration-area">
                         <form class="form" action="/guardar_estudiante_inicio" id="formularioPreRegistroInicio" method="post" novalidate>
                             <input type="hidden" th:field="${persona.idPersona}">
-                            <p>Datos personales</p>
+                            <p>INTRODUCE TUS DATOS PERSONALES</p>
+                            <p><b>IMPORTANTE:</b> Si haz perdido la conexión y quieres continuar con tu test vocacional CHASIDE, colaca solo tu C.I y da click en <b>Enviar</b> </p>
+                            <p>Si es primera vez, llena todos los campos solicitados.</p>
                             <hr>
                             <div class="row">
                                 <div class="col-md-4 col-xm-12">
                                     <label class="form-label">Nombres</label>
-                                    <input type="text" th:field="${persona.nombre}" autocomplete="off"
-                                        style="text-transform: uppercase;" name="nombre"
-                                        placeholder="INTRODUCE UN NOMBRE" required>
+                                    <input type="text" th:field="${persona.nombre}" autocomplete="off" name="nombre"
+                                        placeholder="Introduce tu nombre">
                                 </div>
                                 <div class="col-md-4 col-xm-12">
                                     <label class="form-label">Apellido Paterno</label>
-                                    <input type="text" th:field="${persona.paterno}" autocomplete="off"
-                                        style="text-transform: uppercase;" name="paterno"
-                                        placeholder="INTRODUCE TU APELLLIDO PATERNO" required>
+                                    <input type="text" th:field="${persona.paterno}" autocomplete="off" name="paterno"
+                                        placeholder="Introduce tu apellido parterno">
                                 </div>
 
                                 <div class="col-md-4 col-xm-12">
                                     <label class="form-label">Apellido Materno</label>
-                                    <input type="text" th:field="${persona.materno}" autocomplete="off"
-                                        style="text-transform: uppercase;" name="materno"
-                                        placeholder="INTRODUCE TU APELLIDO MATERNO" required>
+                                    <input type="text" th:field="${persona.materno}" autocomplete="off" name="materno"
+                                        placeholder="Introduce tu apellido materno">
                                 </div>
-                            </div>
+                            </div><br>
 
                             <div class="row">
                                 <div class="col-md-2 col-xm-12">
                                     <label class="form-label">Numero de C.I.</label>
-                                    <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci"
-                                        placeholder="INTRODUCE UN CI" required oninput="this.value = this.value.replace(/\s/g, '')">
+                                    <input type="text" th:field="${persona.ci}" autocomplete="off" name="ci" placeholder="Introduce tu C.I" oninput="this.value = this.value.replace(/\s/g, '')">
                                 </div>
                                 <div class="col-md-2 col-xm-12">
                                     <label class="form-label">Genero</label>
@@ -165,14 +163,13 @@
                                 </div>
                                 <div class="col-md-3 col-xm-12">
                                     <label class="form-label">Correo</label>
-                                    <input id="value" type="email" autocomplete="off"
-                                        placeholder="INTRODUCE UN CORREO ELECTRONICO VALIDO" name="correo">
+                                    <input id="value" type="email" autocomplete="off" placeholder="Introduce tu correo electronico" name="correo">
                                 </div>
                                 <div class="col-md-3 col-xm-12">
                                     <label class="form-label">Fecha Nacimiento</label>
                                     <input id="value" type="date" autocomplete="off" name="fecha">
                                 </div>
-                            </div>
+                            </div><br>
 
                             <p class="mt-3">Datos Academicos</p>
                             <hr>
@@ -189,9 +186,9 @@
                                 </div>
                                 <div class="col-md-6 col-xm-12">
                                     <label class="form-label">Colegio</label>
-                                    <select class="form-control select2" name="colegio" id="colegio">
+                                    <select class="form-select" name="colegio" id="colegio">
                                         <th:block th:each="colegio : ${colegios}">
-                                            <option selected="selected" th:value="${colegio.idColegio}"
+                                            <option th:value="${colegio.idColegio}"
                                                 th:text="${colegio.nombreColegio}">
                                             </option>
                                         </th:block>
@@ -201,13 +198,10 @@
                             <div class="bit-continue-button ">
                                 <div class="row mt-5">
                                     <div class="col-6">
-                                        <button style="width: 100%;" type="submit" class="btn btn-info">
-                                            Enviar
-                                            <i class="fas fa-check-double fa-lg"></i></button>
+                                        <button style="width: 100%;" type="submit" class="btn btn-info">Enviar<i class="fas fa-check-double fa-lg"></i></button>
                                     </div>
                                     <div class="col-6">
-                                        <button type="button" style="width: 100%;" class="btn btn-warning"
-                                            data-bs-dismiss="modal">Cancelar <i class="far fa-circle-xmark fa-lg"></i></button>
+                                        <button type="button" style="width: 100%;" class="btn btn-warning" data-bs-dismiss="modal">Cancelar<i class="far fa-circle-xmark fa-lg"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -311,10 +305,13 @@
     <script>
         $(document).ready(function() {
             $('#formularioPreRegistroInicio').submit(function (event) {
+
                 event.preventDefault();
+                
                 var form = document.getElementById("formularioPreRegistroInicio");
                 var action = form.action;
                 var formData = $(this).serialize();
+                
                 $.ajax({    
                     type: 'POST',
                     url: $(this).attr('action'),
@@ -324,19 +321,20 @@
                         var mensaje = response;
                         if (mensaje === 'Redireccionando') {
                             window.location.href ="/pre_test/1";
-                        }else if(mensaje === 'Ya estas registrado con este ci'){
+                        }else if(mensaje === 'Continuarás con el test vocacional gratuito CHASIDE'){
                             Swal.fire({
                                 title: "Aviso!",
                                 text: mensaje,
                                 icon: "warning"
-                            });
-                        } else if (mensaje === 'Ya estas registrado con este correo electronico'){
+                            }),
+                            window.location.href ="/pre_test/1";
+                        } else if (mensaje === 'Ya haz complado el test vocacional gratuito CHASIDE tus Resultados estan en tu *correo electronico*'){
                             Swal.fire({
                                 title: "Aviso!",
                                 text: mensaje,
                                 icon: "warning",
                                 customClass: 'swal2-large' 
-                            });
+                            })
                         } else  {
                             Swal.fire(
                                 'Error!',

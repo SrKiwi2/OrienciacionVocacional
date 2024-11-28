@@ -23,6 +23,7 @@ import com.usic.usic.model.Service.IEstudianteService;
 import com.usic.usic.model.Service.IGeneroService;
 import com.usic.usic.model.Service.INacionalidadService;
 import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IRolService;
 import com.usic.usic.model.Service.IUsuarioService;
 
@@ -64,6 +65,9 @@ public class EstudianteController {
 
     @Autowired
     private INacionalidadService nacionalidadService;
+
+    @Autowired
+    private IPreguntaService preguntaService;
 
     @GetMapping("/total-respuestas-si/{idEstudiante}")
     public ResponseEntity<Integer> getTotalRespuestasSi(@PathVariable Long idEstudiante) {
@@ -141,59 +145,71 @@ public class EstudianteController {
     @PostMapping(value = "/guardar_estudiante_inicio")
     public ResponseEntity<?> guardar_estudiante_inicio(@Validated Persona persona,
                                             @RequestParam("grado") String grado,
-                                            @RequestParam("colegio") Long idColegio, 
+                                            @RequestParam("colegio") Long idColegio,
+                                            @RequestParam("ci") String ci,
                                             Model model,HttpServletRequest request
-                                            ,RedirectAttributes flash) {
+                                            ,RedirectAttributes flash,
+                                            HttpSession session) {
         try {
+            Persona persona_estudiante= personaService.validarCI(ci);
+        
+            if (persona_estudiante != null) {
 
-            Persona existingPersonaByCi = personaService.validarCI(persona.getCi());
-            if (existingPersonaByCi != null) {
-                return ResponseEntity.ok("Ya estas registrado con este ci");
+                Estudiante estudiante_test =  estudianteService.findByPersona(persona_estudiante);
+                Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante_test.getIdEstudiante(), 1L);
+
+                if (idPregunta != 0) {
+                    return ResponseEntity.ok("Continuarás con el test vocacional gratuito CHASIDE");
+                }else{
+                    return ResponseEntity.ok("Ya haz completado el test vocacional gratuito CHASIDE tus Resultados estan en tu *correo electronico*");
+                }
+
+            }else{
+
+                // Persona existingPersonaByGmail = personaService.findByCorreo(persona.getCorreo());
+                // if (existingPersonaByGmail != null) {
+                //     return ResponseEntity.ok("Ya estas registrado con este correo electronico");
+                // }
+    
+                persona.setNombre(persona.getNombre().toUpperCase());
+                persona.setPaterno(persona.getPaterno().toUpperCase());
+                persona.setMaterno(persona.getMaterno().toUpperCase());
+                persona.setFecha(persona.getFecha());
+                persona.setEstado("E");
+                personaService.save(persona);
+    
+                Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
+                if (estudiante == null) {
+                    estudiante = new Estudiante();
+                    estudiante.setPersona(persona);
+                    estudiante.setEstado("INHABILITADO");
+                }
+    
+                estudiante.setGrado(grado);
+                Colegio colegio = colegioService.findById(idColegio);
+                estudiante.setColegio(colegio);
+                estudianteService.save(estudiante);
+    
+                Usuario usuario = usuarioService.findById(persona.getIdPersona());
+                if (usuario == null) {
+                    usuario = new Usuario();
+                    usuario.setPersona(persona);
+                    usuario.setUsername(persona.getPaterno());
+                    usuario.setPassword(persona.getCi() + "_uap");
+                    usuario.setEstado("INHABILITADO");
+                    usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
+                    usuarioService.save(usuario);
+                }
+    
+                HttpSession sessionAdministrador = request.getSession(true);
+                sessionAdministrador.setAttribute("usuario", usuario);
+                sessionAdministrador.setAttribute("persona", usuario.getPersona());
+                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+    
+                flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
+    
+                return ResponseEntity.ok("Redireccionando");
             }
-
-            Persona existingPersonaByGmail = personaService.findByCorreo(persona.getCorreo());
-            if (existingPersonaByGmail != null) {
-                return ResponseEntity.ok("Ya estas registrado con este correo electronico");
-            }
-
-            persona.setNombre(persona.getNombre().toUpperCase());
-            persona.setPaterno(persona.getPaterno().toUpperCase());
-            persona.setMaterno(persona.getMaterno().toUpperCase());
-            persona.setFecha(persona.getFecha());
-            persona.setEstado("E");
-            personaService.save(persona);
-
-            Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
-            if (estudiante == null) {
-                estudiante = new Estudiante();
-                estudiante.setPersona(persona);
-                estudiante.setEstado("INHABILITADO");
-            }
-
-            estudiante.setGrado(grado);
-            Colegio colegio = colegioService.findById(idColegio);
-            estudiante.setColegio(colegio);
-            estudianteService.save(estudiante);
-
-            Usuario usuario = usuarioService.findById(persona.getIdPersona());
-            if (usuario == null) {
-                usuario = new Usuario();
-                usuario.setPersona(persona);
-                usuario.setUsername(persona.getPaterno());
-                usuario.setPassword(persona.getCi() + "_uap");
-                usuario.setEstado("INHABILITADO");
-                usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
-                usuarioService.save(usuario);
-            }
-
-            HttpSession sessionAdministrador = request.getSession(true);
-            sessionAdministrador.setAttribute("usuario", usuario);
-            sessionAdministrador.setAttribute("persona", usuario.getPersona());
-            sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
-
-            flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
-
-            return ResponseEntity.ok("Redireccionando");
 
         } catch (Exception ex) {
             ex.printStackTrace();
