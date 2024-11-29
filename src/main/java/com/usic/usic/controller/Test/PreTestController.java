@@ -113,6 +113,7 @@ public class PreTestController {
         Usuario usuario = (Usuario) session.getAttribute("usuario");
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
+            System.out.println(idPregunta);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
 
             model.addAttribute("mostrarCargando", contadorPreguntas == 1);

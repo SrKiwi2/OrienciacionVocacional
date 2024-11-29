@@ -147,9 +147,7 @@ public class EstudianteController {
                                             @RequestParam("grado") String grado,
                                             @RequestParam("colegio") Long idColegio,
                                             @RequestParam("ci") String ci,
-                                            Model model,HttpServletRequest request
-                                            ,RedirectAttributes flash,
-                                            HttpSession session) {
+                                            Model model, HttpServletRequest request, RedirectAttributes flash, HttpSession session) {
         try {
             Persona persona_estudiante= personaService.validarCI(ci);
         
@@ -165,50 +163,52 @@ public class EstudianteController {
                 }
 
             }else{
-
-                // Persona existingPersonaByGmail = personaService.findByCorreo(persona.getCorreo());
-                // if (existingPersonaByGmail != null) {
-                //     return ResponseEntity.ok("Ya estas registrado con este correo electronico");
-                // }
-    
-                persona.setNombre(persona.getNombre().toUpperCase());
-                persona.setPaterno(persona.getPaterno().toUpperCase());
-                persona.setMaterno(persona.getMaterno().toUpperCase());
-                persona.setFecha(persona.getFecha());
-                persona.setEstado("E");
-                personaService.save(persona);
-    
-                Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
-                if (estudiante == null) {
-                    estudiante = new Estudiante();
-                    estudiante.setPersona(persona);
-                    estudiante.setEstado("INHABILITADO");
+                boolean camposVacios = (persona.getNombre() == null || persona.getNombre().trim().isEmpty()) ||
+                                   (persona.getPaterno() == null || persona.getPaterno().trim().isEmpty()) ||
+                                   (persona.getCorreo() == null || persona.getCorreo().trim().isEmpty()) ||
+                                   (persona.getMaterno() == null || persona.getMaterno().trim().isEmpty());
+                if (camposVacios) {
+                    return ResponseEntity.ok("EL CI introducido no está registrado, para registrarlo completa todos los campos");
+                }else{
+                    persona.setNombre(persona.getNombre().toUpperCase());
+                    persona.setPaterno(persona.getPaterno().toUpperCase());
+                    persona.setMaterno(persona.getMaterno().toUpperCase());
+                    persona.setFecha(persona.getFecha());
+                    persona.setEstado("E");
+                    personaService.save(persona);
+        
+                    Estudiante estudiante = estudianteService.findById(persona.getIdPersona());
+                    if (estudiante == null) {
+                        estudiante = new Estudiante();
+                        estudiante.setPersona(persona);
+                        estudiante.setEstado("INHABILITADO");
+                    }
+        
+                    estudiante.setGrado(grado);
+                    Colegio colegio = colegioService.findById(idColegio);
+                    estudiante.setColegio(colegio);
+                    estudianteService.save(estudiante);
+        
+                    Usuario usuario = usuarioService.findById(persona.getIdPersona());
+                    if (usuario == null) {
+                        usuario = new Usuario();
+                        usuario.setPersona(persona);
+                        usuario.setUsername(persona.getPaterno());
+                        usuario.setPassword(persona.getCi() + "_uap");
+                        usuario.setEstado("INHABILITADO");
+                        usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
+                        usuarioService.save(usuario);
+                    }
+        
+                    HttpSession sessionAdministrador = request.getSession(true);
+                    sessionAdministrador.setAttribute("usuario", usuario);
+                    sessionAdministrador.setAttribute("persona", usuario.getPersona());
+                    sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
+        
+                    flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
+        
+                    return ResponseEntity.ok("Redireccionando");
                 }
-    
-                estudiante.setGrado(grado);
-                Colegio colegio = colegioService.findById(idColegio);
-                estudiante.setColegio(colegio);
-                estudianteService.save(estudiante);
-    
-                Usuario usuario = usuarioService.findById(persona.getIdPersona());
-                if (usuario == null) {
-                    usuario = new Usuario();
-                    usuario.setPersona(persona);
-                    usuario.setUsername(persona.getPaterno());
-                    usuario.setPassword(persona.getCi() + "_uap");
-                    usuario.setEstado("INHABILITADO");
-                    usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
-                    usuarioService.save(usuario);
-                }
-    
-                HttpSession sessionAdministrador = request.getSession(true);
-                sessionAdministrador.setAttribute("usuario", usuario);
-                sessionAdministrador.setAttribute("persona", usuario.getPersona());
-                sessionAdministrador.setAttribute("nombre_rol", usuario.getRol().getNombre());
-    
-                flash.addAttribute("pre_test_iniciado_", usuario.getPersona().getNombre());
-    
-                return ResponseEntity.ok("Redireccionando");
             }
 
         } catch (Exception ex) {

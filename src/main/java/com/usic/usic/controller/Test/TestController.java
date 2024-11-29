@@ -27,6 +27,7 @@ import com.usic.usic.model.Service.ITipoTestService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+
 @Controller
 public class TestController {
     @Autowired
@@ -51,12 +52,12 @@ public class TestController {
     private IPreguntaService preguntaService;
 
     @GetMapping("/")
-    public String getMethodName() {
+    public String getMethodName( HttpServletResponse response) {
         return "redirect:/orientacion_vocacional";
     }
     
     @GetMapping(value = "/orientacion_vocacional")
-    public String vistaPersona(@Validated Persona persona, Model model) {
+    public String vistaPersona(@Validated Persona persona, Model model, HttpServletResponse response) {
         model.addAttribute("personas", personaService.findAll());
         model.addAttribute("colegios", colegioService.findAll());
         model.addAttribute("nacionalidades", nacionalidadService.findAll());
