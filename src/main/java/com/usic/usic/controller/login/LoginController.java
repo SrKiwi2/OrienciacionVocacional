@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.usic.usic.model.Entity.Estudiante;
+import com.usic.usic.model.Entity.Persona;
 import com.usic.usic.model.Entity.Usuario;
+import com.usic.usic.model.Service.IEstudianteService;
+import com.usic.usic.model.Service.IPersonaService;
+import com.usic.usic.model.Service.IPreguntaService;
 import com.usic.usic.model.Service.IUsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +25,15 @@ public class LoginController {
 
     @Autowired
     private IUsuarioService  usuarioService;
+
+    @Autowired
+    private IEstudianteService estudianteService;
+
+    @Autowired
+    private IPersonaService personaService;
+
+    @Autowired
+    private IPreguntaService preguntaService;
 
     @PostMapping("/iniciar-sesion")
     public ResponseEntity<?> iniciarSesion(@RequestParam(value = "usuario") String user,
@@ -32,7 +46,25 @@ public class LoginController {
         if (usuario != null) {
 
             if (usuario.getEstado().equals("INHABILITADO")) {
-                return ResponseEntity.ok("Este usuario no esta habilitado");
+                // return ResponseEntity.ok("Este usuario no esta habilitado");
+                HttpSession sessionEstudiantes = request.getSession(true);
+                sessionEstudiantes.setAttribute("usuario", usuario);
+                sessionEstudiantes.setAttribute("persona", usuario.getPersona());
+                sessionEstudiantes.setAttribute("nombre_rol", usuario.getRol().getNombre());
+                flash.addAttribute("success", usuario.getPersona().getNombre());
+
+                String persona_ci = usuario.getPersona().getCi(); 
+                Persona persona_encontrada = personaService.validarCI(persona_ci);
+                if (persona_ci != null) {
+                    Estudiante estudiante_test =  estudianteService.findByPersona(persona_encontrada);
+                    Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante_test.getIdEstudiante(), 1L);
+
+                if (idPregunta != 0) {
+                    return ResponseEntity.ok("Accediendo al test chaside");
+                }else{
+                    return ResponseEntity.ok("Ya haz completado el test vocacional gratuito CHASIDE tus Resultados estan en tu *correo electronico*");
+                }
+                }
             }
 
             if (usuario.getRol().getNombre().equals("ESTUDIANTES")) {

@@ -149,21 +149,7 @@ public class EstudianteController {
                                             @RequestParam("ci") String ci,
                                             Model model, HttpServletRequest request, RedirectAttributes flash, HttpSession session) {
         try {
-            Persona persona_estudiante= personaService.validarCI(ci);
-        
-            if (persona_estudiante != null) {
-
-                Estudiante estudiante_test =  estudianteService.findByPersona(persona_estudiante);
-                Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante_test.getIdEstudiante(), 1L);
-
-                if (idPregunta != 0) {
-                    return ResponseEntity.ok("Continuarás con el test vocacional gratuito CHASIDE");
-                }else{
-                    return ResponseEntity.ok("Ya haz completado el test vocacional gratuito CHASIDE tus Resultados estan en tu *correo electronico*");
-                }
-
-            }else{
-                boolean camposVacios = (persona.getNombre() == null || persona.getNombre().trim().isEmpty()) ||
+            boolean camposVacios = (persona.getNombre() == null || persona.getNombre().trim().isEmpty()) ||
                                    (persona.getPaterno() == null || persona.getPaterno().trim().isEmpty()) ||
                                    (persona.getCorreo() == null || persona.getCorreo().trim().isEmpty()) ||
                                    (persona.getMaterno() == null || persona.getMaterno().trim().isEmpty());
@@ -194,7 +180,7 @@ public class EstudianteController {
                         usuario = new Usuario();
                         usuario.setPersona(persona);
                         usuario.setUsername(persona.getPaterno());
-                        usuario.setPassword(persona.getCi() + "_uap");
+                        usuario.setPassword(persona.getCi());
                         usuario.setEstado("INHABILITADO");
                         usuario.setRol(rolService.buscarPorNombre("ESTUDIANTES"));
                         usuarioService.save(usuario);
@@ -209,7 +195,6 @@ public class EstudianteController {
         
                     return ResponseEntity.ok("Redireccionando");
                 }
-            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

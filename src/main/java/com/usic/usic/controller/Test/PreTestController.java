@@ -108,12 +108,13 @@ public class PreTestController {
     }
 
     @GetMapping("/pre_test/{idTipoTest}")
-    public String pre_test(@PathVariable Long idTipoTest, Model model, HttpSession session) {
+    public String pre_test(@PathVariable("idTipoTest") Long idTipoTest, Model model, HttpSession session) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
             Estudiante estudiante = estudianteService.findByPersona(usuario.getPersona());
+            System.out.println(usuario.getUsername());
             Long idPregunta = preguntaService.findMaxRespuestaOrMinPregunta(estudiante.getIdEstudiante(), idTipoTest);
-            System.out.println(idPregunta);
+            // System.out.println(idPregunta);
             Long contadorPreguntas = tipoTestService.countDistinctPreguntasNotRespondidas(idTipoTest, estudiante.getIdEstudiante());
 
             model.addAttribute("mostrarCargando", contadorPreguntas == 1);
@@ -411,9 +412,10 @@ public class PreTestController {
 
             document.add(new Paragraph(" "));
 
-            Paragraph mensaje = new Paragraph("Hola " + estudiante.getPersona().getNombre() + " " + 
+            Paragraph mensaje = new Paragraph("Felicitaciones " + estudiante.getPersona().getNombre() + " " +
                     estudiante.getPersona().getPaterno() + " " + 
-                    estudiante.getPersona().getMaterno() + 
+                    estudiante.getPersona().getMaterno() + " " + 
+                    estudiante.getPersona().getCi() +
                     ", estos son los resultados de tu test de orientación vocacional.", 
                     new Font(Font.FontFamily.HELVETICA, 12));
             mensaje.setAlignment(Element.ALIGN_CENTER);
