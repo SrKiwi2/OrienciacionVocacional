@@ -20,7 +20,10 @@
 ---
 
 ## 📸 Capturas del Sistema
-
+![Descripción](screenshots/1.png)
+![Descripción](screenshots/2.png)
+![Descripción](screenshots/3.png)
+![Descripción](screenshots/4.png)
 > 🖼️ *Screenshots próximamente...*
 
 ---
